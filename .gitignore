@@ -1,6 +1,9 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-bin
-obj
+[Dd]ebug*/
+[Bb]in
+obj/
+*.suo
+_ReSharper*/
 
 # mstest test results
-TestResults
+[Tt]est[Rr]esult*
