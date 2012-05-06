@@ -3,6 +3,7 @@
 [Bb]in
 obj/
 *.suo
+*.user
 _ReSharper*/
 
 # mstest test results
