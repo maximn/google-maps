@@ -52,6 +52,7 @@
     <Compile Include="Entities\Common\ILocation.cs" />
     <Compile Include="Entities\Common\Location.cs" />
     <Compile Include="Entities\Common\MapsBaseRequest.cs" />
+    <Compile Include="Entities\Common\SignableRequest.cs" />
     <Compile Include="Entities\Common\Type.cs" />
     <Compile Include="Entities\Directions\Request\AvoidWay.cs" />
     <Compile Include="Entities\Directions\Request\DirectionsRequest.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="MapsAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Common\AddressLocation.cs" />
+    <Compile Include="QueryStringParametersList.cs" />
     <Compile Include="StaticMaps\Entities\Marker.cs" />
     <Compile Include="StaticMaps\Entities\ImageSize.cs" />
     <Compile Include="StaticMaps\Entities\MarkerStyle.cs" />

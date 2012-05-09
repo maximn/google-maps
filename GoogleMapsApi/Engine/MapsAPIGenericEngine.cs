@@ -1,7 +1,11 @@
 using System;
+using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
+using System.Security.Authentication;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleMapsApi.Entities.Common;
@@ -9,15 +13,52 @@ using GoogleMapsApi.Entities.Common;
 namespace GoogleMapsApi.Engine
 {
 	public abstract class MapsAPIGenericEngine<TRequest, TResponse>
-		where TRequest : MapsBaseRequest
+		where TRequest : MapsBaseRequest, new()
 		where TResponse : class
 	{
-		protected virtual string BaseUrl
+		/// <summary>
+		/// Determines the maximum number of concurrent HTTP connections to open to this engine's host address.
+		/// </summary>
+		/// <remarks>
+		/// This value is determined by the ServicePointManager and is shared across other engines that use the same host address.
+		/// </remarks>
+		public static int HttpConnectionLimit
 		{
 			get
 			{
-				return "maps.google.com/maps/api/";
+				return HttpServicePoint.ConnectionLimit;
 			}
+			set
+			{
+				HttpServicePoint.ConnectionLimit = value;
+			}
+		}
+		/// <summary>
+		/// Determines the maximum number of concurrent HTTPS connections to open to this engine's host address.
+		/// </summary>
+		/// <remarks>
+		/// This value is determined by the ServicePointManager and is shared across other engines that use the same host address.
+		/// </remarks>
+		public static int HttpsConnectionLimit
+		{
+			get
+			{
+				return HttpsServicePoint.ConnectionLimit;
+			}
+			set
+			{
+				HttpsServicePoint.ConnectionLimit = value;
+			}
+		}
+
+		private static ServicePoint HttpServicePoint { get; set; }
+		private static ServicePoint HttpsServicePoint { get; set; }
+
+		static MapsAPIGenericEngine()
+		{
+			var baseUrl = new TRequest().BaseUrl;
+			HttpServicePoint = ServicePointManager.FindServicePoint(new Uri("http://" + baseUrl));
+			HttpsServicePoint = ServicePointManager.FindServicePoint(new Uri("https://" + baseUrl));
 		}
 
 		protected IAsyncResult BeginQueryGoogleAPI(TRequest request, AsyncCallback asyncCallback, object state)
@@ -30,14 +71,14 @@ namespace GoogleMapsApi.Engine
 			QueryGoogleAPIAsync(request).ContinueWith(t =>
 			{
 				if (t.IsFaulted)
-					completionSource.SetException(t.Exception);
+					completionSource.SetException(t.Exception.InnerException);
 				else if (t.IsCanceled)
 					completionSource.SetCanceled();
 				else
 					completionSource.SetResult(t.Result);
 
 				asyncCallback(completionSource.Task);
-			});
+			}, TaskContinuationOptions.ExecuteSynchronously);
 
 			return completionSource.Task;
 		}
@@ -54,25 +95,28 @@ namespace GoogleMapsApi.Engine
 
 		protected Task<TResponse> QueryGoogleAPIAsync(TRequest request)
 		{
-			var client = new WebClient();
-			ConfigureUnderlyingWebClient(client, request);
-			var uri = GetUri(request);
-			return client.DownloadStringTaskAsync(uri)
-				.ContinueWith(t => Deserialize(t.Result), TaskContinuationOptions.ExecuteSynchronously);
+			var uri = request.GetUri();
+
+			return new WebClient().DownloadDataTaskAsync(uri)
+				.ContinueWith<TResponse>(DownloadDataComplete, TaskContinuationOptions.ExecuteSynchronously);
 		}
 
-		private Uri GetUri(MapsBaseRequest request)
+		private TResponse DownloadDataComplete(Task<byte[]> t)
 		{
-			string scheme = request.IsSSL ? "https://" : "http://";
-			return new Uri(scheme + BaseUrl + "json");
-		}
-		
-		protected abstract void ConfigureUnderlyingWebClient(WebClient wc, MapsBaseRequest request);
+			if (t.IsFaulted)
+			{
+				var webException = t.Exception.InnerException as WebException;
+				if (webException != null && webException.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)webException.Response).StatusCode == HttpStatusCode.Forbidden)
+					throw new AuthenticationException("The request to Google API failed with HTTP error '(403) Forbidden', which usually indicates that provided client ID or signing key are invalid or expired.", t.Exception.InnerException);
+			}
 
-		private TResponse Deserialize(string serializedObject)
+			return Deserialize(t.Result);
+		}
+
+		private TResponse Deserialize(byte[] serializedObject)
 		{
 			var serializer = new DataContractJsonSerializer(typeof(TResponse));
-			var stream = new MemoryStream(Encoding.UTF8.GetBytes(serializedObject));
+			var stream = new MemoryStream(serializedObject, false);
 			return (TResponse)serializer.ReadObject(stream);
 		}
 	}

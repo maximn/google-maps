@@ -1,17 +1,29 @@
-﻿using GoogleMapsApi.Entities.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.Directions.Request
 {
-	public class DirectionsRequest : MapsBaseRequest
+	public class DirectionsRequest : SignableRequest
 	{
+		protected internal override string BaseUrl
+		{
+			get
+			{
+				return base.BaseUrl + "directions/";
+			}
+		}
+
 		/// <summary>
 		/// origin (required) — The address or textual latitude/longitude value from which you wish to calculate directions. *
 		/// </summary>
-		public string Origin { get; set; } //Required
+		public string Origin { get; set; }
+
 		/// <summary>
 		/// destination (required) — The address or textual latitude/longitude value from which you wish to calculate directions.*
 		/// </summary>
-		public string Destination { get; set; } //Required
+		public string Destination { get; set; }
 
 		/// <summary>
 		/// waypoints (optional) specifies an array of waypoints. Waypoints alter a route by routing it through the specified location(s). A waypoint is specified as either a latitude/longitude coordinate or as an address which will be geocoded. (For more information on waypoints, see Using Waypoints in Routes below.)
@@ -40,10 +52,40 @@ namespace GoogleMapsApi.Entities.Directions.Request
 		/// </summary>
 		public string Language { get; set; }
 
-
 		/// <summary>
 		/// (optional, defaults to driving) — specifies what mode of transport to use when calculating directions. Valid values are specified in Travel Modes.
 		/// </summary>
 		public TravelMode TravelMode { get; set; }
+
+		protected override QueryStringParametersList GetQueryStringParameters()
+		{
+			if (string.IsNullOrWhiteSpace(Origin))
+				throw new ArgumentException("Must specify an Origin");
+			if (string.IsNullOrWhiteSpace(Destination))
+				throw new ArgumentException("Must specify a Destination");
+			if (!Enum.IsDefined(typeof(AvoidWay), Avoid))
+				throw new ArgumentException("Invalid enumeration value for 'Avoid'");
+			if (!Enum.IsDefined(typeof(TravelMode), TravelMode))
+				throw new ArgumentException("Invalid enumeration value for 'TravelMode'");
+
+			var parameters = base.GetQueryStringParameters();
+			parameters.Add("origin", Origin);
+			parameters.Add("destination", Destination);
+			parameters.Add("mode", TravelMode.ToString().ToLower());
+			
+			if (Alternatives)
+				parameters.Add("alternatives", "true");
+
+			if (Avoid != AvoidWay.Nothing)
+				parameters.Add("avoid", Avoid.ToString().ToLower());
+
+			if (!string.IsNullOrWhiteSpace(Language))
+				parameters.Add("language", Language);
+
+			if (Waypoints != null && Waypoints.Any())
+				parameters.Add("waypoints", string.Join("|", Waypoints));
+
+			return parameters;
+		}
 	}
 }

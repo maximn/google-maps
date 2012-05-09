@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GoogleMapsApi.Entities.Common;
+using System.Linq;
 
 namespace GoogleMapsApi.Entities.Elevation.Request
 {
@@ -11,8 +13,15 @@ namespace GoogleMapsApi.Entities.Elevation.Request
 	/// You access the Elevation API through an HTTP interface Users of the Google JavaScript API V3 may also access this API directly by using the ElevationService() object. (See Elevation Service for more information.)
 	/// The Elevation API is a new service; we encourage you to join the Maps API discussion group to give us feedback.
 	/// </summary>
-	public class ElevationRequest : MapsBaseRequest
+	public class ElevationRequest : SignableRequest
 	{
+		protected internal override string BaseUrl
+		{
+			get
+			{
+				return base.BaseUrl + "elevation/";
+			}
+		}
 		/// <summary>
 		/// locations (required) defines the location(s) on the earth from which to return elevation data. This parameter takes either a single location as a comma-separated {latitude,longitude} pair (e.g. "40.714728,-73.998672") or multiple latitude/longitude pairs passed as an array or as an encoded polyline. For more information, see Specifying Locations below.
 		/// </summary>
@@ -22,5 +31,16 @@ namespace GoogleMapsApi.Entities.Elevation.Request
 		/// 
 		/// </summary>
 		public IEnumerable<Location> Path { get; set; }
+
+		protected override QueryStringParametersList GetQueryStringParameters()
+		{
+			if ((Locations == null) == (Path == null))
+				throw new ArgumentException("Either Locations or Path must be specified, and both cannot be specified.");
+
+			var parameters = base.GetQueryStringParameters();
+			parameters.Add(Locations != null ? "locations" : "path", string.Join("|", Locations ?? Path));
+
+			return parameters;
+		}
 	}
 }

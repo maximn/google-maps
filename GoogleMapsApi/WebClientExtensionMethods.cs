@@ -21,11 +21,11 @@ namespace GoogleMapsApi
 		/// <param name="address">The address of the resource to download.</param>
 		/// <param name="token">Optional. A cancellation token that can be used to cancel the pending asynchronous task.</param>
 		/// <returns>A Task with a value of the downloaded string.</returns>
-		public static Task<string> DownloadStringTaskAsync(this WebClient client, Uri address)
+		public static Task<byte[]> DownloadDataTaskAsync(this WebClient client, Uri address)
 		{
-			var tcs = new TaskCompletionSource<string>();
+			var tcs = new TaskCompletionSource<byte[]>();
 
-			client.DownloadStringCompleted += (sender, args) =>
+			client.DownloadDataCompleted += (sender, args) =>
 			{
 				if (args.Error != null)
 					tcs.SetException(args.Error);
@@ -34,7 +34,7 @@ namespace GoogleMapsApi
 				else tcs.SetResult(args.Result);
 			};
 			
-			client.DownloadStringAsync(address);
+			client.DownloadDataAsync(address);
 			return tcs.Task;
 		}
 	}
