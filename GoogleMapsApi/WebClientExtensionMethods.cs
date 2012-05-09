@@ -15,11 +15,11 @@ namespace GoogleMapsApi
   /// </remarks>
   public static class WebClientExtensionMethods
   {
-    public static Task<Stream> OpenReadStreamAsync(this WebClient client, Uri address)
+    public static Task<byte[]> OpenReadStreamAsync(this WebClient client, Uri address)
     {
-      var tcs = new TaskCompletionSource<Stream>();
+      var tcs = new TaskCompletionSource<byte[]>();
 
-      client.OpenReadCompleted += (sender, args) =>
+      client.DownloadDataCompleted += (sender, args) =>
       {
         if (args.Error != null)
           tcs.SetException(args.Error);
@@ -28,7 +28,7 @@ namespace GoogleMapsApi
         else tcs.SetResult(args.Result);
       };
 
-      client.OpenReadAsync(address);
+      client.DownloadDataAsync(address);
 
       return tcs.Task;
     }
