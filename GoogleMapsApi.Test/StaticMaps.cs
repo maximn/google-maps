@@ -75,7 +75,7 @@ namespace GoogleMapsApi.Test
 
 
 			string expectedResult =
-				@"http://maps.google.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=14&size=512x512&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&sensor=false";
+        @"http://maps.google.com/maps/api/staticmap?center=Brooklyn%20Bridge%2CNew%20York%2CNY&zoom=14&size=512x512&maptype=roadmap&markers=color%3Ablue%7Clabel%3AS%7C40.702147%2C-74.015794&markers=color%3Agreen%7Clabel%3AG%7C40.711614%2C-74.012318&markers=color%3Ared%7Clabel%3AC%7C40.718217%2C-73.998284&sensor=false";
 
 			Assert.AreEqual(expectedResult, generateStaticMapURL);
 		}
@@ -88,7 +88,7 @@ namespace GoogleMapsApi.Test
 			string generateStaticMapURL = staticMapGenerator.GenerateStaticMapURL(request);
 
 			string expectedResult =
-				@"http://maps.google.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&sensor=false";
+        @"http://maps.google.com/maps/api/staticmap?center=Berkeley%2CCA&zoom=14&size=400x400&sensor=false";
 
 			Assert.AreEqual(expectedResult, generateStaticMapURL);
 		}
@@ -101,7 +101,7 @@ namespace GoogleMapsApi.Test
 			string generateStaticMapURL = staticMapGenerator.GenerateStaticMapURL(request);
 
 			string expectedResult =
-				@"http://maps.google.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=12&size=400x400&sensor=false";
+				@"http://maps.google.com/maps/api/staticmap?center=40.714728%2C-73.998672&zoom=12&size=400x400&sensor=false";
 
 			Assert.AreEqual(expectedResult, generateStaticMapURL);
 		}
@@ -114,7 +114,7 @@ namespace GoogleMapsApi.Test
 			string generateStaticMapURL = staticMapGenerator.GenerateStaticMapURL(request);
 
 			string expectedResult =
-				@"http://maps.google.com/maps/api/staticmap?center=0,0&zoom=1&size=400x50&sensor=false";
+				@"http://maps.google.com/maps/api/staticmap?center=0%2C0&zoom=1&size=400x50&sensor=false";
 
 			Assert.AreEqual(expectedResult, generateStaticMapURL);
 		}
@@ -130,7 +130,7 @@ namespace GoogleMapsApi.Test
 			string generateStaticMapURL = staticMapGenerator.GenerateStaticMapURL(request);
 
 			string expectedResult =
-				@"http://maps.google.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=12&size=400x400&maptype=terrain&sensor=false";
+				@"http://maps.google.com/maps/api/staticmap?center=40.714728%2C-73.998672&zoom=12&size=400x400&maptype=terrain&sensor=false";
 
 			Assert.AreEqual(expectedResult, generateStaticMapURL);
 		}

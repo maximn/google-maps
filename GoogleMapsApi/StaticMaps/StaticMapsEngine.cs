@@ -324,15 +324,7 @@ namespace GoogleMapsApi.StaticMaps
 		/// <returns></returns>
 		private string ToQueryString(IList<KeyValuePair<string, string>> queryStringParams)
 		{
-			return string.Join("&",
-												 Array.ConvertAll(queryStringParams.ToArray(),
-																					item => string.Format("{0}={1}", item.Key, EncodeForGoogleMaps(item.Value))));
-
-		}
-
-		private string EncodeForGoogleMaps(string value)
-		{
-			return value.Replace("|", "%7C").Replace(' ', '+');
+			return string.Join("&", queryStringParams.Select(item => string.Format("{0}={1}", Uri.EscapeDataString(item.Key),  Uri.EscapeDataString(item.Value))));
 		}
 	}
 }
