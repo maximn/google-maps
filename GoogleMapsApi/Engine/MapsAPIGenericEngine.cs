@@ -14,10 +14,10 @@ namespace GoogleMapsApi.Engine
 {
 	public abstract class MapsAPIGenericEngine<TRequest, TResponse>
 		where TRequest : MapsBaseRequest, new()
-		where TResponse : class
+		where TResponse : IResponseFor<TRequest>
 	{
 		/// <summary>
-		/// Determines the maximum number of concurrent HTTP connections to open to this engine's host address.
+		/// Determines the maximum number of concurrent HTTP connections to open to this engine's host address. The default value is 2 connections.
 		/// </summary>
 		/// <remarks>
 		/// This value is determined by the ServicePointManager and is shared across other engines that use the same host address.
@@ -34,7 +34,7 @@ namespace GoogleMapsApi.Engine
 			}
 		}
 		/// <summary>
-		/// Determines the maximum number of concurrent HTTPS connections to open to this engine's host address.
+		/// Determines the maximum number of concurrent HTTPS connections to open to this engine's host address. The default value is 2 connections.
 		/// </summary>
 		/// <remarks>
 		/// This value is determined by the ServicePointManager and is shared across other engines that use the same host address.
@@ -61,7 +61,7 @@ namespace GoogleMapsApi.Engine
 			HttpsServicePoint = ServicePointManager.FindServicePoint(new Uri("https://" + baseUrl));
 		}
 
-		protected IAsyncResult BeginQueryGoogleAPI(TRequest request, AsyncCallback asyncCallback, object state)
+		protected static IAsyncResult BeginQueryGoogleAPI(TRequest request, AsyncCallback asyncCallback, object state)
 		{
 			// Must use TaskCompletionSource because in .NET 4.0 there's no overload of ContinueWith that accepts a state object (used in IAsyncResult).
 			// Such overloads have been added in .NET 4.5, so this can be removed if/when the project is promoted to that version.
@@ -83,17 +83,17 @@ namespace GoogleMapsApi.Engine
 			return completionSource.Task;
 		}
 
-		protected TResponse EndQueryGoogleAPI(IAsyncResult asyncResult)
+		protected static TResponse EndQueryGoogleAPI(IAsyncResult asyncResult)
 		{
 			return ((Task<TResponse>)asyncResult).Result;
 		}
 
-		protected TResponse QueryGoogleAPI(TRequest request)
+		protected internal static TResponse QueryGoogleAPI(TRequest request)
 		{
 			return QueryGoogleAPIAsync(request).Result;
 		}
 
-		protected Task<TResponse> QueryGoogleAPIAsync(TRequest request)
+		protected internal static Task<TResponse> QueryGoogleAPIAsync(TRequest request)
 		{
 			var uri = request.GetUri();
 
@@ -101,7 +101,7 @@ namespace GoogleMapsApi.Engine
 				.ContinueWith<TResponse>(DownloadDataComplete, TaskContinuationOptions.ExecuteSynchronously);
 		}
 
-		private TResponse DownloadDataComplete(Task<byte[]> t)
+		private static TResponse DownloadDataComplete(Task<byte[]> t)
 		{
 			if (t.IsFaulted)
 			{
@@ -113,7 +113,7 @@ namespace GoogleMapsApi.Engine
 			return Deserialize(t.Result);
 		}
 
-		private TResponse Deserialize(byte[] serializedObject)
+		private static TResponse Deserialize(byte[] serializedObject)
 		{
 			var serializer = new DataContractJsonSerializer(typeof(TResponse));
 			var stream = new MemoryStream(serializedObject, false);
