@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.Elevation.Request;
 
 namespace GoogleMapsApi.Entities.Elevation.Response
 {
 	[DataContract]
-	public class ElevationResponse
+	public class ElevationResponse : IResponseFor<ElevationRequest>
 	{
 		[DataMember(Name = "status")]
 		public string StatusStr

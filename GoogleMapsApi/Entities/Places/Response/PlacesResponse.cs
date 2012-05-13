@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.Places.Request;
 
 namespace GoogleMapsApi.Entities.Places.Response
 {
     [DataContract]
-    public class PlacesResponse
+    public class PlacesResponse : IResponseFor<PlacesRequest>
     {
         /// <summary>
         /// "status" contains metadata on the request.

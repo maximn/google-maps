@@ -50,6 +50,7 @@
     <Compile Include="Engine\MapsAPIEngine.cs" />
     <Compile Include="Engine\MapsAPIGenericEngine.cs" />
     <Compile Include="Entities\Common\ILocation.cs" />
+    <Compile Include="Entities\Common\IResponseFor.cs" />
     <Compile Include="Entities\Common\Location.cs" />
     <Compile Include="Entities\Common\MapsBaseRequest.cs" />
     <Compile Include="Entities\Common\SignableRequest.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Entities\Places\Response\PlacesResponse.cs" />
     <Compile Include="Entities\Places\Response\Result.cs" />
     <Compile Include="Entities\Places\Response\Status.cs" />
+    <Compile Include="GoogleMaps.cs" />
     <Compile Include="MapsAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Common\AddressLocation.cs" />

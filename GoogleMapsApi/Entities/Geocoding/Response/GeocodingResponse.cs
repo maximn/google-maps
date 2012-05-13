@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.Geocoding.Request;
 
 namespace GoogleMapsApi.Entities.Geocoding.Response
 {
 	[DataContract]
-	public class GeocodingResponse
+	public class GeocodingResponse : IResponseFor<GeocodingRequest>
 	{
 		[DataMember(Name = "status")]
 		public string StatusStr
