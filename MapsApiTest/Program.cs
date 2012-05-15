@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using GoogleMapsApi;
 using GoogleMapsApi.Engine;
 using GoogleMapsApi.Entities.Common;
@@ -22,35 +23,33 @@ namespace MapsApiTest
 	{
 		static void Main(string[] args)
 		{
-			//Static class use (Directions)
-			DirectionsRequest directionsRequest = new DirectionsRequest()
+			// Directions
+			var directionsRequest = new DirectionsRequest
 			{
 				Origin = "NYC, 5th and 39",
 				Destination = "Philladephia, Chesnut and Wallnut",
 			};
 
-			DirectionsResponse directions = MapsAPI.GetDirections(directionsRequest);
+			DirectionsResponse directions = GoogleMaps.Directions.Query(directionsRequest);
 
 			Console.WriteLine(directions);
 
 
-			//Instance class use (Geocode)
-			GeocodingRequest geocodeRequest = new GeocodingRequest()
+			// Geocode
+			var geocodeRequest = new GeocodingRequest
 			{
 				Address = "new york city",
 			};
 
-			GeocodingEngine geocodingEngine = new GeocodingEngine();
-
-			GeocodingResponse geocode = geocodingEngine.GetGeocode(geocodeRequest);
+			GeocodingResponse geocode = GoogleMaps.Geocode.Query(geocodeRequest);
 
 			Console.WriteLine(geocode);
 
 
 			// Static maps API - get static map of with the path of the directions request
-			StaticMapsEngine staticMapGenerator = new StaticMapsEngine();
+			var staticMapGenerator = new StaticMapsEngine();
 
-			//Path from previos directions request
+			//Path from previous directions request
 			IEnumerable<Step> steps = directions.Routes.First().Legs.First().Steps;
 			// All start locations
 			IList<ILocation> path = steps.Select(step => step.StartLocation).ToList<ILocation>();
@@ -59,14 +58,14 @@ namespace MapsApiTest
 
 			string url = staticMapGenerator.GenerateStaticMapURL(new StaticMapRequest(new Location(40.38742, -74.55366), 9, new ImageSize(800, 400))
 			{
-				Pathes = new List<Path>(){ new Path()
-	{
-		Style = new PathStyle()
-		{
-			Color = "red"
-		},
-		Locations = path
-	}}
+				Pathes = new List<Path> { new Path
+					{
+						Style = new PathStyle
+						{
+							Color = "red"
+						},
+						Locations = path
+					}}
 
 
 			});
@@ -75,26 +74,24 @@ namespace MapsApiTest
 
 
 
-			//Instance class - Async! (Elevation)
-			ElevationRequest elevationRequest = new ElevationRequest()
+			// Async! (Elevation)
+			var elevationRequest = new ElevationRequest
 			{
-				Locations = new Location[] { new Location(54, 78) },
+				Locations = new[] { new Location(54, 78) },
 			};
 
-			ElevationEngine elevationEngine = new ElevationEngine();
+			var task = GoogleMaps.Elevation.QueryAsync(elevationRequest)
+				.ContinueWith(t => Console.WriteLine("\n" + t.Result));
+			
+			Console.Write("Asynchronous query sent, waiting for a reply..");
 
-			elevationEngine.BeginGetElevation(elevationRequest,
-																				ar =>
-																				{
-																					ElevationResponse elevation = elevationEngine.EndGetElevation(ar);
-																					Console.WriteLine(elevation);
-																				},
-																				null);
+			while (!task.IsCompleted)
+			{
+				Console.Write('.');
+				Thread.Sleep(1000);
+			}
 
-			Console.WriteLine("Finised! (But wait .. async elevation request should get response soon)");
-
-
-
+			Console.WriteLine("Finished! Press any key to exit...");
 			Console.ReadKey();
 		}
 	}

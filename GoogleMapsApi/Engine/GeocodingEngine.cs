@@ -1,14 +1,11 @@
 using System;
-using System.Linq;
-using System.Collections.Specialized;
-using System.Net;
 using System.Threading.Tasks;
-using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
 
 namespace GoogleMapsApi.Engine
 {
+	[Obsolete("This class is deprecated and will be removed in a future version. Please use the GoogleMaps class instead.")]
 	public class GeocodingEngine : MapsAPIGenericEngine<GeocodingRequest, GeocodingResponse>
 	{
 		public IAsyncResult BeginGetGeocode(GeocodingRequest request, AsyncCallback asyncCallback, object state)

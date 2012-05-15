@@ -13,6 +13,7 @@ namespace GoogleMapsApi.Engine
 	/// <summary>
 	/// This class is a facade to all Maps engines.
 	/// </summary>
+	[Obsolete("This class is deprecated and will be removed in a future version. Please use the GoogleMaps class instead.")]
 	public class MapsAPIEngine : IMapsAPIEngine
 	{
 		public GeocodingResponse GetGeocode(GeocodingRequest request)

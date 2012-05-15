@@ -39,10 +39,9 @@ namespace GoogleMapsApi.Test
 		[Test]
 		public void Geocoding_ReturnsCorrectLocation()
 		{
-			var engine = new GeocodingEngine();
 			var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA" };
 
-			var result = engine.GetGeocode(request);
+			var result = GoogleMaps.Geocode.Query(request);
 
 			if (result.Status == Status.OVER_QUERY_LIMIT)
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -54,12 +53,11 @@ namespace GoogleMapsApi.Test
 		[ExpectedException(typeof(AuthenticationException))]
 		public void Geocoding_InvalidClientCredentials_Throws()
 		{
-			var engine = new GeocodingEngine();
 			var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA", ClientID = "gme-ThisIsAUnitTest", SigningKey = "AAECAwQFBgcICQoLDA0ODxAREhM=" };
 
 			try
 			{
-				engine.GetGeocode(request);
+				GoogleMaps.Geocode.Query(request);
 			}
 			catch (AggregateException ex)
 			{
@@ -70,10 +68,9 @@ namespace GoogleMapsApi.Test
 		[Test]
 		public void ReverseGeocoding_ReturnsCorrectAddress()
 		{
-			var engine = new GeocodingEngine();
 			var request = new GeocodingRequest { Location = new Location(40.7141289, -73.9614074) };
 
-			var result = engine.GetGeocode(request);
+			var result = GoogleMaps.Geocode.Query(request);
 
 			if (result.Status == Status.OVER_QUERY_LIMIT)
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -84,10 +81,9 @@ namespace GoogleMapsApi.Test
 		[Test]
 		public void Directions_SumOfStepDistancesCorrect()
 		{
-			var engine = new DirectionsEngine();
 			var request = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA" };
 
-			var result = engine.GetDirections(request);
+			var result = GoogleMaps.Directions.Query(request);
 
 			if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -98,10 +94,9 @@ namespace GoogleMapsApi.Test
 		[Test]
 		public void Elevation_ReturnsCorrectElevation()
 		{
-			var engine = new ElevationEngine();
 			var request = new ElevationRequest { Locations = new[] { new Location(40.7141289, -73.9614074) } };
 
-			var result = engine.GetElevation(request);
+			var result = GoogleMaps.Elevation.Query(request);
 
 			if (result.Status == Entities.Elevation.Response.Status.OVER_QUERY_LIMIT)
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");

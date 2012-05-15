@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Specialized;
-using System.Globalization;
-using System.Net;
 using System.Threading.Tasks;
-using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Places.Request;
 using GoogleMapsApi.Entities.Places.Response;
 
 namespace GoogleMapsApi.Engine
 {
+	[Obsolete("This class is deprecated and will be removed in a future version. Please use the GoogleMaps class instead.")]
 	public class PlacesEngine : MapsAPIGenericEngine<PlacesRequest, PlacesResponse>
 	{
 		public IAsyncResult BeginGetPlaces(PlacesRequest request, AsyncCallback asyncCallback, object state)
