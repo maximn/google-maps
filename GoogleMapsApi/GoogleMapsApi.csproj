@@ -101,6 +101,7 @@
     <Compile Include="StaticMaps\Enums\MapVisibility.cs" />
     <Compile Include="StaticMaps\Enums\MarkerSize.cs" />
     <Compile Include="StaticMaps\StaticMapsEngine.cs" />
+    <Compile Include="TaskEx.cs" />
     <Compile Include="WebClientExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup />

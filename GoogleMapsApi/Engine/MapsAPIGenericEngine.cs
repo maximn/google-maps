@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Json;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using GoogleMapsApi.Entities.Common;
 
@@ -61,6 +62,11 @@ namespace GoogleMapsApi.Engine
 			HttpsServicePoint = ServicePointManager.FindServicePoint(new Uri("https://" + baseUrl));
 		}
 
+		protected static TResponse QueryGoogleAPI(TRequest request)
+		{
+			return QueryGoogleAPIAsync(request).Result;
+		}
+
 		protected static IAsyncResult BeginQueryGoogleAPI(TRequest request, AsyncCallback asyncCallback, object state)
 		{
 			// Must use TaskCompletionSource because in .NET 4.0 there's no overload of ContinueWith that accepts a state object (used in IAsyncResult).
@@ -82,35 +88,46 @@ namespace GoogleMapsApi.Engine
 
 			return completionSource.Task;
 		}
-
 		protected static TResponse EndQueryGoogleAPI(IAsyncResult asyncResult)
 		{
 			return ((Task<TResponse>)asyncResult).Result;
 		}
 
-		protected internal static TResponse QueryGoogleAPI(TRequest request)
+		protected static Task<TResponse> QueryGoogleAPIAsync(TRequest request)
 		{
-			return QueryGoogleAPIAsync(request).Result;
+			return QueryGoogleAPIAsync(request, TimeSpan.FromMilliseconds(Timeout.Infinite), CancellationToken.None);
 		}
-
-		protected internal static Task<TResponse> QueryGoogleAPIAsync(TRequest request)
+		protected internal static Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default(CancellationToken))
 		{
-			var uri = request.GetUri();
+			if (request == null) throw new ArgumentNullException("request");
 
-			return new WebClient().DownloadDataTaskAsync(uri)
-				.ContinueWith<TResponse>(DownloadDataComplete, TaskContinuationOptions.ExecuteSynchronously);
+			var completionSource = new TaskCompletionSource<TResponse>();
+
+			new WebClient().DownloadDataTaskAsync(request.GetUri(), timeout, token)
+				.ContinueWith(t => DownloadDataComplete(t, completionSource), TaskContinuationOptions.ExecuteSynchronously);
+
+			return completionSource.Task;
 		}
-
-		private static TResponse DownloadDataComplete(Task<byte[]> t)
+		
+		private static void DownloadDataComplete(Task<byte[]> task, TaskCompletionSource<TResponse> completionSource)
 		{
-			if (t.IsFaulted)
+			if (task.IsCanceled)
 			{
-				var webException = t.Exception.InnerException as WebException;
-				if (webException != null && webException.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)webException.Response).StatusCode == HttpStatusCode.Forbidden)
-					throw new AuthenticationException("The request to Google API failed with HTTP error '(403) Forbidden', which usually indicates that provided client ID or signing key are invalid or expired.", t.Exception.InnerException);
+				completionSource.SetCanceled();
 			}
+			else if (task.IsFaulted)
+			{
+				var webException = task.Exception.InnerException as WebException;
 
-			return Deserialize(t.Result);
+				if (webException != null && webException.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)webException.Response).StatusCode == HttpStatusCode.Forbidden)
+					completionSource.SetException(new AuthenticationException("The request to Google API failed with HTTP error '(403) Forbidden', which usually indicates that the provided client ID or signing key are invalid or expired.", task.Exception.InnerException));
+				else
+					completionSource.SetException(task.Exception.InnerException);
+			}
+			else
+			{
+				completionSource.SetResult(Deserialize(task.Result));
+			}
 		}
 
 		private static TResponse Deserialize(byte[] serializedObject)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using GoogleMapsApi.Engine;
 using GoogleMapsApi.Entities.Common;
@@ -102,23 +103,84 @@ namespace GoogleMapsApi
 		}
 
 		/// <summary>
-		/// Query the Google Maps API using the provided request.
+		/// Query the Google Maps API using the provided request with the default timeout of 100,000 milliseconds (100 seconds).
 		/// </summary>
 		/// <param name="request">The request that will be sent.</param>
 		/// <returns>The response that was received.</returns>
+		/// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+		/// <exception cref="AggregateException">Thrown when an exception occurs during the operation. See the AggregateException's InnerException for more details.</exception>
 		public TResponse Query(TRequest request)
 		{
-			return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPI(request);
+			return Query(request, TimeSpan.FromSeconds(100));
 		}
-		
+
+		/// <summary>
+		/// Query the Google Maps API using the provided request.
+		/// </summary>
+		/// <param name="request">The request that will be sent.</param>
+		/// <param name="timeout">A TimeSpan specifying the amount of time to wait for a response before aborting the request.
+		/// The specify an infinite timeout, pass a TimeSpan with a TotalMillisecond value of Timeout.Infinite.
+		/// When a request is aborted due to a timeout an AggregateException will be thrown with an InnerException of type TimeoutException.</param>
+		/// <returns>The response that was received.</returns>
+		/// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+		/// <exception cref="AggregateException">Thrown when an exception occurs during the operation. See the AggregateException's InnerException for more details.</exception>
+		public TResponse Query(TRequest request, TimeSpan timeout)
+		{
+			return QueryAsync(request, timeout).Result;
+		}
+
 		/// <summary>
 		/// Asynchronously query the Google Maps API using the provided request.
 		/// </summary>
 		/// <param name="request">The request that will be sent.</param>
-		/// <returns>A task that will produce the response that was received.</returns>
+		/// <returns>A Task with the future value of the response.</returns>
+		/// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
 		public Task<TResponse> QueryAsync(TRequest request)
 		{
-			return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPIAsync(request);
+			return QueryAsync(request, CancellationToken.None);
+		}
+
+		/// <summary>
+		/// Asynchronously query the Google Maps API using the provided request.
+		/// </summary>
+		/// <param name="request">The request that will be sent.</param>
+		/// <param name="timeout">A TimeSpan specifying the amount of time to wait for a response before aborting the request.
+		/// The specify an infinite timeout, pass a TimeSpan with a TotalMillisecond value of Timeout.Infinite.
+		/// When a request is aborted due to a timeout the returned task will transition to the Faulted state with a TimeoutException.</param>
+		/// <returns>A Task with the future value of the response.</returns>
+		/// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+		/// <exception cref="ArgumentOutOfRangeException">Thrown when the value of timeout is neither a positive value or infinite.</exception>
+		public Task<TResponse> QueryAsync(TRequest request, TimeSpan timeout)
+		{
+			return QueryAsync(request, timeout, CancellationToken.None);
+		}
+
+		/// <summary>
+		/// Asynchronously query the Google Maps API using the provided request.
+		/// </summary>
+		/// <param name="request">The request that will be sent.</param>
+		/// <param name="token">A cancellation token that can be used to cancel the pending asynchronous task.</param>
+		/// <returns>A Task with the future value of the response.</returns>
+		/// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+		public Task<TResponse> QueryAsync(TRequest request, CancellationToken token)
+		{
+			return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPIAsync(request, TimeSpan.FromMilliseconds(Timeout.Infinite), token);
+		}
+
+		/// <summary>
+		/// Asynchronously query the Google Maps API using the provided request.
+		/// </summary>
+		/// <param name="request">The request that will be sent.</param>
+		/// <param name="timeout">A TimeSpan specifying the amount of time to wait for a response before aborting the request.
+		/// The specify an infinite timeout, pass a TimeSpan with a TotalMillisecond value of Timeout.Infinite.
+		/// When a request is aborted due to a timeout the returned task will transition to the Faulted state with a TimeoutException.</param>
+		/// <param name="token">A cancellation token that can be used to cancel the pending asynchronous task.</param>
+		/// <returns>A Task with the future value of the response.</returns>
+		/// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+		/// <exception cref="ArgumentOutOfRangeException">Thrown when the value of timeout is neither a positive value or infinite.</exception>
+		public Task<TResponse> QueryAsync(TRequest request, TimeSpan timeout, CancellationToken token)
+		{
+			return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPIAsync(request, timeout, token);
 		}
 	}
 }
