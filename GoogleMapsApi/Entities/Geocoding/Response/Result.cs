@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace GoogleMapsApi.Entities.Geocoding.Response
 {
     /// <summary>
-    /// When the geocoder returns results, it places them within a (JSON) results array. Even if the geocoder returns no results (such as if the address doesn't exist) it still returns an empty results array. (XML responses consist of zero or more <result> elements.)
+    /// When the geocoder returns results, it places them within a (JSON) results array. Even if the geocoder returns no results (such as if the address doesn't exist) it still returns an empty results array. (XML responses consist of zero or more result elements.)
     /// </summary>
     [DataContract]
     public class Result

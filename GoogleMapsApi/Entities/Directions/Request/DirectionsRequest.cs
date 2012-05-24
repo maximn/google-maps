@@ -37,9 +37,9 @@ namespace GoogleMapsApi.Entities.Directions.Request
 
 		/// <summary>
 		/// avoid (optional) indicates that the calculated route(s) should avoid the indicated features. Currently, this parameter supports the following two arguments:
-		//tolls indicates that the calculated route should avoid toll roads/bridges.
-		//highways indicates that the calculated route should avoid highways.
-		//(For more information see Route Restrictions below.)
+		/// tolls indicates that the calculated route should avoid toll roads/bridges.
+		/// highways indicates that the calculated route should avoid highways.
+		/// (For more information see Route Restrictions below.)
 		/// </summary>
 		public AvoidWay Avoid { get; set; }
 

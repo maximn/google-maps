@@ -33,6 +33,9 @@
     <DocumentationFile>bin\Release\GoogleMapsApi.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net4">
+      <HintPath>..\packages\Microsoft.CompilerServices.AsyncTargetingPack.1.0.0\lib\net40\Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -102,12 +105,12 @@
     <Compile Include="StaticMaps\Enums\MapVisibility.cs" />
     <Compile Include="StaticMaps\Enums\MarkerSize.cs" />
     <Compile Include="StaticMaps\StaticMapsEngine.cs" />
-    <Compile Include="TaskEx.cs" />
     <Compile Include="WebClientExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <None Include="Entities\Directions\The Google Directions API - Google Maps API Web Services - Google Code.htm" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

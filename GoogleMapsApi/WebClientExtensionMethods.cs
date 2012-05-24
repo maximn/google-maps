@@ -15,16 +15,9 @@ namespace GoogleMapsApi
 	public static class WebClientExtensionMethods
 	{
 		/// <summary>
-		/// Asynchronously downloads the resource with the specified URI as a Byte array. Note that this overload specifies an infinite timeout.
+		/// Constant. Specified an infinite timeout duration. This is a TimeSpan of negative one (-1) milliseconds.
 		/// </summary>
-		/// <param name="client">The client with which to download the specified resource.</param>
-		/// <param name="address">The address of the resource to download.</param>
-		/// <returns>A Task with the future value of the downloaded string.</returns>
-		/// <exception cref="ArgumentNullException">Thrown when a null value is passed to the client or address parameters.</exception>
-		public static Task<byte[]> DownloadDataTaskAsync(this WebClient client, Uri address)
-		{
-			return client.DownloadDataTaskAsync(address, TimeSpan.FromSeconds(Timeout.Infinite));
-		}
+		public static readonly TimeSpan InfiniteTimeout = TimeSpan.FromMilliseconds(-1);
 
 		/// <summary>
 		/// Asynchronously downloads the resource with the specified URI as a Byte array limited by the specified timeout.
@@ -72,7 +65,7 @@ namespace GoogleMapsApi
 		{
 			if (client == null) throw new ArgumentNullException("client");
 			if (address == null) throw new ArgumentNullException("address");
-			if (timeout.TotalMilliseconds < 0 && timeout.TotalMilliseconds != Timeout.Infinite)
+			if (timeout.TotalMilliseconds < 0 && timeout != InfiniteTimeout)
 				throw new ArgumentOutOfRangeException("address", timeout, "The timeout value must be a positive value or have a TotalMilliseconds value of Timeout.Infinite.");
 
 			var tcs = new TaskCompletionSource<byte[]>();
@@ -82,9 +75,9 @@ namespace GoogleMapsApi
 			{
 				delayTokenSource.Cancel();
 				client.CancelAsync();
-			}); 
-			
-			if (timeout.TotalMilliseconds != Timeout.Infinite)
+			});
+
+			if (timeout != InfiniteTimeout)
 			{
 				TaskEx.Delay(timeout, delayTokenSource.Token).ContinueWith(t =>
 					{

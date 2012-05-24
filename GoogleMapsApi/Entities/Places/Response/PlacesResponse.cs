@@ -32,11 +32,5 @@ namespace GoogleMapsApi.Entities.Places.Response
         /// </summary>
         [DataMember(Name="results")]
         public IEnumerable<Result> Results { get; set; }
-
-        /// <summary>
-        /// html_attributions contain a set of attributions about this listing which must be displayed to the user.
-        /// </summary>
-        //[DataMember(Name="html_attributions")]
-        //public string HtmlAttributions { get; set; }
     }
 }
