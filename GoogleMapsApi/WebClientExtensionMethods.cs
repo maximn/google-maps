@@ -6,14 +6,24 @@ using System.Threading.Tasks;
 namespace GoogleMapsApi
 {
 	/// <summary>
-	/// Provides asynchronous methods based on the new Async Task pattern. Emulates the new methods added to WebClient in .NET 4.5 (and has additions).
+	/// Provides asynchronous methods based on the Task-based Asynchronous Pattern for the WebClient class.
 	/// </summary>
 	/// <remarks>
 	/// The code below uses the guidelines outlined in the MSDN article "Simplify Asynchronous Programming with Tasks" 
-	/// at http://msdn.microsoft.com/en-us/magazine/ff959203.aspx under the "Converting an Event-Based Pattern" section.
+	/// at http://msdn.microsoft.com/en-us/magazine/ff959203.aspx under the "Converting an Event-Based Pattern" section,
+	/// and follows the general TAP guidelines found at http://www.microsoft.com/en-us/download/details.aspx?id=19957.
 	/// </remarks>
 	public static class WebClientExtensionMethods
 	{
+		private static readonly Task<byte[]> PreCancelledTask;
+
+		static WebClientExtensionMethods()
+		{
+			var tcs = new TaskCompletionSource<byte[]>();
+			tcs.SetCanceled();
+			PreCancelledTask = tcs.Task;
+		}
+	
 		/// <summary>
 		/// Constant. Specified an infinite timeout duration. This is a TimeSpan of negative one (-1) milliseconds.
 		/// </summary>
@@ -46,7 +56,7 @@ namespace GoogleMapsApi
 		/// <exception cref="ArgumentNullException">Thrown when a null value is passed to the client or address parameters.</exception>
 		public static Task<byte[]> DownloadDataTaskAsync(this WebClient client, Uri address, CancellationToken token)
 		{
-			return client.DownloadDataTaskAsync(address, TimeSpan.FromSeconds(Timeout.Infinite), token);
+			return client.DownloadDataTaskAsync(address, InfiniteTimeout, token);
 		}
 
 		/// <summary>
@@ -66,10 +76,47 @@ namespace GoogleMapsApi
 			if (client == null) throw new ArgumentNullException("client");
 			if (address == null) throw new ArgumentNullException("address");
 			if (timeout.TotalMilliseconds < 0 && timeout != InfiniteTimeout)
-				throw new ArgumentOutOfRangeException("address", timeout, "The timeout value must be a positive value or have a TotalMilliseconds value of Timeout.Infinite.");
+				throw new ArgumentOutOfRangeException("address", timeout, "The timeout value must be a positive or equal to InfiniteTimeout.");
+
+			if (token.IsCancellationRequested)
+				return PreCancelledTask;
 
 			var tcs = new TaskCompletionSource<byte[]>();
 			var delayTokenSource = new CancellationTokenSource();
+
+			if (timeout != InfiniteTimeout)
+			{
+				TaskEx.Delay(timeout, delayTokenSource.Token).ContinueWith(t =>
+					{
+						tcs.TrySetException(new TimeoutException(string.Format("The request has exceeded the timeout limit of {0} and has been aborted.", timeout)));
+						client.CancelAsync();
+					}, TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.NotOnCanceled);
+			}
+
+			DownloadDataCompletedEventHandler completedHandler = null;
+			completedHandler = (sender, args) =>
+			 {
+				 client.DownloadDataCompleted -= completedHandler;
+				 delayTokenSource.Cancel();
+
+				 if (args.Cancelled)
+					 tcs.TrySetCanceled();
+				 else if (args.Error != null)
+					 tcs.TrySetException(args.Error);
+				 else tcs.TrySetResult(args.Result);
+			 };
+
+			client.DownloadDataCompleted += completedHandler;
+
+			try
+			{
+				client.DownloadDataAsync(address);
+			}
+			catch
+			{
+				client.DownloadDataCompleted -= completedHandler;
+				throw;
+			}
 
 			token.Register(() =>
 			{
@@ -77,27 +124,6 @@ namespace GoogleMapsApi
 				client.CancelAsync();
 			});
 
-			if (timeout != InfiniteTimeout)
-			{
-				TaskEx.Delay(timeout, delayTokenSource.Token).ContinueWith(t =>
-					{
-						tcs.TrySetException(new TimeoutException(string.Format("The request has exceeded the timeout limit of {0} and has been aborted. The requested URI was: {1}", timeout, address)));
-						client.CancelAsync();
-					}, TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.NotOnCanceled);
-			}
-			
-			client.DownloadDataCompleted += (sender, args) =>
-			{
-				delayTokenSource.Cancel();
-
-				if (args.Cancelled)
-					tcs.TrySetCanceled();
-				else if (args.Error != null)
-					tcs.TrySetException(args.Error);
-				else tcs.TrySetResult(args.Result);
-			};
-			
-			client.DownloadDataAsync(address);
 			return tcs.Task;
 		}
 	}

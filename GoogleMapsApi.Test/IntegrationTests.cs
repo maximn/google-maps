@@ -70,14 +70,7 @@ namespace GoogleMapsApi.Test
 		{
 			var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA", ClientID = "gme-ThisIsAUnitTest", SigningKey = "AAECAwQFBgcICQoLDA0ODxAREhM=" };
 
-			try
-			{
-				GoogleMaps.Geocode.Query(request);
-			}
-			catch (AggregateException ex)
-			{
-				throw ex.InnerException;
-			}
+			Utils.ThrowInnerException(() => GoogleMaps.Geocode.Query(request));
 		}
 
 		[Test]
@@ -86,14 +79,7 @@ namespace GoogleMapsApi.Test
 		{
 			var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA" };
 
-			try
-			{
-				GoogleMaps.Geocode.Query(request, TimeSpan.FromMilliseconds(1));
-			}
-			catch (AggregateException ex)
-			{
-				throw ex.InnerException;
-			}
+			Utils.ThrowInnerException(() => GoogleMaps.Geocode.Query(request, TimeSpan.FromMilliseconds(1)));
 		}
 
 		[Test]
@@ -105,16 +91,19 @@ namespace GoogleMapsApi.Test
 			var tokeSource = new CancellationTokenSource();
 			var task = GoogleMaps.Geocode.QueryAsync(request, tokeSource.Token);
 			tokeSource.Cancel();
+			task.ThrowInnerException();
+		}
 
-			try
-			{
-				task.Wait();
-			}
-			catch (AggregateException ex)
-			{
-				throw ex.InnerException;
-			}
+		[Test]
+		[ExpectedException(typeof(TaskCanceledException))]
+		public void GeocodingAsync_WithPreCanceledToken_Cancels()
+		{
+			var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA" };
+			var cts = new CancellationTokenSource();
+			cts.Cancel();
 
+			var task = GoogleMaps.Geocode.QueryAsync(request, cts.Token);
+			task.ThrowInnerException();
 		}
 
 		[Test]
@@ -193,6 +182,33 @@ namespace GoogleMapsApi.Test
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
 			Assert.AreEqual(Entities.Elevation.Response.Status.OK, result.Status);
 			Assert.AreEqual(14.782454490661619, result.Results.First().Elevation);
+		}
+	}
+
+	static class Utils
+	{
+		public static void ThrowInnerException(this Task task)
+		{
+			try
+			{
+				task.Wait();
+			}
+			catch (AggregateException ex)
+			{
+				throw ex.Flatten().InnerException;
+			}
+		}
+
+		public static void ThrowInnerException(Action action)
+		{
+			try
+			{
+				action();
+			}
+			catch (AggregateException ex)
+			{
+				throw ex.InnerException;
+			}
 		}
 	}
 }
