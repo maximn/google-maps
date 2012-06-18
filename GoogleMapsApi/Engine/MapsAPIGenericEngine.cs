@@ -54,6 +54,7 @@ namespace GoogleMapsApi.Engine
 
 		private static ServicePoint HttpServicePoint { get; set; }
 		private static ServicePoint HttpsServicePoint { get; set; }
+		private const string AuthenticationFailedMessage = "The request to Google API failed with HTTP error '(403) Forbidden', which usually indicates that the provided client ID or signing key is invalid or expired.";
 
 		static MapsAPIGenericEngine()
 		{
@@ -62,31 +63,29 @@ namespace GoogleMapsApi.Engine
 			HttpsServicePoint = ServicePointManager.FindServicePoint(new Uri("https://" + baseUrl));
 		}
 
-		protected static TResponse QueryGoogleAPI(TRequest request)
+		protected internal static TResponse QueryGoogleAPI(TRequest request, TimeSpan timeout)
 		{
-			Uri uri = request.GetUri();
+			if (request == null)
+				throw new ArgumentNullException("request");
 
-			byte[] data;
+			var completionSource = new TaskCompletionSource<TResponse>();
 
 			try
 			{
-				data = new WebClient().DownloadData(uri);
+				DownloadDataComplete(TaskEx.FromResult(new WebClientEx(timeout).DownloadData(request.GetUri())), completionSource);
 			}
 			catch (WebException ex)
 			{
-				if (ex.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.Forbidden)
-				{
-					throw new AuthenticationException("The request to Google API failed with HTTP error '(403) Forbidden', which usually indicates that provided client ID or signing key are invalid or expired.", ex);
-				}
-				else
-				{
-					throw;
-				}
+				if (IndicatesAuthenticationFailed(ex))
+					throw new AuthenticationException(AuthenticationFailedMessage, ex);
+
+				if (ex.Status == WebExceptionStatus.Timeout)
+					throw new TimeoutException(string.Format("The request has exceeded the timeout limit of {0} and has been aborted.", timeout));
+
+				throw;
 			}
 
-			TResponse response = Deserialize(data);
-
-			return response;
+			return completionSource.Task.Result;
 		}
 
 		protected static IAsyncResult BeginQueryGoogleAPI(TRequest request, AsyncCallback asyncCallback, object state)
@@ -121,7 +120,8 @@ namespace GoogleMapsApi.Engine
 		}
 		protected internal static Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default(CancellationToken))
 		{
-			if (request == null) throw new ArgumentNullException("request");
+			if (request == null)
+				throw new ArgumentNullException("request");
 
 			var completionSource = new TaskCompletionSource<TResponse>();
 
@@ -139,10 +139,8 @@ namespace GoogleMapsApi.Engine
 			}
 			else if (task.IsFaulted)
 			{
-				var webException = task.Exception.InnerException as WebException;
-
-				if (webException != null && webException.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)webException.Response).StatusCode == HttpStatusCode.Forbidden)
-					completionSource.SetException(new AuthenticationException("The request to Google API failed with HTTP error '(403) Forbidden', which usually indicates that the provided client ID or signing key are invalid or expired.", task.Exception.InnerException));
+				if (IndicatesAuthenticationFailed(task.Exception.InnerException))
+					completionSource.SetException(new AuthenticationException(AuthenticationFailedMessage, task.Exception.InnerException));
 				else
 					completionSource.SetException(task.Exception.InnerException);
 			}
@@ -157,6 +155,14 @@ namespace GoogleMapsApi.Engine
 			var serializer = new DataContractJsonSerializer(typeof(TResponse));
 			var stream = new MemoryStream(serializedObject, false);
 			return (TResponse)serializer.ReadObject(stream);
+		}
+		private static bool IndicatesAuthenticationFailed(Exception ex)
+		{
+			var webException = ex as WebException;
+
+			return webException != null &&
+				   webException.Status == WebExceptionStatus.ProtocolError &&
+			       ((HttpWebResponse)webException.Response).StatusCode == HttpStatusCode.Forbidden;
 		}
 	}
 }

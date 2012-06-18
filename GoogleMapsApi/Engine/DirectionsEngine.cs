@@ -20,7 +20,7 @@ namespace GoogleMapsApi.Engine
 
 		public DirectionsResponse GetDirections(DirectionsRequest request)
 		{
-			return QueryGoogleAPI(request);
+			return QueryGoogleAPI(request, TimeSpan.FromSeconds(100));
 		}
 		
 		public Task<DirectionsResponse> GetDirectionsAsync(DirectionsRequest request)

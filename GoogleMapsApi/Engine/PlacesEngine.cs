@@ -20,7 +20,7 @@ namespace GoogleMapsApi.Engine
 
 		public PlacesResponse GetPlaces(PlacesRequest request)
 		{
-			return QueryGoogleAPI(request);
+			return QueryGoogleAPI(request, TimeSpan.FromSeconds(100));
 		}
 
 		public Task<PlacesResponse> GetPlacesAsync(PlacesRequest request)
