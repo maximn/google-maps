@@ -64,7 +64,29 @@ namespace GoogleMapsApi.Engine
 
 		protected static TResponse QueryGoogleAPI(TRequest request)
 		{
-			return QueryGoogleAPIAsync(request).Result;
+			Uri uri = request.GetUri();
+
+			byte[] data;
+
+			try
+			{
+				data = new WebClient().DownloadData(uri);
+			}
+			catch (WebException ex)
+			{
+				if (ex.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.Forbidden)
+				{
+					throw new AuthenticationException("The request to Google API failed with HTTP error '(403) Forbidden', which usually indicates that provided client ID or signing key are invalid or expired.", ex);
+				}
+				else
+				{
+					throw;
+				}
+			}
+
+			TResponse response = Deserialize(data);
+
+			return response;
 		}
 
 		protected static IAsyncResult BeginQueryGoogleAPI(TRequest request, AsyncCallback asyncCallback, object state)
