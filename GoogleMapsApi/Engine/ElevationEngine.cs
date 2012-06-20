@@ -20,7 +20,7 @@ namespace GoogleMapsApi.Engine
 
 		public ElevationResponse GetElevation(ElevationRequest request)
 		{
-			return QueryGoogleAPI(request, TimeSpan.FromSeconds(100));
+			return QueryGoogleAPI(request, DefaultTimeout);
 		}
 		
 		public Task<ElevationResponse> GetElevationAsync(ElevationRequest request)

@@ -111,7 +111,7 @@ namespace GoogleMapsApi
 		/// <exception cref="AggregateException">Thrown when an exception occurs during the operation. See the AggregateException's InnerException for more details.</exception>
 		public TResponse Query(TRequest request)
 		{
-			return Query(request, TimeSpan.FromSeconds(100));
+			return Query(request, MapsAPIGenericEngine<TRequest, TResponse>.DefaultTimeout);
 		}
 
 		/// <summary>

@@ -20,7 +20,7 @@ namespace GoogleMapsApi.Engine
 
 		public GeocodingResponse GetGeocode(GeocodingRequest request)
 		{
-			return QueryGoogleAPI(request, TimeSpan.FromSeconds(100));
+			return QueryGoogleAPI(request, DefaultTimeout);
 		}
 
 		public Task<GeocodingResponse> GetGeocodeAsync(GeocodingRequest request)

@@ -54,6 +54,7 @@ namespace GoogleMapsApi.Engine
 
 		private static ServicePoint HttpServicePoint { get; set; }
 		private static ServicePoint HttpsServicePoint { get; set; }
+		internal static TimeSpan DefaultTimeout = TimeSpan.FromSeconds(100);
 		private const string AuthenticationFailedMessage = "The request to Google API failed with HTTP error '(403) Forbidden', which usually indicates that the provided client ID or signing key is invalid or expired.";
 
 		static MapsAPIGenericEngine()
@@ -72,7 +73,8 @@ namespace GoogleMapsApi.Engine
 
 			try
 			{
-				DownloadDataComplete(TaskEx.FromResult(new WebClientEx(timeout).DownloadData(request.GetUri())), completionSource);
+				var data = new WebClientEx(timeout).DownloadData(request.GetUri());
+				DownloadDataComplete(TaskEx.FromResult(data), completionSource);
 			}
 			catch (WebException ex)
 			{
