@@ -13,6 +13,9 @@ namespace GoogleMapsApi
 		public WebClientEx() { }
 		public WebClientEx(TimeSpan timeout)
 		{
+			if (timeout != WebClientExtensionMethods.InfiniteTimeout && timeout <= TimeSpan.Zero)
+				throw new ArgumentOutOfRangeException("timeout", timeout, "The specified timeout must be greater than zero or infinite.");
+
 			Timeout = timeout;
 		}
 

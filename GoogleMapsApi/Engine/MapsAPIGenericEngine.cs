@@ -69,12 +69,10 @@ namespace GoogleMapsApi.Engine
 			if (request == null)
 				throw new ArgumentNullException("request");
 
-			var completionSource = new TaskCompletionSource<TResponse>();
-
 			try
 			{
 				var data = new WebClientEx(timeout).DownloadData(request.GetUri());
-				DownloadDataComplete(TaskEx.FromResult(data), completionSource);
+				return Deserialize(data);
 			}
 			catch (WebException ex)
 			{
@@ -86,8 +84,6 @@ namespace GoogleMapsApi.Engine
 
 				throw;
 			}
-
-			return completionSource.Task.Result;
 		}
 
 		protected static IAsyncResult BeginQueryGoogleAPI(TRequest request, AsyncCallback asyncCallback, object state)
