@@ -305,7 +305,7 @@ namespace GoogleMapsApi.StaticMaps
 
 			parametersList.Add("sensor", request.Sensor ? "true" : "false");
 
-			return scheme + BaseUrl + parametersList;
+			return scheme + BaseUrl + "?" + parametersList.GetQueryStringPostfix();
 		}
 	}
 }

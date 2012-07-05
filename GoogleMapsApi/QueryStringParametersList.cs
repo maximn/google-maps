@@ -5,16 +5,23 @@ using System.Text;
 
 namespace GoogleMapsApi
 {
-	public class QueryStringParametersList : List<KeyValuePair<string, string>>
+	public class QueryStringParametersList
 	{
-		public void Add(string key, string value)
+		private List<KeyValuePair<string,string>> list { get; set; }
+
+		public QueryStringParametersList()
 		{
-			Add(new KeyValuePair<string, string>(key, value));
+			list = new List<KeyValuePair<string, string>>();
 		}
 
-		public override string ToString()
+		public void Add(string key, string value)
 		{
-			return "?" + string.Join("&", this.Select(p => Uri.EscapeDataString(p.Key) + "=" + Uri.EscapeDataString(p.Value)));
+			list.Add(new KeyValuePair<string, string>(key, value));
+		}
+
+		public string GetQueryStringPostfix()
+		{
+			return string.Join("&", list.Select(p => Uri.EscapeDataString(p.Key) + "=" + Uri.EscapeDataString(p.Value)));
 		}
 	}
 }

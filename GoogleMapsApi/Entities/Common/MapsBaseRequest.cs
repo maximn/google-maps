@@ -47,14 +47,17 @@ namespace GoogleMapsApi.Entities.Common
 
 		protected virtual QueryStringParametersList GetQueryStringParameters()
 		{
-			return new QueryStringParametersList { { "sensor", Sensor.ToString().ToLower() } };
+		  QueryStringParametersList parametersList = new QueryStringParametersList();
+
+		  parametersList.Add("sensor", Sensor.ToString().ToLower());
+
+		  return parametersList;
 		}
 
-		public virtual Uri GetUri()
+	  public virtual Uri GetUri()
 		{
 			string scheme = IsSSL ? "https://" : "http://";
-			var escapedParameters = GetQueryStringParameters().Select(p => Uri.EscapeDataString(p.Key) + "=" + Uri.EscapeDataString(p.Value));
-			var queryString = string.Join("&", escapedParameters);
+      var queryString = GetQueryStringParameters().GetQueryStringPostfix();
 			return new Uri(scheme + BaseUrl + "json?" + queryString);
 		}
 	}
