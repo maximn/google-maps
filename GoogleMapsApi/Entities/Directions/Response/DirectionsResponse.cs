@@ -48,9 +48,8 @@ namespace GoogleMapsApi.Entities.Directions.Response
         private TimeSpan GetTotalTripDuration()
 	    {
             TimeSpan timespan = new TimeSpan();
-	        var firstRoute = Routes.FirstOrDefault();
 
-            return firstRoute.Legs.AsParallel()
+            return Routes.AsParallel().FirstOrDefault().Legs.AsParallel()
                 .Aggregate(timespan, (current, leg) => current + leg.Duration.Value);
 	    }
 
