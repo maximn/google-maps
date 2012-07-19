@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using GoogleMapsApi.Entities.Common;
 
@@ -66,7 +67,8 @@ namespace GoogleMapsApi.Entities.Places.Request
 		/// 
 		/// </summary>
 		public string Types { get; set; }
-
+        
+        [DefaultValue(true)]
 		public override bool IsSSL
 		{
 			get

@@ -1,11 +1,20 @@
-﻿using System.Runtime.Serialization;
-using GoogleMapsApi.Entities.Common;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace GoogleMapsApi.Entities.Places.Response
 {
 	[DataContract]
 	public class Result
-	{
+    {
+        [DataMember(Name = "formatted_address")]
+        public string FormattedAddress { get; set; }
+
+        [DataMember(Name = "events")]
+        public IEnumerable<Event> Events { get; set; }
+
+        [DataMember(Name = "geometry")]
+        public Geometry Geometry { get; set; }
+
 		/// <summary>
 		/// name contains the human-readable name for the returned result. For establishment results, this is usually the canonicalized business name.
 		/// </summary>

@@ -4,8 +4,14 @@ using System.Runtime.Serialization;
 namespace GoogleMapsApi.Entities.Directions.Response
 {
     /// <summary>
-    /// When the Directions API returns results, it places them within a (JSON) routes array. Even if the service returns no results (such as if the origin and/or destination doesn't exist) it still returns an empty routes array. (XML responses consist of zero or more route elements.)
-    /// Each element of the routes array contains a single result from the specified origin and destination. This route may consist of one or more legs depending on whether any waypoints were specified. As well, the route also contains copyright and warning information which must be displayed to the user in addition to the routing information.
+    /// When the Directions API returns results, it places them within a (JSON) routes array. Even if the 
+    /// service returns no results
+    ///  (such as if the origin and/or destination doesn't exist) it still returns an empty routes array.
+    ///  (XML responses consist of zero or more route elements.)
+    /// Each element of the routes array contains a single result from the specified origin and destination.
+    ///  This route may consist of one or more legs depending on whether any waypoints were specified.
+    ///  As well, the route also contains copyright and warning information which must be displayed to the user 
+    /// in addition to the routing information.
     /// </summary>
     [DataContract(Name = "route")]
     public class Route

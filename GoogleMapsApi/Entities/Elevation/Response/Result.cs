@@ -17,5 +17,8 @@ namespace GoogleMapsApi.Entities.Elevation.Response
         /// </summary>
         [DataMember(Name = "elevation")]
         public double Elevation { get; set; }
+
+        [DataMember(Name = "resolution")]
+        public double Resolution { get; set; }
     }
 }

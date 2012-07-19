@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Specialized;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Security.Authentication;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using GoogleMapsApi.Entities.Common;
@@ -72,7 +68,7 @@ namespace GoogleMapsApi.Engine
 			try
 			{
 				var data = new WebClientEx(timeout).DownloadData(request.GetUri());
-				return Deserialize(data);
+			    return Deserialize(data);
 			}
 			catch (WebException ex)
 			{
@@ -137,10 +133,10 @@ namespace GoogleMapsApi.Engine
 			}
 			else if (task.IsFaulted)
 			{
-				if (IndicatesAuthenticationFailed(task.Exception.InnerException))
-					completionSource.SetException(new AuthenticationException(AuthenticationFailedMessage, task.Exception.InnerException));
-				else
-					completionSource.SetException(task.Exception.InnerException);
+			    completionSource.SetException(IndicatesAuthenticationFailed(task.Exception.InnerException)
+			                                      ? new AuthenticationException(AuthenticationFailedMessage,
+			                                                                    task.Exception.InnerException)
+			                                      : task.Exception.InnerException);
 			}
 			else
 			{

@@ -12,7 +12,8 @@
     <AssemblyName>GoogleMapsApi</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -78,11 +79,13 @@
     <Compile Include="Entities\Geocoding\Response\FramedLocation.cs" />
     <Compile Include="Entities\Geocoding\Response\GeocodingResponse.cs" />
     <Compile Include="Entities\Geocoding\Response\Geometry.cs" />
+    <Compile Include="Entities\Places\Response\Geometry.cs" />
     <Compile Include="Entities\Geocoding\Response\LocationType.cs" />
     <Compile Include="Entities\Geocoding\Response\Result.cs" />
     <Compile Include="Entities\Geocoding\Response\Status.cs" />
     <Compile Include="Entities\Places\Request\PlacesRequest.cs" />
     <Compile Include="Entities\Places\Request\RankBy.cs" />
+    <Compile Include="Entities\Places\Response\Event.cs" />
     <Compile Include="Entities\Places\Response\PlacesResponse.cs" />
     <Compile Include="Entities\Places\Response\Result.cs" />
     <Compile Include="Entities\Places\Response\Status.cs" />
@@ -112,7 +115,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Entities\Directions\The Google Directions API - Google Maps API Web Services - Google Code.htm" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

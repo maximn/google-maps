@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using GoogleMapsApi.Entities.Common;
 
@@ -56,6 +55,18 @@ namespace GoogleMapsApi.Entities.Directions.Request
 		/// (optional, defaults to driving) — specifies what mode of transport to use when calculating directions. Valid values are specified in Travel Modes.
 		/// </summary>
 		public TravelMode TravelMode { get; set; }
+
+        public override bool IsSSL
+        {
+            get
+            {
+                return true;
+            }
+            set
+            {
+                throw new NotSupportedException("This operation is not supported, PlacesRequest must use SSL");
+            }
+        }
 
 		protected override QueryStringParametersList GetQueryStringParameters()
 		{
