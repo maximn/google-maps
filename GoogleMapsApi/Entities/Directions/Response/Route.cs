@@ -31,8 +31,8 @@ namespace GoogleMapsApi.Entities.Directions.Response
         /// <summary>
         /// overview_path contains an object holding an array of encoded points and levels that represent an approximate (smoothed) path of the resulting directions.
         /// </summary>
-				[DataMember(Name = "overview_polyline")]
-        public string[] OverviewPath { get; set; }
+        [DataMember(Name = "overview_polyline")]
+        public OverviewPolyline OverviewPath { get; set; }
 
         /// <summary>
         /// copyrights contains the copyrights text to be displayed for this route. You must handle and display this information yourself.

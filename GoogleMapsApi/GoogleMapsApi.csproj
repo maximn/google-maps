@@ -66,6 +66,7 @@
     <Compile Include="Entities\Directions\Response\Distance.cs" />
     <Compile Include="Entities\Directions\Response\Duration.cs" />
     <Compile Include="Entities\Directions\Response\Leg.cs" />
+    <Compile Include="Entities\Directions\Response\OverviewPolyline.cs" />
     <Compile Include="Entities\Directions\Response\Route.cs" />
     <Compile Include="Entities\Directions\Response\StatusCodes.cs" />
     <Compile Include="Entities\Directions\Response\Step.cs" />
