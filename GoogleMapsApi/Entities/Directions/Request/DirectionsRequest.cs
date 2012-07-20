@@ -64,7 +64,7 @@ namespace GoogleMapsApi.Entities.Directions.Request
             }
             set
             {
-                throw new NotSupportedException("This operation is not supported, PlacesRequest must use SSL");
+                throw new NotSupportedException("This operation is not supported, DirectionsRequest must use SSL");
             }
         }
 
