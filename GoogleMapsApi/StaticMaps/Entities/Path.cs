@@ -7,6 +7,6 @@ namespace GoogleMapsApi.StaticMaps.Entities
 	{
 		public PathStyle Style { get; set; }
 
-		public IList<ILocation> Locations { get; set; }
+		public IList<ILocationString> Locations { get; set; }
 	}
 }

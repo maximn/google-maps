@@ -19,7 +19,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// This parameter takes a location as either a comma-separated {latitude,longitude} pair (e.g. "40.714728,-73.998672") or 
 		/// a string address (e.g. "city hall, new york, ny") identifying a unique location on the face of the earth. 
 		/// </summary>
-		public ILocation Center { get; set; }
+		public ILocationString Center { get; set; }
 		
 		/// <summary>
 		///  (required if markers not present) defines the zoom level of the map, which determines the magnification level of the map. 
@@ -83,7 +83,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// though no markers or other indicators will be displayed. 
 		/// Use this parameter to ensure that certain features or map locations are shown on the static map.
 		/// </summary>
-		public ILocation Visible { get; set; }
+		public ILocationString Visible { get; set; }
 
 		/// <summary>
 		/// (optional) defines a custom style to alter the presentation of a specific feature (road, park, etc.) of the map. 
@@ -100,7 +100,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
 
 		public bool IsSSL { get; set; }
 
-		public StaticMapRequest(ILocation center, int zoom, ImageSize imageSize)
+		public StaticMapRequest(ILocationString center, int zoom, ImageSize imageSize)
 		{
 			Center = center;
 			Zoom = zoom;

@@ -52,7 +52,7 @@ namespace MapsApiTest
 			//Path from previous directions request
 			IEnumerable<Step> steps = directions.Routes.First().Legs.First().Steps;
 			// All start locations
-			IList<ILocation> path = steps.Select(step => step.StartLocation).ToList<ILocation>();
+			IList<ILocationString> path = steps.Select(step => step.StartLocation).ToList<ILocationString>();
 			// also the end location of the last step
 			path.Add(steps.Last().EndLocation);
 

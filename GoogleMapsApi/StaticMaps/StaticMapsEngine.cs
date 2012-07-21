@@ -31,7 +31,7 @@ namespace GoogleMapsApi.StaticMaps
 			
 			if (request.Center != null)
 			{
-				ILocation center = request.Center;
+				ILocationString center = request.Center;
 
 				string centerLocation = center.LocationString;
 

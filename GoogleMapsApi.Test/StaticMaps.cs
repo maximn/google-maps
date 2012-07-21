@@ -27,17 +27,17 @@ namespace GoogleMapsApi.Test
 								new Marker
 									{
 										Style = new MarkerStyle { Color = "blue", Label = "S" },
-										Locations = new List<ILocation> { new Location(40.702147, -74.015794) }
+										Locations = new List<ILocationString> { new Location(40.702147, -74.015794) }
 									},
 								new Marker
 									{
 										Style = new MarkerStyle { Color = "green", Label = "G" },
-										Locations = new List<ILocation> { new Location(40.711614, -74.012318) }
+										Locations = new List<ILocationString> { new Location(40.711614, -74.012318) }
 									},
 								new Marker
 									{
 										Style = new MarkerStyle { Color = "red", Label = "C" },
-										Locations = new List<ILocation> { new Location(40.718217, -73.998284) }
+										Locations = new List<ILocationString> { new Location(40.718217, -73.998284) }
 									}
 							},
 					Sensor = false

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace GoogleMapsApi.Entities.Common
 {
 	[DataContract]
-	public class Location : ILocation
+	public class Location : ILocationString
 	{
 		[DataMember(Name = "lat")]
 		public double Latitude { get; set; }
