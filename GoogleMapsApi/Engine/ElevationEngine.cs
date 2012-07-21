@@ -22,7 +22,7 @@ namespace GoogleMapsApi.Engine
 		{
 			return QueryGoogleAPI(request, DefaultTimeout);
 		}
-		
+
 		public Task<ElevationResponse> GetElevationAsync(ElevationRequest request)
 		{
 			return QueryGoogleAPIAsync(request);

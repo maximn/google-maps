@@ -22,7 +22,7 @@ namespace GoogleMapsApi.Engine
 		{
 			return QueryGoogleAPI(request, DefaultTimeout);
 		}
-		
+
 		public Task<DirectionsResponse> GetDirectionsAsync(DirectionsRequest request)
 		{
 			return QueryGoogleAPIAsync(request);
