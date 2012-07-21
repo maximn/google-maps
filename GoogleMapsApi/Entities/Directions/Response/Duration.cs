@@ -11,7 +11,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 	public class Duration
 	{
 		[DataMember(Name = "value")]
-		public int ValueInSec
+		internal int ValueInSec
 		{
 			get
 			{

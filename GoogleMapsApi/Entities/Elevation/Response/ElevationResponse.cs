@@ -11,7 +11,7 @@ namespace GoogleMapsApi.Entities.Elevation.Response
 	public class ElevationResponse : IResponseFor<ElevationRequest>
 	{
 		[DataMember(Name = "status")]
-		public string StatusStr
+		internal string StatusStr
 		{
 			get
 			{

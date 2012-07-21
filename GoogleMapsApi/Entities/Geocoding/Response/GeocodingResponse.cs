@@ -11,7 +11,7 @@ namespace GoogleMapsApi.Entities.Geocoding.Response
 	public class GeocodingResponse : IResponseFor<GeocodingRequest>
 	{
 		[DataMember(Name = "status")]
-		public string StatusStr
+		internal string StatusStr
 		{
 			get
 			{

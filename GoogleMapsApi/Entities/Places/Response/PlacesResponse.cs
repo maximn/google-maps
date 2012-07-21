@@ -15,7 +15,7 @@ namespace GoogleMapsApi.Entities.Places.Response
         public Status Status { get; set; }
 
 				[DataMember(Name = "status")]
-				public string StatusStr
+				internal string StatusStr
 				{
 					get
 					{

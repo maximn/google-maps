@@ -14,7 +14,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// The encoded string containing the overview path points as they were received.
 		/// </summary>
 		[DataMember(Name = "points")]
-		public string EncodedPoints { get; set; }
+		internal string EncodedPoints { get; set; }
 
 		/// <summary>
 		/// An array of Location objects representing the points in the overview path, decoded from the string contained in the EncodedPoints property.
@@ -64,7 +64,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 			{
 				Points = null;
 			}
-		} 
+		}
 
 	}
 }
