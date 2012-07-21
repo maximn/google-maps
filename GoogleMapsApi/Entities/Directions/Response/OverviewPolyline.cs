@@ -67,5 +67,13 @@ namespace GoogleMapsApi.Entities.Directions.Response
 			}
 		}
 
+		/// <summary>
+		/// The RAW data of points from Google
+		/// </summary>
+		/// <returns></returns>
+		public string GetRawPointsData()
+		{
+			return this.EncodedPoints;
+		}
 	}
 }
