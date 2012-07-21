@@ -1,9 +1,9 @@
 ﻿namespace GoogleMapsApi.Entities.Directions.Request
 {
-    public enum TravelMode
-    {
-        Driving,
-        Walking,
-        Bicycling
-    }
+	public enum TravelMode
+	{
+		Driving,
+		Walking,
+		Bicycling
+	}
 }

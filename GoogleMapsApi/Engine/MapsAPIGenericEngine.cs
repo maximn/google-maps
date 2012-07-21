@@ -85,23 +85,23 @@ namespace GoogleMapsApi.Engine
 
 			var completionSource = new TaskCompletionSource<TResponse>(state);
 			QueryGoogleAPIAsync(request).ContinueWith(t =>
-			                                          	{
-			                                          		if (t.IsFaulted)
-			                                          			completionSource.SetException(t.Exception.InnerException);
-			                                          		else if (t.IsCanceled)
-			                                          			completionSource.SetCanceled();
-			                                          		else
-			                                          			completionSource.SetResult(t.Result);
+														{
+															if (t.IsFaulted)
+																completionSource.SetException(t.Exception.InnerException);
+															else if (t.IsCanceled)
+																completionSource.SetCanceled();
+															else
+																completionSource.SetResult(t.Result);
 
-			                                          		asyncCallback(completionSource.Task);
-			                                          	}, TaskContinuationOptions.ExecuteSynchronously);
+															asyncCallback(completionSource.Task);
+														}, TaskContinuationOptions.ExecuteSynchronously);
 
 			return completionSource.Task;
 		}
 
 		protected static TResponse EndQueryGoogleAPI(IAsyncResult asyncResult)
 		{
-			return ((Task<TResponse>) asyncResult).Result;
+			return ((Task<TResponse>)asyncResult).Result;
 		}
 
 		protected static Task<TResponse> QueryGoogleAPIAsync(TRequest request)
@@ -143,9 +143,9 @@ namespace GoogleMapsApi.Engine
 
 		private static TResponse Deserialize(byte[] serializedObject)
 		{
-			var serializer = new DataContractJsonSerializer(typeof (TResponse));
+			var serializer = new DataContractJsonSerializer(typeof(TResponse));
 			var stream = new MemoryStream(serializedObject, false);
-			return (TResponse) serializer.ReadObject(stream);
+			return (TResponse)serializer.ReadObject(stream);
 		}
 
 		private static bool IndicatesAuthenticationFailed(Exception ex)
@@ -153,8 +153,8 @@ namespace GoogleMapsApi.Engine
 			var webException = ex as WebException;
 
 			return webException != null &&
-			       webException.Status == WebExceptionStatus.ProtocolError &&
-			       ((HttpWebResponse) webException.Response).StatusCode == HttpStatusCode.Forbidden;
+				   webException.Status == WebExceptionStatus.ProtocolError &&
+				   ((HttpWebResponse)webException.Response).StatusCode == HttpStatusCode.Forbidden;
 		}
 	}
 }
