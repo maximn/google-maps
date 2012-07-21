@@ -163,6 +163,23 @@ namespace GoogleMapsApi.Test
 			Assert.AreEqual(8229, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value));
 		}
 
+
+    [Test]
+    public void Directions_Correct_OverviewPath()
+    {
+      DirectionsRequest request = new DirectionsRequest();
+      request.Destination = "maleva 10, Ahtme, Kohtla-Järve, 31025 Ida-Viru County, Estonia";
+      request.Origin = "veski 2, Jõhvi Parish, 41532 Ida-Viru County, Estonia";
+
+      DirectionsResponse result = GoogleMaps.Directions.Query(request);
+
+      var overviewPath = result.Routes.First().OverviewPath;
+
+      Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+      Assert.AreEqual(86, overviewPath.Points.Count());
+    }
+
+
 		[Test]
 		public void DirectionsAsync_SumOfStepDistancesCorrect()
 		{
