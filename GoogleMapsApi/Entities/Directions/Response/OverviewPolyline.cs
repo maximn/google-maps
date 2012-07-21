@@ -22,6 +22,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		public Location[] Points { get; set; }
 
 		// Adapted from http://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
+		// The algorithm explained here - https://developers.google.com/maps/documentation/utilities/polylinealgorithm
 		[OnDeserialized]
 		private void DecodePoints(StreamingContext context)
 		{
