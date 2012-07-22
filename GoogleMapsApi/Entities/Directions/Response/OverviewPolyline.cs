@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using GoogleMapsApi.Entities.Common;
@@ -16,16 +17,37 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		[DataMember(Name = "points")]
 		internal string EncodedPoints { get; set; }
 
+		private Lazy<IEnumerable<Location>> pointsLazy;
+
 		/// <summary>
 		/// An array of Location objects representing the points in the overview path, decoded from the string contained in the EncodedPoints property.
 		/// </summary>
-		public Location[] Points { get; set; }
+		/// <exception cref="PointsDecodingException">Unexpectedly couldn't decode points</exception>
+		public IEnumerable<Location> Points { get { return pointsLazy.Value; } }
+
+		public OverviewPolyline()
+		{
+			InitLazyPoints(default(StreamingContext));
+		}
+
+		//NOTE that the CTOR isn't called when Deserialized so we use the Attribute
+		[OnDeserializing]
+		private void InitLazyPoints(StreamingContext contex)
+		{
+			pointsLazy = new Lazy<IEnumerable<Location>>(DecodePoints);
+		}
 
 		// Adapted from http://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
 		// The algorithm explained here - https://developers.google.com/maps/documentation/utilities/polylinealgorithm
-		[OnDeserialized]
-		private void DecodePoints(StreamingContext context)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		/// <exception cref="PointsDecodingException">Unexpectedly couldn't decode points</exception>
+		private IEnumerable<Location> DecodePoints()
 		{
+			IEnumerable<Location> points;
+
 			try
 			{
 				var poly = new List<Location>();
@@ -59,12 +81,14 @@ namespace GoogleMapsApi.Entities.Directions.Response
 					poly.Add(new Location((int)((lat / 1E5) * 1E6), (int)((lng / 1E5) * 1E6)));
 				}
 
-				Points = poly.ToArray();
+				points = poly.ToArray();
 			}
-			catch
+			catch (Exception ex)
 			{
-				Points = null;
+				throw new PointsDecodingException("Couldn't decode points", EncodedPoints, ex);
 			}
+
+			return points;
 		}
 
 		/// <summary>
