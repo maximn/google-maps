@@ -14,6 +14,11 @@ namespace GoogleMapsApi.Entities.Directions.Request
 			}
 		}
 
+        /// <summary>
+        /// Specifies the unit system to use when displaying results. 
+        /// </summary>
+        public UnitSystems Units { get; set; }
+
 		/// <summary>
 		/// origin (required) — The address or textual latitude/longitude value from which you wish to calculate directions. *
 		/// </summary>

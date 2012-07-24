@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace GoogleMapsApi.Entities.Directions.Response
@@ -45,6 +47,20 @@ namespace GoogleMapsApi.Entities.Directions.Response
         /// </summary>
         [DataMember(Name = "copyrights")]
         public string Copyrights { get; set; }
+
+        /// <summary>
+        /// calculates the time needed for the trip.
+        /// </summary>
+        /// <returns>timespan of time needed for trip.</returns>
+        public TimeSpan TripTime()
+        {
+            if (Legs == null || Legs.Count() == 0)
+                return TimeSpan.Zero;
+            TimeSpan timespan = new TimeSpan();
+
+            return Legs.AsParallel()
+               .Aggregate(timespan, (current, leg) => current + leg.Duration.Value);
+        }
 
         /// <summary>
         /// warnings[] contains an array of warnings to be displayed when showing these directions. You must handle and display these warnings yourself.

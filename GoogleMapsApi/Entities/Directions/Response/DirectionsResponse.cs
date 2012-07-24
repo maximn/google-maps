@@ -36,23 +36,6 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		[DataMember(Name = "routes")]
 		public IEnumerable<Route> Routes { get; set; }
 
-        /// <summary>
-	    /// duration contains the typical time required for total travel time.
-	    /// </summary>
-        public TimeSpan TotalTripTime
-        {
-            get { return _duration.Milliseconds == 0 ? (_duration = GetTotalTripDuration()) : TimeSpan.MinValue; }
-	        set { _duration = value; }
-        }
-        
-        private TimeSpan GetTotalTripDuration()
-	    {
-            TimeSpan timespan = new TimeSpan();
-
-            return Routes.AsParallel().FirstOrDefault().Legs.AsParallel()
-                .Aggregate(timespan, (current, leg) => current + leg.Duration.Value);
-	    }
-
 	    public override string ToString()
 		{
 			return string.Format("DirectionsResponse - Status: {0}, Results count: {1}", Status, Routes != null ? Routes.Count() : 0);
