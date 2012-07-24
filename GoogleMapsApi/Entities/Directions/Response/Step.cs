@@ -16,6 +16,14 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		[DataMember(Name = "html_instructions")]
 		public string HtmlInstructions { get; set; }
 
+
+		/// <summary>
+		/// Contains an object holding an array of encoded points that represent an approximate (smoothed) path of the resulting directions.
+		/// </summary>
+		[DataMember(Name = "polyline")]
+		public OverviewPolyline PolyLine { get; set; }
+
+
 		/// <summary>
 		/// distance contains the distance covered by this step until the next step. (See the discussion of this field in Directions Legs above.) This field may be undefined if the distance is unknown.
 		/// </summary>

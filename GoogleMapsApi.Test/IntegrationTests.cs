@@ -173,10 +173,13 @@ namespace GoogleMapsApi.Test
 
 			DirectionsResponse result = GoogleMaps.Directions.Query(request);
 
-			var overviewPath = result.Routes.First().OverviewPath;
+			OverviewPolyline overviewPath = result.Routes.First().OverviewPath;
+
+			OverviewPolyline polyline = result.Routes.First().Legs.First().Steps.First().PolyLine;
 
 			Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
 			Assert.AreEqual(86, overviewPath.Points.Count());
+			Assert.AreEqual(13, polyline.Points.Count());
 		}
 
 
