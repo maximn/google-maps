@@ -67,19 +67,6 @@ namespace GoogleMapsApi.Entities.Places.Request
 		/// 
 		/// </summary>
 		public string Types { get; set; }
-        
-        [DefaultValue(true)]
-		public override bool IsSSL
-		{
-			get
-			{
-				return true;
-			}
-			set
-			{
-				throw new NotSupportedException("This operation is not supported, PlacesRequest must use SSL");
-			}
-		}
 
 		protected override QueryStringParametersList GetQueryStringParameters()
 		{
