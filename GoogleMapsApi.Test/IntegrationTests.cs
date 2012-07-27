@@ -163,6 +163,21 @@ namespace GoogleMapsApi.Test
 			Assert.AreEqual(8229, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value));
 		}
 
+		[Test]
+		public void Directions_WithWayPoints()
+		{
+			var request = new DirectionsRequest { Origin = "NYC, USA", Destination = "Miami, USA", Waypoints = new string[]{"Philadelphia, USA"}, OptimizeWaypoints = true};
+
+			var result = GoogleMaps.Directions.Query(request);
+
+			if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
+				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+			Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+			Assert.AreEqual(152106, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value));
+
+			StringAssert.Contains("Philadelphia", result.Routes.First().Legs.First().EndAddress);
+		}
+
 
 		[Test]
 		public void Directions_Correct_OverviewPath()

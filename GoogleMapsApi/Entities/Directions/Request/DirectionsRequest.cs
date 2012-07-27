@@ -31,6 +31,12 @@ namespace GoogleMapsApi.Entities.Directions.Request
 		public string[] Waypoints { get; set; }
 
 		/// <summary>
+		/// optimize the provided route by rearranging the waypoints in a more efficient order. (This optimization is an application of the Travelling Salesman Problem.)
+		/// http://en.wikipedia.org/wiki/Travelling_salesman_problem
+		/// </summary>
+		public bool OptimizeWaypoints { get; set; }
+
+		/// <summary>
 		/// alternatives (optional), if set to true, specifies that the Directions service may provide more than one route alternative in the response. Note that providing route alternatives may increase the response time from the server.
 		/// </summary>
 		public bool Alternatives { get; set; }
@@ -83,8 +89,22 @@ namespace GoogleMapsApi.Entities.Directions.Request
 				parameters.Add("language", Language);
 
 			if (Waypoints != null && Waypoints.Any())
-				parameters.Add("waypoints", string.Join("|", Waypoints));
+			{
+				IEnumerable<string> waypoints;
 
+				if (OptimizeWaypoints)
+				{
+					const string optimizeWaypoints = "optimize:true";
+
+					waypoints = new string[]{optimizeWaypoints}.Concat(Waypoints);
+				}
+				else
+				{
+					waypoints = Waypoints;
+				}
+
+				parameters.Add("waypoints", string.Join("|",  waypoints));
+			}
 			return parameters;
 		}
 	}
