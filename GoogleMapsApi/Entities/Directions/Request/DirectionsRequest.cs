@@ -7,6 +7,8 @@ namespace GoogleMapsApi.Entities.Directions.Request
 {
 	public class DirectionsRequest : SignableRequest
 	{
+		private static DateTime _unixDate = new DateTime(1970, 1, 1);
+
 		protected internal override string BaseUrl
 		{
 			get
@@ -24,6 +26,18 @@ namespace GoogleMapsApi.Entities.Directions.Request
 		/// destination (required) — The address or textual latitude/longitude value from which you wish to calculate directions.*
 		/// </summary>
 		public string Destination { get; set; }
+
+		/// <summary>
+		/// The time of departure.
+		/// Required when TravelMode = Transit
+		/// </summary>
+		public DateTime DepartureTime { get; set; }
+
+		/// <summary>
+		/// The time of arrival.
+		/// Required when TravelMode = Transit
+		/// </summary>
+		public DateTime ArrivalTime { get; set; }
 
 		/// <summary>
 		/// waypoints (optional) specifies an array of waypoints. Waypoints alter a route by routing it through the specified location(s). A waypoint is specified as either a latitude/longitude coordinate or as an address which will be geocoded. (For more information on waypoints, see Using Waypoints in Routes below.)
@@ -74,11 +88,14 @@ namespace GoogleMapsApi.Entities.Directions.Request
 			if (!Enum.IsDefined(typeof(TravelMode), TravelMode))
 				throw new ArgumentException("Invalid enumeration value for 'TravelMode'");
 
+			if (TravelMode == TravelMode.Transit && (DepartureTime == default(DateTime) && ArrivalTime == default(DateTime)))
+				throw new ArgumentException("You must set either DepatureTime or ArrivalTime when TravelMode = Transit");
+
 			var parameters = base.GetQueryStringParameters();
 			parameters.Add("origin", Origin);
 			parameters.Add("destination", Destination);
 			parameters.Add("mode", TravelMode.ToString().ToLower());
-			
+
 			if (Alternatives)
 				parameters.Add("alternatives", "true");
 
@@ -96,16 +113,31 @@ namespace GoogleMapsApi.Entities.Directions.Request
 				{
 					const string optimizeWaypoints = "optimize:true";
 
-					waypoints = new string[]{optimizeWaypoints}.Concat(Waypoints);
+					waypoints = new string[] { optimizeWaypoints }.Concat(Waypoints);
 				}
 				else
 				{
 					waypoints = Waypoints;
 				}
 
-				parameters.Add("waypoints", string.Join("|",  waypoints));
+				parameters.Add("waypoints", string.Join("|", waypoints));
 			}
+
+			if (ArrivalTime != default(DateTime))
+				parameters.Add("arrival_time", DateTimeToUnixTimestamp(ArrivalTime).ToString());
+
+			if (DepartureTime != default(DateTime))
+				parameters.Add("departure_time", DateTimeToUnixTimestamp(DepartureTime).ToString());
+
 			return parameters;
+		}
+
+		/// <summary>
+		/// Converts a DateTime to a Unix timestamp
+		/// </summary>
+		private int DateTimeToUnixTimestamp(DateTime dateTime)
+		{
+			return (int)(dateTime - _unixDate.ToLocalTime()).TotalSeconds;
 		}
 	}
 }
