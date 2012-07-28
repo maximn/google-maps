@@ -3,7 +3,6 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.Directions.Response
 {
-
 	/// <summary>
 	/// Each element in the steps array defines a single step of the calculated directions. A step is the most atomic unit of a direction's route, containing a single step describing a specific, single instruction on the journey. E.g. "Turn left at W. 4th St." The step not only describes the instruction but also contains distance and duration information relating to how this step relates to the following step. For example, a step denoted as "Merge onto I-80 West" may contain a duration of "37 miles" and "40 minutes," indicating that the next step is 37 miles/40 minutes from this step.
 	/// </summary>
@@ -16,13 +15,11 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		[DataMember(Name = "html_instructions")]
 		public string HtmlInstructions { get; set; }
 
-
 		/// <summary>
 		/// Contains an object holding an array of encoded points that represent an approximate (smoothed) path of the resulting directions.
 		/// </summary>
 		[DataMember(Name = "polyline")]
 		public OverviewPolyline PolyLine { get; set; }
-
 
 		/// <summary>
 		/// distance contains the distance covered by this step until the next step. (See the discussion of this field in Directions Legs above.) This field may be undefined if the distance is unknown.
@@ -47,5 +44,11 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// </summary>
 		[DataMember(Name = "end_location")]
 		public Location EndLocation { get; set; }
+
+		/// <summary>
+		/// More information about the step. Only avaliable when TravelMode = Transit
+		/// </summary>
+		[DataMember(Name = "transit_details")]
+		public TransitDetails TransitDetails { get; set; }
 	}
 }

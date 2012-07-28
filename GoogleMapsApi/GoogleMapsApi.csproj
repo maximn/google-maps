@@ -65,11 +65,17 @@
     <Compile Include="Entities\Directions\Response\Distance.cs" />
     <Compile Include="Entities\Directions\Response\Duration.cs" />
     <Compile Include="Entities\Directions\Response\Leg.cs" />
+    <Compile Include="Entities\Directions\Response\Line.cs" />
     <Compile Include="Entities\Directions\Response\OverviewPolyline.cs" />
     <Compile Include="Entities\Directions\Response\PointsDecodingException.cs" />
     <Compile Include="Entities\Directions\Response\Route.cs" />
     <Compile Include="Entities\Directions\Response\StatusCodes.cs" />
     <Compile Include="Entities\Directions\Response\Step.cs" />
+    <Compile Include="Entities\Directions\Response\Stop.cs" />
+    <Compile Include="Entities\Directions\Response\TransitAgency.cs" />
+    <Compile Include="Entities\Directions\Response\TransitDetails.cs" />
+    <Compile Include="Entities\Directions\Response\Vehicle.cs" />
+    <Compile Include="Entities\Directions\Response\VehicleType.cs" />
     <Compile Include="Entities\Elevation\Request\ElevationRequest.cs" />
     <Compile Include="Entities\Elevation\Response\ElevationResponse.cs" />
     <Compile Include="Entities\Elevation\Response\Result.cs" />
