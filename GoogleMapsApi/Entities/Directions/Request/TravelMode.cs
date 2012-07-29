@@ -4,6 +4,7 @@
 	{
 		Driving,
 		Walking,
-		Bicycling
+		Bicycling,
+		Transit
 	}
 }
