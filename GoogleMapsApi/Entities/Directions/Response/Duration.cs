@@ -33,5 +33,8 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// </summary>
 		[DataMember(Name = "text")]
 		public string Text { get; set; }
+
+		[DataMember(Name = "time_zone")]
+		public string TimeZone { get; set; }
 	}
 }

@@ -51,5 +51,17 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// </summary>
 		[DataMember(Name = "end_address")]
 		public string EndAddress { get; set; }
+
+		/// <summary>
+		/// The time of arrival. Only avaliable when using TravelMode = Transit
+		/// </summary>
+		[DataMember(Name = "arrival_time")]
+		public Duration ArrivalTime { get; set; }
+
+		/// <summary>
+		/// The time of departure. Only avaliable when using TravelMode = Transit
+		/// </summary>
+		[DataMember(Name = "departure_time")]
+		public Duration DepartureTime { get; set; }
 	}
 }
