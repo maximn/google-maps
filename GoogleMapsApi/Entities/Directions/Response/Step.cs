@@ -50,5 +50,11 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// </summary>
 		[DataMember(Name = "transit_details")]
 		public TransitDetails TransitDetails { get; set; }
+
+		/// <summary>
+		/// Contains detailed directions for walking or driving steps in transit directions. Substeps are only available when TravelMode is set to Transit.
+		/// </summary>
+		[DataMember(Name = "sub_steps")]
+		public Step SubSteps { get; set; }
 	}
 }
