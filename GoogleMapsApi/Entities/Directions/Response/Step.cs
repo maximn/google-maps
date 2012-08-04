@@ -11,8 +11,6 @@ namespace GoogleMapsApi.Entities.Directions.Response
 	[DataContract(Name = "step")]
 	public class Step
 	{
-		private TravelMode _travelMode;
-
 		/// <summary>
 		/// html_instructions contains formatted instructions for this step, presented as an HTML text string.
 		/// </summary>
@@ -64,11 +62,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// <summary>
 		/// Gets the mode of transportation used in this step
 		/// </summary>
-		public TravelMode TravelMode
-		{
-			get { return _travelMode; }
-			set { _travelMode = value; }
-		}
+		public TravelMode TravelMode { get; set; }
 
 		/// <summary>
 		/// Gets the mode of transportation used in this step
@@ -77,7 +71,14 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		internal string TravelModeString
 		{
 			get { return TravelMode.ToString(); }
-			set { Enum.TryParse(value, true, out _travelMode); }
+			set
+			{
+				TravelMode travelMode;
+				if (Enum.TryParse(value, true, out travelMode))
+				{
+					TravelMode = travelMode;
+				}
+			}
 		}
 	}
 }
