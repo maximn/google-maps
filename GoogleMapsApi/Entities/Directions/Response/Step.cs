@@ -74,7 +74,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// Gets the mode of transportation used in this step
 		/// </summary>
 		[DataMember(Name = "travel_mode")]
-		public string TravelModeString
+		internal string TravelModeString
 		{
 			get { return TravelMode.ToString(); }
 			set { Enum.TryParse(value, true, out _travelMode); }
