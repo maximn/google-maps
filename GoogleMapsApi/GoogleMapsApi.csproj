@@ -89,6 +89,10 @@
     <Compile Include="Entities\Geocoding\Response\LocationType.cs" />
     <Compile Include="Entities\Geocoding\Response\Result.cs" />
     <Compile Include="Entities\Geocoding\Response\Status.cs" />
+    <Compile Include="Entities\PlacesText\Request\PlacesTextRequest.cs" />
+    <Compile Include="Entities\PlacesText\Response\PlacesTextResponse.cs" />
+    <Compile Include="Entities\PlacesText\Response\Result.cs" />
+    <Compile Include="Entities\PlacesText\Response\Status.cs" />
     <Compile Include="Entities\Places\Request\PlacesRequest.cs" />
     <Compile Include="Entities\Places\Request\RankBy.cs" />
     <Compile Include="Entities\Places\Response\PlacesResponse.cs" />
