@@ -14,6 +14,8 @@ using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
 using GoogleMapsApi.Entities.Places.Request;
 using GoogleMapsApi.Entities.Places.Response;
+using GoogleMapsApi.Entities.PlacesDetails.Request;
+using GoogleMapsApi.Entities.PlacesDetails.Response;
 using GoogleMapsApi.Entities.PlacesText.Request;
 using GoogleMapsApi.Entities.PlacesText.Response;
 
@@ -61,6 +63,15 @@ namespace GoogleMapsApi
             get
             {
                 return EngineFacade<PlacesTextRequest, PlacesTextResponse>.Instance;
+            }
+        }
+
+        /// <summary>Perform places details  operations.</summary>
+        public static EngineFacade<PlacesDetailsRequest, PlacesDetailsResponse> PlacesDetails
+        {
+            get
+            {
+                return EngineFacade<PlacesDetailsRequest, PlacesDetailsResponse>.Instance;
             }
         }
 	}
