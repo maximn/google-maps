@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net;
+using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using GoogleMapsApi.Engine;
@@ -131,14 +130,16 @@ namespace GoogleMapsApi
 		/// <param name="request">The request that will be sent.</param>
 		/// <returns>The response that was received.</returns>
 		/// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
-		/// <exception cref="AggregateException">Thrown when an exception occurs during the operation. See the AggregateException's InnerException for more details.</exception>
+		/// <exception cref="AuthenticationException">Thrown when the provided Google client ID or signing key are invalid.</exception>
+		/// <exception cref="TimeoutException">Thrown when the operation has exceeded the allotted time.</exception>
+		/// <exception cref="WebException">Thrown when an error occurred while downloading data.</exception>
 		public TResponse Query(TRequest request)
 		{
 			return Query(request, MapsAPIGenericEngine<TRequest, TResponse>.DefaultTimeout);
 		}
 
 		/// <summary>
-		/// Query the Google Maps API using the provided request.
+		/// Query the Google Maps API using the provided request and timeout period.
 		/// </summary>
 		/// <param name="request">The request that will be sent.</param>
 		/// <param name="timeout">A TimeSpan specifying the amount of time to wait for a response before aborting the request.
@@ -146,7 +147,9 @@ namespace GoogleMapsApi
 		/// When a request is aborted due to a timeout an AggregateException will be thrown with an InnerException of type TimeoutException.</param>
 		/// <returns>The response that was received.</returns>
 		/// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
-		/// <exception cref="AggregateException">Thrown when an exception occurs during the operation. See the AggregateException's InnerException for more details.</exception>
+		/// <exception cref="AuthenticationException">Thrown when the provided Google client ID or signing key are invalid.</exception>
+		/// <exception cref="TimeoutException">Thrown when the operation has exceeded the allotted time.</exception>
+		/// <exception cref="WebException">Thrown when an error occurred while downloading data.</exception>
 		public TResponse Query(TRequest request, TimeSpan timeout)
 		{
 			return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPI(request, timeout);
