@@ -17,6 +17,8 @@ using GoogleMapsApi.Entities.PlacesDetails.Request;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
 using GoogleMapsApi.Entities.PlacesText.Request;
 using GoogleMapsApi.Entities.PlacesText.Response;
+using GoogleMapsApi.Entities.TimeZone.Request;
+using GoogleMapsApi.Entities.TimeZone.Response;
 
 namespace GoogleMapsApi
 {
@@ -62,6 +64,15 @@ namespace GoogleMapsApi
             get
             {
                 return EngineFacade<PlacesTextRequest, PlacesTextResponse>.Instance;
+            }
+        }
+
+        /// <summary>Perform places text search operations.</summary>
+        public static EngineFacade<TimeZoneRequest, TimeZoneResponse> TimeZone
+        {
+            get
+            {
+                return EngineFacade<TimeZoneRequest, TimeZoneResponse>.Instance;
             }
         }
 
