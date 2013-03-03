@@ -11,8 +11,10 @@ using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.Elevation.Request;
 using GoogleMapsApi.Entities.Geocoding.Request;
-using GoogleMapsApi.Entities.Geocoding.Response;
+using GoogleMapsApi.Entities.TimeZone.Request;
+using GoogleMapsApi.Entities.TimeZone.Response;
 using NUnit.Framework;
+using Status = GoogleMapsApi.Entities.Geocoding.Response.Status;
 
 /////////////////////////////////////////////////////////////////////////
 //
@@ -178,7 +180,6 @@ namespace GoogleMapsApi.Test
 			StringAssert.Contains("Philadelphia", result.Routes.First().Legs.First().EndAddress);
 		}
 
-
 		[Test]
 		public void Directions_Correct_OverviewPath()
 		{
@@ -196,7 +197,6 @@ namespace GoogleMapsApi.Test
 			Assert.AreEqual(86, overviewPath.Points.Count());
 			Assert.AreEqual(13, polyline.Points.Count());
 		}
-
 
 		[Test]
 		public void DirectionsAsync_SumOfStepDistancesCorrect()
@@ -236,7 +236,19 @@ namespace GoogleMapsApi.Test
 			Assert.AreEqual(Entities.Elevation.Response.Status.OK, result.Status);
 			Assert.AreEqual(14.782454490661619, result.Results.First().Elevation);
 		}
-	}
+
+        [Test]
+        public void TimeZone_Correct_OverviewPath()
+        {
+            TimeZoneRequest request = new TimeZoneRequest();
+            request.Location = new Location(55.866413, 12.501063);
+            request.Language = "en";
+
+            TimeZoneResponse result = GoogleMaps.TimeZone.Query(request);
+
+            Assert.AreEqual(GoogleMapsApi.Entities.TimeZone.Response.Status.OK, result.Status);
+        }
+    }
 
 	static class Utils
 	{

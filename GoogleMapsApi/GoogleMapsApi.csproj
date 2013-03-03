@@ -105,6 +105,9 @@
     <Compile Include="Entities\Places\Response\PlacesResponse.cs" />
     <Compile Include="Entities\Places\Response\Result.cs" />
     <Compile Include="Entities\Places\Response\Status.cs" />
+    <Compile Include="Entities\TimeZone\Request\TimeZoneRequest.cs" />
+    <Compile Include="Entities\TimeZone\Response\Status.cs" />
+    <Compile Include="Entities\TimeZone\Response\TimeZoneResponse.cs" />
     <Compile Include="GoogleMaps.cs" />
     <Compile Include="MapsAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
