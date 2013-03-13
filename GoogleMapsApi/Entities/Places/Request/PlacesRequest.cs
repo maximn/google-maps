@@ -99,7 +99,7 @@ namespace GoogleMapsApi.Entities.Places.Request
 			if (Radius.HasValue)
 				parameters.Add("radius", Radius.Value.ToString(CultureInfo.InvariantCulture));
 			if (!string.IsNullOrWhiteSpace(Keyword))
-				parameters.Add("radius", Keyword);
+                parameters.Add("keyword", Keyword);
 			if (!string.IsNullOrWhiteSpace(Language))
 				parameters.Add("language", Language);
 			if (!string.IsNullOrWhiteSpace(Types))
