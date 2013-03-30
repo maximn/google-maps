@@ -86,7 +86,8 @@ namespace GoogleMapsApi
 
 			if (timeout != InfiniteTimeout)
 			{
-				TaskEx.Delay(timeout, delayTokenSource.Token).ContinueWith(t =>
+                
+				Task.Factory.Delay(timeout, delayTokenSource.Token).ContinueWith(t =>
 					{
 						tcs.TrySetException(new TimeoutException(string.Format("The request has exceeded the timeout limit of {0} and has been aborted.", timeout)));
 						client.CancelAsync();

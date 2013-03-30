@@ -33,9 +33,6 @@
     <DocumentationFile>bin\Release\GoogleMapsApi.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net4">
-      <HintPath>..\packages\Microsoft.CompilerServices.AsyncTargetingPack.1.0.0\lib\net40\Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -127,10 +124,11 @@
     <Compile Include="StaticMaps\Enums\MapVisibility.cs" />
     <Compile Include="StaticMaps\Enums\MarkerSize.cs" />
     <Compile Include="StaticMaps\StaticMapsEngine.cs" />
-    <Compile Include="WebClientExtensionMethods.cs" />
+    <Compile Include="TaskFactoryExtensions.cs" />
     <Compile Include="WebClientEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WebClientExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
