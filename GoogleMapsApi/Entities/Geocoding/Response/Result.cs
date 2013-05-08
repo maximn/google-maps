@@ -28,7 +28,7 @@ namespace GoogleMapsApi.Entities.Geocoding.Response
 		public IEnumerable<AddressComponent> AddressComponents { get; set; }
 
 		/// <summary>
-		/// geometry contains the following i
+		/// geometry contains information such as latitude, longitude, location_type, viewport, bounds
 		/// </summary>
 		[DataMember(Name = "geometry")]
 		public Geometry Geometry { get; set; }
