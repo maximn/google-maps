@@ -2,7 +2,7 @@ using System;
 
 namespace GoogleMapsApi.Entities.Common
 {
-	public class AddressLocation : ILocation
+	public class AddressLocation : ILocationString
 	{
 		public string Address { get; private set; }
 

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.Directions.Request;
 
 namespace GoogleMapsApi.Entities.Directions.Response
 {
 	[DataContract(Name = "DirectionsResponse")]
-	public class DirectionsResponse
+	public class DirectionsResponse : IResponseFor<DirectionsRequest>
 	{
 		[DataMember(Name = "status")]
 		public string StatusStr

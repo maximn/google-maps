@@ -27,27 +27,27 @@ namespace GoogleMapsApi.StaticMaps
 		{
 			string scheme = request.IsSSL ? "https://" : "http://";
 
-			List<KeyValuePair<string, string>> parametersList = new List<KeyValuePair<string, string>>();
+			var parametersList = new QueryStringParametersList();
 			
 			if (request.Center != null)
 			{
-				ILocation center = request.Center;
+				ILocationString center = request.Center;
 
 				string centerLocation = center.LocationString;
 
-				parametersList.Add(new KeyValuePair<string, string>("center", centerLocation));
+				parametersList.Add("center", centerLocation);
 			}
 
 			if (request.Zoom != default(int))
 			{
-				parametersList.Add(new KeyValuePair<string, string>("zoom", request.Zoom.ToString()));
+				parametersList.Add("zoom", request.Zoom.ToString());
 			}
 
 			if (request.Size.Width != default(int) || request.Size.Height != default(int))
 			{
 				ImageSize imageSize = request.Size;
 
-				parametersList.Add(new KeyValuePair<string, string>("size", string.Format("{0}x{1}", imageSize.Width, imageSize.Height)));
+				parametersList.Add("size", string.Format("{0}x{1}", imageSize.Width, imageSize.Height));
 			}
 			else
 			{
@@ -73,13 +73,13 @@ namespace GoogleMapsApi.StaticMaps
 						format = "jpg";
 						break;
 					case ImageFormat.JPG_baseline:
-						format = "jpg-baselin";
+						format = "jpg-baseline";
 						break;
 					default:
 						throw new ArgumentOutOfRangeException("ImageFormat");
 				}
 
-				parametersList.Add(new KeyValuePair<string, string>("format", format));
+				parametersList.Add("format", format);
 			}
 
 			if (request.MapType != null)
@@ -104,14 +104,14 @@ namespace GoogleMapsApi.StaticMaps
 						throw new ArgumentOutOfRangeException("MapType");
 				}
 
-				parametersList.Add(new KeyValuePair<string, string>("maptype", type));
+				parametersList.Add("maptype", type);
 			}
 
 			if (request.Style != null)
 			{
 				MapStyle style = request.Style;
 
-				List<string> styleComponents = new List<string>();
+				var styleComponents = new List<string>();
 
 				if (style.MapFeature != default(MapFeature))
 				{
@@ -212,7 +212,7 @@ namespace GoogleMapsApi.StaticMaps
 					styleComponents.Add("visibility:" + visibility);
 				}
 
-				parametersList.Add(new KeyValuePair<string, string>("style", string.Join("|", styleComponents)));
+				parametersList.Add("style", string.Join("|", styleComponents));
 			}
 
 			IList<Marker> markers = request.Markers;
@@ -221,7 +221,7 @@ namespace GoogleMapsApi.StaticMaps
 			{
 				foreach (Marker marker in markers)
 				{
-					List<string> markerStyleParams = new List<string>();
+					var markerStyleParams = new List<string>();
 
 					MarkerStyle markerStyle = marker.Style;
 					if (markerStyle != null)
@@ -259,11 +259,9 @@ namespace GoogleMapsApi.StaticMaps
 
 					string styleString = string.Join("|", markerStyleParams);
 
-					string locations = string.Join("|",
-																				 marker.Locations.Select(
-																					location => location.LocationString));
+					string locations = string.Join("|", marker.Locations.Select(location => location.LocationString));
 
-					parametersList.Add(new KeyValuePair<string, string>("markers", string.Format("{0}|{1}", styleString, locations)));
+					parametersList.Add("markers", string.Format("{0}|{1}", styleString, locations));
 				}
 			}
 
@@ -273,7 +271,7 @@ namespace GoogleMapsApi.StaticMaps
 			{
 				foreach (Path path in pathes)
 				{
-					List<string> pathStyleParams = new List<string>();
+					var pathStyleParams = new List<string>();
 
 					PathStyle pathStyle = path.Style;
 
@@ -299,40 +297,15 @@ namespace GoogleMapsApi.StaticMaps
 
 					string styleString = string.Join("|", pathStyleParams);
 
-					string locations = string.Join("|",
-																				 path.Locations.Select(
-																					location => location.LocationString));
+					string locations = string.Join("|", path.Locations.Select(location => location.LocationString));
 
-					parametersList.Add(new KeyValuePair<string, string>("path", string.Format("{0}|{1}", styleString, locations)));
+					parametersList.Add("path", string.Format("{0}|{1}", styleString, locations));
 				}
 			}
 
+			parametersList.Add("sensor", request.Sensor ? "true" : "false");
 
-			parametersList.Add(new KeyValuePair<string, string>("sensor", request.Sensor ? "true" : "false"));
-
-			
-
-			string url = scheme + BaseUrl + "?" + ToQueryString(parametersList);
-
-			return url;
-		}
-
-		/// <summary>
-		/// Returns a query string from NameValueCollection
-		/// </summary>
-		/// <param name="nvc"></param>
-		/// <returns></returns>
-		private string ToQueryString(IList<KeyValuePair<string, string>> queryStringParams)
-		{
-			return string.Join("&",
-												 Array.ConvertAll(queryStringParams.ToArray(),
-																					item => string.Format("{0}={1}", item.Key, EncodeForGoogleMaps(item.Value))));
-
-		}
-
-		private string EncodeForGoogleMaps(string value)
-		{
-			return value.Replace("|", "%7C").Replace(' ', '+');
+			return scheme + BaseUrl + "?" + parametersList.GetQueryStringPostfix();
 		}
 	}
 }

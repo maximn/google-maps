@@ -1,9 +1,20 @@
-﻿using GoogleMapsApi.Entities.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.Geocoding.Request
 {
-	public class GeocodingRequest : MapsBaseRequest
+	public class GeocodingRequest : SignableRequest
 	{
+		protected internal override string BaseUrl
+		{
+			get
+			{
+				return base.BaseUrl + "geocode/";
+			}
+		}
+
 		/// <summary>
 		/// address (required) — The address that you want to geocode.*
 		/// </summary>
@@ -31,5 +42,29 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
 		/// language (optional) — The language in which to return results. See the supported list of domain languages. Note that we often update supported languages so this list may not be exhaustive. If language is not supplied, the geocoder will attempt to use the native language of the domain from which the request is sent wherever possible.
 		/// </summary>
 		public string Language { get; set; }
+
+		protected override QueryStringParametersList GetQueryStringParameters()
+		{
+			if (Location == null && string.IsNullOrWhiteSpace(Address))
+				throw new ArgumentException("Location OR Address is required");
+
+			var parameters = base.GetQueryStringParameters();
+
+			if (Location != null)
+				parameters.Add("latlng", Location.ToString());
+			else
+				parameters.Add("address", Address);
+
+			if (Bounds != null && Bounds.Any())
+				parameters.Add("bounds", string.Join("|", Bounds.AsEnumerable()));
+
+			if (!string.IsNullOrWhiteSpace(Region))
+				parameters.Add("region", Region);
+
+			if (!string.IsNullOrWhiteSpace(Language))
+				parameters.Add("language", Language);
+
+			return parameters;
+		}
 	}
 }

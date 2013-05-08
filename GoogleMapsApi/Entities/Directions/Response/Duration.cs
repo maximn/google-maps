@@ -11,7 +11,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 	public class Duration
 	{
 		[DataMember(Name = "value")]
-		public int ValueInSec
+		internal int ValueInSec
 		{
 			get
 			{
@@ -33,5 +33,8 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// </summary>
 		[DataMember(Name = "text")]
 		public string Text { get; set; }
+
+		[DataMember(Name = "time_zone")]
+		public string TimeZone { get; set; }
 	}
 }

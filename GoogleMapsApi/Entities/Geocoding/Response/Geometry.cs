@@ -32,7 +32,7 @@ namespace GoogleMapsApi.Entities.Geocoding.Response
 
 
 		[DataMember(Name = "location_type")]
-		public string LocationTypeStr
+		internal string LocationTypeStr
 		{
 			get
 			{
