@@ -98,6 +98,7 @@
     <Compile Include="Entities\PlacesDetails\Response\Result.cs" />
     <Compile Include="Entities\PlacesDetails\Response\Status.cs" />
     <Compile Include="Entities\PlacesText\Request\PlacesTextRequest.cs" />
+    <Compile Include="Entities\PlacesText\Response\Geometry.cs" />
     <Compile Include="Entities\PlacesText\Response\PlacesTextResponse.cs" />
     <Compile Include="Entities\PlacesText\Response\Result.cs" />
     <Compile Include="Entities\PlacesText\Response\Status.cs" />
