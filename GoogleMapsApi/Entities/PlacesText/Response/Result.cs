@@ -28,5 +28,8 @@ namespace GoogleMapsApi.Entities.PlacesText.Response
 
         [DataMember(Name = "types")]
         public string[] Types { get; set; }
+
+        [DataMember(Name = "geometry")]
+        public Geometry Geometry { get; set; }
     }
 }
