@@ -38,7 +38,7 @@ namespace GoogleMapsApi.Entities.PlacesText.Request
             parameters.Add("query", Query);
             parameters.Add("key", ApiKey);
 
-            if (Location != null) parameters.Add("locaiton", Location.ToString());
+            if (Location != null) parameters.Add("location", Location.ToString());
             if (Radius != null) parameters.Add("radius", Radius.Value.ToString(CultureInfo.InvariantCulture));
             if (!string.IsNullOrWhiteSpace(Language)) parameters.Add("language", Language);
             if (!string.IsNullOrWhiteSpace(Types)) parameters.Add("types", Types);
