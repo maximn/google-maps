@@ -38,6 +38,9 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
+        [DataMember(Name = "price_level")]
+        public double PriceLevel { get; set; }
+
         [DataMember(Name = "rating")]
         public double Rating { get; set; }
 
@@ -53,8 +56,13 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         [DataMember(Name = "url")]
         public string URL { get; set; }
 
+        [DataMember(Name = "utc_offset")]
+        public string UTCOffset { get; set; }
+
         [DataMember(Name = "vicinity")]
         public string Vicinity { get; set; }
 
+        [DataMember(Name = "website")]
+        public string Website { get; set; }
     }
 }
