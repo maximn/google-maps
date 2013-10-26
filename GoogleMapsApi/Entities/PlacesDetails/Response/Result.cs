@@ -39,6 +39,9 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
+        [DataMember(Name = "opening_hours")]
+        public OpeningHours OpeningHours { get; set; }
+
         public PriceLevel? PriceLevel;
 
         [DataMember(Name = "price_level")]
