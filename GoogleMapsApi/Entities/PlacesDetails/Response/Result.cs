@@ -23,6 +23,9 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         [DataMember(Name = "formatted_phone_number")]
         public string FormattedPhoneNumber { get; set; }
 
+        [DataMember(Name = "geometry")]
+        public Geometry Geometry { get; set; }
+
         [DataMember(Name = "icon")]
         public string Icon { get; set; }
 
@@ -44,16 +47,14 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         [DataMember(Name = "reviews")]
         public IEnumerable<Review> Review { get; set; }
 
+        [DataMember(Name = "types")]
+        public string[] Types { get; set; }
+
         [DataMember(Name = "url")]
         public string URL { get; set; }
 
         [DataMember(Name = "vicinity")]
         public string Vicinity { get; set; }
 
-        [DataMember(Name = "types")]
-        public string[] Types { get; set; }
-
-        [DataMember(Name = "geometry")]
-        public Geometry Geometry { get; set; }
     }
 }
