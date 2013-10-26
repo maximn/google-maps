@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Globalization;
+using System.Runtime.Serialization;
 using System.Collections.Generic;
 
 namespace GoogleMapsApi.Entities.PlacesDetails.Response
@@ -38,8 +39,26 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
+        public PriceLevel? PriceLevel;
+
         [DataMember(Name = "price_level")]
-        public double PriceLevel { get; set; }
+        internal string string_PriceLevel
+        {
+            get { return PriceLevel.HasValue ? ((int) PriceLevel).ToString(CultureInfo.InvariantCulture) : null; }
+            set
+            {
+                if (value == null)
+                    PriceLevel = null;
+                else
+                {
+                    int priceLevelInt;
+                    if (int.TryParse(value, out priceLevelInt))
+                        PriceLevel = (PriceLevel) priceLevelInt;
+                    else
+                        PriceLevel = null;
+                }
+            }
+        }
 
         [DataMember(Name = "rating")]
         public double Rating { get; set; }
@@ -64,5 +83,14 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
 
         [DataMember(Name = "website")]
         public string Website { get; set; }
+    }
+
+    public enum PriceLevel
+    {
+        Free = 0,
+        Inexpensive = 1,
+        Moderate = 2,
+        Expensive = 3,
+        VeryExpensive = 4,
     }
 }
