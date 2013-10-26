@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.PlacesDetails.Request;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
@@ -27,6 +28,30 @@ namespace GoogleMapsApi.Test
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(Status.OK, result.Status);
             Assert.AreEqual(PriceLevel.Moderate, result.Result.PriceLevel);
+        }
+
+        [Test]
+        public void ReturnsOpeningTimes()
+        {
+            if (ApiKey == "") Assert.Inconclusive("API key not specified");
+            var request = new PlacesDetailsRequest
+            {
+                ApiKey = ApiKey,
+                Reference = GetMyPlaceReference(),
+            };
+
+            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
+
+            if (result.Status == Status.OVER_QUERY_LIMIT)
+                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            Assert.AreEqual(Status.OK, result.Status);
+            Assert.AreEqual(7, result.Result.OpeningHours.Periods.Count());
+            var sundayPeriod = result.Result.OpeningHours.Periods.First();
+            Assert.That(sundayPeriod.OpenTime.Day, Is.EqualTo(DayOfWeek.Sunday));
+            Assert.That(sundayPeriod.OpenTime.Time, Is.GreaterThanOrEqualTo(0));
+            Assert.That(sundayPeriod.OpenTime.Time, Is.LessThanOrEqualTo(2359));
+            Assert.That(sundayPeriod.CloseTime.Time, Is.GreaterThanOrEqualTo(0));
+            Assert.That(sundayPeriod.CloseTime.Time, Is.LessThanOrEqualTo(2359));
         }
 
         private string cachedMyPlaceReference;
