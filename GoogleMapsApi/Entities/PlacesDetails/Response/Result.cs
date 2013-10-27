@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Globalization;
+using System.Runtime.Serialization;
 using System.Collections.Generic;
 
 namespace GoogleMapsApi.Entities.PlacesDetails.Response
@@ -23,6 +24,9 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         [DataMember(Name = "formatted_phone_number")]
         public string FormattedPhoneNumber { get; set; }
 
+        [DataMember(Name = "geometry")]
+        public Geometry Geometry { get; set; }
+
         [DataMember(Name = "icon")]
         public string Icon { get; set; }
 
@@ -35,6 +39,30 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
+        [DataMember(Name = "opening_hours")]
+        public OpeningHours OpeningHours { get; set; }
+
+        public PriceLevel? PriceLevel;
+
+        [DataMember(Name = "price_level")]
+        internal string string_PriceLevel
+        {
+            get { return PriceLevel.HasValue ? ((int) PriceLevel).ToString(CultureInfo.InvariantCulture) : null; }
+            set
+            {
+                if (value == null)
+                    PriceLevel = null;
+                else
+                {
+                    int priceLevelInt;
+                    if (int.TryParse(value, out priceLevelInt))
+                        PriceLevel = (PriceLevel) priceLevelInt;
+                    else
+                        PriceLevel = null;
+                }
+            }
+        }
+
         [DataMember(Name = "rating")]
         public double Rating { get; set; }
 
@@ -44,16 +72,28 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         [DataMember(Name = "reviews")]
         public IEnumerable<Review> Review { get; set; }
 
+        [DataMember(Name = "types")]
+        public string[] Types { get; set; }
+
         [DataMember(Name = "url")]
         public string URL { get; set; }
+
+        [DataMember(Name = "utc_offset")]
+        public string UTCOffset { get; set; }
 
         [DataMember(Name = "vicinity")]
         public string Vicinity { get; set; }
 
-        [DataMember(Name = "types")]
-        public string[] Types { get; set; }
+        [DataMember(Name = "website")]
+        public string Website { get; set; }
+    }
 
-        [DataMember(Name = "geometry")]
-        public Geometry Geometry { get; set; }
+    public enum PriceLevel
+    {
+        Free = 0,
+        Inexpensive = 1,
+        Moderate = 2,
+        Expensive = 3,
+        VeryExpensive = 4,
     }
 }
