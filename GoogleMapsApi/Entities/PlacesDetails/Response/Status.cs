@@ -5,19 +5,46 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
     [DataContract]
     public enum Status
     {
+        /// <summary>
+        /// Indicates that no errors occurred; the place was successfully detected and at least one result was returned.
+        /// </summary>
         [EnumMember(Value = "OK")]
-        OK, // indicates that no errors occurred; the place was successfully detected and at least one result was returned.
+        OK,
+
+        /// <summary>
+        /// Indicates a server-side error; trying again may be successful.
+        /// </summary>
         [EnumMember(Value = "UNKNOWN_ERROR")]
-        UNKNOWN_ERROR, // indicates a server-side error; trying again may be successful.
+        UNKNOWN_ERROR,
+
+        /// <summary>
+        /// Indicates that the search was successful but returned no results. This may occur if the search was passed a latlng in a remote location.
+        /// </summary>
         [EnumMember(Value = "ZERO_RESULTS")]
-        ZERO_RESULTS, // indicates that the search was successful but returned no results. This may occur if the search was passed a latlng in a remote location.
+        ZERO_RESULTS,
+
+        /// <summary>
+        /// Indicates that you are over your quota.
+        /// </summary>
         [EnumMember(Value = "OVER_QUERY_LIMIT")]
-        OVER_QUERY_LIMIT, // indicates that you are over your quota.
+        OVER_QUERY_LIMIT,
+
+        /// <summary>
+        /// Indicates that your request was denied, generally because of lack of a sensor parameter.
+        /// </summary>
         [EnumMember(Value = "REQUEST_DENIED")]
-        REQUEST_DENIED, // indicates that your request was denied, generally because of lack of a sensor parameter.
+        REQUEST_DENIED,
+
+        /// <summary>
+        /// Generally indicates that the query parameter (location or radius) is missing.
+        /// </summary>
         [EnumMember(Value = "INVALID_REQUEST")]
-        INVALID_REQUEST, // generally indicates that the query parameter (location or radius) is missing.
+        INVALID_REQUEST,
+
+        /// <summary>
+        /// Indicates that the referenced location was not found in the Places database.
+        /// </summary>
         [EnumMember(Value = "NOT_FOUND")]
-        NOT_FOUND // indicates that the referenced location was not found in the Places database.
+        NOT_FOUND,
     }
 }
