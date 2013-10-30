@@ -13,6 +13,24 @@ namespace GoogleMapsApi.Test
         public string ApiKey = ""; // your API key goes here...
 
         [Test]
+        public void ReturnsNotFoundForWrongReferenceString()
+        {
+            if (ApiKey == "") Assert.Inconclusive("API key not specified");
+            var request = new PlacesDetailsRequest
+            {
+                ApiKey = ApiKey,
+                // Needs to be a correct looking reference. 1 character too short or long and google will return INVALID_REQUEST instead.
+                Reference = "CnRqAAAAvs_8564VF4xq2St_9P-YaCYEep2qa86WfWBcBL6q-264bgWE3vWD1zI5kIcWVOA6r9XA2vOfOKZ3uEMs_FQNQZGpTGxyaaq5aTF8XJD36ZcYMbmPuTP00jVEXBPlEmnUxUuHHbxzDd_7fZwxABkPIhIQ4IypqCmBf4WOCXSnT9jiIRoUi8iVFfW6-txsNpGCFurUqA-qHos"
+            };
+
+            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
+
+            if (result.Status == Status.OVER_QUERY_LIMIT)
+                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            Assert.AreEqual(Status.NOT_FOUND, result.Status);
+        }
+
+        [Test]
         public void ReturnsStronglyTypedPriceLevel()
         {
             if (ApiKey == "") Assert.Inconclusive("API key not specified");
