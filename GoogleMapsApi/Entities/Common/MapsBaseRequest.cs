@@ -41,7 +41,7 @@ namespace GoogleMapsApi.Entities.Common
 		{
 			get
 			{
-				return "maps.google.com/maps/api/";
+				return "maps.googleapis.com/maps/api/js/";
 			}
 		}
 
