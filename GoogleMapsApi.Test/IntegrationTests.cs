@@ -136,7 +136,7 @@ namespace GoogleMapsApi.Test
 			if (result.Status == Status.OVER_QUERY_LIMIT)
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
 			Assert.AreEqual(Status.OK, result.Status);
-            Assert.AreEqual("285 Bedford Avenue, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
+            Assert.AreEqual("287 Bedford Avenue, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
 		}
 
 		[Test]
@@ -149,7 +149,7 @@ namespace GoogleMapsApi.Test
 			if (result.Status == Status.OVER_QUERY_LIMIT)
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
 			Assert.AreEqual(Status.OK, result.Status);
-            Assert.AreEqual("285 Bedford Avenue, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
+            Assert.AreEqual("287 Bedford Avenue, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
 		}
 
 		[Test]
@@ -162,7 +162,7 @@ namespace GoogleMapsApi.Test
 			if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
 			Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
-            Assert.AreEqual(5284, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value));
+            Assert.AreEqual(7284, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 2000);
 		}
 
 		[Test]
@@ -175,7 +175,7 @@ namespace GoogleMapsApi.Test
 			if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
 			Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
-            Assert.AreEqual(156097, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value));
+            Assert.AreEqual(156097, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 10 * 1000);
 
 			StringAssert.Contains("Philadelphia", result.Routes.First().Legs.First().EndAddress);
 		}
@@ -194,7 +194,7 @@ namespace GoogleMapsApi.Test
 			OverviewPolyline polyline = result.Routes.First().Legs.First().Steps.First().PolyLine;
 
 			Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
-			Assert.AreEqual(122, overviewPath.Points.Count());
+			Assert.AreEqual(122, overviewPath.Points.Count(), 30);
 			Assert.AreEqual(2, polyline.Points.Count());
 		}
 
@@ -208,7 +208,7 @@ namespace GoogleMapsApi.Test
 			if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
 			Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
-            Assert.AreEqual(5284, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value));
+            Assert.AreEqual(7284, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 2000);
 		}
 
 		[Test]
