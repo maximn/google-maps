@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PlaceAutocompleteTests.cs" />
     <Compile Include="PlacesDetailsTests.cs" />
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="PlacesTextTests.cs" />

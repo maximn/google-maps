@@ -17,6 +17,8 @@ using GoogleMapsApi.Entities.PlacesDetails.Request;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
 using GoogleMapsApi.Entities.PlacesText.Request;
 using GoogleMapsApi.Entities.PlacesText.Response;
+using GoogleMapsApi.Entities.PlaceAutocomplete.Request;
+using GoogleMapsApi.Entities.PlaceAutocomplete.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
 
@@ -82,6 +84,15 @@ namespace GoogleMapsApi
             get
             {
                 return EngineFacade<PlacesDetailsRequest, PlacesDetailsResponse>.Instance;
+            }
+        }
+
+        /// <summary>Perform place autocomplete operations.</summary>
+        public static EngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse> PlaceAutocomplete
+        {
+            get
+            {
+                return EngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse>.Instance;
             }
         }
 	}

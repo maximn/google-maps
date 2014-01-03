@@ -89,6 +89,12 @@
     <Compile Include="Entities\Geocoding\Response\LocationType.cs" />
     <Compile Include="Entities\Geocoding\Response\Result.cs" />
     <Compile Include="Entities\Geocoding\Response\Status.cs" />
+    <Compile Include="Entities\PlaceAutocomplete\Request\PlaceAutocompleteRequest.cs" />
+    <Compile Include="Entities\PlaceAutocomplete\Response\MatchedSubstring.cs" />
+    <Compile Include="Entities\PlaceAutocomplete\Response\PlaceAutocompleteResponse.cs" />
+    <Compile Include="Entities\PlaceAutocomplete\Response\Prediction.cs" />
+    <Compile Include="Entities\PlaceAutocomplete\Response\Status.cs" />
+    <Compile Include="Entities\PlaceAutocomplete\Response\Term.cs" />
     <Compile Include="Entities\PlacesDetails\Request\PlacesDetailsRequest.cs" />
     <Compile Include="Entities\PlacesDetails\Response\Aspect.cs" />
     <Compile Include="Entities\PlacesDetails\Response\Geometry.cs" />
