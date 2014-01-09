@@ -193,7 +193,9 @@ namespace GoogleMapsApi.Test
 
 			OverviewPolyline polyline = result.Routes.First().Legs.First().Steps.First().PolyLine;
 
-			Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+		    IEnumerable<Location> points = result.Routes.First().OverviewPath.Points;
+
+		    Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
 			Assert.AreEqual(122, overviewPath.Points.Count(), 30);
 			Assert.AreEqual(2, polyline.Points.Count());
 		}
