@@ -78,7 +78,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 					int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
 					lng += dlng;
 
-					poly.Add(new Location((int)((lat / 1E5) * 1E6), (int)((lng / 1E5) * 1E6)));
+					poly.Add(new Location(lat / 1E5, lng / 1E5));
 				}
 
 				points = poly.ToArray();
