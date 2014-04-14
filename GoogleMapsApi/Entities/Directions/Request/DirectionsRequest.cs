@@ -18,12 +18,16 @@ namespace GoogleMapsApi.Entities.Directions.Request
 		}
 
 		/// <summary>
-		/// origin (required) — The address or textual latitude/longitude value from which you wish to calculate directions. *
+        /// origin (Required) - The address or textual latitude/longitude value from which you wish to calculate directions. 
+        /// If you pass an address as a string, the Directions service will geocode the string and convert it to a latitude/longitude 
+        /// coordinate to calculate directions. If you pass coordinates, ensure that no space exists between the latitude and longitude values.
 		/// </summary>
 		public string Origin { get; set; }
 
 		/// <summary>
-		/// destination (required) — The address or textual latitude/longitude value from which you wish to calculate directions.*
+        /// destination (required) — The address or textual latitude/longitude value from which you wish to calculate directions. 
+        /// If you pass an address as a string, the Directions service will geocode the string and convert it to a latitude/longitude 
+        /// coordinate to calculate directions. If you pass coordinates, ensure that no space exists between the latitude and longitude values.
 		/// </summary>
 		public string Destination { get; set; }
 
