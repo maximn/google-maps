@@ -67,6 +67,12 @@ namespace GoogleMapsApi.Entities.Places.Request
 		/// </summary>
 		public string Types { get; set; }
 
+        /// <summary>
+        /// If there is a next page of results, this token will be supplied by Google in a previous PlacesResponse. PageToken should be set to the previous response value to get the next page of results from Google.
+        /// When PageToken is set, all other Request parameters are ignored.
+        /// </summary>
+        public string PageToken { get; set; }
+
 		public override bool IsSSL
 		{
 			get
@@ -108,6 +114,8 @@ namespace GoogleMapsApi.Entities.Places.Request
 				parameters.Add("name", Name);
 			if (RankBy == RankBy.Distance)
 				parameters.Add("rankby", "distance");
+            if (!string.IsNullOrWhiteSpace(PageToken))
+                parameters.Add("pagetoken", PageToken);
 
 			return parameters;
 		}
