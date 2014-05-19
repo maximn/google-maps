@@ -50,7 +50,8 @@ namespace GoogleMapsApi.Test
 			if (result.Status == Status.OVER_QUERY_LIMIT)
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
 			Assert.AreEqual(Status.OK, result.Status);
-            Assert.AreEqual("40.7140289,-73.961305", result.Results.First().Geometry.Location.LocationString);
+            Assert.AreEqual("40.7140415,-73.9613119", result.Results.First().Geometry.Location.LocationString);
+
 		}
 
 		[Test]
@@ -63,7 +64,7 @@ namespace GoogleMapsApi.Test
 			if (result.Status == Status.OVER_QUERY_LIMIT)
 				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
 			Assert.AreEqual(Status.OK, result.Status);
-            Assert.AreEqual("40.7140289,-73.961305", result.Results.First().Geometry.Location.LocationString);
+            Assert.AreEqual("40.7140415,-73.9613119", result.Results.First().Geometry.Location.LocationString);
 		}
 
 		[Test]
