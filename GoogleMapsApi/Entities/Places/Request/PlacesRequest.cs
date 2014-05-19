@@ -20,13 +20,7 @@ namespace GoogleMapsApi.Entities.Places.Request
 			}
 		}
 
-		/// <summary>
-		/// Your application's API key. This key identifies your application for purposes of quota management and so that Places 
-		/// added from your application are made immediately available to your app. Visit the APIs Console to create an API Project and obtain your key.
-		/// </summary>
-		public string ApiKey { get; set; }
-
-		/// <summary>
+	    /// <summary>
 		/// location (required) — The textual latitude/longitude value from which you wish to retrieve place information.
 		/// </summary>
 		public Location Location { get; set; } //Required

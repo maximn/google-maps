@@ -8,7 +8,7 @@ namespace GoogleMapsApi.Entities.TimeZone.Request
     {
         protected internal override string BaseUrl
         {
-            get { return "maps.googleapis.com/maps/api/timezone/"; }
+            get { return base.BaseUrl + "timezone/"; }
         }
 
         /// <summary>
@@ -43,14 +43,14 @@ namespace GoogleMapsApi.Entities.TimeZone.Request
             if (TimeStamp == null)
                 throw new ArgumentException("TimeStamp is required");
 
-            var _parameters = base.GetQueryStringParameters();
+            var parameters = base.GetQueryStringParameters();
 
-            _parameters.Add("location", this.Location.LocationString);
-            _parameters.Add("timestamp", UnixTimeConverter.DateTimeToUnixTimestamp(this.TimeStamp).ToString());
+            parameters.Add("location", this.Location.LocationString);
+            parameters.Add("timestamp", UnixTimeConverter.DateTimeToUnixTimestamp(this.TimeStamp).ToString());
 
-            if (!string.IsNullOrWhiteSpace(Language)) _parameters.Add("language", Language);
+            if (!string.IsNullOrWhiteSpace(Language)) parameters.Add("language", Language);
 
-            return _parameters;
+            return parameters;
         }
     }
 }

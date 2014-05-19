@@ -11,7 +11,6 @@ namespace GoogleMapsApi.Entities.PlacesText.Request
             get { return "maps.googleapis.com/maps/api/place/textsearch/"; }
         }
 
-        public string ApiKey { get; set; } // required
         public string Query { get; set; } // required
 
         public Location Location { get; set; } // optional
@@ -36,7 +35,7 @@ namespace GoogleMapsApi.Entities.PlacesText.Request
             QueryStringParametersList parameters = base.GetQueryStringParameters();
 
             parameters.Add("query", Query);
-            parameters.Add("key", ApiKey);
+            
 
             if (Location != null) parameters.Add("location", Location.ToString());
             if (Radius != null) parameters.Add("radius", Radius.Value.ToString(CultureInfo.InvariantCulture));

@@ -8,15 +8,15 @@ namespace GoogleMapsApi.Test
     [TestFixture]
     public class PlacesTextTests
     {
-        public string ApiKey = ""; // your API key goes here...
+        private readonly string apiKey = TestConfigurations.ApiKey;
 
         [Test]
         public void ReturnsFormattedAddress()
         {
-            if (ApiKey == "") Assert.Inconclusive("API key not specified");
+            if (apiKey == "") Assert.Inconclusive("API key not specified");
             var request = new PlacesTextRequest
                               {
-                                  ApiKey = ApiKey,
+                                  ApiKey = apiKey,
                                   Query = "1 smith st parramatta",
                                   Types = "street_address"
                               };

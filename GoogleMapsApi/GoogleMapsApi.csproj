@@ -45,12 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine\PlacesEngine.cs" />
-    <Compile Include="Engine\DirectionsEngine.cs" />
-    <Compile Include="Engine\ElevationEngine.cs" />
-    <Compile Include="Engine\GeocodingEngine.cs" />
-    <Compile Include="Engine\IMapsAPIEngine.cs" />
-    <Compile Include="Engine\MapsAPIEngine.cs" />
     <Compile Include="Engine\MapsAPIGenericEngine.cs" />
     <Compile Include="Engine\UnixTimeConverter.cs" />
     <Compile Include="Entities\Common\ILocationString.cs" />
@@ -115,7 +109,6 @@
     <Compile Include="Entities\TimeZone\Response\Status.cs" />
     <Compile Include="Entities\TimeZone\Response\TimeZoneResponse.cs" />
     <Compile Include="GoogleMaps.cs" />
-    <Compile Include="MapsAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Common\AddressLocation.cs" />
     <Compile Include="QueryStringParametersList.cs" />
@@ -139,7 +132,9 @@
     </Compile>
     <Compile Include="WebClientExtensionMethods.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ReleaseNotes.txt" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Entities\Directions\The Google Directions API - Google Maps API Web Services - Google Code.htm" />
     <None Include="packages.config" />

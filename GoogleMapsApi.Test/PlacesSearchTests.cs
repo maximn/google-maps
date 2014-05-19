@@ -13,15 +13,15 @@ namespace GoogleMapsApi.Test
     [TestFixture]
     public class PlacesSearchTests
     {
-        public string ApiKey = ""; // your API key goes here...
+        private readonly string apiKey = TestConfigurations.ApiKey;
 
         [Test]
         public void ReturnsNearbySearchRequest()
         {
-            if (ApiKey == "") Assert.Inconclusive("API key not specified");
+            if (apiKey == "") Assert.Inconclusive("API key not specified");
             var request = new PlacesRequest
             {
-                ApiKey = ApiKey,
+                ApiKey = apiKey,
                 Keyword = "pizza",
                 Radius = 10000,
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
@@ -41,10 +41,10 @@ namespace GoogleMapsApi.Test
         [Test]
         public void TestNearbySearchPagination()
         {
-            if (ApiKey == "") Assert.Inconclusive("API key not specified");
+            if (apiKey == "") Assert.Inconclusive("API key not specified");
             var request = new PlacesRequest
             {
-                ApiKey = ApiKey,
+                ApiKey = apiKey,
                 Keyword = "pizza",
                 Radius = 10000,
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
@@ -68,7 +68,7 @@ namespace GoogleMapsApi.Test
             Thread.Sleep(2000);
             request = new PlacesRequest
             {
-                ApiKey = ApiKey,
+                ApiKey = apiKey,
                 Keyword = "pizza",
                 Radius = 10000,
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
