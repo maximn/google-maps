@@ -38,6 +38,7 @@
       <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,13 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlacesSearchTests.cs" />
-    <Compile Include="PlacesDetailsTests.cs" />
-    <Compile Include="IntegrationTests.cs" />
-    <Compile Include="PlacesTextTests.cs" />
+    <Compile Include="IntegrationTests\DirectionsTests.cs" />
+    <Compile Include="IntegrationTests\ElevationTests.cs" />
+    <Compile Include="IntegrationTests\GeocodingTests.cs" />
+    <Compile Include="IntegrationTests\BaseTestIntegration.cs" />
+    <Compile Include="IntegrationTests\PlacesSearchTests.cs" />
+    <Compile Include="IntegrationTests\PlacesDetailsTests.cs" />
+    <Compile Include="IntegrationTests\PlacesTextTests.cs" />
+    <Compile Include="IntegrationTests\TimeZoneTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticMaps.cs" />
-    <Compile Include="TestConfigurations.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoogleMapsApi\GoogleMapsApi.csproj">
@@ -61,6 +65,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

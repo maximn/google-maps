@@ -1,27 +1,24 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
+using System.Threading;
 using GoogleMapsApi.Entities.Common;
-using GoogleMapsApi.Entities.PlacesDetails.Request;
-using GoogleMapsApi.Entities.PlacesDetails.Response;
-using NUnit.Framework;
 using GoogleMapsApi.Entities.Places.Request;
 using GoogleMapsApi.Entities.Places.Response;
-using System.Threading;
+using NUnit.Framework;
 
-namespace GoogleMapsApi.Test
+namespace GoogleMapsApi.Test.IntegrationTests
 {
     [TestFixture]
-    public class PlacesSearchTests
+    public class PlacesSearchTests : BaseTestIntegration
     {
-        private readonly string apiKey = TestConfigurations.ApiKey;
-
         [Test]
         public void ReturnsNearbySearchRequest()
         {
-            if (apiKey == "") Assert.Inconclusive("API key not specified");
+            if (string.IsNullOrWhiteSpace(ApiKey)) Assert.Inconclusive("API key not specified");
             var request = new PlacesRequest
             {
-                ApiKey = apiKey,
+                ApiKey = ApiKey,
                 Keyword = "pizza",
                 Radius = 10000,
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
@@ -41,10 +38,10 @@ namespace GoogleMapsApi.Test
         [Test]
         public void TestNearbySearchPagination()
         {
-            if (apiKey == "") Assert.Inconclusive("API key not specified");
+            if (string.IsNullOrWhiteSpace(ApiKey)) Assert.Inconclusive("API key not specified");
             var request = new PlacesRequest
             {
-                ApiKey = apiKey,
+                ApiKey = ApiKey,
                 Keyword = "pizza",
                 Radius = 10000,
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
@@ -68,7 +65,7 @@ namespace GoogleMapsApi.Test
             Thread.Sleep(2000);
             request = new PlacesRequest
             {
-                ApiKey = apiKey,
+                ApiKey = ApiKey,
                 Keyword = "pizza",
                 Radius = 10000,
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA

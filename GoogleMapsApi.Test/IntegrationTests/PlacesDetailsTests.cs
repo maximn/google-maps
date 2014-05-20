@@ -1,24 +1,23 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.PlacesDetails.Request;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
 using NUnit.Framework;
 
-namespace GoogleMapsApi.Test
+namespace GoogleMapsApi.Test.IntegrationTests
 {
     [TestFixture]
-    public class PlacesDetailsTests
+    public class PlacesDetailsTests  : BaseTestIntegration
     {
-        private readonly string apiKey = TestConfigurations.ApiKey;
-
         [Test]
         public void ReturnsNotFoundForWrongReferenceString()
         {
-            if (apiKey == "") Assert.Inconclusive("API key not specified");
+            if (string.IsNullOrWhiteSpace(ApiKey)) Assert.Inconclusive("API key not specified");
             var request = new PlacesDetailsRequest
             {
-                ApiKey = apiKey,
+                ApiKey = ApiKey,
                 // Needs to be a correct looking reference. 1 character too short or long and google will return INVALID_REQUEST instead.
                 Reference = "CnRqAAAAvs_8564VF4xq2St_9P-YaCYEep2qa86WfWBcBL6q-264bgWE3vWD1zI5kIcWVOA6r9XA2vOfOKZ3uEMs_FQNQZGpTGxyaaq5aTF8XJD36ZcYMbmPuTP00jVEXBPlEmnUxUuHHbxzDd_7fZwxABkPIhIQ4IypqCmBf4WOCXSnT9jiIRoUi8iVFfW6-txsNpGCFurUqA-qHos"
             };
@@ -33,10 +32,10 @@ namespace GoogleMapsApi.Test
         [Test]
         public void ReturnsStronglyTypedPriceLevel()
         {
-            if (apiKey == "") Assert.Inconclusive("API key not specified");
+            if (string.IsNullOrWhiteSpace(ApiKey)) Assert.Inconclusive("API key not specified");
             var request = new PlacesDetailsRequest
             {
-                ApiKey = apiKey,
+                ApiKey = ApiKey,
                 Reference = GetMyPlaceReference(),
             };
 
@@ -51,10 +50,10 @@ namespace GoogleMapsApi.Test
         [Test]
         public void ReturnsOpeningTimes()
         {
-            if (apiKey == "") Assert.Inconclusive("API key not specified");
+            if (string.IsNullOrWhiteSpace(ApiKey)) Assert.Inconclusive("API key not specified");
             var request = new PlacesDetailsRequest
             {
-                ApiKey = apiKey,
+                ApiKey = ApiKey,
                 Reference = GetMyPlaceReference(),
             };
 
@@ -79,7 +78,7 @@ namespace GoogleMapsApi.Test
             {
                 var referenceRequest = new Entities.Places.Request.PlacesRequest()
                 {
-                    ApiKey = apiKey,
+                    ApiKey = ApiKey,
                     Name = "My Place Bar & Restaurant",
                     Location = new Location(-31.954453, 115.862717),
                     RankBy = Entities.Places.Request.RankBy.Distance,
