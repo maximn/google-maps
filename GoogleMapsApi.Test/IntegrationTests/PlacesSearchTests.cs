@@ -15,7 +15,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void ReturnsNearbySearchRequest()
         {
-            if (string.IsNullOrWhiteSpace(ApiKey)) Assert.Inconclusive("API key not specified");
             var request = new PlacesRequest
             {
                 ApiKey = ApiKey,
@@ -38,7 +37,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void TestNearbySearchPagination()
         {
-            if (string.IsNullOrWhiteSpace(ApiKey)) Assert.Inconclusive("API key not specified");
             var request = new PlacesRequest
             {
                 ApiKey = ApiKey,

@@ -12,8 +12,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void ReturnsFormattedAddress()
         {
-            if (string.IsNullOrWhiteSpace(ApiKey)) Assert.Inconclusive("API key not specified");
-
             var request = new PlacesTextRequest
                               {
                                   ApiKey = ApiKey,

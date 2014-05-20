@@ -11,7 +11,23 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
     public class BaseTestIntegration
     {
-        protected readonly string ApiKey;
+        private string apiKey;
+
+        protected string ApiKey
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(apiKey))
+                {
+                    Assert.Inconclusive("API key not specified");
+                }
+
+                return apiKey;
+            }
+            private set { apiKey = value; }
+        }
+
+    
 
         public BaseTestIntegration()
         {
