@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Directions.Request;
@@ -55,9 +56,10 @@ namespace GoogleMapsApi.Entities.Directions.Response
 
 		/// <summary>
 		/// Contains detailed directions for walking or driving steps in transit directions. Substeps are only available when TravelMode is set to Transit.
+        /// * NOTE : Google documentations states that it should be 'sub_steps' but implemented as 'steps' so we use the actual implementation
 		/// </summary>
-		[DataMember(Name = "sub_steps")]
-		public Step SubSteps { get; set; }
+        [DataMember(Name = "steps")]
+        public IEnumerable<Step> SubSteps { get; set; }
 
 		/// <summary>
 		/// Gets the mode of transportation used in this step

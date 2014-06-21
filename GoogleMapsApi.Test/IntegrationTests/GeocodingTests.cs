@@ -18,7 +18,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         {
             var request = new GeocodingRequest
             {
-                ApiKey = ApiKey, //optional
+                ApiKey = ApiKey,
                 Address = "285 Bedford Ave, Brooklyn, NY 11211, USA"
             };
 

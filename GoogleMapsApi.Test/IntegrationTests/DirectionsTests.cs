@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Directions.Request;
@@ -70,6 +71,26 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
             Assert.AreEqual(7284, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 2000);
+        }
+
+
+        //The sub_steps differes between google docs documentation and implementation. We use it as google implemented, so we have test to make sure it's not broken.
+        [Test]
+        public void Directions_VerifysubSteps()
+        {
+            var request = new DirectionsRequest
+            {
+                Origin = "King's Cross station, Euston Road, London",
+                Destination = "Lukin St, London",
+                TravelMode = TravelMode.Transit,
+                DepartureTime = new DateTime(2014, 02, 11, 14, 00, 00)
+            };
+
+            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+
+            var substeps = result.Routes.First().Legs.First().Steps.First().SubSteps;
+
+            Assert.NotNull(substeps);
         }
     }
 }
