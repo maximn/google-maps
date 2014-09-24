@@ -18,7 +18,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 ApiKey = base.ApiKey,
                 // Needs to be a correct looking reference. 1 character too short or long and google will return INVALID_REQUEST instead.
-                Reference = "CnRqAAAAvs_8564VF4xq2St_9P-YaCYEep2qa86WfWBcBL6q-264bgWE3vWD1zI5kIcWVOA6r9XA2vOfOKZ3uEMs_FQNQZGpTGxyaaq5aTF8XJD36ZcYMbmPuTP00jVEXBPlEmnUxUuHHbxzDd_7fZwxABkPIhIQ4IypqCmBf4WOCXSnT9jiIRoUi8iVFfW6-txsNpGCFurUqA-qHos"
+                PlaceId = "ChIJbWWgrQAVkFQReAwrXXWzlYs"
             };
 
             PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
@@ -34,7 +34,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var request = new PlacesDetailsRequest
             {
                 ApiKey = ApiKey,
-                Reference = GetMyPlaceReference(),
+                PlaceId = GetMyPlaceId(),
             };
 
             PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
@@ -51,7 +51,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var request = new PlacesDetailsRequest
             {
                 ApiKey = ApiKey,
-                Reference = GetMyPlaceReference(),
+                PlaceId = GetMyPlaceId(),
             };
 
             PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
@@ -72,24 +72,24 @@ namespace GoogleMapsApi.Test.IntegrationTests
              */
         }
 
-        private string cachedMyPlaceReference;
-        private string GetMyPlaceReference()
+        private string cachedMyPlaceId;
+        private string GetMyPlaceId()
         {
-            if (cachedMyPlaceReference == null)
+            if (cachedMyPlaceId == null)
             {
-                var referenceRequest = new Entities.Places.Request.PlacesRequest()
+                var request = new Entities.Places.Request.PlacesRequest()
                 {
                     ApiKey = ApiKey,
                     Name = "My Place Bar & Restaurant",
                     Location = new Location(-31.954453, 115.862717),
                     RankBy = Entities.Places.Request.RankBy.Distance,
                 };
-                var referenceResult = GoogleMaps.Places.Query(referenceRequest);
-                if (referenceResult.Status == Entities.Places.Response.Status.OVER_QUERY_LIMIT)
+                var result = GoogleMaps.Places.Query(request);
+                if (result.Status == Entities.Places.Response.Status.OVER_QUERY_LIMIT)
                     Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-                cachedMyPlaceReference = referenceResult.Results.First().Reference;
+                cachedMyPlaceId = result.Results.First().PlaceId;
             }
-            return cachedMyPlaceReference;
+            return cachedMyPlaceId;
         }
     }
 }

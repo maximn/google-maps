@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.PlacesDetails.Request
@@ -11,7 +10,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Request
             get { return "maps.googleapis.com/maps/api/place/details/"; }
         }
 
-        public string Reference { get; set; } // required
+        public string PlaceId { get; set; } // required
 
         public string Language { get; set; } // optional
 
@@ -23,15 +22,15 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Request
 
         protected override QueryStringParametersList GetQueryStringParameters()
         {
-            if (string.IsNullOrWhiteSpace(Reference))
-                throw new ArgumentException("Reference must be provided.");
+            if (string.IsNullOrWhiteSpace(PlaceId))
+                throw new ArgumentException("PlaceId must be provided.");
 
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new ArgumentException("ApiKey must be provided");
 
             QueryStringParametersList parameters = base.GetQueryStringParameters();
 
-            parameters.Add("reference", Reference);
+            parameters.Add("placeid", PlaceId);
 
             if (!string.IsNullOrWhiteSpace(Language)) parameters.Add("language", Language);
             
