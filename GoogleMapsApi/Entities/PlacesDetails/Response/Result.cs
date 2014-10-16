@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 
@@ -70,6 +71,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         public double Rating { get; set; }
 
         [DataMember(Name = "reference")]
+        [Obsolete("Use place_id instead.  See https://developers.google.com/places/documentation/search#deprecation for more information.")]
         public string Reference { get; set; }
 
         [DataMember(Name = "reviews")]
@@ -89,6 +91,9 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
 
         [DataMember(Name = "website")]
         public string Website { get; set; }
+
+        [DataMember(Name = "place_id")]
+        public string PlaceId { get; set; }
     }
 
     public enum PriceLevel
