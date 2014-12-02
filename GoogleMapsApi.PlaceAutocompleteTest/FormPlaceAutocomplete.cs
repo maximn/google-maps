@@ -43,11 +43,14 @@ namespace GoogleMapsApi.PlaceAutocompleteTest
                 ApiKey = TextBoxApiKey.Text,
                 Input = TextBoxAddressEntry.Text,
                 Location = new GoogleMapsApi.Entities.Common.Location(latitude, longitude),
-                Radius = radius
+				Radius = radius,
+				Components = "country:" + textBoxCountry.Text
             };
 
+			DateTime startRequestTime = DateTime.Now;
             lastResult = GoogleMaps.PlaceAutocomplete.Query(request);
-            LabelQuota.Text = string.Format( "Total PlaceAutocomplete requests: {0}", ++totalRequests);
+			DateTime gotResultsTime = DateTime.Now;
+			LabelQuota.Text = string.Format("Total PlaceAutocomplete requests: {0}", ++totalRequests);
 
             if (lastResult.Status == Status.OK)
             {
@@ -75,6 +78,13 @@ namespace GoogleMapsApi.PlaceAutocompleteTest
                 ListBoxResults.ForeColor = Color.Brown;
                 lastResult = null;
             }
+
+			DateTime displayedResultsTime = DateTime.Now;
+			textBoxTiming.Text += (startRequestTime.ToLongTimeString() + " search on <" + TextBoxAddressEntry.Text + ">" + Environment.NewLine);
+			TimeSpan requestTime = gotResultsTime - startRequestTime;
+			textBoxTiming.Text += (gotResultsTime.ToLongTimeString() + " got results after " + ((requestTime.Seconds * 1000) + requestTime.Milliseconds) + " ms" + Environment.NewLine);
+			TimeSpan processTime = displayedResultsTime - gotResultsTime;
+			textBoxTiming.Text += (gotResultsTime.ToLongTimeString() + " displayed results after " + ((processTime.Seconds * 1000) + processTime.Milliseconds) + " ms" + Environment.NewLine);
         }
 
         /// <summary>
@@ -116,6 +126,11 @@ namespace GoogleMapsApi.PlaceAutocompleteTest
                 }
             }
         }
+
+		void buttonClear_Click(object sender, EventArgs e)
+		{
+			textBoxTiming.Text = string.Empty;
+		}
 
         int totalRequests = 0;
         PlaceAutocompleteResponse lastResult = null;
