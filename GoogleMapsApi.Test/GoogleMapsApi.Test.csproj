@@ -55,6 +55,7 @@
     <Compile Include="IntegrationTests\PlacesDetailsTests.cs" />
     <Compile Include="IntegrationTests\PlacesTextTests.cs" />
     <Compile Include="IntegrationTests\TimeZoneTests.cs" />
+    <Compile Include="IntegrationTests\PlaceAutocompleteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticMaps.cs" />
   </ItemGroup>
