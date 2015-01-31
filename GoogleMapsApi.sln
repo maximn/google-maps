@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapsApiTest", "MapsApiTest\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapsApi.Test", "GoogleMapsApi.Test\GoogleMapsApi.Test.csproj", "{AD9AD8E9-0E2C-470E-9004-373679F9D954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapsApi.PlaceAutocompleteTest", "GoogleMapsApi.PlaceAutocompleteTest\GoogleMapsApi.PlaceAutocompleteTest.csproj", "{70844E55-7D49-4B45-9895-77BD129D7902}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,16 @@ Global
 		{AD9AD8E9-0E2C-470E-9004-373679F9D954}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{AD9AD8E9-0E2C-470E-9004-373679F9D954}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{AD9AD8E9-0E2C-470E-9004-373679F9D954}.Release|x86.ActiveCfg = Release|Any CPU
+		{70844E55-7D49-4B45-9895-77BD129D7902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70844E55-7D49-4B45-9895-77BD129D7902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70844E55-7D49-4B45-9895-77BD129D7902}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{70844E55-7D49-4B45-9895-77BD129D7902}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{70844E55-7D49-4B45-9895-77BD129D7902}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{70844E55-7D49-4B45-9895-77BD129D7902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70844E55-7D49-4B45-9895-77BD129D7902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70844E55-7D49-4B45-9895-77BD129D7902}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{70844E55-7D49-4B45-9895-77BD129D7902}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{70844E55-7D49-4B45-9895-77BD129D7902}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
