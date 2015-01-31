@@ -139,11 +139,9 @@
     <Compile Include="WebClientExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ReleaseNotes.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Entities\Directions\The Google Directions API - Google Maps API Web Services - Google Code.htm" />
     <None Include="packages.config" />
+    <None Include="ReleaseNotes.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
