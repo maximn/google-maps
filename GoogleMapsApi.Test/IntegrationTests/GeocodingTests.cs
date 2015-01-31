@@ -116,7 +116,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(Status.OK, result.Status);
-            Assert.AreEqual("287 Bedford Avenue, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
+            Assert.AreEqual("281 Bedford Avenue, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
         }
 
         [Test]
@@ -129,7 +129,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(Status.OK, result.Status);
-            Assert.AreEqual("287 Bedford Avenue, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
+            Assert.AreEqual("281 Bedford Avenue, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
         }
 
 

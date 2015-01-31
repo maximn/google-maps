@@ -22,7 +22,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
-            Assert.AreEqual(7284, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 2000);
+            Assert.Greater(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 100);
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
-            Assert.AreEqual(7284, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 2000);
+            Assert.Greater(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 100);
         }
 
 
