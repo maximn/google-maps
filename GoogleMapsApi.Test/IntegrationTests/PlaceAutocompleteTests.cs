@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using GoogleMapsApi.Entities.PlaceAutocomplete.Request;
@@ -11,20 +12,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
     class PlaceAutocompleteTests : BaseTestIntegration
     {
         [Test]
-        public void ReturnsExpectedRoads()
-        {
-            if (ApiKey == "") Assert.Inconclusive("API key not specified");
-
-            CheckForExpectedRoad("oakfield road, chea", "CHEADLE");
-            CheckForExpectedRoad("128 abbey r", "MACCLESFIELD");
-            CheckForExpectedRoad("SK10 3PA", "MACCLESFIELD");
-        }
-
-        [Test]
         public void ReturnsNoResults()
         {
-            if (ApiKey == "") Assert.Inconclusive("API key not specified");
-
             var request = new PlaceAutocompleteRequest
             {
                 ApiKey = base.ApiKey,
@@ -43,9 +32,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void OffsetTest()
         {
-            if (ApiKey == "") Assert.Inconclusive("API key not specified");
-
-            // Nothing should match the jibberish input
             var request = new PlaceAutocompleteRequest
             {
                 ApiKey = base.ApiKey,
@@ -60,7 +46,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(Status.ZERO_RESULTS, result.Status, "results for jibberish");
 
-            // Restrict input to first five characters - this should return results
             var offsetRequest = new PlaceAutocompleteRequest
             {
                 ApiKey = base.ApiKey,
@@ -79,9 +64,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void TypeTest()
         {
-            if (ApiKey == "") Assert.Inconclusive("API key not specified");
-
-            // Restrict results to geocode (exclude establishments etc)
             var request = new PlaceAutocompleteRequest
             {
                 ApiKey = base.ApiKey,
@@ -96,10 +78,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
 
-            // Should be plenty of matches for a good request
             Assert.AreEqual(Status.OK, result.Status);
 
-            // Verify that results were filtered by type
             foreach (var oneResult in result.Results)
             {
                 Assert.IsNotNull(oneResult.Types, "result with no type classification");
@@ -107,7 +87,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
             }
         }
 
-        private void CheckForExpectedRoad( string aSearch, string aExpected )
+
+        [TestCase("oakfield road, chea", "CHEADLE")]
+        [TestCase("128 abbey r", "MACCLESFIELD")]
+        [TestCase("SK10 3PA", "MACCLESFIELD")]
+        public void CheckForExpectedRoad( string aSearch, string anExpected)
         {
             var request = new PlaceAutocompleteRequest
             {
@@ -122,16 +106,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
-            foreach (var oneResult in result.Results)
-            {
-                if (oneResult.Description.ToUpper().Contains(aExpected))
-                {
-                    // Found the expected result
-                    return;
-                }
-            }
 
-            Assert.Fail("Expected street not found for <" + aSearch + ">");
+            Assert.That(result.Results.Any(t => t.Description.ToUpper().Contains(anExpected)));
         }
     }
 }

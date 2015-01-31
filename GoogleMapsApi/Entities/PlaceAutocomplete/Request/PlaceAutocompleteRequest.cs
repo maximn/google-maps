@@ -6,9 +6,9 @@ using GoogleMapsApi.Entities.Common;
 namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 {
 	/// <summary>
-    /// The Place Autocomplete service is a web service that returns place predictions in response to an HTTP request. The request specifies 
-    /// a textual search string and optional geographic bounds. The service can be used to provide autocomplete functionality for text-based 
-    /// geographic searches, by returning places such as businesses, addresses and points of interest as a user types.
+	/// The Place Autocomplete service is a web service that returns place predictions in response to an HTTP request. The request specifies 
+	/// a textual search string and optional geographic bounds. The service can be used to provide autocomplete functionality for text-based 
+	/// geographic searches, by returning places such as businesses, addresses and points of interest as a user types.
 	/// </summary>
 	public class PlaceAutocompleteRequest : MapsBaseRequest
 	{
@@ -16,23 +16,23 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 		{
 			get
 			{
-                return "maps.googleapis.com/maps/api/place/autocomplete/";
+				return "maps.googleapis.com/maps/api/place/autocomplete/";
 			}
 		}
 
-        /// <summary>
-        /// Input (required) - the text string on which to search
-        /// </summary>
-        public string Input { get; set; }
+		/// <summary>
+		/// Input (required) - the text string on which to search
+		/// </summary>
+		public string Input { get; set; }
 
-        /// <summary>
-        /// The position, in the input term, of the last character that the service uses to match predictions (optional).
-        /// For example, if the input is 'Google' and the offset is 3, the service will match on 'Goo'. The string determined by the offset 
-        /// is matched against the first word in the input term only. For example, if the input term is 'Google abc' and the offset is 3, 
-        /// the service will attempt to match against 'Goo abc'. If no offset is supplied, the service will use the whole term. The offset 
-        /// should generally be set to the position of the text caret.
-        /// </summary>
-        public int? Offset { get; set; }
+		/// <summary>
+		/// The position, in the input term, of the last character that the service uses to match predictions (optional).
+		/// For example, if the input is 'Google' and the offset is 3, the service will match on 'Goo'. The string determined by the offset 
+		/// is matched against the first word in the input term only. For example, if the input term is 'Google abc' and the offset is 3, 
+		/// the service will attempt to match against 'Goo abc'. If no offset is supplied, the service will use the whole term. The offset 
+		/// should generally be set to the position of the text caret.
+		/// </summary>
+		public int? Offset { get; set; }
 
 		/// <summary>
 		/// location (optional) — The textual latitude/longitude value from which you wish to retrieve place information.
@@ -59,12 +59,12 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 		/// </summary>
 		public string Types { get; set; }
 
-        /// <summary>
-        ///  A grouping of places to which you would like to restrict your results (optional). Currently, you can use components to filter by country. 
-        ///  The country must be passed as a two character, ISO 3166-1 Alpha-2 compatible country code. For example: components=country:fr would 
-        ///  restrict your results to places within France.
-        /// </summary>
-        public string Components { get; set; }
+		/// <summary>
+		///  A grouping of places to which you would like to restrict your results (optional). Currently, you can use components to filter by country. 
+		///  The country must be passed as a two character, ISO 3166-1 Alpha-2 compatible country code. For example: components=country:fr would 
+		///  restrict your results to places within France.
+		/// </summary>
+		public string Components { get; set; }
 
 		public override bool IsSSL
 		{
@@ -91,12 +91,12 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 			parameters.Add("input", Input);
 			parameters.Add("key", ApiKey);
 
-            if (Offset.HasValue)
-                parameters.Add("offset", Offset.Value.ToString(CultureInfo.InvariantCulture));
-            if (Location != null)
-                parameters.Add("location", Location.ToString());
-            if (Radius.HasValue)
-                parameters.Add("radius", Radius.Value.ToString(CultureInfo.InvariantCulture));
+			if (Offset.HasValue)
+				parameters.Add("offset", Offset.Value.ToString(CultureInfo.InvariantCulture));
+			if (Location != null)
+				parameters.Add("location", Location.ToString());
+			if (Radius.HasValue)
+				parameters.Add("radius", Radius.Value.ToString(CultureInfo.InvariantCulture));
 			if (!string.IsNullOrWhiteSpace(Language))
 				parameters.Add("language", Language);
 			if (!string.IsNullOrWhiteSpace(Types))
