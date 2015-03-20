@@ -100,6 +100,11 @@
     <Compile Include="Entities\PlacesDetails\Response\Result.cs" />
     <Compile Include="Entities\PlacesDetails\Response\Status.cs" />
     <Compile Include="Entities\PlacesDetails\Response\TimeOfWeek.cs" />
+    <Compile Include="Entities\PlacesRadar\Request\PlacesRadarRequest.cs" />
+    <Compile Include="Entities\PlacesRadar\Response\Geometry.cs" />
+    <Compile Include="Entities\PlacesRadar\Response\PlacesRadarResponse.cs" />
+    <Compile Include="Entities\PlacesRadar\Response\Result.cs" />
+    <Compile Include="Entities\PlacesRadar\Response\Status.cs" />
     <Compile Include="Entities\PlacesText\Request\PlacesTextRequest.cs" />
     <Compile Include="Entities\PlacesText\Response\Geometry.cs" />
     <Compile Include="Entities\PlacesText\Response\PlacesTextResponse.cs" />
