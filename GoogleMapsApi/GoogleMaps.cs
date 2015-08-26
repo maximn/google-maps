@@ -21,6 +21,8 @@ using GoogleMapsApi.Entities.PlaceAutocomplete.Request;
 using GoogleMapsApi.Entities.PlaceAutocomplete.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
+using GoogleMapsApi.Entities.PlacesRadar.Request;
+using GoogleMapsApi.Entities.PlacesRadar.Response;
 
 namespace GoogleMapsApi
 {
@@ -66,6 +68,15 @@ namespace GoogleMapsApi
             get
             {
                 return EngineFacade<PlacesTextRequest, PlacesTextResponse>.Instance;
+            }
+        }
+
+        /// <summary>Perform places radar search operations.</summary>
+        public static EngineFacade<PlacesRadarRequest, PlacesRadarResponse> PlacesRadar
+        {
+            get
+            {
+                return EngineFacade<PlacesRadarRequest, PlacesRadarResponse>.Instance;
             }
         }
 
