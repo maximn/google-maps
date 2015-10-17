@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/maximn/google-maps.svg?branch=master)](https://travis-ci.org/maximn/google-maps)
+[![NuGet Status](http://nugetstatus.com/GoogleMapsApi.png)](http://nugetstatus.com/packages/GoogleMapsApi)
 
 google-maps
 ===========
