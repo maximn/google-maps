@@ -1,0 +1,8 @@
+language: csharp
+solution: GoogleMapsApi.sln
+install:
+  - nuget restore GoogleMapsApi.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release GoogleMapsApi.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./GoogleMapsApi.Test/bin/Release/GoogleMapsApi.Test.dll
