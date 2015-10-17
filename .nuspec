@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>GoogleMapsApi</id>
+    <version>$version$</version>
+    <title>Google Maps Web Services API wrapper for .NET</title>
+    <authors>Maxim Novak</authors>
+    <owners>Maxim Novak</owners>
+    <licenseUrl>https://github.com/maximn/google-maps/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/maximn/google-maps/</projectUrl>
+    <iconUrl>https://code.google.com/p/google-maps/logo?cct=1335784301</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      This library wraps Google maps API.
+      You can easily query Google maps for Geocoding, Directions, Elevation, and Places.
+      You can easily show the results on a Static Google Map!
+      This Library is well documented and easy to use.
+    </description>
+    <releaseNotes></releaseNotes>
+    <copyright></copyright>
+    <tags>Map Geo Places Elevation Geocode Directions Maps</tags>
+  </metadata>
+  <files>
+	<file src="GoogleMapsApi\bin\$configuration$\GoogleMapsApi.dll" target="lib\net40\" />
+  </files>
+</package>
