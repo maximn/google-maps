@@ -32,7 +32,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         protected BaseTestIntegration()
         {
            var fromConfigManager = ConfigurationManager.AppSettings["ApiKey"];
-            var fromEnvironmentVariables = Environment.GetEnvironmentVariables("ApiKey");
+            var fromEnvironmentVariables = Environment.GetEnvironmentVariable("ApiKey");
 
             if (!string.IsNullOrEmpty(fromConfigManager))
             {
