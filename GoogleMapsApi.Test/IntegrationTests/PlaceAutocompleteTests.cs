@@ -90,7 +90,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
         [TestCase("oakfield road, chea", "CHEADLE")]
         [TestCase("128 abbey r", "MACCLESFIELD")]
-        [TestCase("SK10 3PA", "MACCLESFIELD")]
         public void CheckForExpectedRoad( string aSearch, string anExpected)
         {
             var request = new PlaceAutocompleteRequest
