@@ -28,7 +28,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(Status.OK, result.Status);
             // 40.{*}, -73.{*}
-            StringAssert.IsMatch("40\.\d*,-73.\d*", result.Results.First().Geometry.Location.LocationString);
+            StringAssert.IsMatch("40\\.\\d*,-73\\.\\d*", result.Results.First().Geometry.Location.LocationString);
         }
 
 
@@ -43,7 +43,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(Status.OK, result.Status);
             // 40.{*}, -73.{*}
-            StringAssert.IsMatch("40\.\d*,-73.\d*", result.Results.First().Geometry.Location.LocationString);
+            StringAssert.IsMatch("40\\.\\d*,-73\\.\\d*", result.Results.First().Geometry.Location.LocationString);
         }
 
         [Test]
