@@ -46,7 +46,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
             Assert.AreEqual(Status.OK, result.Status);
 
             Assert.That(result.Result.PriceLevel, Is.SubsetOf(anyPriceLevel));
-            Assert.AreEqual(PriceLevel.Inexpensive, result.Result.PriceLevel);
         }
 
         [Test]
