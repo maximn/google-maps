@@ -26,7 +26,7 @@ NEW! Now you can easily show the results on a Static Google Map!
 This Library is well documented and easy to use.
 
 Code sample -
-
+``` C#
 	//Static class use (Directions) (Can be made from static/instance class)
 	DirectionsRequest directionsRequest = new DirectionsRequest()
 	{
@@ -99,3 +99,4 @@ Code sample -
 	Console.WriteLine("Finised! (But wait .. async elevation request should get response soon)");
 	
 	
+```
