@@ -28,6 +28,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             Assert.AreEqual(Status.NOT_FOUND, result.Status);
         }
 
+        var anyPriceLevel = new PriveLevel[] { PriveLevel.Free, PriveLevel.Inexpensive, PriveLevel.Moderate, PriveLevel.Expensive, PriceLevel.VeryExpensive }
+
         [Test]
         public void ReturnsStronglyTypedPriceLevel()
         {
@@ -42,6 +44,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(Status.OK, result.Status);
+
+            Assert.That(result.Result.PriceLevel, Is.SubsetOf(anyPriceLevel));
             Assert.AreEqual(PriceLevel.Inexpensive, result.Result.PriceLevel);
         }
 
