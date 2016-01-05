@@ -28,7 +28,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             Assert.AreEqual(Status.NOT_FOUND, result.Status);
         }
 
-        var anyPriceLevel = new PriveLevel[] { PriveLevel.Free, PriveLevel.Inexpensive, PriveLevel.Moderate, PriveLevel.Expensive, PriceLevel.VeryExpensive }
+        var anyPriceLevel = new PriveLevel[] { PriveLevel.Free, PriveLevel.Inexpensive, PriveLevel.Moderate, PriveLevel.Expensive, PriceLevel.VeryExpensive };
 
         [Test]
         public void ReturnsStronglyTypedPriceLevel()
