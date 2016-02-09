@@ -58,6 +58,36 @@ namespace GoogleMapsApi
         }
 
         /// <summary>
+        /// Occurs when the Url created. Can be used for override the Url.
+        /// </summary>
+        public event UriCreatedDelegate OnUriCreated
+        {
+            add
+            {
+                MapsAPIGenericEngine<TRequest, TResponse>.OnUriCreated += value;
+            }
+            remove
+            {
+                MapsAPIGenericEngine<TRequest, TResponse>.OnUriCreated -= value;
+            }
+        }
+
+        /// <summary>
+        /// Occurs when raw data from Google API recivied.
+        /// </summary>
+        public event RawResponseReciviedDelegate OnRawResponseRecivied
+        {
+            add
+            {
+                MapsAPIGenericEngine<TRequest, TResponse>.OnRawResponseRecivied += value;
+            }
+            remove
+            {
+                MapsAPIGenericEngine<TRequest, TResponse>.OnRawResponseRecivied -= value;
+            }
+        }
+
+        /// <summary>
         /// Query the Google Maps API using the provided request with the default timeout of 100,000 milliseconds (100 seconds).
         /// </summary>
         /// <param name="request">The request that will be sent.</param>

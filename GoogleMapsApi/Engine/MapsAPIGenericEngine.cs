@@ -1,29 +1,31 @@
 using System;
-using System.Collections.Specialized;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Security.Authentication;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Engine
 {
-	public abstract class MapsAPIGenericEngine<TRequest, TResponse>
+    public delegate void UriCreatedDelegate(ref Uri uri);
+    public delegate void RawResponseReciviedDelegate(byte[] data);
+
+    public abstract class MapsAPIGenericEngine<TRequest, TResponse>
 		where TRequest : MapsBaseRequest, new()
 		where TResponse : IResponseFor<TRequest>
 	{
-		/// <summary>
-		/// Determines the maximum number of concurrent HTTP connections to open to this engine's host address. The default value is 2 connections.
-		/// </summary>
-		/// <remarks>
-		/// This value is determined by the ServicePointManager and is shared across other engines that use the same host address.
-		/// </remarks>
-		public static int HttpConnectionLimit
+        internal static event UriCreatedDelegate OnUriCreated;
+        internal static event RawResponseReciviedDelegate OnRawResponseRecivied;
+
+        /// <summary>
+        /// Determines the maximum number of concurrent HTTP connections to open to this engine's host address. The default value is 2 connections.
+        /// </summary>
+        /// <remarks>
+        /// This value is determined by the ServicePointManager and is shared across other engines that use the same host address.
+        /// </remarks>
+        public static int HttpConnectionLimit
 		{
 			get { return HttpServicePoint.ConnectionLimit; }
 			set { HttpServicePoint.ConnectionLimit = value; }
@@ -63,9 +65,13 @@ namespace GoogleMapsApi.Engine
 			try
 			{
 			    var uri = request.GetUri();
-				var data = new WebClientEx(timeout).DownloadData(uri);
-				return Deserialize(data);
-			}
+
+			    OnUriCreated?.Invoke(ref uri);
+
+			    var data = new WebClientEx(timeout).DownloadData(uri);
+                OnRawResponseRecivied?.Invoke(data);
+                return Deserialize(data);
+            }
 			catch (WebException ex)
 			{
 				if (IndicatesAuthenticationFailed(ex))
@@ -117,8 +123,10 @@ namespace GoogleMapsApi.Engine
 
 			var completionSource = new TaskCompletionSource<TResponse>();
 
-			new WebClient().DownloadDataTaskAsync(request.GetUri(), timeout, token)
-				.ContinueWith(t => DownloadDataComplete(t, completionSource), TaskContinuationOptions.ExecuteSynchronously);
+            var uri = request.GetUri();
+            OnUriCreated?.Invoke(ref uri);
+            new WebClient().DownloadDataTaskAsync(uri, timeout, token)
+                .ContinueWith(t => DownloadDataComplete(t, completionSource), TaskContinuationOptions.ExecuteSynchronously);
 
 			return completionSource.Task;
 		}
@@ -138,7 +146,8 @@ namespace GoogleMapsApi.Engine
 			}
 			else
 			{
-				completionSource.SetResult(Deserialize(task.Result));
+                OnRawResponseRecivied?.Invoke(task.Result);
+                completionSource.SetResult(Deserialize(task.Result));
 			}
 		}
 

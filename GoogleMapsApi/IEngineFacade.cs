@@ -5,6 +5,8 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi
 {
+    using GoogleMapsApi.Engine;
+
     public interface IEngineFacade<in TRequest, TResponse>
         where TRequest : MapsBaseRequest, new()
         where TResponse : IResponseFor<TRequest>
@@ -24,6 +26,16 @@ namespace GoogleMapsApi
         /// This value is determined by the ServicePointManager and is shared across other engines that use the same host address.
         /// </remarks>
         int HttpsConnectionLimit { get; set; }
+
+        /// <summary>
+        /// Occurs when the Url created. Can be used for override the Url.
+        /// </summary>
+        event UriCreatedDelegate OnUriCreated;
+
+        /// <summary>
+        /// Occurs when raw data from Google API recivied.
+        /// </summary>
+        event RawResponseReciviedDelegate OnRawResponseRecivied;
 
         /// <summary>
         /// Query the Google Maps API using the provided request with the default timeout of 100,000 milliseconds (100 seconds).

@@ -1,7 +1,9 @@
 ﻿namespace GoogleMapsApi.Test.IntegrationTests
 {
+    using System;
     using System.Linq;
 
+    using GoogleMapsApi.Engine;
     using GoogleMapsApi.Entities.Directions.Response;
     using GoogleMapsApi.Entities.DistanceMatrix.Request;
 
@@ -80,6 +82,67 @@
 
             Assert.IsNotNull(result.Rows.First().Elements.First().DurationInTraffic);
         }
-    }
 
+        [Test]
+        public void ShouldReplaceUriOnOnUriCreated()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                Origins = new[] { "placeholder" },
+                Destinations = new[] { "3,4" },
+            };
+
+            UriCreatedDelegate onUriCreated = delegate (ref Uri uri) 
+                {
+                    var builder = new UriBuilder(uri);
+                    builder.Query = builder.Query.Replace("placeholder", "1,2");
+                    uri = builder.Uri;
+                };
+             
+            GoogleMaps.DistanceMatrix.OnUriCreated += onUriCreated;
+
+            try
+            {
+                var result = GoogleMaps.DistanceMatrix.Query(request);
+                if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
+                    Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+                Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+                Assert.AreEqual("1,2", result.OriginAddresses.First());
+            }
+            finally
+            {
+                GoogleMaps.DistanceMatrix.OnUriCreated -= onUriCreated;
+            }
+        }
+
+        [Test]
+        public void ShouldPassRawDataToOnRawResponseRecivied()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                Origins = new[] { "placeholder" },
+                Destinations = new[] { "3,4" },
+            };
+
+            var rawData = new byte[0];
+
+            RawResponseReciviedDelegate onRawResponseRecivied = data => rawData = data;
+            GoogleMaps.DistanceMatrix.OnRawResponseRecivied += onRawResponseRecivied;
+
+            try
+            {
+                var result = GoogleMaps.DistanceMatrix.Query(request);
+                if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
+                    Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+                Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+                CollectionAssert.IsNotEmpty(rawData);
+            }
+            finally
+            {
+                GoogleMaps.DistanceMatrix.OnRawResponseRecivied -= onRawResponseRecivied;
+            }
+        }
+    }
 }
