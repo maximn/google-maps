@@ -72,6 +72,14 @@
     <Compile Include="Entities\Directions\Response\TransitDetails.cs" />
     <Compile Include="Entities\Directions\Response\Vehicle.cs" />
     <Compile Include="Entities\Directions\Response\VehicleType.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\DistanceMatrixRequest.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\Time.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\Distance.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\DistanceMatrixResponse.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\Duration.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\Element.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\Row.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\StatusCodes.cs" />
     <Compile Include="Entities\Elevation\Request\ElevationRequest.cs" />
     <Compile Include="Entities\Elevation\Response\ElevationResponse.cs" />
     <Compile Include="Entities\Elevation\Response\Result.cs" />

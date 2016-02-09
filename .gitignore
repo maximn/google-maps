@@ -5,6 +5,7 @@ obj/
 *.suo
 *.user
 _ReSharper*/
+packages
 
 # mstest test results
 [Tt]est[Rr]esult*
