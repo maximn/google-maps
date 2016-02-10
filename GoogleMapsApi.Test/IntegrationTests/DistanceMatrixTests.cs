@@ -84,7 +84,7 @@
         }
 
         [Test]
-        public void ShouldReplaceUriOnOnUriCreated()
+        public void ShouldReplaceUriViaOnUriCreated()
         {
             var request = new DistanceMatrixRequest
             {
@@ -93,13 +93,13 @@
                 Destinations = new[] { "3,4" },
             };
 
-            UriCreatedDelegate onUriCreated = delegate (ref Uri uri) 
+            UriCreatedDelegate onUriCreated = delegate (Uri uri)
                 {
                     var builder = new UriBuilder(uri);
                     builder.Query = builder.Query.Replace("placeholder", "1,2");
-                    uri = builder.Uri;
+                    return builder.Uri;
                 };
-             
+
             GoogleMaps.DistanceMatrix.OnUriCreated += onUriCreated;
 
             try

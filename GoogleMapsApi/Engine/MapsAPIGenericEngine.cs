@@ -9,7 +9,7 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Engine
 {
-    public delegate void UriCreatedDelegate(ref Uri uri);
+    public delegate Uri UriCreatedDelegate(Uri uri);
     public delegate void RawResponseReciviedDelegate(byte[] data);
 
     public abstract class MapsAPIGenericEngine<TRequest, TResponse>
@@ -65,8 +65,10 @@ namespace GoogleMapsApi.Engine
 			try
 			{
 			    var uri = request.GetUri();
-
-			    OnUriCreated?.Invoke(ref uri);
+			    if (OnUriCreated != null)
+			    {
+			        uri = OnUriCreated(uri);
+			    }
 
 			    var data = new WebClientEx(timeout).DownloadData(uri);
                 OnRawResponseRecivied?.Invoke(data);
@@ -124,7 +126,11 @@ namespace GoogleMapsApi.Engine
 			var completionSource = new TaskCompletionSource<TResponse>();
 
             var uri = request.GetUri();
-            OnUriCreated?.Invoke(ref uri);
+            if (OnUriCreated != null)
+            {
+                uri = OnUriCreated(uri);
+            }
+
             new WebClient().DownloadDataTaskAsync(uri, timeout, token)
                 .ContinueWith(t => DownloadDataComplete(t, completionSource), TaskContinuationOptions.ExecuteSynchronously);
 
