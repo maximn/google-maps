@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IntegrationTests\DirectionsTests.cs" />
+    <Compile Include="IntegrationTests\DistanceMatrixTests.cs" />
     <Compile Include="IntegrationTests\ElevationTests.cs" />
     <Compile Include="IntegrationTests\GeocodingTests.cs" />
     <Compile Include="IntegrationTests\BaseTestIntegration.cs" />

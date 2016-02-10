@@ -16,10 +16,12 @@ using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
 using GoogleMapsApi.Entities.PlacesRadar.Request;
 using GoogleMapsApi.Entities.PlacesRadar.Response;
+using GoogleMapsApi.Entities.DistanceMatrix.Request;
+using GoogleMapsApi.Entities.DistanceMatrix.Response;
 
 namespace GoogleMapsApi
 {
-	public class GoogleMaps
+    public class GoogleMaps
 	{
 		/// <summary>Perform geocoding operations.</summary>
 		public static IEngineFacade<GeocodingRequest, GeocodingResponse> Geocode
@@ -99,5 +101,15 @@ namespace GoogleMapsApi
                 return EngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse>.Instance;
             }
         }
-	}
+     
+        /// <summary>Retrieve duration and distance values based on the recommended route between start and end points.</summary>
+        public static IEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse> DistanceMatrix
+        {
+            get
+            {
+                return EngineFacade<DistanceMatrixRequest, DistanceMatrixResponse>.Instance;
+            }
+        }
+
+    }
 }
