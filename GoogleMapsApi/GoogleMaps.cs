@@ -18,6 +18,8 @@ using GoogleMapsApi.Entities.PlacesRadar.Request;
 using GoogleMapsApi.Entities.PlacesRadar.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Request;
 using GoogleMapsApi.Entities.DistanceMatrix.Response;
+using GoogleMapsApi.Entities.PlacesNearBy.Request;
+using GoogleMapsApi.Entities.PlacesNearBy.Response;
 
 namespace GoogleMapsApi
 {
@@ -101,7 +103,15 @@ namespace GoogleMapsApi
                 return EngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse>.Instance;
             }
         }
-     
+
+        /// <summary>Perform near by places operations.</summary>
+        public static IEngineFacade<PlacesNearByRequest, PlacesNearByResponse> PlacesNearBy
+        {
+            get
+            {
+                return EngineFacade<PlacesNearByRequest, PlacesNearByResponse>.Instance;
+            }
+        }
         /// <summary>Retrieve duration and distance values based on the recommended route between start and end points.</summary>
         public static IEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse> DistanceMatrix
         {
