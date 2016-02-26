@@ -10,6 +10,9 @@ namespace GoogleMapsApi.Entities.Directions.Response
 	[DataContract(Name = "DirectionsResponse")]
 	public class DirectionsResponse : IResponseFor<DirectionsRequest>
 	{
+		[DataMember(Name = "error_message")]
+		public string ErrorMessage { get; set; }
+
 		[DataMember(Name = "status")]
 		public string StatusStr
 		{
