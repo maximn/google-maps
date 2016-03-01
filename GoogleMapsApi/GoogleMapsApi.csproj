@@ -52,6 +52,7 @@
     <Compile Include="Entities\Common\IResponseFor.cs" />
     <Compile Include="Entities\Common\Location.cs" />
     <Compile Include="Entities\Common\MapsBaseRequest.cs" />
+    <Compile Include="Entities\Common\Photo.cs" />
     <Compile Include="Entities\Common\SignableRequest.cs" />
     <Compile Include="Entities\Common\Type.cs" />
     <Compile Include="Entities\Directions\Request\AvoidWay.cs" />
