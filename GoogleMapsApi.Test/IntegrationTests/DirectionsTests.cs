@@ -97,8 +97,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
         {
             var request = new DirectionsRequest
             {
-                Origin = "King's Cross station, Euston Road, London",
-                Destination = "Lukin St, London",
+                Origin = "75 9th Ave, New York, NY",
+                Destination = "MetLife Stadium Dr East Rutherford, NJ 07073",
                 TravelMode = TravelMode.Driving
             };
 
