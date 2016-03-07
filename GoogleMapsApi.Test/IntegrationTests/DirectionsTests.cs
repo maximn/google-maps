@@ -106,9 +106,9 @@ namespace GoogleMapsApi.Test.IntegrationTests
 	   
 	    var route = result.Routes.First();
 	    var leg = route.Legs.First();
-            var substeps = leg.Steps.First().SubSteps;
+            var step = leg.Steps.First();
 
-            Assert.NotNull(substeps);
+            Assert.NotNull(step);
         }
     }
 }
