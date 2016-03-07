@@ -104,8 +104,10 @@ namespace GoogleMapsApi.Test.IntegrationTests
             };
 
             DirectionsResponse result = GoogleMaps.Directions.Query(request);
-
-            var substeps = result.Routes.First().Legs.First().Steps.First().SubSteps;
+	   
+	    var route = result.Routes.First();
+	    var leg = route.Legs.First();
+            var substeps = leg.Steps.First().SubSteps;
 
             Assert.NotNull(substeps);
         }
