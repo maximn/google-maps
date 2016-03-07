@@ -99,8 +99,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 Origin = "King's Cross station, Euston Road, London",
                 Destination = "Lukin St, London",
-                TravelMode = TravelMode.Transit,
-                DepartureTime = new DateTime(2017, 02, 11, 14, 00, 00)
+                TravelMode = TravelMode.Driving
             };
 
             DirectionsResponse result = GoogleMaps.Directions.Query(request);
