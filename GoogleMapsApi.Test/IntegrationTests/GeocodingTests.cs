@@ -64,14 +64,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void Geocoding_TimeoutTooShort_Throws()
-        {
-            var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA" };
-
-            Assert.Throws<TimeoutException>(() => GoogleMaps.Geocode.Query(request, TimeSpan.FromMilliseconds(1)));
-        }
-
-        [Test]
         public void GeocodingAsync_Cancel_Throws()
         {
             var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA" };
