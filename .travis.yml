@@ -5,4 +5,4 @@ install:
   - nuget install NUnit.Runners -Version 3.2.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release GoogleMapsApi.sln
-  - mono ./testrunner/NUnit.Runners.3.2.0/tools/nunit-console.exe ./GoogleMapsApi.Test/bin/Release/GoogleMapsApi.Test.dll
+  - mono ./testrunner/NUnit.ConsoleRunner.3.2.0/tools/nunit-console.exe ./GoogleMapsApi.Test/bin/Release/GoogleMapsApi.Test.dll
