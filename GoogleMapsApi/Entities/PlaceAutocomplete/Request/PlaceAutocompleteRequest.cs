@@ -82,8 +82,6 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 		{
 			if (Input == null)
 				throw new ArgumentException("Input term must be provided.");
-			if (Radius.HasValue && (Radius > 50000 || Radius < 1))
-				throw new ArgumentException("Radius must be greater than or equal to 1 and less than or equal to 50000.");
 			if (string.IsNullOrWhiteSpace(ApiKey))
 				throw new ArgumentException("ApiKey must be provided");
 
