@@ -108,5 +108,49 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             Assert.That(result.Results.Any(t => t.Description.ToUpper().Contains(anExpected)));
         }
+
+        [Test(Description = "Ensures that it is ok to sent 0 as a radius value")]
+        public void CheckZeroRadius() 
+        {
+            var request = CreatePlaceAutocompleteRequest("RIX", 0);
+            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            AssertRequestsLimit(result);
+            Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
+        }
+        [Test(Description = "Ensures that it is ok to sent negative value as a radius")]
+        public void CheckNegativeRadius() 
+        {
+            var request = CreatePlaceAutocompleteRequest("RIX", -1);
+            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            AssertRequestsLimit(result);
+            Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
+        }
+
+        [Test(Description = "Ensures that it is ok to sent huge value as a radius")]
+        public void CheckLargerThenEarthRadius() 
+        {
+            var request = CreatePlaceAutocompleteRequest("RIX", 30000000);
+            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            AssertRequestsLimit(result);
+            Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
+        }
+
+        private void AssertRequestsLimit(PlaceAutocompleteResponse result) 
+        {
+            if (result.Status == Status.OVER_QUERY_LIMIT)
+                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+        }
+
+        private PlaceAutocompleteRequest CreatePlaceAutocompleteRequest(string query, double? radius) 
+        {
+            return new PlaceAutocompleteRequest 
+            {
+                ApiKey = base.ApiKey,
+                Input = query,
+                Location = new GoogleMapsApi.Entities.Common.Location(0, 0),
+                Radius = radius
+            };
+        }
+
     }
 }
