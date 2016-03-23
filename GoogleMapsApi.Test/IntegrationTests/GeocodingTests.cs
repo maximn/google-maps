@@ -47,12 +47,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        [ExpectedException(typeof(AuthenticationException))]
         public void Geocoding_InvalidClientCredentials_Throws()
         {
             var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA", ClientID = "gme-ThisIsAUnitTest", SigningKey = "AAECAwQFBgcICQoLDA0ODxAREhM=" };
 
-            GoogleMaps.Geocode.Query(request);
+            Assert.Throws<AuthenticationException>(() => GoogleMaps.Geocode.Query(request));
         }
 
         [Test]
@@ -65,12 +64,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        [ExpectedException(typeof(TimeoutException))]
         public void Geocoding_TimeoutTooShort_Throws()
         {
             var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA" };
 
-            GoogleMaps.Geocode.Query(request, TimeSpan.FromMilliseconds(1));
+            Assert.Throws<TimeoutException>(() => GoogleMaps.Geocode.Query(request, TimeSpan.FromMilliseconds(1)));
         }
 
         [Test]

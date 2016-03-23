@@ -162,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Entities\Directions\The Google Directions API - Google Maps API Web Services - Google Code.htm" />
-    <None Include="packages.config" />
     <None Include="ReleaseNotes.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
