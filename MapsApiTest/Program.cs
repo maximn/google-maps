@@ -41,8 +41,25 @@ namespace MapsApiTest
 			DirectionsResponse transitDirections = GoogleMaps.Directions.Query(transitDirectionRequest);
 			PrintDirections(transitDirections);
 
-			// Geocode
-			var geocodeRequest = new GeocodingRequest
+
+            var dep_time = DateTime.Today
+                            .AddDays(1)
+                            .AddHours(13);
+
+            var request = new DirectionsRequest
+            {
+                Origin = "T-centralen, Stockholm, Sverige",
+                Destination = "Kungsträdgården, Stockholm, Sverige",
+                TravelMode = TravelMode.Transit,
+                DepartureTime = dep_time,
+                Language = "sv"
+            };
+
+            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+            PrintDirections(result);
+
+            // Geocode
+            var geocodeRequest = new GeocodingRequest
 			{
 				Address = "new york city",
 			};
@@ -91,7 +108,7 @@ namespace MapsApiTest
 				Thread.Sleep(1000);
 			}
 
-			Console.WriteLine("Finished! Press any key to exit...");
+            Console.WriteLine("Finished! Press any key to exit...");
 			Console.ReadKey();
 		}
 
@@ -103,6 +120,10 @@ namespace MapsApiTest
 			foreach (Step step in leg.Steps)
 			{
 				Console.WriteLine(StripHTML(step.HtmlInstructions));
+
+                var localIcon = step.TransitDetails?.Lines?.Vehicle?.LocalIcon;
+                if (localIcon != null)
+                    Console.WriteLine("Local sign: " + localIcon);
 			}
 
 			Console.WriteLine();

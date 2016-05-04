@@ -110,5 +110,34 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             Assert.NotNull(step);
         }
+
+        [Test]
+        public void Directions_WithLocalIcons()
+        {
+            var dep_time = DateTime.Today
+                            .AddDays(1)
+                            .AddHours(13);
+            
+            var request = new DirectionsRequest
+            {
+                Origin = "T-centralen, Stockholm, Sverige",
+                Destination = "Kungsträdgården, Stockholm, Sverige",
+                TravelMode = TravelMode.Transit,
+                DepartureTime = dep_time,
+                Language = "sv"
+            };
+
+            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+
+            var route = result.Routes.First();
+            var leg = route.Legs.First();
+            var steps = leg.Steps;
+
+            Assert.IsNotEmpty(steps.Where(s =>
+                s.TransitDetails?
+                .Lines?
+                .Vehicle?
+                .LocalIcon != null));
+        }
     }
 }
