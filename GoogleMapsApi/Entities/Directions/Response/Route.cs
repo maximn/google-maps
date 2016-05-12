@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using GoogleMapsApi.Entities.Geocoding.Response;
 
 namespace GoogleMapsApi.Entities.Directions.Response
 {
@@ -16,10 +17,16 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		[DataMember(Name = "summary")]
 		public string Summary { get; set; }
 
-		/// <summary>
-		/// legs[] contains an array which contains information about a leg of the route, between two locations within the given route. A separate leg will be present for each waypoint or destination specified. (A route with no waypoints will contain exactly one leg within the legs array.) Each leg consists of a series of steps. (See Directions Legs below.)
-		/// </summary>
-		[DataMember(Name = "legs")]
+        /// <summary>
+        /// bounds (optionally returned) contains the viewport bounding box of the overview_polyline.
+        /// </summary>
+        [DataMember(Name = "bounds")]
+        public FramedLocation Bounds { get; set; }
+
+        /// <summary>
+        /// legs[] contains an array which contains information about a leg of the route, between two locations within the given route. A separate leg will be present for each waypoint or destination specified. (A route with no waypoints will contain exactly one leg within the legs array.) Each leg consists of a series of steps. (See Directions Legs below.)
+        /// </summary>
+        [DataMember(Name = "legs")]
 		public IEnumerable<Leg> Legs { get; set; }
 
 		/// <summary>
