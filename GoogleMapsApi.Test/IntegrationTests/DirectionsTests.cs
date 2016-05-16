@@ -111,7 +111,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
             Assert.NotNull(step);
         }
 
-        //The sub_steps differes between google docs documentation and implementation. We use it as google implemented, so we have test to make sure it's not broken.
         [Test]
         public void Directions_VerifyBounds()
         {
