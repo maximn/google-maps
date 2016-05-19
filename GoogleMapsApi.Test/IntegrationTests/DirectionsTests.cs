@@ -103,12 +103,36 @@ namespace GoogleMapsApi.Test.IntegrationTests
             };
 
             DirectionsResponse result = GoogleMaps.Directions.Query(request);
-	   
-	    var route = result.Routes.First();
-	    var leg = route.Legs.First();
+
+            var route = result.Routes.First();
+            var leg = route.Legs.First();
             var step = leg.Steps.First();
 
             Assert.NotNull(step);
+        }
+
+        [Test]
+        public void Directions_VerifyBounds()
+        {
+            var request = new DirectionsRequest
+            {
+                Origin = "Genk, Belgium",
+                Destination = "Brussels, Belgium",
+                TravelMode = TravelMode.Driving
+            };
+
+            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+
+            var route = result.Routes.First();
+
+            Assert.NotNull(route);
+            Assert.NotNull(route.Bounds);
+            Assert.Greater(route.Bounds.NorthEast.Latitude, 50);
+            Assert.Greater(route.Bounds.NorthEast.Longitude, 3);
+            Assert.Greater(route.Bounds.SouthWest.Latitude, 50);
+            Assert.Greater(route.Bounds.SouthWest.Longitude, 3);
+            Assert.Greater(route.Bounds.Center.Latitude, 50);
+            Assert.Greater(route.Bounds.Center.Longitude, 3);
         }
 
         [Test]
