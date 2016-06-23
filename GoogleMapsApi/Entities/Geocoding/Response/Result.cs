@@ -33,10 +33,16 @@ namespace GoogleMapsApi.Entities.Geocoding.Response
 		[DataMember(Name = "geometry")]
 		public Geometry Geometry { get; set; }
 
-        /// <summary>
-        /// indicates that the geocoder did not return an exact match for the original request, though it did match part of the requested address. You may wish to examine the original request for misspellings and/or an incomplete address. Partial matches most often occur for street addresses that do not exist within the locality you pass in the request.
-        /// </summary>
-        [DataMember(Name = "partial_match")]
-        public bool PartialMatch { get; set; }
+		/// <summary>
+		/// indicates that the geocoder did not return an exact match for the original request, though it did match part of the requested address. You may wish to examine the original request for misspellings and/or an incomplete address. Partial matches most often occur for street addresses that do not exist within the locality you pass in the request.
+		/// </summary>
+		[DataMember(Name = "partial_match")]
+		public bool PartialMatch { get; set; }
+	
+		/// <summary>
+		/// provides the Google PlaceId
+		/// </summary>
+		[DataMember(Name = "place_id")]
+		public string PlaceId { get; set; }
 	}
 }

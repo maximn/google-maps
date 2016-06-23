@@ -179,7 +179,7 @@ namespace GoogleMapsApi.StaticMaps
 				float? gamma = style.Gamma;
 				if (gamma != null)
 				{
-					styleComponents.Add("hue:" + gamma);
+					styleComponents.Add("gamma:" + gamma);
 				}
 
 				bool inverseLightness = style.InverseLightness;

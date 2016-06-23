@@ -25,6 +25,23 @@ namespace GoogleMapsApi.Test.IntegrationTests
             Assert.Greater(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 100);
         }
 
+		[Test]
+		public void Directions_ErrorMessage()
+		{
+			var request = new DirectionsRequest
+			{
+				ApiKey = "ABCDEF", // Wrong API Key
+				Origin = "285 Bedford Ave, Brooklyn, NY, USA",
+				Destination = "185 Broadway Ave, Manhattan, NY, USA"
+			};
+			var result = GoogleMaps.Directions.Query(request);
+			if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
+				Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+			Assert.AreEqual(DirectionsStatusCodes.REQUEST_DENIED, result.Status);
+			Assert.IsNotNull (result.ErrorMessage);
+			Assert.IsNotEmpty (result.ErrorMessage);
+		}
+
         [Test]
         public void Directions_WithWayPoints()
         {
@@ -57,7 +74,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
             Assert.AreEqual(122, overviewPath.Points.Count(), 30);
-            Assert.AreEqual(2, polyline.Points.Count());
+            Assert.Greater(polyline.Points.Count(), 2);
         }
 
         [Test]
@@ -80,17 +97,71 @@ namespace GoogleMapsApi.Test.IntegrationTests
         {
             var request = new DirectionsRequest
             {
-                Origin = "King's Cross station, Euston Road, London",
-                Destination = "Lukin St, London",
-                TravelMode = TravelMode.Transit,
-                DepartureTime = new DateTime(2014, 02, 11, 14, 00, 00)
+                Origin = "75 9th Ave, New York, NY",
+                Destination = "MetLife Stadium Dr East Rutherford, NJ 07073",
+                TravelMode = TravelMode.Driving
             };
 
             DirectionsResponse result = GoogleMaps.Directions.Query(request);
 
-            var substeps = result.Routes.First().Legs.First().Steps.First().SubSteps;
+            var route = result.Routes.First();
+            var leg = route.Legs.First();
+            var step = leg.Steps.First();
 
-            Assert.NotNull(substeps);
+            Assert.NotNull(step);
+        }
+
+        [Test]
+        public void Directions_VerifyBounds()
+        {
+            var request = new DirectionsRequest
+            {
+                Origin = "Genk, Belgium",
+                Destination = "Brussels, Belgium",
+                TravelMode = TravelMode.Driving
+            };
+
+            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+
+            var route = result.Routes.First();
+
+            Assert.NotNull(route);
+            Assert.NotNull(route.Bounds);
+            Assert.Greater(route.Bounds.NorthEast.Latitude, 50);
+            Assert.Greater(route.Bounds.NorthEast.Longitude, 3);
+            Assert.Greater(route.Bounds.SouthWest.Latitude, 50);
+            Assert.Greater(route.Bounds.SouthWest.Longitude, 3);
+            Assert.Greater(route.Bounds.Center.Latitude, 50);
+            Assert.Greater(route.Bounds.Center.Longitude, 3);
+        }
+
+        [Test]
+        public void Directions_WithLocalIcons()
+        {
+            var dep_time = DateTime.Today
+                            .AddDays(1)
+                            .AddHours(13);
+            
+            var request = new DirectionsRequest
+            {
+                Origin = "T-centralen, Stockholm, Sverige",
+                Destination = "Kungsträdgården, Stockholm, Sverige",
+                TravelMode = TravelMode.Transit,
+                DepartureTime = dep_time,
+                Language = "sv"
+            };
+
+            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+
+            var route = result.Routes.First();
+            var leg = route.Legs.First();
+            var steps = leg.Steps;
+
+            Assert.IsNotEmpty(steps.Where(s =>
+                s.TransitDetails?
+                .Lines?
+                .Vehicle?
+                .LocalIcon != null));
         }
     }
 }

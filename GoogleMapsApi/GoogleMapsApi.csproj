@@ -45,12 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EngineFacade.cs" />
     <Compile Include="Engine\MapsAPIGenericEngine.cs" />
     <Compile Include="Engine\UnixTimeConverter.cs" />
     <Compile Include="Entities\Common\ILocationString.cs" />
     <Compile Include="Entities\Common\IResponseFor.cs" />
     <Compile Include="Entities\Common\Location.cs" />
     <Compile Include="Entities\Common\MapsBaseRequest.cs" />
+    <Compile Include="Entities\Common\Photo.cs" />
     <Compile Include="Entities\Common\SignableRequest.cs" />
     <Compile Include="Entities\Common\Type.cs" />
     <Compile Include="Entities\Directions\Request\AvoidWay.cs" />
@@ -71,6 +73,14 @@
     <Compile Include="Entities\Directions\Response\TransitDetails.cs" />
     <Compile Include="Entities\Directions\Response\Vehicle.cs" />
     <Compile Include="Entities\Directions\Response\VehicleType.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\DistanceMatrixRequest.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\Time.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\Distance.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\DistanceMatrixResponse.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\Duration.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\Element.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\Row.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\StatusCodes.cs" />
     <Compile Include="Entities\Elevation\Request\ElevationRequest.cs" />
     <Compile Include="Entities\Elevation\Response\ElevationResponse.cs" />
     <Compile Include="Entities\Elevation\Response\Result.cs" />
@@ -100,6 +110,12 @@
     <Compile Include="Entities\PlacesDetails\Response\Result.cs" />
     <Compile Include="Entities\PlacesDetails\Response\Status.cs" />
     <Compile Include="Entities\PlacesDetails\Response\TimeOfWeek.cs" />
+    <Compile Include="Entities\PlacesNearBy\Request\PlacesNearByRequest.cs" />
+    <Compile Include="Entities\PlacesNearBy\Request\RankBy.cs" />
+    <Compile Include="Entities\PlacesNearBy\Response\Geometry.cs" />
+    <Compile Include="Entities\PlacesNearBy\Response\PlacesNearByResponse.cs" />
+    <Compile Include="Entities\PlacesNearBy\Response\Result.cs" />
+    <Compile Include="Entities\PlacesNearBy\Response\Status.cs" />
     <Compile Include="Entities\PlacesRadar\Request\PlacesRadarRequest.cs" />
     <Compile Include="Entities\PlacesRadar\Response\Geometry.cs" />
     <Compile Include="Entities\PlacesRadar\Response\PlacesRadarResponse.cs" />
@@ -120,6 +136,7 @@
     <Compile Include="Entities\TimeZone\Response\Status.cs" />
     <Compile Include="Entities\TimeZone\Response\TimeZoneResponse.cs" />
     <Compile Include="GoogleMaps.cs" />
+    <Compile Include="IEngineFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Common\AddressLocation.cs" />
     <Compile Include="QueryStringParametersList.cs" />
@@ -145,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Entities\Directions\The Google Directions API - Google Maps API Web Services - Google Code.htm" />
-    <None Include="packages.config" />
     <None Include="ReleaseNotes.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

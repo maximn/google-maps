@@ -10,6 +10,17 @@ namespace GoogleMapsApi.Entities.Geocoding.Response
 		public Location SouthWest { get; set; }
 
 		[DataMember(Name = "northeast")]
-		public Location NorthEast { get; set; }
-	}
+        public Location NorthEast { get; set; }
+        
+	    public Location Center
+	    {
+	        get
+	        {
+	            if (SouthWest == null || NorthEast == null)
+                    return null;
+	            return new Location((SouthWest.Latitude + NorthEast.Latitude) / 2, (SouthWest.Longitude + NorthEast.Longitude) / 2);
+	        }
+	    }
+
+    }
 }
