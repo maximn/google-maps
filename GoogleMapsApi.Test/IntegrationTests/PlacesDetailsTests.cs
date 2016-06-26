@@ -12,6 +12,23 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class PlacesDetailsTests  : BaseTestIntegration
     {
         [Test]
+        public void ReturnsPhotos()
+        {
+            var request = new PlacesDetailsRequest
+            {
+                ApiKey = ApiKey,
+                PlaceId = "ChIJZ3VuVMQdLz4REP9PWpQ4SIY"
+            };
+
+            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
+
+            if (result.Status == Status.OVER_QUERY_LIMIT)
+                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            Assert.AreEqual(Status.OK, result.Status);
+            Assert.IsNotEmpty(result.Result.Photos);
+        }
+
+        [Test]
         public void ReturnsNotFoundForWrongReferenceString()
         {
             var request = new PlacesDetailsRequest
