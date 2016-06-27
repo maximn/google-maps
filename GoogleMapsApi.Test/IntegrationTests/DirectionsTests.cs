@@ -74,7 +74,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
             Assert.AreEqual(122, overviewPath.Points.Count(), 30);
-            Assert.Greater(polyline.Points.Count(), 2);
+            Assert.Greater(polyline.Points.Count(), 1);
         }
 
         [Test]
