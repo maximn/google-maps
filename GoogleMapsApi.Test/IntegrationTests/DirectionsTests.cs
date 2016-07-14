@@ -149,6 +149,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 TravelMode = TravelMode.Transit,
                 DepartureTime = dep_time,
                 Language = "sv"
+
             };
 
             DirectionsResponse result = GoogleMaps.Directions.Query(request);
@@ -162,6 +163,28 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 .Lines?
                 .Vehicle?
                 .LocalIcon != null));
+        }
+
+        [Test]
+        public void Directions_WithRegionSearch()
+        {
+            var dep_time = DateTime.Today
+                            .AddDays(1)
+                            .AddHours(13);
+
+            var request = new DirectionsRequest
+            {
+                Origin = "Mt Albert",
+                Destination = "Parnell",
+                TravelMode = TravelMode.Transit,
+                DepartureTime = dep_time,
+                Region = "nz"
+            };
+
+            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+
+            Assert.IsNotEmpty(result.Routes);
+            Assert.True(result.Status.Equals(DirectionsStatusCodes.OK));
         }
     }
 }
