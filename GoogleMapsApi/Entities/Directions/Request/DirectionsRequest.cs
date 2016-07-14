@@ -81,6 +81,13 @@ namespace GoogleMapsApi.Entities.Directions.Request
 		/// </summary>
 		public TravelMode TravelMode { get; set; }
 
+        /// <summary>
+        /// This parameter takes a region code, specified as a IANA language region subtag (http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). 
+        /// In most cases, these tags map directly to familiar ccTLD ("top-level domain") two-character values such as "uk" in "co.uk" for example.
+        ///  In some cases, the region tag also supports ISO-3166-1 codes, which sometimes differ from ccTLD values ("GB" for "Great Britain" for example).
+        /// </summary>
+        public string Region { get; set; }
+
 		protected override QueryStringParametersList GetQueryStringParameters()
 		{
 			if (string.IsNullOrWhiteSpace(Origin))
@@ -109,7 +116,10 @@ namespace GoogleMapsApi.Entities.Directions.Request
 			if (!string.IsNullOrWhiteSpace(Language))
 				parameters.Add("language", Language);
 
-			if (Waypoints != null && Waypoints.Any())
+            if (!string.IsNullOrWhiteSpace(Region))
+                parameters.Add("region", Region);
+
+            if (Waypoints != null && Waypoints.Any())
 			{
 				IEnumerable<string> waypoints;
 
