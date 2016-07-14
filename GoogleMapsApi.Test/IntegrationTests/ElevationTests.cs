@@ -18,7 +18,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             if (result.Status == Entities.Elevation.Response.Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(Entities.Elevation.Response.Status.OK, result.Status);
-            Assert.AreEqual(14.782454490661619, result.Results.First().Elevation);
+            Assert.AreEqual(14.78, result.Results.First().Elevation, 1.0);
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             if (result.Status == Entities.Elevation.Response.Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(Entities.Elevation.Response.Status.OK, result.Status);
-            Assert.AreEqual(14.782454490661619, result.Results.First().Elevation);
+            Assert.AreEqual(14.78, result.Results.First().Elevation, 1.0);
         } 
     }
 }
