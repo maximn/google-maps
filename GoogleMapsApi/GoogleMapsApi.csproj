@@ -74,7 +74,13 @@
     <Compile Include="Entities\Directions\Response\Vehicle.cs" />
     <Compile Include="Entities\Directions\Response\VehicleType.cs" />
     <Compile Include="Entities\DistanceMatrix\Request\DistanceMatrixRequest.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\Restrictions.cs" />
     <Compile Include="Entities\DistanceMatrix\Request\Time.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\TrafficModel.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\TransitMode.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\TransitRoutingPreference.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\TravelMode.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\UnitSystem.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\Distance.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\DistanceMatrixResponse.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\Duration.cs" />
