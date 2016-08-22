@@ -99,6 +99,24 @@
         }
 
         [Test]
+        public void ShouldReturnImperialUnitsIfImperialPassedAsParameter()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                Units = DistanceMatrixUnitSystems.imperial,
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            var result = GoogleMaps.DistanceMatrix.Query(request);
+
+            if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
+                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            Assert.True(result.Rows.First().Elements.First().Distance.Text.Contains("mi"));
+        }
+
+        [Test]
         public void ShouldReplaceUriViaOnUriCreated()
         {
             var request = new DistanceMatrixRequest

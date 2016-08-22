@@ -39,6 +39,8 @@
 		/// </summary>
 		public Time ArrivalTime { get; set; }
 
+        public DistanceMatrixUnitSystems Units { get; set; }
+
         protected override QueryStringParametersList GetQueryStringParameters()
         {
             if (Origins == null || !Origins.Any())
@@ -57,6 +59,9 @@
 
             if (ArrivalTime != null)
                 parameters.Add("arrival_time", ArrivalTime.ToString());
+
+            if (Units != null)
+                parameters.Add("units", Units.ToString());
 
             return parameters;
         }
