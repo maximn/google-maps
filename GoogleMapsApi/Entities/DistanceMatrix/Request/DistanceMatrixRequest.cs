@@ -34,12 +34,19 @@
 		/// </summary>
 		public Time DepartureTime { get; set; }
 
+        /// <summary>
+		///  The desired time of arrival. 
+		/// </summary>
+		public Time ArrivalTime { get; set; }
+
         protected override QueryStringParametersList GetQueryStringParameters()
         {
             if (Origins == null || !Origins.Any())
                 throw new ArgumentException("Must specify an Origins");
             if (Destinations == null || !Destinations.Any())
                 throw new ArgumentException("Must specify a Destinations");
+            if (DepartureTime != null && ArrivalTime != null)
+                throw new ArgumentException("Must not specify both an ArrivalTime and a DepartureTime");
 
             var parameters = base.GetQueryStringParameters();
             parameters.Add("origins", string.Join("|", Origins));
@@ -47,6 +54,9 @@
 
             if (DepartureTime != null)
                 parameters.Add("departure_time", DepartureTime.ToString());
+
+            if (ArrivalTime != null)
+                parameters.Add("arrival_time", ArrivalTime.ToString());
 
             return parameters;
         }

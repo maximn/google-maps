@@ -84,6 +84,21 @@
         }
 
         [Test]
+        public void ShouldThrowExceptionWhenDepartureTimeAndArrivalTimeSpecified()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                DepartureTime = new Time(),
+                ArrivalTime = new Time(),
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+        }
+
+        [Test]
         public void ShouldReplaceUriViaOnUriCreated()
         {
             var request = new DistanceMatrixRequest
