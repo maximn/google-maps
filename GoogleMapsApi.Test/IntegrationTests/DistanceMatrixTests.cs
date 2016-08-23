@@ -160,6 +160,21 @@
         }
 
         [Test]
+        public void ShouldThrowExceptionWhenTransitModesSuppliedForNonTransitMode()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                Mode = DistanceMatrixTravelModes.driving,
+                TransitModes = new DistanceMatrixTransitModes[] { DistanceMatrixTransitModes.bus, DistanceMatrixTransitModes.subway},
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+        }
+
+        [Test]
         public void ShouldReturnImperialUnitsIfImperialPassedAsParameter()
         {
             var request = new DistanceMatrixRequest
