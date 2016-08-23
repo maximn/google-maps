@@ -5,7 +5,7 @@
 
     using Common;
 
-    using GoogleMapsApi.Entities.Directions.Request;
+    using GoogleMapsApi.Entities.DistanceMatrix.Request;
     using System.Linq;
 
     using GoogleMapsApi.Engine;
@@ -39,7 +39,9 @@
 		/// </summary>
 		public Time ArrivalTime { get; set; }
 
-        public DistanceMatrixUnitSystems Units { get; set; }
+        public DistanceMatrixTravelModes? Mode { get; set; }
+
+        public DistanceMatrixUnitSystems? Units { get; set; }
 
         protected override QueryStringParametersList GetQueryStringParameters()
         {
@@ -49,6 +51,8 @@
                 throw new ArgumentException("Must specify a Destinations");
             if (DepartureTime != null && ArrivalTime != null)
                 throw new ArgumentException("Must not specify both an ArrivalTime and a DepartureTime");
+            if (Mode != DistanceMatrixTravelModes.transit && ArrivalTime != null)
+                throw new ArgumentException("Must not specify ArrivalTime for modes other than Transit");
 
             var parameters = base.GetQueryStringParameters();
             parameters.Add("origins", string.Join("|", Origins));
@@ -59,6 +63,9 @@
 
             if (ArrivalTime != null)
                 parameters.Add("arrival_time", ArrivalTime.ToString());
+
+            if (Mode != null)
+                parameters.Add("mode", Mode.ToString());
 
             if (Units != null)
                 parameters.Add("units", Units.ToString());

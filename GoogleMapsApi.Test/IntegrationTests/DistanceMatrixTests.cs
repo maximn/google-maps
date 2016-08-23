@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-
     using GoogleMapsApi.Engine;
     using GoogleMapsApi.Entities.Directions.Response;
     using GoogleMapsApi.Entities.DistanceMatrix.Request;
@@ -91,6 +90,22 @@
                 ApiKey = ApiKey,
                 DepartureTime = new Time(),
                 ArrivalTime = new Time(),
+                Mode = DistanceMatrixTravelModes.transit,
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+        }
+
+        [Test]
+        public void ShouldThrowExceptionWheArrivalTimeSpecifiedForNonTransitModes()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                ArrivalTime = new Time(),
+                Mode = DistanceMatrixTravelModes.driving,
                 Origins = new[] { "49.64265,12.50088" },
                 Destinations = new[] { "53.64308,10.52726" },
             };
