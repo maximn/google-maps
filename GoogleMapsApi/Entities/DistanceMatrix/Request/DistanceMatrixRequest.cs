@@ -39,16 +39,54 @@
 		/// </summary>
 		public Time ArrivalTime { get; set; }
 
+        /// <summary>
+        /// For the calculation of distances, you may specify the transportation mode to use. By default, distances are calculated for driving mode. The following travel modes are supported:
+        /// - driving(default) indicates distance calculation using the road network.
+        /// - walking requests distance calculation for walking via pedestrian paths & sidewalks (where available).
+        /// - bicycling requests distance calculation for bicycling via bicycle paths & preferred streets(where available).
+        /// - transit requests distance calculation via public transit routes(where available). This value may only be specified if the request includes an API key or a Google Maps APIs Premium Plan client ID.If you set the mode to transit you can optionally specify either a departure_time or an arrival_time.If neither time is specified, the departure_time defaults to now(that is, the departure time defaults to the current time). You can also optionally include a transit_mode and/or a transit_routing_preference.
+        /// * Note: Both walking and bicycling routes may sometimes not include clear pedestrian or bicycling paths, so these responses will return warnings in the returned result which you must display to the user.
+        /// </summary>
         public DistanceMatrixTravelModes? Mode { get; set; }
 
+        /// <summary>
+        /// traffic_model (defaults to best_guess) — Specifies the assumptions to use when calculating time in traffic. This setting affects the value returned in the duration_in_traffic field in the response, which contains the predicted time in traffic based on historical averages. The traffic_model parameter may only be specified for requests where the travel mode is driving, and where the request includes a departure_time, and only if the request includes an API key or a Google Maps APIs Premium Plan client ID. The available values for this parameter are:
+        /// - best_guess(default) indicates that the returned duration_in_traffic should be the best estimate of travel time given what is known about both historical traffic conditions and live traffic.Live traffic becomes more important the closer the departure_time is to now.
+        /// - pessimistic indicates that the returned duration_in_traffic should be longer than the actual travel time on most days, though occasional days with particularly bad traffic conditions may exceed this value. 
+        /// - optimistic indicates that the returned duration_in_traffic should be shorter than the actual travel time on most days, though occasional days with particularly good traffic conditions may be faster than this value.
+        /// </summary>
         public DistanceMatrixTrafficModels? TrafficModel { get; set; }
 
+        /// <summary>
+        /// transit_routing_preference — Specifies preferences for transit requests. Using this parameter, you can bias the options returned, rather than accepting the default best route chosen by the API. This parameter may only be specified for requests where the mode is transit. The parameter supports the following arguments:
+        /// - less_walking indicates that the calculated route should prefer limited amounts of walking.
+        /// - fewer_transfers indicates that the calculated route should prefer a limited number of transfers.
+        /// </summary>
         public DistanceMatrixTransitRoutingPreferences? TransitRoutingPreference { get; set; }
 
+        /// <summary>
+        /// transit_mode — Specifies one or more preferred modes of transit. This parameter may only be specified for requests where the mode is transit. The parameter supports the following arguments:
+        /// - bus indicates that the calculated route should prefer travel by bus.
+        /// - subway indicates that the calculated route should prefer travel by subway.
+        /// - train indicates that the calculated route should prefer travel by train.
+        /// - tram indicates that the calculated route should prefer travel by tram and light rail.
+        /// - rail indicates that the calculated route should prefer travel by train, tram, light rail, and subway. This is equivalent to transit_mode= train | tram | subway.
+        /// </summary>
         public DistanceMatrixTransitModes[] TransitModes { get; set; }
 
+        /// <summary>
+        /// Distances may be calculated that adhere to certain restrictions. Restrictions are indicated by use of the avoid parameter, and an argument to that parameter indicating the restriction to avoid. The following restrictions are supported:
+        /// tolls, highways, ferries indoor
+        /// * Note: the addition of restrictions does not preclude routes that include the restricted feature; it simply biases the result to more favorable routes.
+        /// </summary>
         public DistanceMatrixRestrictions? Avoid { get; set; }
 
+        /// <summary>
+        /// Distance Matrix results contain text within distance fields to indicate the distance of the calculated route. The unit system to use can be specified:
+        /// - metric(default) returns distances in kilometers and meters.
+        /// - imperial returns distances in miles and feet.
+        /// * Note: this unit system setting only affects the text displayed within distance fields.The distance fields also contain values which are always expressed in meters.
+        /// </summary>
         public DistanceMatrixUnitSystems? Units { get; set; }
 
         public string Language { get; set; }
