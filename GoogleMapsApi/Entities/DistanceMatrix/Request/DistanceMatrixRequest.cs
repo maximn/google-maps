@@ -49,6 +49,8 @@
 
         public DistanceMatrixUnitSystems? Units { get; set; }
 
+        public string Language { get; set; }
+
         protected override QueryStringParametersList GetQueryStringParameters()
         {
             if (Origins == null || !Origins.Any())
@@ -89,6 +91,9 @@
 
             if (Units != null)
                 parameters.Add("units", Units.ToString());
+
+            if (!string.IsNullOrWhiteSpace(Language))
+                parameters.Add("language", Language);
 
             return parameters;
         }
