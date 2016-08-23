@@ -114,6 +114,21 @@
         }
 
         [Test]
+        public void ShouldThrowExceptionWheTransitRoutingPreferenceSpecifiedForNonTransitModes()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                Mode = DistanceMatrixTravelModes.driving,
+                TransitRoutingPreference = DistanceMatrixTransitRoutingPreferences.less_walking,
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+        }
+
+        [Test]
         public void ShouldThrowExceptionWhenTrafficModelSuppliedForNonDrivingMode()
         {
             var request = new DistanceMatrixRequest

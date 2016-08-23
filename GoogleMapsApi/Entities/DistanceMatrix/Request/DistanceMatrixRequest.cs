@@ -43,6 +43,8 @@
 
         public DistanceMatrixTrafficModels? TrafficModel { get; set; }
 
+        public DistanceMatrixTransitRoutingPreferences? TransitRoutingPreference { get; set; }
+
         public DistanceMatrixRestrictions? Avoid { get; set; }
 
         public DistanceMatrixUnitSystems? Units { get; set; }
@@ -57,6 +59,8 @@
                 throw new ArgumentException("Must not specify both an ArrivalTime and a DepartureTime");
             if (Mode != DistanceMatrixTravelModes.transit && ArrivalTime != null)
                 throw new ArgumentException("Must not specify ArrivalTime for modes other than Transit");
+            if (Mode != DistanceMatrixTravelModes.transit && TransitRoutingPreference != null)
+                throw new ArgumentException("Must not specify TransitRoutingPreference for modes other than Transit");
             if ((!(Mode == null || Mode == DistanceMatrixTravelModes.driving) || DepartureTime == null)
                 && TrafficModel != null)
                 throw new ArgumentException("A TrafficModel must not be specified unless the Mode is Driving and a DepartureTime is provided");
@@ -76,6 +80,9 @@
 
             if (TrafficModel != null)
                 parameters.Add("traffic_model", TrafficModel.ToString());
+
+            if (TransitRoutingPreference != null)
+                parameters.Add("transit_routing_preference", TransitRoutingPreference.ToString());
 
             if (Avoid != null)
                 parameters.Add("avoid", Avoid.ToString());
