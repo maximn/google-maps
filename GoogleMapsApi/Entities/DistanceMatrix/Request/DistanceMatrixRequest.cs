@@ -41,6 +41,8 @@
 
         public DistanceMatrixTravelModes? Mode { get; set; }
 
+        public DistanceMatrixRestrictions? Avoid { get; set; }
+
         public DistanceMatrixUnitSystems? Units { get; set; }
 
         protected override QueryStringParametersList GetQueryStringParameters()
@@ -66,6 +68,9 @@
 
             if (Mode != null)
                 parameters.Add("mode", Mode.ToString());
+
+            if (Avoid != null)
+                parameters.Add("avoid", Avoid.ToString());
 
             if (Units != null)
                 parameters.Add("units", Units.ToString());
