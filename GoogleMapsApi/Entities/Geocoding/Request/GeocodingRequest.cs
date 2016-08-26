@@ -43,7 +43,12 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
 		/// </summary>
 		public string Language { get; set; }
 
-		protected override QueryStringParametersList GetQueryStringParameters()
+        /// <summary>
+        /// components (optional) - The component filters - Only geocoding results matching the component filters will be returned.
+        /// </summary>
+        public Dictionary<string, string> Components { get; set; }
+
+        protected override QueryStringParametersList GetQueryStringParameters()
 		{
 			if (Location == null && string.IsNullOrWhiteSpace(Address))
 				throw new ArgumentException("Location OR Address is required");
@@ -64,7 +69,12 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
 			if (!string.IsNullOrWhiteSpace(Language))
 				parameters.Add("language", Language);
 
-			return parameters;
+		    if (Components != null && Components.Count > 0)
+		    {
+                parameters.Add("components", string.Join("|", Components.Select(p => p.Key + ':' + p.Value).ToArray()));
+            }
+
+		    return parameters;
 		}
 	}
 }
