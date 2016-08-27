@@ -43,28 +43,98 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
 		/// </summary>
 		public string Language { get; set; }
 
-		protected override QueryStringParametersList GetQueryStringParameters()
+        #region Components
+        /// <summary>
+        /// A component filter for which you wish to obtain a geocode. The components filter will also be accepted as an optional parameter if an address is provided.
+        /// See more info: https://developers.google.com/maps/documentation/geocoding/intro#ComponentFiltering
+        /// </summary>
+        public Dictionary<string, string> Components { get; set; } = new Dictionary<string, string>();
+        /// <summary>
+        /// matches long or short name of a route.
+        /// </summary>
+        public string Route { get; set; }
+        /// <summary>
+        /// matches against both locality and sublocality types.
+        /// </summary>
+        public string Locality { get; set; }
+        /// <summary>
+        /// matches all the administrative_area levels.
+        /// </summary>
+        public string AdministrativeArea { get; set; }
+        /// <summary>
+        /// matches postal_code and postal_code_prefix.
+        /// </summary>
+        public string PostalCode { get; set; }
+        /// <summary>
+        /// matches a country name or a two letter ISO 3166-1 country code.
+        /// </summary>
+        public string Country { get; set; }
+
+        private string BuildComponents()
+        {
+            if (!string.IsNullOrWhiteSpace(Route))
+                Components[route] = Route;
+
+            if (!string.IsNullOrWhiteSpace(Locality))
+                Components[locality] = Locality;
+
+            if (!string.IsNullOrWhiteSpace(AdministrativeArea))
+                Components[administrative_area] = AdministrativeArea;
+
+            if (!string.IsNullOrWhiteSpace(PostalCode))
+                Components[postal_code] = PostalCode;
+
+            if (!string.IsNullOrWhiteSpace(Country))
+                Components[country] = Country;
+
+            string components = "";
+            foreach (var keyValue in Components)
+            {
+                components += $"{keyValue.Key}:{keyValue.Value}|";
+            }
+            return components;
+        }
+        public const string route = "route";
+        public const string locality = "locality";
+        public const string administrative_area = "administrative_area";
+        public const string postal_code = "postal_code";
+        public const string country = "country";
+        #endregion
+
+        protected override QueryStringParametersList GetQueryStringParameters()
 		{
-			if (Location == null && string.IsNullOrWhiteSpace(Address))
-				throw new ArgumentException("Location OR Address is required");
+            string components = BuildComponents();
+            bool hasComponents = !string.IsNullOrWhiteSpace(components);
+            if (string.IsNullOrWhiteSpace(Address) && Location == null && !hasComponents)
+				throw new ArgumentException("Address, Location OR Components is required");
 
 			var parameters = base.GetQueryStringParameters();
 
 			if (Location != null)
-				parameters.Add("latlng", Location.ToString());
+				parameters.Add(_latlng, Location.ToString());
 			else
-				parameters.Add("address", Address);
+				parameters.Add(_address, Address);
 
 			if (Bounds != null && Bounds.Any())
-				parameters.Add("bounds", string.Join("|", Bounds.AsEnumerable()));
+				parameters.Add(_bounds, string.Join("|", Bounds.AsEnumerable()));
 
 			if (!string.IsNullOrWhiteSpace(Region))
-				parameters.Add("region", Region);
+				parameters.Add(_region, Region);
 
 			if (!string.IsNullOrWhiteSpace(Language))
-				parameters.Add("language", Language);
+				parameters.Add(_language, Language);
+            
+            if (hasComponents)
+                parameters.Add(_components, components);
 
-			return parameters;
+            return parameters;
 		}
-	}
+
+        const string _latlng = "latlng";
+        const string _address = "address";
+        const string _bounds = "bounds";
+        const string _region = "region";
+        const string _language = "language";
+        const string _components = "components";
+    }
 }
