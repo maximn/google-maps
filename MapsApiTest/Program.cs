@@ -59,9 +59,17 @@ namespace MapsApiTest
             PrintDirections(result);
 
             // Geocode
+            //https://maps.googleapis.com/maps/api/geocode/json?address=Parque+Marechal+Mascarenhas+de+Morais&components=locality:Porto%20Aelgre|administrative_area:RS|country:BR
             var geocodeRequest = new GeocodingRequest
 			{
-				Address = "new york city",
+				Address = "Parque Marechal Mascarenhas de Morais",
+                Components = new GeocodingComponents()
+                {
+                    Locality = "Porto Alegre",
+                    AdministrativeArea = "RS",
+                    Country = "BR"
+                }
+                
 			};
 
 			GeocodingResponse geocode = GoogleMaps.Geocode.Query(geocodeRequest);
