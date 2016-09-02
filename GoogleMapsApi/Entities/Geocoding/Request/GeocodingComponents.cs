@@ -2,29 +2,31 @@
 
 namespace GoogleMapsApi.Entities.Geocoding.Request
 {
-    public class GeocodingComponents : Dictionary<string, string>
+    public class GeocodingComponents
     {
+        readonly Dictionary<string, string> components = new Dictionary<string, string>();
+
         /// <summary>
         /// matches long or short name of a route.
         /// </summary>
-        public string Route { get { return this[route]; } set { this[route] = value; } }
+        public string Route { get { return components[route]; } set { components[route] = value; } }
         /// <summary>
         /// matches against both locality and sublocality types.
         /// </summary>
-        public string Locality { get { return this[locality]; } set { this[locality] = value; } }
+        public string Locality { get { return components[locality]; } set { components[locality] = value; } }
         /// <summary>
         /// matches all the administrative_area levels.
         /// </summary>
-        public string AdministrativeArea { get { return this[administrative_area]; } set { this[administrative_area] = value; } }
+        public string AdministrativeArea { get { return components[administrative_area]; } set { components[administrative_area] = value; } }
         /// <summary>
         /// matches postal_code and postal_code_prefix.
         /// </summary>
-        public string PostalCode { get { return this[postal_code]; } set { this[postal_code] = value; } }
+        public string PostalCode { get { return components[postal_code]; } set { components[postal_code] = value; } }
         /// <summary>
         /// matches a country name or a two letter ISO 3166-1 country code.
         /// </summary>
-        public string Country { get { return this[country]; } set { this[country] = value; } }
-        public bool Exists { get { return Count > 0; } }
+        public string Country { get { return components[country]; } set { components[country] = value; } }
+        public bool Exists { get { return components.Count > 0; } }
         public override string ToString()
         {
             return Build();
@@ -33,12 +35,12 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
         {
             if (Exists)
             {
-                string components = "";
-                foreach (var keyValue in this)
+                string _components = "";
+                foreach (var keyValue in this.components)
                 {
-                    components += $"{keyValue.Key}:{keyValue.Value}|";
+                    _components += $"{keyValue.Key}:{keyValue.Value}|";
                 }
-                return components;
+                return _components;
             }
             return null;
         }
