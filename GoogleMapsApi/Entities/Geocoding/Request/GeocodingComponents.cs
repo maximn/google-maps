@@ -9,23 +9,23 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
         /// <summary>
         /// matches long or short name of a route.
         /// </summary>
-        public string Route { get { return components[route]; } set { components[route] = value; } }
+        public string Route { get { return components[RouteComponent]; } set { components[RouteComponent] = value; } }
         /// <summary>
         /// matches against both locality and sublocality types.
         /// </summary>
-        public string Locality { get { return components[locality]; } set { components[locality] = value; } }
+        public string Locality { get { return components[LocalityComponent]; } set { components[LocalityComponent] = value; } }
         /// <summary>
         /// matches all the administrative_area levels.
         /// </summary>
-        public string AdministrativeArea { get { return components[administrative_area]; } set { components[administrative_area] = value; } }
+        public string AdministrativeArea { get { return components[AdministrativeAreaComponent]; } set { components[AdministrativeAreaComponent] = value; } }
         /// <summary>
         /// matches postal_code and postal_code_prefix.
         /// </summary>
-        public string PostalCode { get { return components[postal_code]; } set { components[postal_code] = value; } }
+        public string PostalCode { get { return components[PostalCodeComponent]; } set { components[PostalCodeComponent] = value; } }
         /// <summary>
         /// matches a country name or a two letter ISO 3166-1 country code.
         /// </summary>
-        public string Country { get { return components[country]; } set { components[country] = value; } }
+        public string Country { get { return components[CountryComponent]; } set { components[CountryComponent] = value; } }
         public bool Exists { get { return components.Count > 0; } }
         public override string ToString()
         {
@@ -45,10 +45,10 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
             return null;
         }
 
-        const string route = "route";
-        const string locality = "locality";
-        const string administrative_area = "administrative_area";
-        const string postal_code = "postal_code";
-        const string country = "country";
+        const string RouteComponent = "route";
+        const string LocalityComponent = "locality";
+        const string AdministrativeAreaComponent = "administrative_area";
+        const string PostalCodeComponent = "postal_code";
+        const string CountryComponent = "country";
     }
 }
