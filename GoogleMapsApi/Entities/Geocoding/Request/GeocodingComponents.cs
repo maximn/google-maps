@@ -36,7 +36,7 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
             if (Exists)
             {
                 string _components = "";
-                foreach (var keyValue in this.components)
+                foreach (var keyValue in components)
                 {
                     _components += $"{keyValue.Key}:{keyValue.Value}|";
                 }
@@ -45,10 +45,10 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
             return null;
         }
 
-        public const string route = "route";
-        public const string locality = "locality";
-        public const string administrative_area = "administrative_area";
-        public const string postal_code = "postal_code";
-        public const string country = "country";
+        const string route = "route";
+        const string locality = "locality";
+        const string administrative_area = "administrative_area";
+        const string postal_code = "postal_code";
+        const string country = "country";
     }
 }
