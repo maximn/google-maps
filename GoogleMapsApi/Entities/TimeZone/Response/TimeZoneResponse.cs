@@ -30,7 +30,10 @@ namespace GoogleMapsApi.Entities.TimeZone.Response
         /// DstOffset: the offset for daylight-savings time in seconds. This will be zero if the time zone is not in Daylight Savings Time during the specified timestamp.
         /// </summary>
         [DataMember(Name = "dstOffset")]
-        public double OffSet { get; set; }
+        public double DstOffSet { get; set; }
+
+        [Obsolete("Use DstOffSet instead.")]
+        public double OffSet { get { return DstOffSet; }  }
 
         /// <summary>
         /// RawOffset: the offset from UTC (in seconds) for the given location. This does not take into effect daylight savings.
