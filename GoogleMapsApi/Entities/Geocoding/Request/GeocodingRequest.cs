@@ -72,7 +72,7 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
 
             if (Components.Exists)
             {
-                string components = Components?.Build();
+                string components = Components.Build();
                 parameters.Add(_components, components);
             }
 

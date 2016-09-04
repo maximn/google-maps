@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace GoogleMapsApi.Entities.Geocoding.Request
 {
     public class GeocodingComponents
     {
-        readonly Dictionary<string, string> components = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> components = new Dictionary<string, string>();
 
         /// <summary>
         /// matches long or short name of a route.
@@ -33,22 +34,13 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
         }
         public string Build()
         {
-            if (Exists)
-            {
-                string _components = "";
-                foreach (var keyValue in components)
-                {
-                    _components += $"{keyValue.Key}:{keyValue.Value}|";
-                }
-                return _components;
-            }
-            return null;
+            return string.Join("|", components.Select(x => x.Key + ":" + x.Value));
         }
 
-        const string RouteComponent = "route";
-        const string LocalityComponent = "locality";
-        const string AdministrativeAreaComponent = "administrative_area";
-        const string PostalCodeComponent = "postal_code";
-        const string CountryComponent = "country";
+        private const string RouteComponent = "route";
+        private const string LocalityComponent = "locality";
+        private const string AdministrativeAreaComponent = "administrative_area";
+        private const string PostalCodeComponent = "postal_code";
+        private const string CountryComponent = "country";
     }
 }
