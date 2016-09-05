@@ -91,6 +91,7 @@
     <Compile Include="Entities\Elevation\Response\ElevationResponse.cs" />
     <Compile Include="Entities\Elevation\Response\Result.cs" />
     <Compile Include="Entities\Elevation\Response\Status.cs" />
+    <Compile Include="Entities\Geocoding\Request\GeocodingComponents.cs" />
     <Compile Include="Entities\Geocoding\Request\GeocodingRequest.cs" />
     <Compile Include="Entities\Geocoding\Response\AddressComponent.cs" />
     <Compile Include="Entities\Geocoding\Response\FramedLocation.cs" />
