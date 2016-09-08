@@ -51,15 +51,23 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
 
         protected override QueryStringParametersList GetQueryStringParameters()
         {
-            if (string.IsNullOrWhiteSpace(Address) && Location == null && !Components.Exists)
+            bool hasAddress = !string.IsNullOrWhiteSpace(Address);
+            if (!hasAddress && Location == null && !Components.Exists)
                 throw new ArgumentException("Address, Location OR Components is required");
 
             var parameters = base.GetQueryStringParameters();
 
             if (Location != null)
                 parameters.Add(_latlng, Location.ToString());
-            else
+
+            if (hasAddress)
                 parameters.Add(_address, Address);
+
+            if (Components.Exists)
+            {
+                string components = Components.Build();
+                parameters.Add(_components, components);
+            }
 
             if (Bounds != null && Bounds.Any())
                 parameters.Add(_bounds, string.Join("|", Bounds.AsEnumerable()));
@@ -69,12 +77,6 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
 
             if (!string.IsNullOrWhiteSpace(Language))
                 parameters.Add(_language, Language);
-
-            if (Components.Exists)
-            {
-                string components = Components.Build();
-                parameters.Add(_components, components);
-            }
 
             return parameters;
         }
