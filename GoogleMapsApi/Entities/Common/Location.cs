@@ -23,7 +23,7 @@ namespace GoogleMapsApi.Entities.Common
 		{
 			get
 			{
-				return Latitude.ToString(CultureInfo.InvariantCulture) + "," + Longitude.ToString(CultureInfo.InvariantCulture);
+				return ToNonScientificString(Latitude) + "," + ToNonScientificString(Longitude);
 			}
 		}
 
@@ -31,5 +31,12 @@ namespace GoogleMapsApi.Entities.Common
 		{
 			return LocationString;
 		}
-	}
+
+        private static string ToNonScientificString(double d)
+        {
+            return d.ToString(DoubleFormat).TrimEnd('0');
+        }
+
+        private static readonly string DoubleFormat = "0." + new string('#', 339);
+    }
 }
