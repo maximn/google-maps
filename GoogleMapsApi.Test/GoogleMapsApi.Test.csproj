@@ -61,6 +61,7 @@
     <Compile Include="IntegrationTests\PlacesTextTests.cs" />
     <Compile Include="IntegrationTests\TimeZoneTests.cs" />
     <Compile Include="IntegrationTests\PlaceAutocompleteTests.cs" />
+    <Compile Include="LocationToStringTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticMaps.cs" />
     <Compile Include="UnixTimeConverterTest.cs" />
