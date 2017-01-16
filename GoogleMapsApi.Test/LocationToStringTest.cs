@@ -1,4 +1,4 @@
-﻿using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.Common;
 using NUnit.Framework;
 
 namespace GoogleMapsApi.Test
