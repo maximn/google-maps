@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Runtime.Serialization;
 
@@ -32,11 +32,12 @@ namespace GoogleMapsApi.Entities.Common
 			return LocationString;
 		}
 
-        private static string ToNonScientificString(double d)
-        {
-            return d.ToString(DoubleFormat).TrimEnd('0');
-        }
-
-        private static readonly string DoubleFormat = "0." + new string('#', 339);
+    private static string ToNonScientificString(double d)
+    {
+      var s = d.ToString(DoubleFormat).TrimEnd('0');
+      return s.Length == 0 ? "0.0" : s;
+    }
+        
+	    private static readonly string DoubleFormat = "0." + new string('#', 339);
     }
 }
