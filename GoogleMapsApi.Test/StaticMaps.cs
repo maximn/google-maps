@@ -81,7 +81,7 @@ namespace GoogleMapsApi.Test
 		{
 			var request = new StaticMapRequest(new Location(0, 0), 1, new ImageSize(400, 50));
 			string expectedResult = "http://maps.google.com/maps/api/staticmap" +
-									"?center=%2C&zoom=1&size=400x50&sensor=false";
+									"?center=0.0%2C0.0&zoom=1&size=400x50&sensor=false";
 
 			string generateStaticMapURL = new StaticMapsEngine().GenerateStaticMapURL(request);
 
