@@ -102,6 +102,21 @@ namespace GoogleMapsApi
         }
 
         /// <summary>
+        /// Query the Google Maps API using the provided request with the default timeout of 100,000 milliseconds (100 seconds).
+        /// </summary>
+        /// <param name="request">The request that will be sent.</param>
+        /// <param name="referrer">The referrer header to be sent with the request for referrer authorization.</param>
+        /// <returns>The response that was received.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+        /// <exception cref="AuthenticationException">Thrown when the provided Google client ID or signing key are invalid.</exception>
+        /// <exception cref="TimeoutException">Thrown when the operation has exceeded the allotted time.</exception>
+        /// <exception cref="WebException">Thrown when an error occurred while downloading data.</exception>
+        public TResponse Query(TRequest request, string referrer)
+        {
+            return Query(request, MapsAPIGenericEngine<TRequest, TResponse>.DefaultTimeout, referrer);
+        }
+
+        /// <summary>
         /// Query the Google Maps API using the provided request and timeout period.
         /// </summary>
         /// <param name="request">The request that will be sent.</param>
@@ -115,7 +130,25 @@ namespace GoogleMapsApi
         /// <exception cref="WebException">Thrown when an error occurred while downloading data.</exception>
         public TResponse Query(TRequest request, TimeSpan timeout)
         {
-            return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPI(request, timeout);
+            return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPI(request, timeout, MapsAPIGenericEngine<TRequest, TResponse>.DefaultReferrer);
+        }
+
+        /// <summary>
+        /// Query the Google Maps API using the provided request and timeout period.
+        /// </summary>
+        /// <param name="request">The request that will be sent.</param>
+        /// <param name="timeout">A TimeSpan specifying the amount of time to wait for a response before aborting the request.
+        /// The specify an infinite timeout, pass a TimeSpan with a TotalMillisecond value of Timeout.Infinite.
+        /// When a request is aborted due to a timeout an AggregateException will be thrown with an InnerException of type TimeoutException.</param>
+        /// <param name="referrer">The referrer header to be sent with the request for referrer authorization.</param>
+        /// <returns>The response that was received.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+        /// <exception cref="AuthenticationException">Thrown when the provided Google client ID or signing key are invalid.</exception>
+        /// <exception cref="TimeoutException">Thrown when the operation has exceeded the allotted time.</exception>
+        /// <exception cref="WebException">Thrown when an error occurred while downloading data.</exception>
+        public TResponse Query(TRequest request, TimeSpan timeout, string referrer)
+        {
+            return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPI(request, timeout, referrer);
         }
 
         /// <summary>
@@ -127,6 +160,18 @@ namespace GoogleMapsApi
         public Task<TResponse> QueryAsync(TRequest request)
         {
             return QueryAsync(request, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Asynchronously query the Google Maps API using the provided request.
+        /// </summary>
+        /// <param name="request">The request that will be sent.</param>
+        /// <param name="referrer">The referrer header to be sent with the request for referrer authorization.</param>
+        /// <returns>A Task with the future value of the response.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+        public Task<TResponse> QueryAsync(TRequest request, string referrer)
+        {
+            return QueryAsync(request, referrer, CancellationToken.None);
         }
 
         /// <summary>
@@ -148,12 +193,41 @@ namespace GoogleMapsApi
         /// Asynchronously query the Google Maps API using the provided request.
         /// </summary>
         /// <param name="request">The request that will be sent.</param>
+        /// <param name="timeout">A TimeSpan specifying the amount of time to wait for a response before aborting the request.
+        /// The specify an infinite timeout, pass a TimeSpan with a TotalMillisecond value of Timeout.Infinite.
+        /// When a request is aborted due to a timeout the returned task will transition to the Faulted state with a TimeoutException.</param>
+        /// <param name="referrer">The referrer header to be sent with the request for referrer authorization.</param>
+        /// <returns>A Task with the future value of the response.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of timeout is neither a positive value or infinite.</exception>
+        public Task<TResponse> QueryAsync(TRequest request, TimeSpan timeout, string referrer)
+        {
+            return QueryAsync(request, timeout, referrer, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Asynchronously query the Google Maps API using the provided request.
+        /// </summary>
+        /// <param name="request">The request that will be sent.</param>
         /// <param name="token">A cancellation token that can be used to cancel the pending asynchronous task.</param>
         /// <returns>A Task with the future value of the response.</returns>
         /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
         public Task<TResponse> QueryAsync(TRequest request, CancellationToken token)
         {
-            return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPIAsync(request, TimeSpan.FromMilliseconds(Timeout.Infinite), token);
+            return QueryAsync(request, TimeSpan.FromMilliseconds(Timeout.Infinite), token);
+        }
+
+        /// <summary>
+        /// Asynchronously query the Google Maps API using the provided request.
+        /// </summary>
+        /// <param name="request">The request that will be sent.</param>
+        /// <param name="referrer">The referrer header to be sent with the request for referrer authorization.</param>
+        /// <param name="token">A cancellation token that can be used to cancel the pending asynchronous task.</param>
+        /// <returns>A Task with the future value of the response.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+        public Task<TResponse> QueryAsync(TRequest request, string referrer, CancellationToken token)
+        {
+            return QueryAsync(request, TimeSpan.FromMilliseconds(Timeout.Infinite), referrer, token);
         }
 
         /// <summary>
@@ -169,7 +243,24 @@ namespace GoogleMapsApi
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of timeout is neither a positive value or infinite.</exception>
         public Task<TResponse> QueryAsync(TRequest request, TimeSpan timeout, CancellationToken token)
         {
-            return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPIAsync(request, timeout, token);
+            return QueryAsync(request, timeout, MapsAPIGenericEngine<TRequest, TResponse>.DefaultReferrer, token);
+        }
+
+        /// <summary>
+        /// Asynchronously query the Google Maps API using the provided request.
+        /// </summary>
+        /// <param name="request">The request that will be sent.</param>
+        /// <param name="timeout">A TimeSpan specifying the amount of time to wait for a response before aborting the request.
+        /// The specify an infinite timeout, pass a TimeSpan with a TotalMillisecond value of Timeout.Infinite.
+        /// When a request is aborted due to a timeout the returned task will transition to the Faulted state with a TimeoutException.</param>
+        /// <param name="referrer">The referrer header to be sent with the request for referrer authorization.</param>
+        /// <param name="token">A cancellation token that can be used to cancel the pending asynchronous task.</param>
+        /// <returns>A Task with the future value of the response.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of timeout is neither a positive value or infinite.</exception>
+        public Task<TResponse> QueryAsync(TRequest request, TimeSpan timeout, string referrer, CancellationToken token)
+        {
+            return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPIAsync(request, timeout, referrer, token);
         }
     }
 }
