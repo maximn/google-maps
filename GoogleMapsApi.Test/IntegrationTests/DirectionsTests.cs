@@ -186,5 +186,26 @@ namespace GoogleMapsApi.Test.IntegrationTests
             Assert.IsNotEmpty(result.Routes);
             Assert.True(result.Status.Equals(DirectionsStatusCodes.OK));
         }
+
+        [Test]
+        {
+            var request = new DirectionsRequest
+            {
+                Origin = "285 Bedford Ave, Brooklyn, NY, USA",
+                Destination = "185 Broadway Ave, Manhattan, NY, USA",
+                DepartureTime = DateTime.Now.Date.AddDays(1).AddHours(8),
+                ApiKey = ApiKey //Duration in traffic requires an API key
+            };
+            var result = GoogleMaps.Directions.Query(request);
+
+            if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
+                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+
+            //All legs have duration
+            Assert.IsTrue(result.Routes.First().Legs.All(l => l.DurationInTraffic != null));
+
+            //Duration with traffic is usually longer but is not guaranteed
+            Assert.AreNotEqual(result.Routes.First().Legs.Sum(s => s.Duration.Value.TotalSeconds), result.Routes.First().Legs.Sum(s => s.DurationInTraffic.Value.TotalSeconds));
+        }
     }
 }
