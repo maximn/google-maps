@@ -1,11 +1,10 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
-using System.Threading;
-using GoogleMapsApi.Entities.Common;
+﻿using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Places.Request;
 using GoogleMapsApi.Entities.Places.Response;
 using NUnit.Framework;
+using System;
+using System.Linq;
+using System.Threading;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -32,6 +31,28 @@ namespace GoogleMapsApi.Test.IntegrationTests
             Assert.IsTrue(result.Results.Count() > 5);
             var correctPizzaPlace = result.Results.Where(t => t.Name.Contains("Pagliacci"));
             Assert.IsTrue(correctPizzaPlace != null && correctPizzaPlace.Count() > 0);
+        }
+
+        [Test]
+        public void TestNearbySearchType()
+        {
+            var request = new PlacesRequest
+            {
+                ApiKey = ApiKey,
+                Radius = 10000,
+                Location = new Location(64.6247243, 21.0747553), // Skellefteå, Sweden
+                Sensor = false,
+                Type = "airport",
+            };
+
+            PlacesResponse result = GoogleMaps.Places.Query(request);
+
+            if (result.Status == GoogleMapsApi.Entities.Places.Response.Status.OVER_QUERY_LIMIT)
+                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            Assert.AreEqual(GoogleMapsApi.Entities.Places.Response.Status.OK, result.Status);
+            Assert.IsTrue(result.Results.Any());
+            var correctAirport = result.Results.Where(t => t.Name.Contains("Skellefteå Airport"));
+            Assert.IsTrue(correctAirport != null && correctAirport.Any());
         }
 
         [Test]

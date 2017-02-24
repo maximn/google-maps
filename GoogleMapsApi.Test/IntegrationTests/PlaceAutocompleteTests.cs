@@ -1,10 +1,8 @@
-﻿using System;
+﻿using GoogleMapsApi.Entities.PlaceAutocomplete.Request;
+using GoogleMapsApi.Entities.PlaceAutocomplete.Response;
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using GoogleMapsApi.Entities.PlaceAutocomplete.Request;
-using GoogleMapsApi.Entities.PlaceAutocomplete.Response;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -68,7 +66,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 ApiKey = base.ApiKey,
                 Input = "abb",
-                Types = "geocode",
+                Type = "geocode",
                 Location = new GoogleMapsApi.Entities.Common.Location(53.4635332, -2.2419169),
                 Radius = 30000
             };
