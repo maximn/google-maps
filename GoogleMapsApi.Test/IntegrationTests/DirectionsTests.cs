@@ -188,6 +188,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
+        public void Directions_CanGetDurationWithTraffic()
         {
             var request = new DirectionsRequest
             {
