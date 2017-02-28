@@ -28,10 +28,16 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		[DataMember(Name = "duration")]
 		public Duration Duration { get; set; }
 
-		/// <summary>
-		/// start_location contains the latitude/longitude coordinates of the origin of this leg. Because the Directions API calculates directions between locations by using the nearest transportation option (usually a road) at the start and end points, start_location may be different than the provided origin of this leg if, for example, a road is not near the origin.
-		/// </summary>
-		[DataMember(Name = "start_location")]
+        /// <summary>
+        /// duration_in_traffic indicates the total duration of this leg. This value is an estimate of the time in traffic based on current and historical traffic conditions.
+        /// </summary>
+        [DataMember(Name = "duration_in_traffic")]
+        public Duration DurationInTraffic { get; set; }
+
+        /// <summary>
+        /// start_location contains the latitude/longitude coordinates of the origin of this leg. Because the Directions API calculates directions between locations by using the nearest transportation option (usually a road) at the start and end points, start_location may be different than the provided origin of this leg if, for example, a road is not near the origin.
+        /// </summary>
+        [DataMember(Name = "start_location")]
 		public Location StartLocation { get; set; }
 
 		/// <summary>
