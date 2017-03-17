@@ -15,7 +15,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// The encoded string containing the overview path points as they were received.
 		/// </summary>
 		[DataMember(Name = "points")]
-		internal string EncodedPoints { get; set; }
+		public string EncodedPoints { get; internal set; }
 
 		private Lazy<IEnumerable<Location>> pointsLazy;
 

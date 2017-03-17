@@ -100,6 +100,11 @@ namespace GoogleMapsApi.StaticMaps.Entities
 
 		public bool IsSSL { get; set; }
 
+        /// <summary>
+        /// Add API key support for the static map
+        /// </summary>
+        public string ApiKey { get; set; }
+
 		public StaticMapRequest(ILocationString center, int zoom, ImageSize imageSize)
 		{
 			Center = center;
@@ -112,5 +117,13 @@ namespace GoogleMapsApi.StaticMaps.Entities
 			Markers = markers;
 			Size = imageSize;
 		}
-	}
+        /// <summary>
+        /// A constructor to support encoded polyline based static map
+        /// </summary>
+        /// <param name="imageSize">Image size to be passed to google api</param>
+        public StaticMapRequest(ImageSize imageSize)
+        {
+            Size = imageSize;
+        }
+    }
 }
