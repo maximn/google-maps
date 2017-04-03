@@ -305,13 +305,7 @@ namespace GoogleMapsApi.StaticMaps
 
 			parametersList.Add("sensor", request.Sensor ? "true" : "false");
 
-            if (!string.IsNullOrEmpty(request.ApiKey))
-            {
-                string apiKey = request.ApiKey;
-                parametersList.Add("key", apiKey);
-            }
-
-            return scheme + BaseUrl + "?" + parametersList.GetQueryStringPostfix();
+			return scheme + BaseUrl + "?" + parametersList.GetQueryStringPostfix();
 		}
 	}
 }

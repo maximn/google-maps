@@ -99,28 +99,8 @@ namespace MapsApiTest
 
 			Console.WriteLine("Map with path: " + url);
 
-            // Encoded polyline based static map
-            IList<ILocationString> encodedPolyline = new List<ILocationString>();
-            string encodedKey = "enc:";
-            AddressLocation polyline = new AddressLocation(string.Concat(encodedKey, drivingDirections.Routes.First().OverviewPath.EncodedPoints));
-            encodedPolyline.Add(polyline);
-
-            url = staticMapGenerator.GenerateStaticMapURL(new StaticMapRequest(new ImageSize(800, 400))
-            {
-                Pathes = new List<Path> { new Path
-                    {
-                        Style = new PathStyle
-                        {
-                            Color = "red"
-                        },
-                        Locations = encodedPolyline,
-                    }},
-            });
-
-            Console.WriteLine("Map with encoded polyline path: " + url);
-
-            // Async! (Elevation)
-            var elevationRequest = new ElevationRequest
+			// Async! (Elevation)
+			var elevationRequest = new ElevationRequest
 			{
 				Locations = new[] { new Location(54, 78) },
 			};
