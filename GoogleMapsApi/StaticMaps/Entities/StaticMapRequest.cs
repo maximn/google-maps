@@ -100,7 +100,12 @@ namespace GoogleMapsApi.StaticMaps.Entities
 
 		public bool IsSSL { get; set; }
 
-		public StaticMapRequest(ILocationString center, int zoom, ImageSize imageSize)
+        /// <summary>
+        /// Add API key support for the static map. This parameter is required for all static map requests. 
+        /// </summary>
+        public string ApiKey { get; set; }
+
+        public StaticMapRequest(ILocationString center, int zoom, ImageSize imageSize)
 		{
 			Center = center;
 			Zoom = zoom;

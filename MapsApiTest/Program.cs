@@ -94,7 +94,8 @@ namespace MapsApiTest
 							Color = "red"
 						},
 						Locations = path
-					}}
+					}},
+                ApiKey = string.Empty //Pass the API Key here. if it is passed as non empty value, then it will be appended in request URL
 			});
 
 			Console.WriteLine("Map with path: " + url);
