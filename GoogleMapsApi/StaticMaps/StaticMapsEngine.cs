@@ -28,8 +28,14 @@ namespace GoogleMapsApi.StaticMaps
 			string scheme = request.IsSSL ? "https://" : "http://";
 
 			var parametersList = new QueryStringParametersList();
-			
-			if (request.Center != null)
+
+            if (!string.IsNullOrEmpty(request.ApiKey))
+            {
+                string apiKey = request.ApiKey;
+                parametersList.Add("key", apiKey);
+            }
+
+            if (request.Center != null)
 			{
 				ILocationString center = request.Center;
 
