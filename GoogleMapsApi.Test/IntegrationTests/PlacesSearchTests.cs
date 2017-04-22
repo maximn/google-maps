@@ -29,8 +29,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(GoogleMapsApi.Entities.Places.Response.Status.OK, result.Status);
             Assert.IsTrue(result.Results.Count() > 5);
-            var correctPizzaPlace = result.Results.Where(t => t.Name.Contains("Pagliacci"));
-            Assert.IsTrue(correctPizzaPlace != null && correctPizzaPlace.Count() > 0);
         }
 
         [Test]
