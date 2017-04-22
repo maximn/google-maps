@@ -49,7 +49,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
             Assert.AreEqual(GoogleMapsApi.Entities.PlacesNearBy.Response.Status.OK, result.Status);
             Assert.IsTrue(result.Results.Any());
-            var correctAirport = result.Results.Where(t => t.Name.Contains("Skellefteå Airport"));
+            var correctAirport = result.Results.Where(t => t.Name.Contains("Skellefte"));
             Assert.IsTrue(correctAirport != null && correctAirport.Any());
         }
 
