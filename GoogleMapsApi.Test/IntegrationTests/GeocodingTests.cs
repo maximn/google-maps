@@ -35,7 +35,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void GeocodingAsync_ReturnsCorrectLocation()
         {
-            var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA" };
+            var request = new GeocodingRequest 
+            {
+                ApiKey = ApiKey,
+                Address = "285 Bedford Ave, Brooklyn, NY 11211, USA" 
+            };
 
             var result = GoogleMaps.Geocode.QueryAsync(request).Result;
 
