@@ -1,4 +1,6 @@
 language: csharp
+mono:
+  - 4.8.1.0
 solution: GoogleMapsApi.sln
 install:
   - nuget restore GoogleMapsApi.sln
