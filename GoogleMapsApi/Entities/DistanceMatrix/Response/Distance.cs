@@ -1,8 +1,8 @@
 ﻿namespace GoogleMapsApi.Entities.DistanceMatrix.Response
 {
-    using System.Runtime.Serialization;
+	using System.Runtime.Serialization;
 
-    [DataContract(Name = "distance")]
+	[DataContract(Name = "distance")]
 	public class Distance
 	{
 		/// <summary>
