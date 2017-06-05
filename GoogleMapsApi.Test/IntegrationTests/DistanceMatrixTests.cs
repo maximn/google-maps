@@ -1,15 +1,14 @@
 ﻿namespace GoogleMapsApi.Test.IntegrationTests
 {
-	using System;
-	using System.Linq;
-	using GoogleMapsApi.Engine;
-	using GoogleMapsApi.Entities.Directions.Response;
-	using GoogleMapsApi.Entities.DistanceMatrix.Request;
+    using System;
+    using System.Linq;
+    using GoogleMapsApi.Engine;
+    using GoogleMapsApi.Entities.Directions.Response;
+    using GoogleMapsApi.Entities.DistanceMatrix.Request;
 
-	using NUnit.Framework;
-	using Entities.DistanceMatrix.Response;
+    using NUnit.Framework;
 
-	[TestFixture]
+    [TestFixture]
     public class DistanceMatrixTests : BaseTestIntegration
     {
 
