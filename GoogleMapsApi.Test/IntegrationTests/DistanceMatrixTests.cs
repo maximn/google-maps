@@ -3,8 +3,8 @@
     using System;
     using System.Linq;
     using GoogleMapsApi.Engine;
-    using GoogleMapsApi.Entities.Directions.Response;
     using GoogleMapsApi.Entities.DistanceMatrix.Request;
+    using GoogleMapsApi.Entities.DistanceMatrix.Response;
 
     using NUnit.Framework;
 
