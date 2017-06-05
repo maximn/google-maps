@@ -1,9 +1,9 @@
 ﻿namespace GoogleMapsApi.Entities.DistanceMatrix.Response
 {
-	using System;
-	using System.Runtime.Serialization;
+    using System;
+    using System.Runtime.Serialization;
 
-	/// <summary>
+    /// <summary>
 	/// duration indicates the total duration of this leg
 	/// These fields may be absent if the duration is unknown.
 	/// </summary>
