@@ -86,6 +86,7 @@
     <Compile Include="Entities\DistanceMatrix\Response\Duration.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\Element.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\Row.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\ElementStatusCodes.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\StatusCodes.cs" />
     <Compile Include="Entities\Elevation\Request\ElevationRequest.cs" />
     <Compile Include="Entities\Elevation\Response\ElevationResponse.cs" />
