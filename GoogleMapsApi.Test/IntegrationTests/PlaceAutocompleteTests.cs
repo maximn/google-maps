@@ -20,7 +20,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request).Result;
 
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -38,7 +38,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request).Result;
 
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -52,7 +52,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new GoogleMapsApi.Entities.Common.Location(53.4635332, -2.2419169)
             };
 
-            PlaceAutocompleteResponse offsetResult = GoogleMaps.PlaceAutocomplete.Query(offsetRequest);
+            PlaceAutocompleteResponse offsetResult = GoogleMaps.PlaceAutocomplete.Query(offsetRequest).Result;
 
             if (offsetResult.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -71,7 +71,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request).Result;
 
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -98,7 +98,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request).Result;
 
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -111,7 +111,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         public void CheckZeroRadius() 
         {
             var request = CreatePlaceAutocompleteRequest("RIX", 0);
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request).Result;
             AssertRequestsLimit(result);
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
         }
@@ -119,7 +119,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         public void CheckNegativeRadius() 
         {
             var request = CreatePlaceAutocompleteRequest("RIX", -1);
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request).Result;
             AssertRequestsLimit(result);
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
         }
@@ -128,7 +128,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         public void CheckLargerThenEarthRadius() 
         {
             var request = CreatePlaceAutocompleteRequest("RIX", 30000000);
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request).Result;
             AssertRequestsLimit(result);
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
         }

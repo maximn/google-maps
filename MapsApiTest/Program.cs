@@ -26,7 +26,7 @@ namespace MapsApiTest
 				Destination = "Philladephia, Chesnut and Wallnut"
 			};
 
-			DirectionsResponse drivingDirections = GoogleMaps.Directions.Query(drivingDirectionRequest);
+			DirectionsResponse drivingDirections = GoogleMaps.Directions.Query(drivingDirectionRequest).Result;
 			PrintDirections(drivingDirections);
 
 			// Transit directions
@@ -38,7 +38,7 @@ namespace MapsApiTest
 				DepartureTime = DateTime.Now
 			};
 
-			DirectionsResponse transitDirections = GoogleMaps.Directions.Query(transitDirectionRequest);
+			DirectionsResponse transitDirections = GoogleMaps.Directions.Query(transitDirectionRequest).Result;
 			PrintDirections(transitDirections);
 
 
@@ -55,7 +55,7 @@ namespace MapsApiTest
                 Language = "sv"
             };
 
-            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+            DirectionsResponse result = GoogleMaps.Directions.Query(request).Result;
             PrintDirections(result);
 
             // Geocode
@@ -72,7 +72,7 @@ namespace MapsApiTest
                 
 			};
 
-			GeocodingResponse geocode = GoogleMaps.Geocode.Query(geocodeRequest);
+			GeocodingResponse geocode = GoogleMaps.Geocode.Query(geocodeRequest).Result;
 			Console.WriteLine(geocode);
 
 			// Static maps API - get static map of with the path of the directions request
@@ -106,7 +106,7 @@ namespace MapsApiTest
 				Locations = new[] { new Location(54, 78) },
 			};
 
-			var task = GoogleMaps.Elevation.QueryAsync(elevationRequest)
+			var task = GoogleMaps.Elevation.Query(elevationRequest)
 				.ContinueWith(t => Console.WriteLine("\n" + t.Result));
 
 			Console.Write("Asynchronous query sent, waiting for a reply..");

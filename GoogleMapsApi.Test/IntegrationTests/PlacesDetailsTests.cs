@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Linq;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.PlacesDetails.Request;
@@ -20,7 +19,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = "ChIJZ3VuVMQdLz4REP9PWpQ4SIY"
             };
 
-            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
+            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request).Result;
 
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -38,7 +37,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = "ChIJbWWgrQAVkFQReAwrXXWzlYs"
             };
 
-            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
+            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request).Result;
 
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -56,7 +55,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = GetMyPlaceId(),
             };
 
-            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
+            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request).Result;
 
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -74,7 +73,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = GetMyPlaceId(),
             };
 
-            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
+            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request).Result;
 
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -104,7 +103,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                     Location = new Location(-31.954453, 115.862717),
                     RankBy = Entities.Places.Request.RankBy.Distance,
                 };
-                var result = GoogleMaps.Places.Query(request);
+                var result = GoogleMaps.Places.Query(request).Result;
                 if (result.Status == Entities.Places.Response.Status.OVER_QUERY_LIMIT)
                     Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
                 cachedMyPlaceId = result.Results.First().PlaceId;

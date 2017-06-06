@@ -21,7 +21,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Sensor = false,
             };
 
-            PlacesRadarResponse result = GoogleMaps.PlacesRadar.Query(request);
+            PlacesRadarResponse result = GoogleMaps.PlacesRadar.Query(request).Result;
 
             if (result.Status == GoogleMapsApi.Entities.PlacesRadar.Response.Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -41,7 +41,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Type = "airport",
             };
 
-            PlacesRadarResponse result = GoogleMaps.PlacesRadar.Query(request);
+            PlacesRadarResponse result = GoogleMaps.PlacesRadar.Query(request).Result;
 
             if (result.Status == GoogleMapsApi.Entities.PlacesRadar.Response.Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
