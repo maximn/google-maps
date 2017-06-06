@@ -1,6 +1,7 @@
-﻿using System.Configuration;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -31,7 +32,13 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
         protected BaseTestIntegration()
         {
-           var fromConfigManager = ConfigurationManager.AppSettings["ApiKey"];
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("Config.json");
+
+            var configuration = builder.Build();
+
+            var fromConfigManager = configuration["ApiKey"];
             var fromEnvironmentVariables = Environment.GetEnvironmentVariable("ApiKey");
 
             if (!string.IsNullOrEmpty(fromConfigManager))

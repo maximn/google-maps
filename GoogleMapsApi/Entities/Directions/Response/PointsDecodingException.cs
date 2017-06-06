@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace GoogleMapsApi.Entities.Directions.Response
 {
-	[Serializable]
-	public class PointsDecodingException : Exception
+    public class PointsDecodingException : Exception
 	{
 		//
 		// For guidelines regarding the creation of new exception types, see
@@ -26,12 +24,6 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		public PointsDecodingException(string message, string encodedString, Exception inner) : base(message, inner)
 		{
 			EncodedString = encodedString;
-		}
-
-		protected PointsDecodingException(
-			SerializationInfo info,
-			StreamingContext context) : base(info, context)
-		{
 		}
 	}
 }

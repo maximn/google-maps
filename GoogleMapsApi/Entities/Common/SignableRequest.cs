@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace GoogleMapsApi.Entities.Common
 {
@@ -57,7 +54,7 @@ namespace GoogleMapsApi.Entities.Common
 			byte[] privateKey = FromBase64UrlString(SigningKey);
 			byte[] signature;
 
-			using (var algorithm = new HMACSHA1(privateKey))
+            using (var algorithm = new HMACSHA1(privateKey))
 			{
 				signature = algorithm.ComputeHash(Encoding.ASCII.GetBytes(urlSegmentToSign));
 			}

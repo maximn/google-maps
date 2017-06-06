@@ -15,7 +15,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             request.Location = new Location(55.866413, 12.501063);
             request.Language = "en";
 
-            TimeZoneResponse result = GoogleMaps.TimeZone.Query(request);
+            TimeZoneResponse result = GoogleMaps.TimeZone.Query(request).Result;
 
             Assert.AreEqual(GoogleMapsApi.Entities.TimeZone.Response.Status.OK, result.Status);
         }

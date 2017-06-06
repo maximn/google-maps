@@ -21,7 +21,7 @@
                 Destinations = new[] { "53.64308,10.52726" }
             };
 
-            var result = GoogleMaps.DistanceMatrix.Query(request);
+            var result = GoogleMaps.DistanceMatrix.Query(request).Result;
 
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -46,7 +46,7 @@
                 Destinations = new[] { "53.64308,10.52726" }
             };
 
-            var result = GoogleMaps.DistanceMatrix.Query(request);
+            var result = GoogleMaps.DistanceMatrix.Query(request).Result;
 
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -73,7 +73,7 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            var result = GoogleMaps.DistanceMatrix.Query(request);
+            var result = GoogleMaps.DistanceMatrix.Query(request).Result;
 
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -95,7 +95,9 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+            var task = GoogleMaps.DistanceMatrix.Query(request);
+
+            Assert.Throws(Is.TypeOf<AggregateException>().And.InnerException.TypeOf<ArgumentException>(), () => task.Wait());
         }
 
         [Test]
@@ -110,7 +112,9 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+            var task = GoogleMaps.DistanceMatrix.Query(request);
+
+            Assert.Throws(Is.TypeOf<AggregateException>().And.InnerException.TypeOf<ArgumentException>(), () => task.Wait());
         }
 
         [Test]
@@ -125,7 +129,9 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+            var task = GoogleMaps.DistanceMatrix.Query(request);
+
+            Assert.Throws(Is.TypeOf<AggregateException>().And.InnerException.TypeOf<ArgumentException>(), () => task.Wait());
         }
 
         [Test]
@@ -141,7 +147,9 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+            var task = GoogleMaps.DistanceMatrix.Query(request);
+
+            Assert.Throws(Is.TypeOf<AggregateException>().And.InnerException.TypeOf<ArgumentException>(), () => task.Wait());
         }
 
         [Test]
@@ -156,7 +164,9 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+            var task = GoogleMaps.DistanceMatrix.Query(request);
+
+            Assert.Throws(Is.TypeOf<AggregateException>().And.InnerException.TypeOf<ArgumentException>(), () => task.Wait());
         }
 
         [Test]
@@ -171,7 +181,9 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+            var task = GoogleMaps.DistanceMatrix.Query(request);
+
+            Assert.Throws(Is.TypeOf<AggregateException>().And.InnerException.TypeOf<ArgumentException>(), () => task.Wait());
         }
 
         [Test]
@@ -185,7 +197,7 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            var result = GoogleMaps.DistanceMatrix.Query(request);
+            var result = GoogleMaps.DistanceMatrix.Query(request).Result;
 
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -213,7 +225,7 @@
 
             try
             {
-                var result = GoogleMaps.DistanceMatrix.Query(request);
+                var result = GoogleMaps.DistanceMatrix.Query(request).Result;
                 if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                     Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
                 Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
@@ -242,7 +254,7 @@
 
             try
             {
-                var result = GoogleMaps.DistanceMatrix.Query(request);
+                var result = GoogleMaps.DistanceMatrix.Query(request).Result;
                 if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                     Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
                 Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);

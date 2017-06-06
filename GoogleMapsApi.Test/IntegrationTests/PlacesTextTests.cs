@@ -18,7 +18,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Types = "address"
             };
 
-            PlacesTextResponse result = GoogleMaps.PlacesText.Query(request);
+            PlacesTextResponse result = GoogleMaps.PlacesText.Query(request).Result;
 
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
@@ -36,7 +36,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Types = "address"
             };
 
-            PlacesTextResponse result = GoogleMaps.PlacesText.Query(request);
+            PlacesTextResponse result = GoogleMaps.PlacesText.Query(request).Result;
 
             if (result.Status == Status.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
