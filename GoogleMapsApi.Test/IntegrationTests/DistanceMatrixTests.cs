@@ -30,7 +30,7 @@
                 new [] {"Alter Sirksfelder Weg 7, 23881 Koberg, Germany"}, 
                 result.DestinationAddresses);
             CollectionAssert.AreEqual(
-                new[] { "Pilsener Str. 18, 92726 Waidhaus, Germany" },
+                new[] { "Pilsener Str. 16, 92726 Waidhaus, Germany" },
                 result.OriginAddresses);
             Assert.AreEqual(DistanceMatrixElementStatusCodes.OK, result.Rows.First().Elements.First().Status);
             Assert.IsNotNull(result.Rows.First().Elements.First().Distance);
@@ -55,7 +55,7 @@
                 new[] { "Alter Sirksfelder Weg 7, 23881 Koberg, Germany" },
                 result.DestinationAddresses);
             CollectionAssert.AreEqual(
-                new[] { "Pilsener Str. 18, 92726 Waidhaus, Germany", "Böhmerwaldstraße 19, 93444 Bad Kötzting, Germany" },
+                new[] { "Pilsener Str. 16, 92726 Waidhaus, Germany", "Böhmerwaldstraße 19, 93444 Bad Kötzting, Germany" },
                 result.OriginAddresses);
             Assert.AreEqual(2, result.Rows.Count());
             Assert.AreEqual(DistanceMatrixElementStatusCodes.OK, result.Rows.First().Elements.First().Status);
