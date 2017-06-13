@@ -59,7 +59,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        [Ignore("Can't reproduce it locally, Suspect TravisCI bug")]
         public void GeocodingAsync_InvalidClientCredentials_Throws()
         {
             var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA", ClientID = "gme-ThisIsAUnitTest", SigningKey = "AAECAwQFBgcICQoLDA0ODxAREhM=" };
