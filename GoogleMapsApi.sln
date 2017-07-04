@@ -1,11 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapsApi", "GoogleMapsApi\GoogleMapsApi.csproj", "{61E9FC82-47B0-43C3-8749-95D3A9967060}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapsApiTest", "MapsApiTest\MapsApiTest.csproj", "{F9F4EEFA-6FFB-4148-9690-8B0AF5ACD73B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapsApi.Test", "GoogleMapsApi.Test\GoogleMapsApi.Test.csproj", "{AD9AD8E9-0E2C-470E-9004-373679F9D954}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{950E065F-B61E-4C05-8C74-5F03946AD7E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9D09CCCC-6AFA-41EA-BFB3-4698FC5830E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "net45", "net45", "{5D5B8C68-88EE-424C-A9C5-B53C6680239D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "artifacts", "artifacts", "{2A90AB7E-F3EC-48BD-974E-41F34A80E714}"
+	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,5 +66,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{61E9FC82-47B0-43C3-8749-95D3A9967060} = {950E065F-B61E-4C05-8C74-5F03946AD7E2}
+		{F9F4EEFA-6FFB-4148-9690-8B0AF5ACD73B} = {5D5B8C68-88EE-424C-A9C5-B53C6680239D}
+		{AD9AD8E9-0E2C-470E-9004-373679F9D954} = {5D5B8C68-88EE-424C-A9C5-B53C6680239D}
+		{5D5B8C68-88EE-424C-A9C5-B53C6680239D} = {9D09CCCC-6AFA-41EA-BFB3-4698FC5830E6}
 	EndGlobalSection
 EndGlobal
