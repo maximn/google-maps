@@ -136,7 +136,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void Directions_WithLocalIcons()
+        public void Directions_WithIcons()
         {
             var dep_time = DateTime.Today
                             .AddDays(1)
@@ -162,7 +162,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 s.TransitDetails?
                 .Lines?
                 .Vehicle?
-                .LocalIcon != null));
+                .Icon != null));
         }
 
         [Test]
