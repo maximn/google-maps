@@ -20,6 +20,8 @@ namespace GoogleMapsApi.Engine
         internal static event UriCreatedDelegate OnUriCreated;
         internal static event RawResponseReciviedDelegate OnRawResponseRecivied;
 
+#if NET45
+
         /// <summary>
         /// Determines the maximum number of concurrent HTTP connections to open to this engine's host address. The default value is 2 connections.
         /// </summary>
@@ -44,8 +46,13 @@ namespace GoogleMapsApi.Engine
 			set { HttpsServicePoint.ConnectionLimit = value; }
 		}
 
-		private static ServicePoint HttpServicePoint { get; set; }
+
+
+        private static ServicePoint HttpServicePoint { get; set; }
 		private static ServicePoint HttpsServicePoint { get; set; }
+
+#endif
+
 		internal static TimeSpan DefaultTimeout = TimeSpan.FromSeconds(100);
 
 		private const string AuthenticationFailedMessage =
@@ -54,9 +61,12 @@ namespace GoogleMapsApi.Engine
 		static MapsAPIGenericEngine()
 		{
 			var baseUrl = new TRequest().BaseUrl;
-			HttpServicePoint = ServicePointManager.FindServicePoint(new Uri("http://" + baseUrl));
+
+#if NET45
+            HttpServicePoint = ServicePointManager.FindServicePoint(new Uri("http://" + baseUrl));
 			HttpsServicePoint = ServicePointManager.FindServicePoint(new Uri("https://" + baseUrl));
-		}
+#endif
+        }
 
         /// <summary>
         /// A method that wraps responses into easily understood exceptions

@@ -27,11 +27,5 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		{
 			EncodedString = encodedString;
 		}
-
-		protected PointsDecodingException(
-			SerializationInfo info,
-			StreamingContext context) : base(info, context)
-		{
-		}
 	}
 }
