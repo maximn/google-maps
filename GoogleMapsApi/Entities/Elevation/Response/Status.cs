@@ -12,7 +12,7 @@ namespace GoogleMapsApi.Entities.Elevation.Response
 		[EnumMember]
 		OVER_QUERY_LIMIT, // indicating the requestor has exceeded quota
 		[EnumMember]
-		REQUEST_DENIED, // indicating the API did not complete the request, likely because the requestor failed to include a valid sensor parameter
+		REQUEST_DENIED, // indicating the API did not complete the request
 		[EnumMember]
 		UNKNOWN_ERROR //indicating an unknown error
 	}
