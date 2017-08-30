@@ -9,8 +9,8 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
     /// a textual search string and optional geographic bounds. The service can be used to provide autocomplete functionality for text-based 
     /// geographic searches, by returning places such as businesses, addresses and points of interest as a user types.
     /// </summary>
-    public class PlaceAutocompleteRequest : MapsBaseRequest
-	{
+    public class PlaceAutocompleteRequest : MapsBaseRequest, ILocalizableRequest
+    {
 		protected internal override string BaseUrl
 		{
 			get

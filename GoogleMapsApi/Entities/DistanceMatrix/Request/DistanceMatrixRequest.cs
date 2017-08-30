@@ -10,7 +10,7 @@
 
     using GoogleMapsApi.Engine;
 
-    public class DistanceMatrixRequest : SignableRequest
+    public class DistanceMatrixRequest : SignableRequest, ILocalizableRequest
     {
         protected internal override string BaseUrl
         {

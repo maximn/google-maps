@@ -4,7 +4,7 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.PlacesText.Request
 {
-    public class PlacesTextRequest : MapsBaseRequest
+    public class PlacesTextRequest : MapsBaseRequest, ILocalizableRequest
     {
         protected internal override string BaseUrl
         {

@@ -3,7 +3,7 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.PlacesDetails.Request
 {
-    public class PlacesDetailsRequest : MapsBaseRequest
+    public class PlacesDetailsRequest : MapsBaseRequest, ILocalizableRequest
     {
         protected internal override string BaseUrl
         {

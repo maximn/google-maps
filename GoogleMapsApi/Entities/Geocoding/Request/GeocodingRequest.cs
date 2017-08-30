@@ -5,7 +5,7 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.Geocoding.Request
 {
-    public class GeocodingRequest : SignableRequest
+    public class GeocodingRequest : SignableRequest, ILocalizableRequest
     {
         protected internal override string BaseUrl
         {

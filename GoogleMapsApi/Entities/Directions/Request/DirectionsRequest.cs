@@ -7,8 +7,8 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.Directions.Request
 {
-	public class DirectionsRequest : SignableRequest
-	{
+	public class DirectionsRequest : SignableRequest, ILocalizableRequest
+    {
 		protected internal override string BaseUrl
 		{
 			get
