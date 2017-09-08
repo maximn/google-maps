@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0058)http://code.google.com/apis/maps/documentation/directions/ -->
 <HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
@@ -358,10 +358,6 @@ URL parameters:</P>
   results by using localized domains of
   <CODE>http://map.google.com</CODE>. See <A href="http://code.google.com/apis/maps/documentation/directions/#RegionBiasing">Region
   Biasing</A> for more information.</LI>
-  <LI><CODE>sensor</CODE> (<I>required</I>) — Indicates whether
-  or not the directions request comes from a device with a location
-  sensor. This value must be either <CODE>true</CODE> or
-  <CODE>false</CODE>.</LI>
 </UL>
 
 <P><SPAN style="color:red">* Note: </SPAN> You may pass either an
@@ -407,7 +403,7 @@ separated by the pipe (<CODE>|</CODE>) character.</P>
 for a route between Boston, MA and Concord, MA via Charlestown
 and Lexington, in that order:</P>
 
-<PRE>http://maps.google.com/maps/api/directions/json?origin=Boston,MA&amp;destination=Concord,MA&amp;waypoints=Charlestown,MA|Lexington,MA&amp;sensor=false
+<PRE>http://maps.google.com/maps/api/directions/json?origin=Boston,MA&amp;destination=Concord,MA&amp;waypoints=Charlestown,MA|Lexington,MA
 </PRE>
 
 <P>By default, the Directions service calculates a route through
@@ -430,7 +426,7 @@ Australia to each of South Australia's main wine regions using route
 optimization. </P>
 
 
-<PRE class="prettyprint"><SPAN class="pln">http</SPAN><SPAN class="pun">:</SPAN><SPAN class="com">//maps.google.com/maps/api/directions/json?origin=Adelaide,SA&amp;destination=Adelaide,SA&amp;waypoints=optimize:true|Barossa+Valley,SA|Clare,SA|Connawarra,SA|McLaren+Vale,SA&amp;sensor=false</SPAN></PRE>
+<PRE class="prettyprint"><SPAN class="pln">http</SPAN><SPAN class="pun">:</SPAN><SPAN class="com">//maps.google.com/maps/api/directions/json?origin=Adelaide,SA&amp;destination=Adelaide,SA&amp;waypoints=optimize:true|Barossa+Valley,SA|Clare,SA|Connawarra,SA|McLaren+Vale,SA</SPAN></PRE>
 
 
 <P>Inspection of the calculated route will indicate that the route is calculated using
@@ -467,7 +463,7 @@ returns a result when sent to <CODE>http://maps.google.es/</CODE>
 as "Toledo" is interpreted as the Spanish city:</P>
 
 
-<PRE><B>http://maps.google.es/maps/api/directions/json?origin=Toledo&amp;destination=Madrid&amp;sensor=false</B>
+<PRE><B>http://maps.google.es/maps/api/directions/json?origin=Toledo&amp;destination=Madrid</B>
 
 {
   "status": "OK",
@@ -488,7 +484,7 @@ as "Toledo" is interpreted as the Spanish city:</P>
 will not return any results, since "Toledo" is interpreted as the city in Ohio:</P>
 
 
-<PRE><B>http://maps.google.com/maps/api/directions/json?origin=Toledo&amp;destination=Madrid&amp;sensor=false</B>
+<PRE><B>http://maps.google.com/maps/api/directions/json?origin=Toledo&amp;destination=Madrid</B>
 
 {
   "status": "ZERO_RESULTS",
@@ -508,7 +504,7 @@ will not return any results, since "Toledo" is interpreted as the city in Ohio:<
 from Chicago, IL to Los Angeles, CA via two waypoints in Joplin, MO
 and Oklahoma City, OK:</P>
 
-<PRE class="prettyprint"><SPAN class="pln">http</SPAN><SPAN class="pun">:</SPAN><SPAN class="com">//maps.google.com/maps/api/directions/json?origin=Chicago,IL&amp;destination=Los+Angeles,CA&amp;waypoints=Joplin,MO|Oklahoma+City,OK&amp;sensor=false</SPAN></PRE>
+<PRE class="prettyprint"><SPAN class="pln">http</SPAN><SPAN class="pun">:</SPAN><SPAN class="com">//maps.google.com/maps/api/directions/json?origin=Chicago,IL&amp;destination=Los+Angeles,CA&amp;waypoints=Joplin,MO|Oklahoma+City,OK</SPAN></PRE>
 
 <P>The JSON result is shown below. Because directions results can be quite verbose,
 repeated elements within the response have been omitted for clarity.</P>
@@ -531,7 +527,7 @@ JSON</A> for some recommended design patterns.</P>
 <P>In this example, the Directions API requests an <CODE>xml</CODE> response for the
 identical query shown above for :</P>
 
-<PRE class="prettyprint"><SPAN class="pln">http</SPAN><SPAN class="pun">:</SPAN><SPAN class="com">//maps.google.com/maps/api/directions/xml?origin=Chicago,IL&amp;destination=Los+Angeles,CA&amp;waypoints=Joplin,MO|Oklahoma+City,OK&amp;sensor=false</SPAN></PRE>
+<PRE class="prettyprint"><SPAN class="pln">http</SPAN><SPAN class="pun">:</SPAN><SPAN class="com">//maps.google.com/maps/api/directions/xml?origin=Chicago,IL&amp;destination=Los+Angeles,CA&amp;waypoints=Joplin,MO|Oklahoma+City,OK</SPAN></PRE>
 
 <P>The XML returned by this request is shown below.</P>
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.StaticMaps.Enums;
@@ -93,9 +94,14 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		public MapStyle Style { get; set; }
 
 		/// <summary>
-		/// sensor (required) specifies whether the application requesting the static map is using a sensor to determine the user's 
-		/// location. This parameter is required for all static map requests. 
+		/// (obsolete) sensor specifies whether the application requesting the static map is using a sensor to determine the user's 
+		/// location.
 		/// </summary>
+		/// <remarks>
+		/// The Google Static Maps API previously required that you include the sensor parameter to indicate whether your application used a sensor to determine the user's location.
+		/// This parameter is no longer required.
+		/// </remarks>
+		[Obsolete]
 		public bool Sensor { get; set; }
 
 		public bool IsSSL { get; set; }

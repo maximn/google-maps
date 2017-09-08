@@ -30,7 +30,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         OVER_QUERY_LIMIT,
 
         /// <summary>
-        /// Indicates that your request was denied, generally because of lack of a sensor parameter.
+        /// Indicates that your request was denied.
         /// </summary>
         [EnumMember(Value = "REQUEST_DENIED")]
         REQUEST_DENIED,

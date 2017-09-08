@@ -12,7 +12,7 @@ namespace GoogleMapsApi.Entities.PlacesNearBy.Response
 		[EnumMember(Value = "OVER_QUERY_LIMIT")]
 		OVER_QUERY_LIMIT, // indicates that you are over your quota.
 		[EnumMember(Value = "REQUEST_DENIED")]
-		REQUEST_DENIED, // indicates that your request was denied, generally because of lack of a sensor parameter.
+		REQUEST_DENIED, // indicates that your request was denied.
 		[EnumMember(Value = "INVALID_REQUEST")]
 		INVALID_REQUEST // generally indicates that the query parameter (location or radius) is missing.
 	}

@@ -20,7 +20,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Keyword = "pizza",
                 Radius = 10000,
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
-                Sensor = false,
             };
 
             PlacesResponse result = GoogleMaps.Places.Query(request);
@@ -39,7 +38,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 ApiKey = ApiKey,
                 Radius = 10000,
                 Location = new Location(64.6247243, 21.0747553), // Skellefteå, Sweden
-                Sensor = false,
                 Type = "airport",
             };
 
@@ -62,7 +60,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Keyword = "pizza",
                 Radius = 10000,
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
-                Sensor = false,
             };
 
             PlacesResponse result = GoogleMaps.Places.Query(request);
@@ -86,7 +83,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Keyword = "pizza",
                 Radius = 10000,
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
-                Sensor = false,
                 PageToken = result.NextPage
             };
             result = GoogleMaps.Places.Query(request);
