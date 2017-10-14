@@ -38,5 +38,8 @@
 
         [DataMember(Name = "origin_addresses")]
         public IEnumerable<string> OriginAddresses { get; set; }
+        
+        [DataMember(Name = "error_message")]
+        public string ErrorMessage { get; set; }
     }
 }
