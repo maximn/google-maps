@@ -78,7 +78,7 @@ namespace GoogleMapsApi.Engine
 			    uri = OnUriCreated(uri);
 			}
 
-			var data = await new HttpClient().DownloadDataTaskAsync(uri, timeout);
+            var data = await new HttpClient().DownloadDataTaskAsync(uri, timeout).ConfigureAwait(false);
             OnRawResponseRecivied?.Invoke(data);
             return Deserialize(data);
 		}
