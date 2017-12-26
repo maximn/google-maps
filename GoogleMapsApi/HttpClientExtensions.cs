@@ -35,12 +35,12 @@ namespace GoogleMapsApi
         [Obsolete]
         public static async Task<byte[]> DownloadDataTaskAsync(this HttpClient client, Uri address, TimeSpan timeout, CancellationToken token = new CancellationToken())
         {
-            var dataDownloaded = await DownloadData(client, address, timeout, token);
+            var dataDownloaded = await DownloadData(client, address, timeout, token).ConfigureAwait(false);
 
             if (dataDownloaded != null)
-                return await dataDownloaded.Content.ReadAsByteArrayAsync();
+                return await dataDownloaded.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
-            return await GetCancelledTask<byte[]>();
+            return await GetCancelledTask<byte[]>().ConfigureAwait(false);
         }
 
         [Obsolete]
@@ -59,7 +59,7 @@ namespace GoogleMapsApi
         {
             var tcs = new TaskCompletionSource<T>();
             tcs.SetCanceled();
-            return await tcs.Task;
+            return await tcs.Task.ConfigureAwait(false);
         }
 
         [Obsolete]
@@ -74,14 +74,14 @@ namespace GoogleMapsApi
                 return null;
 
             client.Timeout = timeout;
-            var httpResponse = await client.GetAsync(address, token);
+            var httpResponse = await client.GetAsync(address, token).ConfigureAwait(false);
 
             if (!httpResponse.IsSuccessStatusCode)
             {
                 if (httpResponse.StatusCode == HttpStatusCode.Forbidden ||
                     httpResponse.StatusCode == HttpStatusCode.ProxyAuthenticationRequired ||
                     httpResponse.StatusCode == HttpStatusCode.Unauthorized)
-                    throw new AuthenticationException(await httpResponse.Content.ReadAsStringAsync());
+                    throw new AuthenticationException(await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false));
 
                 if (httpResponse.StatusCode == HttpStatusCode.GatewayTimeout ||
                     httpResponse.StatusCode == HttpStatusCode.RequestTimeout)

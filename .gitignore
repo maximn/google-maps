@@ -6,6 +6,7 @@ obj/
 *.user
 _ReSharper*/
 packages
+project.lock.json
 
 # mstest test results
 [Tt]est[Rr]esult*
