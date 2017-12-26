@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<component format="1" id="json.net" is-shell="true">
+  <name>Json.NET</name>
+  <publisher>Xamarin Inc</publisher>
+  <publisher-url>http://xamarin.com/</publisher-url>
+  <src-url>http://james.newtonking.com/projects/json-net.aspx</src-url>
+  <version>7.0.1</version>
+  <summary>Json.NET is a popular high-performance JSON framework for .NET</summary>
+  <packages>
+    <package id="Newtonsoft.Json" version="7.0.1" framework="ios-unified" />
+    <package id="Newtonsoft.Json" version="7.0.1" framework="win8" />
+    <package id="Newtonsoft.Json" version="7.0.1" framework="winphone-8.1" />
+    <package id="Newtonsoft.Json" version="7.0.1" framework="winphone-8.0" />
+    <package id="Newtonsoft.Json" version="7.0.1" framework="ios" />
+    <package id="Newtonsoft.Json" version="7.0.1" framework="android" />
+  </packages>
+  <screenshots>
+    <img src="screenshots/screenshot.png" title="screenshot" />
+  </screenshots>
+  <samples>
+    <sample id="Json.NET.Android.Sample">
+      <name>Android Sample</name>
+      <summary>Android Sample</summary>
+    </sample>
+    <sample id="Json.NET.iOS.Sample">
+      <name>iOS Classic Sample</name>
+      <summary>iOS Classic Sample</summary>
+    </sample>
+  </samples>
+</component>

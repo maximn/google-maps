@@ -78,11 +78,12 @@ namespace GoogleMapsApi
 
             if (!httpResponse.IsSuccessStatusCode)
             {
+#if NET45
                 if (httpResponse.StatusCode == HttpStatusCode.Forbidden ||
                     httpResponse.StatusCode == HttpStatusCode.ProxyAuthenticationRequired ||
                     httpResponse.StatusCode == HttpStatusCode.Unauthorized)
                     throw new AuthenticationException(await httpResponse.Content.ReadAsStringAsync());
-
+#endif
                 if (httpResponse.StatusCode == HttpStatusCode.GatewayTimeout ||
                     httpResponse.StatusCode == HttpStatusCode.RequestTimeout)
                     throw new TimeoutException($"The request has exceeded the timeout limit of {timeout} and has been aborted.");

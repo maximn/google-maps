@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoogleMapsApi\GoogleMapsApi.csproj">
-      <Project>{61e9fc82-47b0-43c3-8749-95d3a9967060}</Project>
+      <Project>{d96912e4-8768-417a-9575-ffab0d7ecadc}</Project>
       <Name>GoogleMapsApi</Name>
     </ProjectReference>
   </ItemGroup>

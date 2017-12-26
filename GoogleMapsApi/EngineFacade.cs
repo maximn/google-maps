@@ -21,6 +21,8 @@ namespace GoogleMapsApi
 
         private EngineFacade() { }
 
+#if NET45
+
         /// <summary>
         /// Determines the maximum number of concurrent HTTP connections to open to this engine's host address. The default value is 2 connections.
         /// </summary>
@@ -56,6 +58,8 @@ namespace GoogleMapsApi
                 MapsAPIGenericEngine<TRequest, TResponse>.HttpsConnectionLimit = value;
             }
         }
+
+#endif
 
         /// <summary>
         /// Occurs when the Url created. Can be used for override the Url.
