@@ -64,6 +64,12 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 		/// </summary>
 		public string Components { get; set; }
 
+		/// <summary>
+		///  Returns only those places that are strictly within the region defined by location and radius. 
+        	///  This is a restriction, rather than a bias, meaning that results outside this region will not be returned even if they match the user input
+		/// </summary>
+        	public bool StrinctBounds { get; set; }
+
 		public override bool IsSSL
 		{
 			get
@@ -99,6 +105,8 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 				parameters.Add("type", Type);
 			if (!string.IsNullOrWhiteSpace(Components))
 				parameters.Add("components", Components);
+			if (StrinctBounds)
+                		parameters.Add("strictbounds", StrinctBounds.ToString());
 
 			return parameters;
 		}
