@@ -18,13 +18,18 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
         /// <summary>
         /// address (required) — The address that you want to geocode.*
         /// </summary>
-        public string Address { get; set; } //Required *or Location
+        public string Address { get; set; } //Required *or Location or PlaceId
 
         /// <summary>
         /// latlng (required) — The textual latitude/longitude value for which you wish to obtain the closest, human-readable address.*
         /// If you pass a latlng, the geocoder performs what is known as a reverse geocode. See Reverse Geocoding for more information.
         /// </summary>
-        public Location Location { get; set; } //Required *or Address
+        public Location Location { get; set; } //Required *or Address or PlaceId
+
+        /// <summary>
+        /// placeId (required) — The place ID of the place for which you wish to obtain the closest, human-readable address.*
+        /// </summary>
+        public string PlaceId { get; set; } //Required *or Address or Location
 
         /// <summary>
         /// bounds (optional) — The bounding box of the viewport within which to bias geocode results more prominently. (For more information see Viewport Biasing below.)
@@ -52,8 +57,10 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
         protected override QueryStringParametersList GetQueryStringParameters()
         {
             bool hasAddress = !string.IsNullOrWhiteSpace(Address);
-            if (!hasAddress && Location == null && !Components.Exists)
-                throw new ArgumentException("Address, Location OR Components is required");
+            bool hasPlaceId = !string.IsNullOrWhiteSpace(PlaceId);
+
+            if (!hasAddress && Location == null && !Components.Exists && !hasPlaceId)
+                throw new ArgumentException("Address, Location, Components OR PlaceId is required");
 
             var parameters = base.GetQueryStringParameters();
 
@@ -62,6 +69,9 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
 
             if (hasAddress)
                 parameters.Add(_address, Address);
+
+            if (hasPlaceId)
+                parameters.Add(_placeId, PlaceId);
 
             if (Components.Exists)
             {
@@ -83,6 +93,7 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
 
         const string _latlng = "latlng";
         const string _address = "address";
+        const string _placeId = "place_id";
         const string _bounds = "bounds";
         const string _region = "region";
         const string _language = "language";
