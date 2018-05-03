@@ -74,7 +74,7 @@ namespace GoogleMapsApi
                 return null;
 
             client.Timeout = timeout;
-            var httpResponse = await client.GetAsync(address, token);
+            var httpResponse = await client.GetAsync(address, token)..ConfigureAwait(false); 
 
             if (!httpResponse.IsSuccessStatusCode)
             {
