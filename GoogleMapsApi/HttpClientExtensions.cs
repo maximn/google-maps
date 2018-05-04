@@ -14,6 +14,8 @@ namespace GoogleMapsApi
     [Obsolete]
     public static class HttpClientExtensions
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Constant. Specified an infinite timeout duration. This is a TimeSpan of negative one (-1) milliseconds.
         /// </summary>
@@ -35,10 +37,12 @@ namespace GoogleMapsApi
         [Obsolete]
         public static async Task<byte[]> DownloadDataTaskAsync(this HttpClient client, Uri address, TimeSpan timeout, CancellationToken token = new CancellationToken())
         {
-            var dataDownloaded = await DownloadData(client, address, timeout, token);
+
+            log.DebugFormat("Making async request to URI: {0}", address.AbsoluteUri);
+            var dataDownloaded = await DownloadData(client, address, timeout, token).ConfigureAwait(false); 
 
             if (dataDownloaded != null)
-                return await dataDownloaded.Content.ReadAsByteArrayAsync();
+                return await dataDownloaded.Content.ReadAsByteArrayAsync().ConfigureAwait(false); 
 
             return await GetCancelledTask<byte[]>();
         }
@@ -74,10 +78,12 @@ namespace GoogleMapsApi
                 return null;
 
             client.Timeout = timeout;
-            var httpResponse = await client.GetAsync(address, token)..ConfigureAwait(false); 
+            var httpResponse = await client.GetAsync(address, token).ConfigureAwait(false);  // Added ConfigureAwait, otherwise request will not work under UI or App Pool thread (see: https://medium.com/bynder-tech/c-why-you-should-use-configureawait-false-in-your-library-code-d7837dce3d7f)
 
             if (!httpResponse.IsSuccessStatusCode)
             {
+                log.ErrorFormat("Google API error response code: {0}", httpResponse.StatusCode);
+
                 if (httpResponse.StatusCode == HttpStatusCode.Forbidden ||
                     httpResponse.StatusCode == HttpStatusCode.ProxyAuthenticationRequired ||
                     httpResponse.StatusCode == HttpStatusCode.Unauthorized)
