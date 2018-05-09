@@ -31,7 +31,12 @@ namespace GoogleMapsApi.Entities.Common
 		/// </remarks>
 		public string SigningKey { get; set; }
 
-		public override Uri GetUri()
+	    /// <summary>
+	    /// Add the channel parameter to requests so you can view more detailed usage reports when using a Premium Plan
+	    /// </summary>
+	    public string Channel { get; set; }
+
+        public override Uri GetUri()
 		{
 			if (ClientID != null)
 				return Sign(base.GetUri());
@@ -54,7 +59,11 @@ namespace GoogleMapsApi.Entities.Common
 				throw new ArgumentException("A user ID must start with 'gme-'.");
 
 			var urlSegmentToSign = uri.LocalPath + uri.Query + "&client=" + ClientID;
-			byte[] privateKey = FromBase64UrlString(SigningKey);
+
+		    if (!string.IsNullOrWhiteSpace(Channel))
+		        urlSegmentToSign += "&channel=" + Channel;
+
+            byte[] privateKey = FromBase64UrlString(SigningKey);
 			byte[] signature;
 
 			using (var algorithm = new HMACSHA1(privateKey))
