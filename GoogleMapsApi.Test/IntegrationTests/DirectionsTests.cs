@@ -15,7 +15,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void Directions_SumOfStepDistancesCorrect()
         {
-            var request = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA", ApiKey = ApiKey };
+            var request = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA" };
 
             var result = GoogleMaps.Directions.Query(request);
 
