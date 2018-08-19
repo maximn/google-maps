@@ -21,7 +21,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
             Assert.Greater(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 100);
         }
 
@@ -51,7 +51,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
             Assert.AreEqual(156097, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 10 * 1000);
 
             StringAssert.Contains("Philadelphia", result.Routes.First().Legs.First().EndAddress);
@@ -72,7 +72,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             IEnumerable<Location> points = result.Routes.First().OverviewPath.Points;
 
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
             Assert.AreEqual(122, overviewPath.Points.Count(), 30);
             Assert.Greater(polyline.Points.Count(), 1);
         }
@@ -86,7 +86,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
             Assert.Greater(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 100);
         }
 
