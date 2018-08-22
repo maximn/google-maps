@@ -19,8 +19,8 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		public string VehicleTypeString
 		{
 			get { return VehicleType.ToString(); }
-			set { VehicleType = (VehicleType)Enum.Parse(typeof(VehicleType), value); }
-		}
+            set => VehicleType = Enum.TryParse(value, out VehicleType vehicleType) ? vehicleType : VehicleType.OTHER;
+        }
 
 		/// <summary>
 		/// Contains the type of vehicle that runs on this line.
