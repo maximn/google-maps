@@ -16,13 +16,13 @@ namespace GoogleMapsApi.Entities.Directions.Response
         /// Contains the type of vehicle that runs on this line.
         /// </summary>
         [DataMember(Name = "type")]
-		public string VehicleTypeString
-		{
-			get { return VehicleType.ToString(); }
-            set => VehicleType = Enum.TryParse(value, out VehicleType vehicleType) ? vehicleType : VehicleType.OTHER;
+        public string VehicleTypeString
+        {
+            get { return VehicleType.ToString(); }
+            set { VehicleType = Enum.TryParse(value, out VehicleType vehicleType) ? vehicleType : VehicleType.OTHER; }
         }
 
-		/// <summary>
+        /// <summary>
 		/// Contains the type of vehicle that runs on this line.
 		/// </summary>
 		public VehicleType VehicleType { get; set; }
