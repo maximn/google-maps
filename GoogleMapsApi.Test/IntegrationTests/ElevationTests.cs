@@ -9,6 +9,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class ElevationTests : BaseTestIntegration
     {
         [Test]
+        [Ignore("Google returns: Sorry but your computer or network may be sending automated queries. To protect our users, we can't process your request right now.")]
         public void Elevation_ReturnsCorrectElevation()
         {
             var request = new ElevationRequest { Locations = new[] { new Location(40.7141289, -73.9614074) } };
@@ -22,6 +23,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
+        [Ignore("Google returns: Sorry but your computer or network may be sending automated queries. To protect our users, we can't process your request right now.")]
         public void ElevationAsync_ReturnsCorrectElevation()
         {
             var request = new ElevationRequest { Locations = new[] { new Location(40.7141289, -73.9614074) } };
