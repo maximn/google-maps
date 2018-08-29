@@ -18,12 +18,8 @@ namespace GoogleMapsApi.Entities.Directions.Response
         [DataMember(Name = "type")]
         public string VehicleTypeString
         {
-            get { return VehicleType.ToString(); }
-            set
-            {
-                VehicleType vehicleType;
-                VehicleType = Enum.TryParse(value, out vehicleType) ? vehicleType : VehicleType.OTHER;
-            }
+            get => VehicleType.ToString();
+            set => VehicleType = Enum.TryParse(value, out VehicleType vehicleType) ? vehicleType : VehicleType.OTHER;
         }
 
         /// <summary>
