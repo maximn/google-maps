@@ -208,5 +208,19 @@ namespace GoogleMapsApi.Test.IntegrationTests
             //Duration with traffic is usually longer but is not guaranteed
             Assert.AreNotEqual(result.Routes.First().Legs.Sum(s => s.Duration.Value.TotalSeconds), result.Routes.First().Legs.Sum(s => s.DurationInTraffic.Value.TotalSeconds));
         }
+
+        [Test]
+        public void Directions_CanGetLongDistanceTrain()
+        {
+            var request = new DirectionsRequest
+            {
+                Origin = "zurich airport",
+                Destination = "brig",
+                TravelMode = TravelMode.Transit,
+                DepartureTime = new DateTime(2018, 08, 18, 15, 30, 00)
+            };
+
+            Assert.DoesNotThrow(() => GoogleMaps.Directions.Query(request));
+        }
     }
 }
