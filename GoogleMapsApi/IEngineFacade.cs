@@ -1,11 +1,13 @@
 using System;
+using System.Net;
+using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi
 {
-    using GoogleMapsApi.Engine;
+    using Engine;
 
     public interface IEngineFacade<in TRequest, TResponse>
         where TRequest : MapsBaseRequest, new()
@@ -46,6 +48,7 @@ namespace GoogleMapsApi
         /// <exception cref="AuthenticationException">Thrown when the provided Google client ID or signing key are invalid.</exception>
         /// <exception cref="TimeoutException">Thrown when the operation has exceeded the allotted time.</exception>
         /// <exception cref="WebException">Thrown when an error occurred while downloading data.</exception>
+        [Obsolete]
         TResponse Query(TRequest request);
 
         /// <summary>
@@ -60,6 +63,7 @@ namespace GoogleMapsApi
         /// <exception cref="AuthenticationException">Thrown when the provided Google client ID or signing key are invalid.</exception>
         /// <exception cref="TimeoutException">Thrown when the operation has exceeded the allotted time.</exception>
         /// <exception cref="WebException">Thrown when an error occurred while downloading data.</exception>
+        [Obsolete]
         TResponse Query(TRequest request, TimeSpan timeout);
 
         /// <summary>
