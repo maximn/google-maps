@@ -48,7 +48,7 @@ namespace GoogleMapsApi
         /// <exception cref="AuthenticationException">Thrown when the provided Google client ID or signing key are invalid.</exception>
         /// <exception cref="TimeoutException">Thrown when the operation has exceeded the allotted time.</exception>
         /// <exception cref="WebException">Thrown when an error occurred while downloading data.</exception>
-        [Obsolete]
+        [Obsolete("Use QueryAsync instead.")]
         TResponse Query(TRequest request);
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace GoogleMapsApi
         /// <exception cref="AuthenticationException">Thrown when the provided Google client ID or signing key are invalid.</exception>
         /// <exception cref="TimeoutException">Thrown when the operation has exceeded the allotted time.</exception>
         /// <exception cref="WebException">Thrown when an error occurred while downloading data.</exception>
-        [Obsolete]
+        [Obsolete("Use QueryAsync instead.")]
         TResponse Query(TRequest request, TimeSpan timeout);
 
         /// <summary>
