@@ -53,6 +53,7 @@
     <Compile Include="EngineFacade.cs" />
     <Compile Include="Engine\MapsAPIGenericEngine.cs" />
     <Compile Include="Engine\UnixTimeConverter.cs" />
+    <Compile Include="Entities\Common\ILocalizableRequest.cs" />
     <Compile Include="Entities\Common\ILocationString.cs" />
     <Compile Include="Entities\Common\IResponseFor.cs" />
     <Compile Include="Entities\Common\Location.cs" />
