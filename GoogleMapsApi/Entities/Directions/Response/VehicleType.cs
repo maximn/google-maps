@@ -85,6 +85,12 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// <summary>
 		/// A vehicle that is pulled up a steep incline by a cable. A Funicular typically consists of two cars, with each car acting as a counterweight for the other.
 		/// </summary>
-		FUNICULAR
-	}
+		FUNICULAR,
+
+        /// <summary>
+        /// Not by google documented vehicle type. But returned by e.g. following directions API call:
+        /// https://maps.googleapis.com/maps/api/directions/json?&mode=transit&origin=zurich+airport&destination=brig&departure_time=1534606200
+        /// </summary>
+        LONG_DISTANCE_TRAIN
+    }
 }

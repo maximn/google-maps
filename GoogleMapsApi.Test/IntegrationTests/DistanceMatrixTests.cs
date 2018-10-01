@@ -25,7 +25,7 @@
 
             if (result.Status == DistanceMatrixStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status);
+            Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status, result.ErrorMessage);
             CollectionAssert.AreEqual(
                 new [] {"Alter Sirksfelder Weg 7, 23881 Koberg, Germany"}, 
                 result.DestinationAddresses);
@@ -50,7 +50,7 @@
 
             if (result.Status == DistanceMatrixStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status);
+            Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status, result.ErrorMessage);
             CollectionAssert.AreEqual(
                 new[] { "Alter Sirksfelder Weg 7, 23881 Koberg, Germany" },
                 result.DestinationAddresses);
@@ -77,7 +77,7 @@
 
             if (result.Status == DistanceMatrixStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status);
+            Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status, result.ErrorMessage);
 
             Assert.IsNotNull(result.Rows.First().Elements.First().DurationInTraffic);
         }
@@ -216,7 +216,7 @@
                 var result = GoogleMaps.DistanceMatrix.Query(request);
                 if (result.Status == DistanceMatrixStatusCodes.OVER_QUERY_LIMIT)
                     Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-                Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status);
+                Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status, result.ErrorMessage);
                 Assert.AreEqual("1,2", result.OriginAddresses.First());
             }
             finally
@@ -245,7 +245,7 @@
                 var result = GoogleMaps.DistanceMatrix.Query(request);
                 if (result.Status == DistanceMatrixStatusCodes.OVER_QUERY_LIMIT)
                     Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-                Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status);
+                Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status, result.ErrorMessage);
                 CollectionAssert.IsNotEmpty(rawData);
             }
             finally

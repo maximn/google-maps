@@ -6,6 +6,6 @@
     "net45": {}
   },
   "dependencies": {
-    "Newtonsoft.Json": "10.0.3"
+    "Newtonsoft.Json": "11.0.2"
   }
 }
