@@ -17,6 +17,8 @@ namespace GoogleMapsApi.StaticMaps
 	public class StaticMapsEngine
 	{
 		protected static readonly string BaseUrl;
+		
+		static Array<Int> validScales = (1,2,4);
 
 		static StaticMapsEngine()
 		{
@@ -51,7 +53,7 @@ namespace GoogleMapsApi.StaticMaps
 
 		    if (request.Scale != default(int))
 		    {
-		        if (request.Scale != 1 && request.Scale != 2 && request.Scale != 4)
+		        if (!validScales.contains(request.Sclae))
 		        {
                     throw new ArgumentException("Scale is invalid; must be a value of 1, 2 or 4");
 		        }
