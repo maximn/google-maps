@@ -49,6 +49,16 @@ namespace GoogleMapsApi.StaticMaps
 				parametersList.Add("zoom", request.Zoom.ToString());
 			}
 
+		    if (request.Scale != default(int))
+		    {
+		        if (request.Scale != 1 && request.Scale != 2 && request.Scale != 4)
+		        {
+                    throw new ArgumentException("Scale is invalid; must be a value of 1, 2 or 4");
+		        }
+
+                parametersList.Add("scale", request.Scale.ToString());
+		    }
+
 			if (request.Size.Width != default(int) || request.Size.Height != default(int))
 			{
 				ImageSize imageSize = request.Size;
