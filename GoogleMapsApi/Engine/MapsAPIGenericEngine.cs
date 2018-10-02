@@ -94,7 +94,7 @@ namespace GoogleMapsApi.Engine
                 uri = OnUriCreated(uri);
             }
 
-		    var response = await new HttpClient().DownloadDataTaskAsyncAsString(uri, timeout, token);
+		    var response = await new HttpClient().DownloadDataTaskAsyncAsString(uri, timeout, token).ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<TResponse>(response);
 		}

@@ -17,6 +17,8 @@ namespace GoogleMapsApi.StaticMaps
 	public class StaticMapsEngine
 	{
 		protected static readonly string BaseUrl;
+		
+		static Array<Int> validScales = (1,2,4);
 
 		static StaticMapsEngine()
 		{
@@ -48,6 +50,16 @@ namespace GoogleMapsApi.StaticMaps
 			{
 				parametersList.Add("zoom", request.Zoom.ToString());
 			}
+
+		    if (request.Scale != default(int))
+		    {
+		        if (!validScales.contains(request.Sclae))
+		        {
+                    throw new ArgumentException("Scale is invalid; must be a value of 1, 2 or 4");
+		        }
+
+                parametersList.Add("scale", request.Scale.ToString());
+		    }
 
 			if (request.Size.Width != default(int) || request.Size.Height != default(int))
 			{

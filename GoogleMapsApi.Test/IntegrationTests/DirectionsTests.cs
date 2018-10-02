@@ -21,7 +21,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
             Assert.Greater(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 100);
         }
 
@@ -51,7 +51,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
             Assert.AreEqual(156097, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 10 * 1000);
 
             StringAssert.Contains("Philadelphia", result.Routes.First().Legs.First().EndAddress);
@@ -72,7 +72,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             IEnumerable<Location> points = result.Routes.First().OverviewPath.Points;
 
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
             Assert.AreEqual(122, overviewPath.Points.Count(), 30);
             Assert.Greater(polyline.Points.Count(), 1);
         }
@@ -86,7 +86,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
                 Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
             Assert.Greater(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 100);
         }
 
@@ -207,6 +207,20 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             //Duration with traffic is usually longer but is not guaranteed
             Assert.AreNotEqual(result.Routes.First().Legs.Sum(s => s.Duration.Value.TotalSeconds), result.Routes.First().Legs.Sum(s => s.DurationInTraffic.Value.TotalSeconds));
+        }
+
+        [Test]
+        public void Directions_CanGetLongDistanceTrain()
+        {
+            var request = new DirectionsRequest
+            {
+                Origin = "zurich airport",
+                Destination = "brig",
+                TravelMode = TravelMode.Transit,
+                DepartureTime = new DateTime(2018, 08, 18, 15, 30, 00)
+            };
+
+            Assert.DoesNotThrow(() => GoogleMaps.Directions.Query(request));
         }
     }
 }
