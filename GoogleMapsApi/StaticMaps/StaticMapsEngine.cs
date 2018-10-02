@@ -1,9 +1,6 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Text;
-using System.Web;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.StaticMaps.Entities;
 using GoogleMapsApi.StaticMaps.Enums;
@@ -11,12 +8,14 @@ using GoogleMapsApi.StaticMaps.Enums;
 namespace GoogleMapsApi.StaticMaps
 {
 	/// <summary>
-	/// Creates a URL to google's static map according to propery filled up StaticMapsRequest
+	/// Creates a URL to google's static map according to properly filled up StaticMapsRequest
 	/// http://code.google.com/apis/maps/documentation/staticmaps/
 	/// </summary>
 	public class StaticMapsEngine
 	{
 		protected static readonly string BaseUrl;
+
+		private static readonly int[] ValidScales = { 1, 2, 4 };
 
 		static StaticMapsEngine()
 		{
@@ -48,6 +47,16 @@ namespace GoogleMapsApi.StaticMaps
 			{
 				parametersList.Add("zoom", request.Zoom.ToString());
 			}
+
+		    if (request.Scale != default(int))
+		    {
+		        if (!ValidScales.Contains(request.Scale))
+		        {
+                    throw new ArgumentException("Scale is invalid; must be a value of 1, 2 or 4");
+		        }
+
+                parametersList.Add("scale", request.Scale.ToString());
+		    }
 
 			if (request.Size.Width != default(int) || request.Size.Height != default(int))
 			{
