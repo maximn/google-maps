@@ -81,6 +81,12 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 				throw new NotSupportedException("This operation is not supported, PlaceAutocompleteRequest must use SSL");
 			}
 		}
+		
+		/// <summary>
+		/// A random string which identifies an autocomplete session for billing purposes.
+		/// If this parameter is omitted from an autocomplete request, the request is billed independently.
+		/// </summary>
+		public string SessionToken { get; set; }
 
 		protected override QueryStringParametersList GetQueryStringParameters()
 		{
@@ -106,7 +112,9 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 			if (!string.IsNullOrWhiteSpace(Components))
 				parameters.Add("components", Components);
 			if (StrinctBounds)
-                		parameters.Add("strictbounds", StrinctBounds.ToString());
+				parameters.Add("strictbounds", StrinctBounds.ToString());
+			if (!string.IsNullOrWhiteSpace(SessionToken))
+				parameters.Add("sessiontoken", SessionToken);
 
 			return parameters;
 		}

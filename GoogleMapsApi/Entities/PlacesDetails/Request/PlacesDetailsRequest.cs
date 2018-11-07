@@ -19,6 +19,12 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Request
             get { return true; }
             set { throw new NotSupportedException("This operation is not supported, PlacesRequest must use SSL"); }
         }
+        
+        /// <summary>
+        /// A random string which identifies an autocomplete session for billing purposes.
+        /// If this parameter is omitted from an autocomplete request, the request is billed independently.
+        /// </summary>
+        public string SessionToken { get; set; }
 
         protected override QueryStringParametersList GetQueryStringParameters()
         {
@@ -33,6 +39,9 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Request
             parameters.Add("placeid", PlaceId);
 
             if (!string.IsNullOrWhiteSpace(Language)) parameters.Add("language", Language);
+            
+            if (!string.IsNullOrWhiteSpace(SessionToken))
+                parameters.Add("sessiontoken", SessionToken);
             
             return parameters;
         }
