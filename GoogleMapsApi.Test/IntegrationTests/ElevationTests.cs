@@ -2,6 +2,7 @@
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Elevation.Request;
 using NUnit.Framework;
+using GoogleMapsApi.Test.Utils;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -15,8 +16,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             var result = GoogleMaps.Elevation.Query(request);
 
-            if (result.Status == Entities.Elevation.Response.Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Entities.Elevation.Response.Status.OK, result.Status);
             Assert.AreEqual(14.78, result.Results.First().Elevation, 1.0);
         }
@@ -28,8 +28,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             var result = GoogleMaps.Elevation.QueryAsync(request).Result;
 
-            if (result.Status == Entities.Elevation.Response.Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Entities.Elevation.Response.Status.OK, result.Status);
             Assert.AreEqual(14.78, result.Results.First().Elevation, 1.0);
         } 
