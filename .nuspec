@@ -19,6 +19,9 @@
     <releaseNotes></releaseNotes>
     <copyright></copyright>
     <tags>Map Geo Places Elevation Geocode Directions Maps</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="11.0.2" />
+    </dependencies>
   </metadata>
   <files>
 	<file src="GoogleMapsApi\bin\$configuration$\GoogleMapsApi.dll" target="lib\net40\" />
