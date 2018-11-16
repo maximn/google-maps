@@ -12,7 +12,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void Elevation_ReturnsCorrectElevation()
         {
-            var request = new ElevationRequest { Locations = new[] { new Location(40.7141289, -73.9614074) } };
+            var request = new ElevationRequest
+            {
+                ApiKey = ApiKey,
+                Locations = new[] { new Location(40.7141289, -73.9614074) }
+            };
 
             var result = GoogleMaps.Elevation.Query(request);
 
@@ -24,7 +28,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void ElevationAsync_ReturnsCorrectElevation()
         {
-            var request = new ElevationRequest { Locations = new[] { new Location(40.7141289, -73.9614074) } };
+            var request = new ElevationRequest
+            {
+                ApiKey = ApiKey,
+                Locations = new[] { new Location(40.7141289, -73.9614074) }
+            };
 
             var result = GoogleMaps.Elevation.QueryAsync(request).Result;
 

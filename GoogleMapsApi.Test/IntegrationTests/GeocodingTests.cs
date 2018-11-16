@@ -95,7 +95,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void ReverseGeocoding_ReturnsCorrectAddress()
         {
-            var request = new GeocodingRequest { Location = new Location(40.7141289, -73.9614074) };
+            var request = new GeocodingRequest
+            {
+                ApiKey = ApiKey,
+                Location = new Location(40.7141289, -73.9614074)
+            };
 
             var result = GoogleMaps.Geocode.Query(request);
 
@@ -107,7 +111,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void ReverseGeocodingAsync_ReturnsCorrectAddress()
         {
-            var request = new GeocodingRequest { Location = new Location(40.7141289, -73.9614074) };
+            var request = new GeocodingRequest
+            {
+                ApiKey = ApiKey,
+                Location = new Location(40.7141289, -73.9614074)
+            };
 
             var result = GoogleMaps.Geocode.QueryAsync(request).Result;
 
