@@ -37,8 +37,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 ApiKey = ApiKey,
                 Radius = 10000,
-                Location = new Location(64.6247243, 21.0747553), // Skellefteå, Sweden
-                Type = "airport",
+                Location = new Location(40.6782552, -73.8671761), // New York
+                Type = "airport"
             };
 
             PlacesResponse result = GoogleMaps.Places.Query(request);
@@ -46,8 +46,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
             Assert.IsTrue(result.Results.Any());
-            var correctAirport = result.Results.Where(t => t.Name.Contains("Skellefteå Airport"));
-            Assert.IsTrue(correctAirport != null && correctAirport.Any());
+            Assert.IsTrue(result.Results.Any(t => t.Name.Contains("John F. Kennedy")));
         }
 
         [Test]
