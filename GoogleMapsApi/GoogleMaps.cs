@@ -20,6 +20,7 @@ using GoogleMapsApi.Entities.DistanceMatrix.Request;
 using GoogleMapsApi.Entities.DistanceMatrix.Response;
 using GoogleMapsApi.Entities.PlacesNearBy.Request;
 using GoogleMapsApi.Entities.PlacesNearBy.Response;
+using System;
 
 namespace GoogleMapsApi
 {
@@ -69,6 +70,7 @@ namespace GoogleMapsApi
         }
 
         /// <summary>Perform places radar search operations.</summary>
+        [Obsolete("Radar search is deprecated since June 30 2018", true)]
         public static IEngineFacade<PlacesRadarRequest, PlacesRadarResponse> PlacesRadar
         {
             get

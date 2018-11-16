@@ -92,15 +92,6 @@ namespace GoogleMapsApi.Test.Utils
         /// <summary>
         /// If the response status indicates fail because of quota exceeded - mark test as inconclusive.
         /// </summary>
-        public static void NotExceedQuota(PlacesRadarResponse response)
-        {
-            if (response?.Status == Entities.PlacesRadar.Response.Status.OVER_QUERY_LIMIT)
-                throw new InconclusiveException(QuotaExceedMessage);
-        }
-
-        /// <summary>
-        /// If the response status indicates fail because of quota exceeded - mark test as inconclusive.
-        /// </summary>
         public static void NotExceedQuota(PlacesResponse response)
         {
             if (response?.Status == Entities.Places.Response.Status.OVER_QUERY_LIMIT)
