@@ -1,6 +1,7 @@
 ﻿using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
+using GoogleMapsApi.Test.Utils;
 using NUnit.Framework;
 
 namespace GoogleMapsApi.Test.IntegrationTests
@@ -17,7 +18,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             TimeZoneResponse result = GoogleMaps.TimeZone.Query(request);
 
-            Assert.AreEqual(GoogleMapsApi.Entities.TimeZone.Response.Status.OK, result.Status);
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(Status.OK, result.Status);
         }
     }
 }

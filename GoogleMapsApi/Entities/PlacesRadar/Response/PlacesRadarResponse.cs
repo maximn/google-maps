@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 namespace GoogleMapsApi.Entities.PlacesRadar.Response
 {
 	[DataContract]
+    [Obsolete("Radar search is deprecated since June 30 2018", true)]
 	public class PlacesRadarResponse : IResponseFor<PlacesRadarRequest>
 	{
 		/// <summary>

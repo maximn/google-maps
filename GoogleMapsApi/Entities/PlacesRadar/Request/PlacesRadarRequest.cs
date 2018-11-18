@@ -5,8 +5,10 @@ using System.Globalization;
 namespace GoogleMapsApi.Entities.PlacesRadar.Request
 {
     /// <summary>
-    /// The Google Places API Radar Search Service allows you to search for up to 200 places at once, but with less detail than is typically returned from a Text Search or Nearby Search request.
+    /// Find out how to replace it -
+    /// https://cloud.google.com/blog/products/maps-platform/announcing-deprecation-of-place-add
     /// </summary>
+    [Obsolete("Radar search is deprecated since June 30 2018", true)]
     public class PlacesRadarRequest : MapsBaseRequest
 	{
 		protected internal override string BaseUrl

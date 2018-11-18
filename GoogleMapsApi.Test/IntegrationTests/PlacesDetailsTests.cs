@@ -1,10 +1,9 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
+﻿using System.Linq;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.PlacesDetails.Request;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
 using NUnit.Framework;
+using GoogleMapsApi.Test.Utils;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -22,8 +21,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
 
-            if (result.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
             Assert.IsNotEmpty(result.Result.Photos);
         }
@@ -40,8 +38,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
 
-            if (result.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.NOT_FOUND, result.Status);
         }
 
@@ -58,10 +55,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
 
-            if (result.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
-
             Assert.That(new PriceLevel[] { result.Result.PriceLevel.Value }, Is.SubsetOf(anyPriceLevel));
         }
 
@@ -76,8 +71,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
 
-            if (result.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
             
             // commented out because seems like google doesn't have opening hours for this place anymore
@@ -105,8 +99,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                     RankBy = Entities.Places.Request.RankBy.Distance,
                 };
                 var result = GoogleMaps.Places.Query(request);
-                if (result.Status == Entities.Places.Response.Status.OVER_QUERY_LIMIT)
-                    Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+                AssertInconclusive.NotExceedQuota(result);
                 cachedMyPlaceId = result.Results.First().PlaceId;
             }
             return cachedMyPlaceId;

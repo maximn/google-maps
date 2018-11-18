@@ -1,6 +1,7 @@
 ﻿using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.PlacesNearBy.Request;
 using GoogleMapsApi.Entities.PlacesNearBy.Response;
+using GoogleMapsApi.Test.Utils;
 using NUnit.Framework;
 using System;
 using System.Linq;
@@ -24,9 +25,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             PlacesNearByResponse result = GoogleMaps.PlacesNearBy.Query(request);
 
-            if (result.Status == GoogleMapsApi.Entities.PlacesNearBy.Response.Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(GoogleMapsApi.Entities.PlacesNearBy.Response.Status.OK, result.Status);
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(Status.OK, result.Status);
             Assert.IsTrue(result.Results.Count() > 5);
         }
 
@@ -37,18 +37,16 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 ApiKey = ApiKey,
                 Radius = 10000,
-                Location = new Location(64.6247243, 21.0747553), // Skellefteå, Sweden
+                Location = new Location(40.6782552, -73.8671761), // New York
                 Type = "airport",
             };
 
             PlacesNearByResponse result = GoogleMaps.PlacesNearBy.Query(request);
 
-            if (result.Status == GoogleMapsApi.Entities.PlacesNearBy.Response.Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(GoogleMapsApi.Entities.PlacesNearBy.Response.Status.OK, result.Status);
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(Status.OK, result.Status);
             Assert.IsTrue(result.Results.Any());
-            var correctAirport = result.Results.Where(t => t.Name.Contains("Skellefte"));
-            Assert.IsTrue(correctAirport != null && correctAirport.Any());
+            Assert.IsTrue(result.Results.Any(t => t.Name.Contains("John F. Kennedy")));
         }
 
         [Test]
@@ -64,9 +62,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             PlacesNearByResponse result = GoogleMaps.PlacesNearBy.Query(request);
 
-            if (result.Status == GoogleMapsApi.Entities.PlacesNearBy.Response.Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(GoogleMapsApi.Entities.PlacesNearBy.Response.Status.OK, result.Status);
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(Status.OK, result.Status);
             //we should have more than one page of pizza results from the NearBy Search
             Assert.IsTrue(!String.IsNullOrEmpty(result.NextPage));
             //a full page of results is always 20
