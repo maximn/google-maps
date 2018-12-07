@@ -2,12 +2,12 @@
 {
     using System;
     using System.Linq;
-
     using GoogleMapsApi.Engine;
-    using GoogleMapsApi.Entities.Directions.Response;
     using GoogleMapsApi.Entities.DistanceMatrix.Request;
+    using GoogleMapsApi.Entities.DistanceMatrix.Response;
 
     using NUnit.Framework;
+    using GoogleMapsApi.Test.Utils;
 
     [TestFixture]
     public class DistanceMatrixTests : BaseTestIntegration
@@ -24,16 +24,15 @@
 
             var result = GoogleMaps.DistanceMatrix.Query(request);
 
-            if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status, result.ErrorMessage);
             CollectionAssert.AreEqual(
                 new [] {"Alter Sirksfelder Weg 7, 23881 Koberg, Germany"}, 
                 result.DestinationAddresses);
             CollectionAssert.AreEqual(
-                new[] { "Pilsener Str. 18, 92726 Waidhaus, Germany" },
+                new[] { "Pilsener Str. 16, 92726 Waidhaus, Germany" },
                 result.OriginAddresses);
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Rows.First().Elements.First().Status);
+            Assert.AreEqual(DistanceMatrixElementStatusCodes.OK, result.Rows.First().Elements.First().Status);
             Assert.IsNotNull(result.Rows.First().Elements.First().Distance);
             Assert.IsNotNull(result.Rows.First().Elements.First().Duration);
         }
@@ -49,18 +48,17 @@
 
             var result = GoogleMaps.DistanceMatrix.Query(request);
 
-            if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status, result.ErrorMessage);
             CollectionAssert.AreEqual(
                 new[] { "Alter Sirksfelder Weg 7, 23881 Koberg, Germany" },
                 result.DestinationAddresses);
             CollectionAssert.AreEqual(
-                new[] { "Pilsener Str. 18, 92726 Waidhaus, Germany", "Böhmerwaldstraße 19, 93444 Bad Kötzting, Germany" },
+                new[] { "Pilsener Str. 16, 92726 Waidhaus, Germany", "Böhmerwaldstraße 19, 93444 Bad Kötzting, Germany" },
                 result.OriginAddresses);
             Assert.AreEqual(2, result.Rows.Count());
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Rows.First().Elements.First().Status);
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Rows.Last().Elements.First().Status);
+            Assert.AreEqual(DistanceMatrixElementStatusCodes.OK, result.Rows.First().Elements.First().Status);
+            Assert.AreEqual(DistanceMatrixElementStatusCodes.OK, result.Rows.Last().Elements.First().Status);
         }
 
         [Test]
@@ -76,11 +74,119 @@
 
             var result = GoogleMaps.DistanceMatrix.Query(request);
 
-            if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status, result.ErrorMessage);
 
             Assert.IsNotNull(result.Rows.First().Elements.First().DurationInTraffic);
+        }
+
+        [Test]
+        public void ShouldThrowExceptionWhenDepartureTimeAndArrivalTimeSpecified()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                DepartureTime = new Time(),
+                ArrivalTime = new Time(),
+                Mode = DistanceMatrixTravelModes.transit,
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+        }
+
+        [Test]
+        public void ShouldThrowExceptionWhenArrivalTimeSpecifiedForNonTransitModes()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                ArrivalTime = new Time(),
+                Mode = DistanceMatrixTravelModes.driving,
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+        }
+
+        [Test]
+        public void ShouldThrowExceptionWheTransitRoutingPreferenceSpecifiedForNonTransitModes()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                Mode = DistanceMatrixTravelModes.driving,
+                TransitRoutingPreference = DistanceMatrixTransitRoutingPreferences.less_walking,
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+        }
+
+        [Test]
+        public void ShouldThrowExceptionWhenTrafficModelSuppliedForNonDrivingMode()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                Mode = DistanceMatrixTravelModes.transit,
+                DepartureTime = new Time(),
+                TrafficModel = DistanceMatrixTrafficModels.optimistic,
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+        }
+
+        [Test]
+        public void ShouldThrowExceptionWhenTrafficModelSuppliedWithoutDepartureTime()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                Mode = DistanceMatrixTravelModes.driving,
+                TrafficModel = DistanceMatrixTrafficModels.optimistic,
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+        }
+
+        [Test]
+        public void ShouldThrowExceptionWhenTransitModesSuppliedForNonTransitMode()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                Mode = DistanceMatrixTravelModes.driving,
+                TransitModes = new DistanceMatrixTransitModes[] { DistanceMatrixTransitModes.bus, DistanceMatrixTransitModes.subway},
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            Assert.Throws<ArgumentException>(() => GoogleMaps.DistanceMatrix.Query(request));
+        }
+
+        [Test]
+        public void ShouldReturnImperialUnitsIfImperialPassedAsParameter()
+        {
+            var request = new DistanceMatrixRequest
+            {
+                ApiKey = ApiKey,
+                Units = DistanceMatrixUnitSystems.imperial,
+                Origins = new[] { "49.64265,12.50088" },
+                Destinations = new[] { "53.64308,10.52726" },
+            };
+
+            var result = GoogleMaps.DistanceMatrix.Query(request);
+
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.True(result.Rows.First().Elements.First().Distance.Text.Contains("mi"));
         }
 
         [Test]
@@ -105,9 +211,9 @@
             try
             {
                 var result = GoogleMaps.DistanceMatrix.Query(request);
-                if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
-                    Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-                Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+
+                AssertInconclusive.NotExceedQuota(result);
+                Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status, result.ErrorMessage);
                 Assert.AreEqual("1,2", result.OriginAddresses.First());
             }
             finally
@@ -134,9 +240,9 @@
             try
             {
                 var result = GoogleMaps.DistanceMatrix.Query(request);
-                if (result.Status == DirectionsStatusCodes.OVER_QUERY_LIMIT)
-                    Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-                Assert.AreEqual(DirectionsStatusCodes.OK, result.Status);
+
+                AssertInconclusive.NotExceedQuota(result);
+                Assert.AreEqual(DistanceMatrixStatusCodes.OK, result.Status, result.ErrorMessage);
                 CollectionAssert.IsNotEmpty(rawData);
             }
             finally

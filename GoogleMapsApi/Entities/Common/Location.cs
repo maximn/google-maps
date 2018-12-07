@@ -1,10 +1,9 @@
-﻿using System;
 using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace GoogleMapsApi.Entities.Common
 {
-	[DataContract]
+    [DataContract]
 	public class Location : ILocationString
 	{
 		[DataMember(Name = "lat")]
@@ -23,7 +22,7 @@ namespace GoogleMapsApi.Entities.Common
 		{
 			get
 			{
-				return Latitude.ToString(CultureInfo.InvariantCulture) + "," + Longitude.ToString(CultureInfo.InvariantCulture);
+				return ToNonScientificString(Latitude) + "," + ToNonScientificString(Longitude);
 			}
 		}
 
@@ -31,5 +30,13 @@ namespace GoogleMapsApi.Entities.Common
 		{
 			return LocationString;
 		}
-	}
+
+    private static string ToNonScientificString(double d)
+    {
+      var s = d.ToString(DoubleFormat, CultureInfo.InvariantCulture).TrimEnd('0');
+      return s.Length == 0 ? "0.0" : s;
+    }
+        
+	    private static readonly string DoubleFormat = "0." + new string('#', 339);
+    }
 }

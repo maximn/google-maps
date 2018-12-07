@@ -82,5 +82,11 @@ namespace GoogleMapsApi.Entities.Directions.Response
 				}
 			}
 		}
+
+		/// <summary>
+		/// Gets the action to take for the current step (turn left, merge, straight, etc.) - Values in this list are subject to change. See documentation.
+		/// </summary>
+		[DataMember(Name = "maneuver")]
+		public string Maneuver { get; set; }
 	}
 }

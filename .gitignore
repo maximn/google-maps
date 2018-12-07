@@ -9,3 +9,6 @@ packages
 
 # mstest test results
 [Tt]est[Rr]esult*
+\.vs/
+
+GoogleMapsApi/project\.lock\.json

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
+using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.PlacesDetails.Response
 {
@@ -45,6 +46,12 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// </summary>
         [DataMember(Name = "opening_hours")]
         public OpeningHours OpeningHours { get; set; }
+
+        [DataMember(Name = "permanently_closed")]
+        public bool PermanentlyClosed { get; set; }
+
+        [DataMember(Name = "photos")]
+        public IEnumerable<Photo> Photos { get; set; }
 
         public PriceLevel? PriceLevel;
 

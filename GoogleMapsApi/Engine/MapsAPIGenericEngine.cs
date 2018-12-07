@@ -1,11 +1,12 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.Serialization.Json;
-using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using GoogleMapsApi.Entities.Common;
+using Newtonsoft.Json;
 
 namespace GoogleMapsApi.Engine
 {
@@ -57,73 +58,35 @@ namespace GoogleMapsApi.Engine
 			HttpsServicePoint = ServicePointManager.FindServicePoint(new Uri("https://" + baseUrl));
 		}
 
-		protected internal static TResponse QueryGoogleAPI(TRequest request, TimeSpan timeout)
+        /// <summary>
+        /// A method that wraps responses into easily understood exceptions
+        /// 
+        /// Obsolete: We should be moving to returning raw http resonses, as opposed to wrapping them
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        [Obsolete]
+		protected internal static async Task<TResponse> QueryGoogleAPI(TRequest request, TimeSpan timeout)
 		{
 			if (request == null)
 				throw new ArgumentNullException("request");
 
-			try
+			var uri = request.GetUri();
+			if (OnUriCreated != null)
 			{
-			    var uri = request.GetUri();
-			    if (OnUriCreated != null)
-			    {
-			        uri = OnUriCreated(uri);
-			    }
-
-			    var data = new WebClientEx(timeout).DownloadData(uri);
-                OnRawResponseRecivied?.Invoke(data);
-                return Deserialize(data);
-            }
-			catch (WebException ex)
-			{
-				if (IndicatesAuthenticationFailed(ex))
-					throw new AuthenticationException(AuthenticationFailedMessage, ex);
-
-				if (ex.Status == WebExceptionStatus.Timeout)
-					throw new TimeoutException(string.Format("The request has exceeded the timeout limit of {0} and has been aborted.", timeout));
-
-				throw;
+			    uri = OnUriCreated(uri);
 			}
+
+            var data = await new HttpClient().DownloadDataTaskAsync(uri, timeout).ConfigureAwait(false);
+            OnRawResponseRecivied?.Invoke(data);
+            return Deserialize(data);
 		}
 
-		protected static IAsyncResult BeginQueryGoogleAPI(TRequest request, AsyncCallback asyncCallback, object state)
-		{
-			// Must use TaskCompletionSource because in .NET 4.0 there's no overload of ContinueWith that accepts a state object (used in IAsyncResult).
-			// Such overloads have been added in .NET 4.5, so this can be removed if/when the project is promoted to that version.
-			// An example of such an added overload can be found at: http://msdn.microsoft.com/en-us/library/hh160386.aspx
-
-			var completionSource = new TaskCompletionSource<TResponse>(state);
-			QueryGoogleAPIAsync(request).ContinueWith(t =>
-														{
-															if (t.IsFaulted)
-																completionSource.SetException(t.Exception.InnerException);
-															else if (t.IsCanceled)
-																completionSource.SetCanceled();
-															else
-																completionSource.SetResult(t.Result);
-
-															asyncCallback(completionSource.Task);
-														}, TaskContinuationOptions.ExecuteSynchronously);
-
-			return completionSource.Task;
-		}
-
-		protected static TResponse EndQueryGoogleAPI(IAsyncResult asyncResult)
-		{
-			return ((Task<TResponse>)asyncResult).Result;
-		}
-
-		protected static Task<TResponse> QueryGoogleAPIAsync(TRequest request)
-		{
-			return QueryGoogleAPIAsync(request, TimeSpan.FromMilliseconds(Timeout.Infinite), CancellationToken.None);
-		}
-
-		protected internal static Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default(CancellationToken))
+		protected internal static async Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default(CancellationToken))
 		{
 			if (request == null)
 				throw new ArgumentNullException("request");
-
-			var completionSource = new TaskCompletionSource<TResponse>();
 
             var uri = request.GetUri();
             if (OnUriCreated != null)
@@ -131,30 +94,9 @@ namespace GoogleMapsApi.Engine
                 uri = OnUriCreated(uri);
             }
 
-            new WebClient().DownloadDataTaskAsync(uri, timeout, token)
-                .ContinueWith(t => DownloadDataComplete(t, completionSource), TaskContinuationOptions.ExecuteSynchronously);
+		    var response = await new HttpClient().DownloadDataTaskAsyncAsString(uri, timeout, token).ConfigureAwait(false);
 
-			return completionSource.Task;
-		}
-
-		private static void DownloadDataComplete(Task<byte[]> task, TaskCompletionSource<TResponse> completionSource)
-		{
-			if (task.IsCanceled)
-			{
-				completionSource.SetCanceled();
-			}
-			else if (task.IsFaulted)
-			{
-				if (IndicatesAuthenticationFailed(task.Exception.InnerException))
-					completionSource.SetException(new AuthenticationException(AuthenticationFailedMessage, task.Exception.InnerException));
-				else
-					completionSource.SetException(task.Exception.InnerException);
-			}
-			else
-			{
-                OnRawResponseRecivied?.Invoke(task.Result);
-                completionSource.SetResult(Deserialize(task.Result));
-			}
+            return JsonConvert.DeserializeObject<TResponse>(response);
 		}
 
 		private static TResponse Deserialize(byte[] serializedObject)
@@ -164,13 +106,5 @@ namespace GoogleMapsApi.Engine
 			return (TResponse)serializer.ReadObject(stream);
 		}
 
-		private static bool IndicatesAuthenticationFailed(Exception ex)
-		{
-			var webException = ex as WebException;
-
-			return webException != null &&
-				   webException.Status == WebExceptionStatus.ProtocolError &&
-				   ((HttpWebResponse)webException.Response).StatusCode == HttpStatusCode.Forbidden;
-		}
-	}
+    }
 }

@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GoogleMapsApi.Entities.Common;
+using System;
 using System.Globalization;
-using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 {
-	/// <summary>
-	/// The Place Autocomplete service is a web service that returns place predictions in response to an HTTP request. The request specifies 
-	/// a textual search string and optional geographic bounds. The service can be used to provide autocomplete functionality for text-based 
-	/// geographic searches, by returning places such as businesses, addresses and points of interest as a user types.
-	/// </summary>
-	public class PlaceAutocompleteRequest : MapsBaseRequest
+    /// <summary>
+    /// The Place Autocomplete service is a web service that returns place predictions in response to an HTTP request. The request specifies 
+    /// a textual search string and optional geographic bounds. The service can be used to provide autocomplete functionality for text-based 
+    /// geographic searches, by returning places such as businesses, addresses and points of interest as a user types.
+    /// </summary>
+    public class PlaceAutocompleteRequest : MapsBaseRequest
 	{
 		protected internal override string BaseUrl
 		{
@@ -51,13 +50,12 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 		/// </summary>
 		public string Language { get; set; }
 
-		/// <summary>
-		/// Restricts the results to Places matching at least one of the specified types (optional). 
-		/// Types should be separated with a pipe symbol (type1|type2|etc). 
-		/// See the list of supported types - https://developers.google.com/maps/documentation/places/supported_types
-		/// 
-		/// </summary>
-		public string Types { get; set; }
+        /// <summary>
+        /// (optional) Restricts the results to Places matching the specified type . 
+        /// See the list of supported types - https://developers.google.com/maps/documentation/places/supported_types
+        /// 
+        /// </summary>
+        public string Type { get; set; }
 
 		/// <summary>
 		///  A grouping of places to which you would like to restrict your results (optional). Currently, you can use components to filter by country. 
@@ -65,6 +63,12 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 		///  restrict your results to places within France.
 		/// </summary>
 		public string Components { get; set; }
+
+		/// <summary>
+		///  Returns only those places that are strictly within the region defined by location and radius. 
+        	///  This is a restriction, rather than a bias, meaning that results outside this region will not be returned even if they match the user input
+		/// </summary>
+        	public bool StrinctBounds { get; set; }
 
 		public override bool IsSSL
 		{
@@ -77,6 +81,12 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 				throw new NotSupportedException("This operation is not supported, PlaceAutocompleteRequest must use SSL");
 			}
 		}
+		
+		/// <summary>
+		/// A random string which identifies an autocomplete session for billing purposes.
+		/// If this parameter is omitted from an autocomplete request, the request is billed independently.
+		/// </summary>
+		public string SessionToken { get; set; }
 
 		protected override QueryStringParametersList GetQueryStringParameters()
 		{
@@ -97,10 +107,14 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 				parameters.Add("radius", Radius.Value.ToString(CultureInfo.InvariantCulture));
 			if (!string.IsNullOrWhiteSpace(Language))
 				parameters.Add("language", Language);
-			if (!string.IsNullOrWhiteSpace(Types))
-				parameters.Add("types", Types);
+			if (!string.IsNullOrWhiteSpace(Type))
+				parameters.Add("type", Type);
 			if (!string.IsNullOrWhiteSpace(Components))
 				parameters.Add("components", Components);
+			if (StrinctBounds)
+				parameters.Add("strictbounds", StrinctBounds.ToString());
+			if (!string.IsNullOrWhiteSpace(SessionToken))
+				parameters.Add("sessiontoken", SessionToken);
 
 			return parameters;
 		}

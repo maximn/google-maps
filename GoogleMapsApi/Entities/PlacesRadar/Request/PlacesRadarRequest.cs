@@ -4,10 +4,12 @@ using System.Globalization;
 
 namespace GoogleMapsApi.Entities.PlacesRadar.Request
 {
-	/// <summary>
-    /// The Google Places API Radar Search Service allows you to search for up to 200 places at once, but with less detail than is typically returned from a Text Search or Nearby Search request.
-	/// </summary>
-	public class PlacesRadarRequest : MapsBaseRequest
+    /// <summary>
+    /// Find out how to replace it -
+    /// https://cloud.google.com/blog/products/maps-platform/announcing-deprecation-of-place-add
+    /// </summary>
+    [Obsolete("Radar search is deprecated since June 30 2018", true)]
+    public class PlacesRadarRequest : MapsBaseRequest
 	{
 		protected internal override string BaseUrl
 		{
@@ -53,11 +55,10 @@ namespace GoogleMapsApi.Entities.PlacesRadar.Request
         public bool OpenNow { get; set; }
 
 		/// <summary>
-		/// Optional. Restricts the results to Places matching at least one of the specified types. 
-		/// Types should be separated with a pipe symbol (type1|type2|etc). 
+		/// Optional. Restricts the results to Places matching the specified type. 
 		/// See the list of supported types - https://developers.google.com/maps/documentation/places/supported_types
 		/// </summary>
-		public string Types { get; set; }
+		public string Type { get; set; }
 
 		public override bool IsSSL
 		{
@@ -95,8 +96,8 @@ namespace GoogleMapsApi.Entities.PlacesRadar.Request
                 parameters.Add("name", Name); 
             if (OpenNow)
                 parameters.Add("opennow", "true"); 
-            if (!string.IsNullOrWhiteSpace(Types))
-				parameters.Add("types", Types);
+            if (!string.IsNullOrWhiteSpace(Type))
+				parameters.Add("type", Type);
 
 			return parameters;
 		}

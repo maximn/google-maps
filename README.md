@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/gkr2dk9uw35cg7ex?svg=true)](https://ci.appveyor.com/project/maximn/google-maps)
+[![Build Status](https://travis-ci.org/maximn/google-maps.svg?branch=master)](https://travis-ci.org/maximn/google-maps)
 [![NuGet Status](https://img.shields.io/nuget/v/GoogleMapsApi.svg)](https://www.nuget.org/packages/GoogleMapsApi/)
 
 google-maps

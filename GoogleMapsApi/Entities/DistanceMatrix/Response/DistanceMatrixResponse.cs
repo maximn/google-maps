@@ -20,14 +20,14 @@
             }
             set
             {
-                Status = (DirectionsStatusCodes)Enum.Parse(typeof(DirectionsStatusCodes), value);
+                Status = (DistanceMatrixStatusCodes)Enum.Parse(typeof(DistanceMatrixStatusCodes), value);
             }
         }
 
         /// <summary>
         /// "status" contains metadata on the request. See Status Codes below.
         /// </summary>
-        public DirectionsStatusCodes Status { get; set; }
+        public DistanceMatrixStatusCodes Status { get; set; }
 
         [DataMember(Name = "rows")]
         public IEnumerable<Row> Rows { get; set; }
@@ -38,5 +38,8 @@
 
         [DataMember(Name = "origin_addresses")]
         public IEnumerable<string> OriginAddresses { get; set; }
+        
+        [DataMember(Name = "error_message")]
+        public string ErrorMessage { get; set; }
     }
 }

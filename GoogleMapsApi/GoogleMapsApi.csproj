@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,8 +12,7 @@
     <AssemblyName>GoogleMapsApi</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <CopyNuGetImplementations>false</CopyNuGetImplementations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +37,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -74,17 +79,25 @@
     <Compile Include="Entities\Directions\Response\Vehicle.cs" />
     <Compile Include="Entities\Directions\Response\VehicleType.cs" />
     <Compile Include="Entities\DistanceMatrix\Request\DistanceMatrixRequest.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\Restrictions.cs" />
     <Compile Include="Entities\DistanceMatrix\Request\Time.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\TrafficModel.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\TransitMode.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\TransitRoutingPreference.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\TravelMode.cs" />
+    <Compile Include="Entities\DistanceMatrix\Request\UnitSystem.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\Distance.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\DistanceMatrixResponse.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\Duration.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\Element.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\Row.cs" />
+    <Compile Include="Entities\DistanceMatrix\Response\ElementStatusCodes.cs" />
     <Compile Include="Entities\DistanceMatrix\Response\StatusCodes.cs" />
     <Compile Include="Entities\Elevation\Request\ElevationRequest.cs" />
     <Compile Include="Entities\Elevation\Response\ElevationResponse.cs" />
     <Compile Include="Entities\Elevation\Response\Result.cs" />
     <Compile Include="Entities\Elevation\Response\Status.cs" />
+    <Compile Include="Entities\Geocoding\Request\GeocodingComponents.cs" />
     <Compile Include="Entities\Geocoding\Request\GeocodingRequest.cs" />
     <Compile Include="Entities\Geocoding\Response\AddressComponent.cs" />
     <Compile Include="Entities\Geocoding\Response\FramedLocation.cs" />
@@ -136,6 +149,7 @@
     <Compile Include="Entities\TimeZone\Response\Status.cs" />
     <Compile Include="Entities\TimeZone\Response\TimeZoneResponse.cs" />
     <Compile Include="GoogleMaps.cs" />
+    <Compile Include="HttpClientExtensions.cs" />
     <Compile Include="IEngineFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Common\AddressLocation.cs" />
@@ -155,15 +169,13 @@
     <Compile Include="StaticMaps\Enums\MarkerSize.cs" />
     <Compile Include="StaticMaps\StaticMapsEngine.cs" />
     <Compile Include="TaskFactoryExtensions.cs" />
-    <Compile Include="WebClientEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="WebClientExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entities\Directions\The Google Directions API - Google Maps API Web Services - Google Code.htm" />
+    <None Include="project.json" />
     <None Include="ReleaseNotes.md" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

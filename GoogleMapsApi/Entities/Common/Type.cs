@@ -18,9 +18,9 @@ namespace GoogleMapsApi.Entities.Common
 		[EnumMember(Value = "administrative_area_level_1")]
 		AdministrativeAreaLevel1,// indicates a first-order civil entity below the country level. Within the United States, these administrative levels are states. Not all nations exhibit these administrative levels.
 		[EnumMember(Value = "administrative_area_level_2")]
-		AdministrativeAeaLvel2, // indicates a second-order civil entity below the country level. Within the United States, these administrative levels are counties. Not all nations exhibit these administrative levels.
+		AdministrativeAreaLevel2, // indicates a second-order civil entity below the country level. Within the United States, these administrative levels are counties. Not all nations exhibit these administrative levels.
 		[EnumMember(Value = "administrative_area_level_3")]
-		AdministrativeAeaLevel3, // indicates a third-order civil entity below the country level. This type indicates a minor civil division. Not all nations exhibit these administrative levels.
+		AdministrativeAreaLevel3, // indicates a third-order civil entity below the country level. This type indicates a minor civil division. Not all nations exhibit these administrative levels.
 		[EnumMember(Value = "colloquial_area")]
 		ColloquialArea, // indicates a commonly-used alternative name for the entity.
 		[EnumMember(Value = "locality")]

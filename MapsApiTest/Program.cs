@@ -59,9 +59,17 @@ namespace MapsApiTest
             PrintDirections(result);
 
             // Geocode
+            //https://maps.googleapis.com/maps/api/geocode/json?address=Parque+Marechal+Mascarenhas+de+Morais&components=locality:Porto%20Aelgre|administrative_area:RS|country:BR
             var geocodeRequest = new GeocodingRequest
 			{
-				Address = "new york city",
+				Address = "Parque Marechal Mascarenhas de Morais",
+                Components = new GeocodingComponents()
+                {
+                    Locality = "Porto Alegre",
+                    AdministrativeArea = "RS",
+                    Country = "BR"
+                }
+                
 			};
 
 			GeocodingResponse geocode = GoogleMaps.Geocode.Query(geocodeRequest);
@@ -86,7 +94,8 @@ namespace MapsApiTest
 							Color = "red"
 						},
 						Locations = path
-					}}
+					}},
+                ApiKey = string.Empty //Pass the API Key here. if it is passed as non empty value, then it will be appended in request URL
 			});
 
 			Console.WriteLine("Map with path: " + url);

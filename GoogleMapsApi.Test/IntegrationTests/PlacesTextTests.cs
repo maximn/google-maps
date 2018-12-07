@@ -2,6 +2,7 @@
 using GoogleMapsApi.Entities.PlacesText.Request;
 using GoogleMapsApi.Entities.PlacesText.Response;
 using NUnit.Framework;
+using GoogleMapsApi.Test.Utils;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -20,8 +21,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             PlacesTextResponse result = GoogleMaps.PlacesText.Query(request);
 
-            if (result.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
             Assert.AreEqual("1 Smith St, Parramatta NSW 2150, Australia", result.Results.First().FormattedAddress);
         }
@@ -38,10 +38,9 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             PlacesTextResponse result = GoogleMaps.PlacesText.Query(request);
 
-            if (result.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
-            Assert.IsNotEmpty(result.Results.First().Photos);
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty);
         }
     }
 }

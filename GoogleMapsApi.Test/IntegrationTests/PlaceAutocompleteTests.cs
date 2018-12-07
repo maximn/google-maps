@@ -1,10 +1,9 @@
-﻿using System;
+﻿using GoogleMapsApi.Entities.PlaceAutocomplete.Request;
+using GoogleMapsApi.Entities.PlaceAutocomplete.Response;
+using GoogleMapsApi.Test.Utils;
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using GoogleMapsApi.Entities.PlaceAutocomplete.Request;
-using GoogleMapsApi.Entities.PlaceAutocomplete.Response;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -18,14 +17,13 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 ApiKey = base.ApiKey,
                 Input = "zxqtrb",
-                Location = new GoogleMapsApi.Entities.Common.Location(53.4635332, -2.2419169),
+                Location = new Entities.Common.Location(53.4635332, -2.2419169),
                 Radius = 30000
             };
 
             PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
 
-            if (result.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.ZERO_RESULTS, result.Status);
         }
 
@@ -36,14 +34,13 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 ApiKey = base.ApiKey,
                 Input = "abbeyjibberish",
-                Location = new GoogleMapsApi.Entities.Common.Location(53.4635332, -2.2419169),
+                Location = new Entities.Common.Location(53.4635332, -2.2419169),
                 Radius = 30000
             };
 
             PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
 
-            if (result.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.ZERO_RESULTS, result.Status, "results for jibberish");
 
             var offsetRequest = new PlaceAutocompleteRequest
@@ -51,13 +48,12 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 ApiKey = base.ApiKey,
                 Input = "abbeyjibberish",
                 Offset = 5,
-                Location = new GoogleMapsApi.Entities.Common.Location(53.4635332, -2.2419169)
+                Location = new Entities.Common.Location(53.4635332, -2.2419169)
             };
 
             PlaceAutocompleteResponse offsetResult = GoogleMaps.PlaceAutocomplete.Query(offsetRequest);
 
-            if (offsetResult.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, offsetResult.Status, "results using offset");
         }
 
@@ -68,16 +64,14 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 ApiKey = base.ApiKey,
                 Input = "abb",
-                Types = "geocode",
-                Location = new GoogleMapsApi.Entities.Common.Location(53.4635332, -2.2419169),
+                Type = "geocode",
+                Location = new Entities.Common.Location(53.4635332, -2.2419169),
                 Radius = 30000
             };
 
             PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
 
-            if (result.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
-
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
 
             foreach (var oneResult in result.Results)
@@ -102,8 +96,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
 
-            if (result.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
 
             Assert.That(result.Results.Any(t => t.Description.ToUpper().Contains(anExpected)));
@@ -114,7 +107,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         {
             var request = CreatePlaceAutocompleteRequest("RIX", 0);
             PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
-            AssertRequestsLimit(result);
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
         }
         [Test(Description = "Ensures that it is ok to sent negative value as a radius")]
@@ -122,7 +115,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         {
             var request = CreatePlaceAutocompleteRequest("RIX", -1);
             PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
-            AssertRequestsLimit(result);
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
         }
 
@@ -131,14 +124,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
         {
             var request = CreatePlaceAutocompleteRequest("RIX", 30000000);
             PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
-            AssertRequestsLimit(result);
+            AssertInconclusive.NotExceedQuota(result);
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
-        }
-
-        private void AssertRequestsLimit(PlaceAutocompleteResponse result) 
-        {
-            if (result.Status == Status.OVER_QUERY_LIMIT)
-                Assert.Inconclusive("Cannot run test since you have exceeded your Google API query limit.");
         }
 
         private PlaceAutocompleteRequest CreatePlaceAutocompleteRequest(string query, double? radius) 
@@ -147,10 +134,9 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 ApiKey = base.ApiKey,
                 Input = query,
-                Location = new GoogleMapsApi.Entities.Common.Location(0, 0),
+                Location = new Entities.Common.Location(0, 0),
                 Radius = radius
             };
         }
-
     }
 }
