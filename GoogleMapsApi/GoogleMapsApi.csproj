@@ -118,11 +118,17 @@
     <Compile Include="Entities\PlacesDetails\Response\OpeningHours.cs" />
     <Compile Include="Entities\PlacesDetails\Response\Period.cs" />
     <Compile Include="Entities\PlacesDetails\Response\PlacesDetailsResponse.cs" />
+    <Compile Include="Entities\PlacesFind\Response\Candidate.cs" />
+    <Compile Include="Entities\PlacesFind\Response\Geometry.cs" />
+    <Compile Include="Entities\PlacesFind\Response\OpeningHours.cs" />
+    <Compile Include="Entities\PlacesFind\Response\PlacesFindResponse.cs" />
     <Compile Include="Entities\PlacesDetails\Response\Review.cs" />
     <Compile Include="Entities\PlacesDetails\Response\Events.cs" />
     <Compile Include="Entities\PlacesDetails\Response\Result.cs" />
     <Compile Include="Entities\PlacesDetails\Response\Status.cs" />
     <Compile Include="Entities\PlacesDetails\Response\TimeOfWeek.cs" />
+    <Compile Include="Entities\PlacesFind\Request\PlacesFindRequest.cs" />
+    <Compile Include="Entities\PlacesFind\Response\Status.cs" />
     <Compile Include="Entities\PlacesNearBy\Request\PlacesNearByRequest.cs" />
     <Compile Include="Entities\PlacesNearBy\Request\RankBy.cs" />
     <Compile Include="Entities\PlacesNearBy\Response\Geometry.cs" />
