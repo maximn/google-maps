@@ -59,7 +59,6 @@
     <Compile Include="IntegrationTests\ElevationTests.cs" />
     <Compile Include="IntegrationTests\GeocodingTests.cs" />
     <Compile Include="IntegrationTests\BaseTestIntegration.cs" />
-    <Compile Include="IntegrationTests\PlacesFindTests.cs" />
     <Compile Include="IntegrationTests\PlacesNearByTests.cs" />
     <Compile Include="IntegrationTests\PlacesSearchTests.cs" />
     <Compile Include="IntegrationTests\PlacesDetailsTests.cs" />
