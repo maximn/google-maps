@@ -5,6 +5,7 @@ using GoogleMapsApi.Entities.Geocoding.Response;
 using GoogleMapsApi.Entities.PlaceAutocomplete.Response;
 using GoogleMapsApi.Entities.Places.Response;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
+using GoogleMapsApi.Entities.PlacesFind.Response;
 using GoogleMapsApi.Entities.PlacesNearBy.Response;
 using GoogleMapsApi.Entities.PlacesRadar.Response;
 using GoogleMapsApi.Entities.PlacesText.Response;
@@ -104,6 +105,15 @@ namespace GoogleMapsApi.Test.Utils
         public static void NotExceedQuota(PlacesTextResponse response)
         {
             if (response?.Status == Entities.PlacesText.Response.Status.OVER_QUERY_LIMIT)
+                throw new InconclusiveException(QuotaExceedMessage);
+        }
+
+        /// <summary>
+        /// If the response status indicates fail because of quota exceeded - mark test as inconclusive.
+        /// </summary>
+        public static void NotExceedQuota(PlacesFindResponse response)
+        {
+            if (response?.Status == Entities.PlacesFind.Response.Status.OVER_QUERY_LIMIT)
                 throw new InconclusiveException(QuotaExceedMessage);
         }
     }
