@@ -118,6 +118,7 @@
     <Compile Include="Entities\PlacesDetails\Response\OpeningHours.cs" />
     <Compile Include="Entities\PlacesDetails\Response\Period.cs" />
     <Compile Include="Entities\PlacesDetails\Response\PlacesDetailsResponse.cs" />
+    <Compile Include="Entities\PlacesFind\Request\InputType.cs" />
     <Compile Include="Entities\PlacesFind\Response\Candidate.cs" />
     <Compile Include="Entities\PlacesFind\Response\Geometry.cs" />
     <Compile Include="Entities\PlacesFind\Response\OpeningHours.cs" />

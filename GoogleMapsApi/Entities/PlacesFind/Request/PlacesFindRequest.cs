@@ -25,7 +25,7 @@ namespace GoogleMapsApi.Entities.PlacesFind.Request
         /// <summary>
         /// Required. The type of input. This can be one of either textquery or phonenumber. Phone numbers must be in international format (prefixed by a plus sign ("+"), followed by the country code, then the phone number itself). See E.164 ITU recommendation for more information.
         /// </summary>
-        public string InputType { get; set; }
+        public InputType? InputType { get; set; }
 
         /// <summary>
         /// Optional. The language code, indicating in which language the results should be returned, if possible. Searches are also biased to the selected language; results in the selected language may be given a higher ranking. See the list of supported languages and their codes. Note that we often update supported languages so this list may not be exhaustive.
@@ -66,7 +66,7 @@ namespace GoogleMapsApi.Entities.PlacesFind.Request
             var parameters = base.GetQueryStringParameters();
             parameters.Add("key", ApiKey);
             parameters.Add("input", Input);
-            parameters.Add("inputtype", InputType);
+            parameters.Add("inputtype", InputType == Request.InputType.PhoneNumber ? "phonenumber" : "textquery");
 
             // optional parameters
             if (!string.IsNullOrWhiteSpace(Language))

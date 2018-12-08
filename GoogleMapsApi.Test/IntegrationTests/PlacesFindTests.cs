@@ -20,7 +20,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 ApiKey = ApiKey,
                 Input = "hilton chicago",
-                InputType = "textquery"
+                InputType = InputType.TextQuery
             };
 
             PlacesFindResponse result = GoogleMaps.PlacesFind.Query(request);
