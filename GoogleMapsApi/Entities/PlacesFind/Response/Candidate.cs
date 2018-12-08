@@ -28,7 +28,7 @@ namespace GoogleMapsApi.Entities.PlacesFind.Response
         public string Name { get; set; }
 
         [DataMember(Name = "permanently_closed")]
-        public bool PermanentlyClosed { get; set; }
+        public bool? PermanentlyClosed { get; set; }
 
         [DataMember(Name = "photos")]
         public IEnumerable<Photo> Photos { get; set; }
@@ -37,10 +37,10 @@ namespace GoogleMapsApi.Entities.PlacesFind.Response
         public string PlaceId { get; set; }
 
         [DataMember(Name = "plus_code")]
-        public double PlusCode { get; set; }
+        public string PlusCode { get; set; }
 
         [DataMember(Name = "scope")]
-        public double Scope { get; set; }
+        public string Scope { get; set; }
 
         [DataMember(Name = "types")]
         public string[] Types { get; set; }
@@ -54,9 +54,9 @@ namespace GoogleMapsApi.Entities.PlacesFind.Response
 
         // atmosphere fields
         [DataMember(Name = "price_level")]
-        public double PriceLevel { get; set; }
+        public int? PriceLevel { get; set; }
 
         [DataMember(Name = "rating")]
-        public double Rating { get; set; }
+        public double? Rating { get; set; }
     }
 }
