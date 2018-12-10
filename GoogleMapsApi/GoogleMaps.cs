@@ -20,6 +20,8 @@ using GoogleMapsApi.Entities.DistanceMatrix.Request;
 using GoogleMapsApi.Entities.DistanceMatrix.Response;
 using GoogleMapsApi.Entities.PlacesNearBy.Request;
 using GoogleMapsApi.Entities.PlacesNearBy.Response;
+using GoogleMapsApi.Entities.PlacesFind.Response;
+using GoogleMapsApi.Entities.PlacesFind.Request;
 using System;
 
 namespace GoogleMapsApi
@@ -114,6 +116,16 @@ namespace GoogleMapsApi
                 return EngineFacade<PlacesNearByRequest, PlacesNearByResponse>.Instance;
             }
         }
+
+        /// <summary>Perform Find Place searches </summary>
+        public static IEngineFacade<PlacesFindRequest, PlacesFindResponse> PlacesFind
+        {
+            get
+            {
+                return EngineFacade<PlacesFindRequest, PlacesFindResponse>.Instance;
+            }
+        }
+
         /// <summary>Retrieve duration and distance values based on the recommended route between start and end points.</summary>
         public static IEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse> DistanceMatrix
         {
