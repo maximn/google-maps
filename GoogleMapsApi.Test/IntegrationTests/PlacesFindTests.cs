@@ -14,20 +14,40 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class PlacesFindTests : BaseTestIntegration
     {
         [Test]
-        public void ReturnsPlaceId()
+        public void ReturnsPhotos()
         {
             var request = new PlacesFindRequest
             {
                 ApiKey = ApiKey,
-                Input = "hilton chicago",
-                InputType = InputType.TextQuery
+                Input = "ChIJL3osJJksDogRodsJu9TjTQA",
+                InputType = InputType.TextQuery,
+                Fields = "photo"
             };
 
             PlacesFindResponse result = GoogleMaps.PlacesFind.Query(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
-            Assert.AreEqual("ChIJL3osJJksDogRodsJu9TjTQA", result.Candidates.FirstOrDefault()?.PlaceId);
+            Assert.IsNotEmpty(result.Candidates);
+            Assert.IsNotEmpty(result.Candidates.FirstOrDefault()?.Photos);
+        }
+
+        [Test]
+        public void DoesNotReturnFieldsWhenNotRequested()
+        {
+            var request = new PlacesFindRequest
+            {
+                ApiKey = ApiKey,
+                Input = "ChIJL3osJJksDogRodsJu9TjTQA",
+                InputType = InputType.TextQuery,
+                Fields = "place_id"
+            };
+
+            PlacesFindResponse result = GoogleMaps.PlacesFind.Query(request);
+
+            //FormattedAddress should be null since it wasn't requested
+            Assert.IsNotEmpty(result.Candidates);
+            Assert.IsNull(result.Candidates.FirstOrDefault()?.FormattedAddress);
         }
     }
 }
