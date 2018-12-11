@@ -14,14 +14,13 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class PlacesFindTests : BaseTestIntegration
     {
         [Test]
-        public void ReturnsPhotos()
+        public void ReturnsResults()
         {
             var request = new PlacesFindRequest
             {
                 ApiKey = ApiKey,
-                Input = "ChIJL3osJJksDogRodsJu9TjTQA",
-                InputType = InputType.TextQuery,
-                Fields = "photo"
+                Input = "pizza chicago il",
+                InputType = InputType.TextQuery
             };
 
             PlacesFindResponse result = GoogleMaps.PlacesFind.Query(request);
@@ -29,7 +28,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
             Assert.IsNotEmpty(result.Candidates);
-            Assert.IsNotEmpty(result.Candidates.FirstOrDefault()?.Photos);
         }
 
         [Test]
@@ -38,7 +36,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var request = new PlacesFindRequest
             {
                 ApiKey = ApiKey,
-                Input = "ChIJL3osJJksDogRodsJu9TjTQA",
+                Input = "pizza chicago il",
                 InputType = InputType.TextQuery,
                 Fields = "place_id"
             };
