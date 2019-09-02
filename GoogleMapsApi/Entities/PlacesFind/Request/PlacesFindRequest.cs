@@ -9,13 +9,7 @@ namespace GoogleMapsApi.Entities.PlacesFind.Request
     /// </summary>
     public class PlacesFindRequest : MapsBaseRequest
     {
-        protected internal override string BaseUrl
-        {
-            get
-            {
-                return "maps.googleapis.com/maps/api/place/findplacefromtext/";
-            }
-        }
+        protected internal override string BaseUrl => "maps.googleapis.com/maps/api/place/findplacefromtext/";
 
         /// <summary>
         /// Required. The text input specifying which place to search for (for example, a name, address, or phone number).
@@ -42,16 +36,10 @@ namespace GoogleMapsApi.Entities.PlacesFind.Request
         /// </summary>
         public string LocationBias { get; set; }
 
-        public override bool IsSSL
+        protected override bool IsSsl
         {
-            get
-            {
-                return true;
-            }
-            set
-            {
-                throw new NotSupportedException("This operation is not supported, PlacesFindRequest must use SSL");
-            }
+            get => true;
+            set => throw new NotSupportedException("This operation is not supported, PlacesFindRequest must use SSL");
         }
 
         protected override QueryStringParametersList GetQueryStringParameters()

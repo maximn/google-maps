@@ -13,15 +13,9 @@ namespace GoogleMapsApi.Entities.Geocoding.Response
 		[DataMember(Name = "status")]
 		internal string StatusStr
 		{
-			get
-			{
-				return Status.ToString();
-			}
-			set
-			{
-				Status = (Status)Enum.Parse(typeof(Status), value);
-			}
-		}
+			get => Status.ToString();
+            set => Status = (Status)Enum.Parse(typeof(Status), value);
+        }
 
 		public Status Status { get; set; }
 
@@ -30,7 +24,7 @@ namespace GoogleMapsApi.Entities.Geocoding.Response
 
 		public override string ToString()
 		{
-			return string.Format("GeocodingResponse - Status: {0}, Results count: {1}", Status, Results != null ? Results.Count() : 0);
+			return $"GeocodingResponse - Status: {Status}, Results count: {(Results != null ? Results.Count() : 0)}";
 		}
 	}
 }

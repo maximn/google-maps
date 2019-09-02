@@ -16,14 +16,8 @@ namespace GoogleMapsApi.Entities.TimeZone.Response
         [DataMember(Name = "status")]
         internal string StatusStr
         {
-            get
-            {
-                return Status.ToString();
-            }
-            set
-            {
-                Status = (Status)Enum.Parse(typeof(Status), value);
-            }
+            get => Status.ToString();
+            set => Status = (Status)Enum.Parse(typeof(Status), value);
         }
 
         /// <summary>
@@ -33,7 +27,7 @@ namespace GoogleMapsApi.Entities.TimeZone.Response
         public double DstOffSet { get; set; }
 
         [Obsolete("Use DstOffSet instead.")]
-        public double OffSet { get { return DstOffSet; }  }
+        public double OffSet => DstOffSet;
 
         /// <summary>
         /// RawOffset: the offset from UTC (in seconds) for the given location. This does not take into effect daylight savings.

@@ -109,7 +109,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		[Obsolete]
 		public bool Sensor { get; set; }
 
-		public bool IsSSL { get; set; }
+		public bool IsSsl { get; set; }
 
         /// <summary>
         /// Add API key support for the static map. This parameter is required for all static map requests.

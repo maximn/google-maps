@@ -19,10 +19,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         [DataMember(Name = "start_time")]
         internal int int_StartTime
         {
-            get
-            {
-                return GoogleMapsApi.Engine.UnixTimeConverter.DateTimeToUnixTimestamp(StartTime);
-            }
+            get => GoogleMapsApi.Engine.UnixTimeConverter.DateTimeToUnixTimestamp(StartTime);
             set
             {
                 DateTime epoch = new DateTime(1970, 1, 1);

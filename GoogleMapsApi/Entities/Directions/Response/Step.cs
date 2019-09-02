@@ -72,8 +72,8 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		[DataMember(Name = "travel_mode")]
 		internal string TravelModeString
 		{
-			get { return TravelMode.ToString(); }
-			set
+			get => TravelMode.ToString();
+            set
 			{
 				TravelMode travelMode;
 				if (Enum.TryParse(value, true, out travelMode))

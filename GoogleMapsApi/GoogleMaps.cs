@@ -26,114 +26,43 @@ using System;
 
 namespace GoogleMapsApi
 {
-    public class GoogleMaps
+    public static class GoogleMaps
 	{
 		/// <summary>Perform geocoding operations.</summary>
-		public static IEngineFacade<GeocodingRequest, GeocodingResponse> Geocode
-		{
-			get
-			{
-				return EngineFacade<GeocodingRequest, GeocodingResponse>.Instance;
-			}
-		}
-		/// <summary>Perform directions operations.</summary>
-		public static IEngineFacade<DirectionsRequest, DirectionsResponse> Directions
-		{
-			get
-			{
-				return EngineFacade<DirectionsRequest, DirectionsResponse>.Instance;
-			}
-		}
-		/// <summary>Perform elevation operations.</summary>
-		public static IEngineFacade<ElevationRequest, ElevationResponse> Elevation
-		{
-			get
-			{
-				return EngineFacade<ElevationRequest, ElevationResponse>.Instance;
-			}
-		}
+		public static IEngineFacade<GeocodingRequest, GeocodingResponse> Geocode => EngineFacade<GeocodingRequest, GeocodingResponse>.Instance;
 
-		/// <summary>Perform places operations.</summary>
-		public static IEngineFacade<PlacesRequest, PlacesResponse> Places
-		{
-			get
-			{
-				return EngineFacade<PlacesRequest, PlacesResponse>.Instance;
-			}
-		}
+        /// <summary>Perform directions operations.</summary>
+		public static IEngineFacade<DirectionsRequest, DirectionsResponse> Directions => EngineFacade<DirectionsRequest, DirectionsResponse>.Instance;
+
+        /// <summary>Perform elevation operations.</summary>
+		public static IEngineFacade<ElevationRequest, ElevationResponse> Elevation => EngineFacade<ElevationRequest, ElevationResponse>.Instance;
+
+        /// <summary>Perform places operations.</summary>
+		public static IEngineFacade<PlacesRequest, PlacesResponse> Places => EngineFacade<PlacesRequest, PlacesResponse>.Instance;
 
         /// <summary>Perform places text search operations.</summary>
-        public static IEngineFacade<PlacesTextRequest, PlacesTextResponse> PlacesText
-        {
-            get
-            {
-                return EngineFacade<PlacesTextRequest, PlacesTextResponse>.Instance;
-            }
-        }
+        public static IEngineFacade<PlacesTextRequest, PlacesTextResponse> PlacesText => EngineFacade<PlacesTextRequest, PlacesTextResponse>.Instance;
 
         /// <summary>Perform places radar search operations.</summary>
         [Obsolete("Radar search is deprecated since June 30 2018", true)]
-        public static IEngineFacade<PlacesRadarRequest, PlacesRadarResponse> PlacesRadar
-        {
-            get
-            {
-                return EngineFacade<PlacesRadarRequest, PlacesRadarResponse>.Instance;
-            }
-        }
+        public static IEngineFacade<PlacesRadarRequest, PlacesRadarResponse> PlacesRadar => EngineFacade<PlacesRadarRequest, PlacesRadarResponse>.Instance;
 
         /// <summary>Perform places text search operations.</summary>
-        public static IEngineFacade<TimeZoneRequest, TimeZoneResponse> TimeZone
-        {
-            get
-            {
-                return EngineFacade<TimeZoneRequest, TimeZoneResponse>.Instance;
-            }
-        }
+        public static IEngineFacade<TimeZoneRequest, TimeZoneResponse> TimeZone => EngineFacade<TimeZoneRequest, TimeZoneResponse>.Instance;
 
         /// <summary>Perform places details  operations.</summary>
-        public static IEngineFacade<PlacesDetailsRequest, PlacesDetailsResponse> PlacesDetails
-        {
-            get
-            {
-                return EngineFacade<PlacesDetailsRequest, PlacesDetailsResponse>.Instance;
-            }
-        }
+        public static IEngineFacade<PlacesDetailsRequest, PlacesDetailsResponse> PlacesDetails => EngineFacade<PlacesDetailsRequest, PlacesDetailsResponse>.Instance;
 
         /// <summary>Perform place autocomplete operations.</summary>
-        public static IEngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse> PlaceAutocomplete
-        {
-            get
-            {
-                return EngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse>.Instance;
-            }
-        }
+        public static IEngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse> PlaceAutocomplete => EngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse>.Instance;
 
         /// <summary>Perform near by places operations.</summary>
-        public static IEngineFacade<PlacesNearByRequest, PlacesNearByResponse> PlacesNearBy
-        {
-            get
-            {
-                return EngineFacade<PlacesNearByRequest, PlacesNearByResponse>.Instance;
-            }
-        }
+        public static IEngineFacade<PlacesNearByRequest, PlacesNearByResponse> PlacesNearBy => EngineFacade<PlacesNearByRequest, PlacesNearByResponse>.Instance;
 
         /// <summary>Perform Find Place searches </summary>
-        public static IEngineFacade<PlacesFindRequest, PlacesFindResponse> PlacesFind
-        {
-            get
-            {
-                return EngineFacade<PlacesFindRequest, PlacesFindResponse>.Instance;
-            }
-        }
+        public static IEngineFacade<PlacesFindRequest, PlacesFindResponse> PlacesFind => EngineFacade<PlacesFindRequest, PlacesFindResponse>.Instance;
 
         /// <summary>Retrieve duration and distance values based on the recommended route between start and end points.</summary>
-        public static IEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse> DistanceMatrix
-        {
-            get
-            {
-                return EngineFacade<DistanceMatrixRequest, DistanceMatrixResponse>.Instance;
-            }
-        }
-
+        public static IEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse> DistanceMatrix => EngineFacade<DistanceMatrixRequest, DistanceMatrixResponse>.Instance;
     }
 }

@@ -35,9 +35,9 @@ namespace GoogleMapsApi
         event UriCreatedDelegate OnUriCreated;
 
         /// <summary>
-        /// Occurs when raw data from Google API recivied.
+        /// Occurs when raw data from Google API received.
         /// </summary>
-        event RawResponseReciviedDelegate OnRawResponseRecivied;
+        event RawResponseReceivedDelegate OnRawResponseReceived;
 
         /// <summary>
         /// Query the Google Maps API using the provided request with the default timeout of 100,000 milliseconds (100 seconds).

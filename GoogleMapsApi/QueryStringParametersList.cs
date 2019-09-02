@@ -7,21 +7,21 @@ namespace GoogleMapsApi
 {
 	public class QueryStringParametersList
 	{
-		private List<KeyValuePair<string,string>> list { get; set; }
+		private List<KeyValuePair<string,string>> List { get; set; }
 
 		public QueryStringParametersList()
 		{
-			list = new List<KeyValuePair<string, string>>();
+			List = new List<KeyValuePair<string, string>>();
 		}
 
 		public void Add(string key, string value)
 		{
-			list.Add(new KeyValuePair<string, string>(key, value));
+			List.Add(new KeyValuePair<string, string>(key, value));
 		}
 
 		public string GetQueryStringPostfix()
 		{
-			return string.Join("&", list.Select(p => Uri.EscapeDataString(p.Key) + "=" + Uri.EscapeDataString(p.Value)));
+			return string.Join("&", List.Select(p => Uri.EscapeDataString(p.Key) + "=" + Uri.EscapeDataString(p.Value)));
 		}
 	}
 }

@@ -34,14 +34,8 @@ namespace GoogleMapsApi.Entities.Geocoding.Response
 		[DataMember(Name = "location_type")]
 		internal string LocationTypeStr
 		{
-			get
-			{
-				return LocationType.ToString();
-			}
-			set
-			{
-				LocationType = (GeocodeLocationType)Enum.Parse(typeof(GeocodeLocationType), value);
-			}
-		}
+			get => LocationType.ToString();
+            set => LocationType = (GeocodeLocationType)Enum.Parse(typeof(GeocodeLocationType), value);
+        }
 	}
 }

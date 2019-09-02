@@ -12,13 +12,7 @@
 
     public class DistanceMatrixRequest : SignableRequest
     {
-        protected internal override string BaseUrl
-        {
-            get
-            {
-                return base.BaseUrl + "distancematrix/";
-            }
-        }
+        protected internal override string BaseUrl => base.BaseUrl + "distancematrix/";
 
         public string[] Origins { get; set; }
 

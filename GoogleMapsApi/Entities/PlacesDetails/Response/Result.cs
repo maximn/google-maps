@@ -58,7 +58,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         [DataMember(Name = "price_level")]
         internal string string_PriceLevel
         {
-            get { return PriceLevel.HasValue ? ((int) PriceLevel).ToString(CultureInfo.InvariantCulture) : null; }
+            get => PriceLevel.HasValue ? ((int) PriceLevel).ToString(CultureInfo.InvariantCulture) : null;
             set
             {
                 if (value == null)

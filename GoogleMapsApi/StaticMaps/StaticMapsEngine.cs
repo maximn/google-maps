@@ -24,7 +24,7 @@ namespace GoogleMapsApi.StaticMaps
 
 		public string GenerateStaticMapURL(StaticMapRequest request)
 		{
-			string scheme = request.IsSSL ? "https://" : "http://";
+			string scheme = request.IsSsl ? "https://" : "http://";
 
 			var parametersList = new QueryStringParametersList();
 
@@ -62,7 +62,7 @@ namespace GoogleMapsApi.StaticMaps
 			{
 				ImageSize imageSize = request.Size;
 
-				parametersList.Add("size", string.Format("{0}x{1}", imageSize.Width, imageSize.Height));
+				parametersList.Add("size", $"{imageSize.Width}x{imageSize.Height}");
 			}
 			else
 			{
@@ -276,7 +276,7 @@ namespace GoogleMapsApi.StaticMaps
 
 					string locations = string.Join("|", marker.Locations.Select(location => location.LocationString));
 
-					parametersList.Add("markers", string.Format("{0}|{1}", styleString, locations));
+					parametersList.Add("markers", $"{styleString}|{locations}");
 				}
 			}
 
@@ -314,7 +314,7 @@ namespace GoogleMapsApi.StaticMaps
 
 					string locations = string.Join("|", path.Locations.Select(location => location.LocationString));
 
-					parametersList.Add("path", string.Format("{0}|{1}", styleString, locations));
+					parametersList.Add("path", $"{styleString}|{locations}");
 				}
 			}
 

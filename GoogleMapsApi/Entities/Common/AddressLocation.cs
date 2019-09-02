@@ -11,9 +11,6 @@ namespace GoogleMapsApi.Entities.Common
 			Address = address;
 		}
 
-		public string LocationString
-		{
-			get { return Address; }
-		}
-	}
+		public string LocationString => Address;
+    }
 }

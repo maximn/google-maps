@@ -18,15 +18,9 @@ namespace GoogleMapsApi.Entities.Common
 			Longitude = lng;
 		}
 
-		public string LocationString
-		{
-			get
-			{
-				return ToNonScientificString(Latitude) + "," + ToNonScientificString(Longitude);
-			}
-		}
+		public string LocationString => ToNonScientificString(Latitude) + "," + ToNonScientificString(Longitude);
 
-		public override string ToString()
+        public override string ToString()
 		{
 			return LocationString;
 		}

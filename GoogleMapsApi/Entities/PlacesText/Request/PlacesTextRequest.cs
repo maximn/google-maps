@@ -6,10 +6,7 @@ namespace GoogleMapsApi.Entities.PlacesText.Request
 {
     public class PlacesTextRequest : MapsBaseRequest
     {
-        protected internal override string BaseUrl
-        {
-            get { return "maps.googleapis.com/maps/api/place/textsearch/"; }
-        }
+        protected internal override string BaseUrl => "maps.googleapis.com/maps/api/place/textsearch/";
 
         public string Query { get; set; } // required
 
@@ -18,10 +15,10 @@ namespace GoogleMapsApi.Entities.PlacesText.Request
         public string Language { get; set; } // optional
         public string Types { get; set; } // optional
 
-        public override bool IsSSL
+        protected override bool IsSsl
         {
-            get { return true; }
-            set { throw new NotSupportedException("This operation is not supported, PlacesRequest must use SSL"); }
+            get => true;
+            set => throw new NotSupportedException("This operation is not supported, PlacesRequest must use SSL");
         }
 
         protected override QueryStringParametersList GetQueryStringParameters()

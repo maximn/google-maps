@@ -1,6 +1,8 @@
 ﻿using System.Configuration;
 using NUnit.Framework;
 using System;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -12,38 +14,40 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
     public class BaseTestIntegration
     {
-        private string apiKey;
+        private string _apiKey;
 
         protected string ApiKey
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(apiKey))
+                if (string.IsNullOrWhiteSpace(_apiKey))
                 {
                     Assert.Inconclusive("API key not specified, please set it in the 'app.config' file");
                 }
 
-                return apiKey;
+                return _apiKey;
             }
-            private set { apiKey = value; }
+            private set => _apiKey = value;
         }
 
 
         protected BaseTestIntegration()
         {
-           var fromConfigManager = ConfigurationManager.AppSettings["ApiKey"];
+            var fromConfigManager = ConfigurationManager.AppSettings["ApiKey"];
             var fromEnvironmentVariables = Environment.GetEnvironmentVariable("ApiKey");
 
             if (!string.IsNullOrEmpty(fromConfigManager))
             {
-              ApiKey = fromConfigManager;
-            } else if (!string.IsNullOrEmpty(fromEnvironmentVariables))
-            {
-              ApiKey = fromEnvironmentVariables;
+                ApiKey = fromConfigManager;
             }
-            else 
+            else if (!string.IsNullOrEmpty(fromEnvironmentVariables))
             {
-                ApiKey = string.Empty;
+                ApiKey = fromEnvironmentVariables;
+            }
+            else
+            {
+                // TODO: Add default api key
+                ApiKey = "";
             }
         }
     }

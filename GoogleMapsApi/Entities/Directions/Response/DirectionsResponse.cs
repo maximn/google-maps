@@ -20,15 +20,9 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		[DataMember(Name = "status")]
 		public string StatusStr
 		{
-			get
-			{
-				return Status.ToString();
-			}
-			set
-			{
-				Status = (DirectionsStatusCodes)Enum.Parse(typeof(DirectionsStatusCodes), value);
-			}
-		}
+			get => Status.ToString();
+            set => Status = (DirectionsStatusCodes)Enum.Parse(typeof(DirectionsStatusCodes), value);
+        }
 
 		/// <summary>
 		/// "status" contains metadata on the request. See Status Codes below.
@@ -44,7 +38,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 
 		public override string ToString()
 		{
-			return string.Format("DirectionsResponse - Status: {0}, Results count: {1}", Status, Routes != null ? Routes.Count() : 0);
+			return $"DirectionsResponse - Status: {Status}, Results count: {(Routes != null ? Routes.Count() : 0)}";
 		}
 	}
 }

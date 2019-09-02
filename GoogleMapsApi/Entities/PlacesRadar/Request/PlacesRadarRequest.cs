@@ -11,15 +11,9 @@ namespace GoogleMapsApi.Entities.PlacesRadar.Request
     [Obsolete("Radar search is deprecated since June 30 2018", true)]
     public class PlacesRadarRequest : MapsBaseRequest
 	{
-		protected internal override string BaseUrl
-		{
-			get
-			{
-				return "maps.googleapis.com/maps/api/place/radarsearch/";
-			}
-		}
+		protected internal override string BaseUrl => "maps.googleapis.com/maps/api/place/radarsearch/";
 
-	    /// <summary>
+        /// <summary>
         /// Required. The latitude/longitude around which to retrieve place information. This must be specified as latitude,longitude.
 		/// </summary>
 		public Location Location { get; set; } //Required
@@ -60,17 +54,11 @@ namespace GoogleMapsApi.Entities.PlacesRadar.Request
 		/// </summary>
 		public string Type { get; set; }
 
-		public override bool IsSSL
+        protected override bool IsSsl
 		{
-			get
-			{
-				return true;
-			}
-			set
-			{
-				throw new NotSupportedException("This operation is not supported, PlacesRequest must use SSL");
-			}
-		}
+			get => true;
+            set => throw new NotSupportedException("This operation is not supported, PlacesRequest must use SSL");
+        }
 
 		protected override QueryStringParametersList GetQueryStringParameters()
 		{

@@ -13,15 +13,9 @@
 		[DataMember(Name = "value")]
 		internal int ValueInSec
 		{
-			get
-			{
-				return (int)Math.Round(this.Value.TotalSeconds);
-			}
-			set
-			{
-				this.Value = TimeSpan.FromSeconds(value);
-			}
-		}
+			get => (int)Math.Round(this.Value.TotalSeconds);
+            set => this.Value = TimeSpan.FromSeconds(value);
+        }
 
 		/// <summary>
 		/// value indicates the duration in seconds.

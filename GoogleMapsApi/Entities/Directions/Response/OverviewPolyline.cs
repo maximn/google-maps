@@ -23,9 +23,9 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// An array of Location objects representing the points in the overview path, decoded from the string contained in the EncodedPoints property.
 		/// </summary>
 		/// <exception cref="PointsDecodingException">Unexpectedly couldn't decode points</exception>
-		public IEnumerable<Location> Points { get { return pointsLazy.Value; } }
+		public IEnumerable<Location> Points => pointsLazy.Value;
 
-		public OverviewPolyline()
+        public OverviewPolyline()
 		{
 			InitLazyPoints(default(StreamingContext));
 		}

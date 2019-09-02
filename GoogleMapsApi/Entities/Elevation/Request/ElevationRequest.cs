@@ -15,14 +15,9 @@ namespace GoogleMapsApi.Entities.Elevation.Request
 	/// </summary>
 	public class ElevationRequest : SignableRequest
 	{
-		protected internal override string BaseUrl
-		{
-			get
-			{
-				return base.BaseUrl + "elevation/";
-			}
-		}
-		/// <summary>
+		protected internal override string BaseUrl => base.BaseUrl + "elevation/";
+
+        /// <summary>
 		/// locations (required) defines the location(s) on the earth from which to return elevation data. This parameter takes either a single location as a comma-separated {latitude,longitude} pair (e.g. "40.714728,-73.998672") or multiple latitude/longitude pairs passed as an array or as an encoded polyline. For more information, see Specifying Locations below.
 		/// </summary>
 		public IEnumerable<Location> Locations { get; set; }

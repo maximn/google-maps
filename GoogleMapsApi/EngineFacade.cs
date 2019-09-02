@@ -29,14 +29,8 @@ namespace GoogleMapsApi
         /// </remarks>
         public int HttpConnectionLimit
         {
-            get
-            {
-                return MapsAPIGenericEngine<TRequest, TResponse>.HttpConnectionLimit;
-            }
-            set
-            {
-                MapsAPIGenericEngine<TRequest, TResponse>.HttpConnectionLimit = value;
-            }
+            get => MapsApiGenericEngine<TRequest, TResponse>.HttpConnectionLimit;
+            set => MapsApiGenericEngine<TRequest, TResponse>.HttpConnectionLimit = value;
         }
 		
         /// <summary>
@@ -47,14 +41,8 @@ namespace GoogleMapsApi
         /// </remarks>
         public int HttpsConnectionLimit
         {
-            get
-            {
-                return MapsAPIGenericEngine<TRequest, TResponse>.HttpsConnectionLimit;
-            }
-            set
-            {
-                MapsAPIGenericEngine<TRequest, TResponse>.HttpsConnectionLimit = value;
-            }
+            get => MapsApiGenericEngine<TRequest, TResponse>.HttpsConnectionLimit;
+            set => MapsApiGenericEngine<TRequest, TResponse>.HttpsConnectionLimit = value;
         }
 
         /// <summary>
@@ -62,29 +50,17 @@ namespace GoogleMapsApi
         /// </summary>
         public event UriCreatedDelegate OnUriCreated
         {
-            add
-            {
-                MapsAPIGenericEngine<TRequest, TResponse>.OnUriCreated += value;
-            }
-            remove
-            {
-                MapsAPIGenericEngine<TRequest, TResponse>.OnUriCreated -= value;
-            }
+            add => MapsApiGenericEngine<TRequest, TResponse>.OnUriCreated += value;
+            remove => MapsApiGenericEngine<TRequest, TResponse>.OnUriCreated -= value;
         }
 
         /// <summary>
-        /// Occurs when raw data from Google API recivied.
+        /// Occurs when raw data from Google API received.
         /// </summary>
-        public event RawResponseReciviedDelegate OnRawResponseRecivied
+        public event RawResponseReceivedDelegate OnRawResponseReceived
         {
-            add
-            {
-                MapsAPIGenericEngine<TRequest, TResponse>.OnRawResponseRecivied += value;
-            }
-            remove
-            {
-                MapsAPIGenericEngine<TRequest, TResponse>.OnRawResponseRecivied -= value;
-            }
+            add => MapsApiGenericEngine<TRequest, TResponse>.OnRawResponseReceived += value;
+            remove => MapsApiGenericEngine<TRequest, TResponse>.OnRawResponseReceived -= value;
         }
 
         /// <summary>
@@ -101,7 +77,7 @@ namespace GoogleMapsApi
         [Obsolete]
         public TResponse Query(TRequest request)
         {
-            return Query(request, MapsAPIGenericEngine<TRequest, TResponse>.DefaultTimeout);
+            return Query(request, MapsApiGenericEngine<TRequest, TResponse>.DefaultTimeout);
         }
 
         /// <summary>
@@ -123,7 +99,7 @@ namespace GoogleMapsApi
         {
             try
             {
-                return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPI(request, timeout).Result;
+                return MapsApiGenericEngine<TRequest, TResponse>.QueryGoogleApi(request, timeout).Result;
             }
             catch (AggregateException ex)
             {
@@ -171,7 +147,7 @@ namespace GoogleMapsApi
         /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
         public Task<TResponse> QueryAsync(TRequest request, CancellationToken token)
         {
-            return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPIAsync(request, TimeSpan.FromMilliseconds(Timeout.Infinite), token);
+            return MapsApiGenericEngine<TRequest, TResponse>.QueryGoogleApiAsync(request, TimeSpan.FromMilliseconds(Timeout.Infinite), token);
         }
 
         /// <summary>
@@ -187,7 +163,7 @@ namespace GoogleMapsApi
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of timeout is neither a positive value or infinite.</exception>
         public Task<TResponse> QueryAsync(TRequest request, TimeSpan timeout, CancellationToken token)
         {
-            return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPIAsync(request, timeout, token);
+            return MapsApiGenericEngine<TRequest, TResponse>.QueryGoogleApiAsync(request, timeout, token);
         }
     }
 }

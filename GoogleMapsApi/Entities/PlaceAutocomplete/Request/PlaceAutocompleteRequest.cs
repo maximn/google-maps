@@ -11,15 +11,9 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
     /// </summary>
     public class PlaceAutocompleteRequest : MapsBaseRequest
 	{
-		protected internal override string BaseUrl
-		{
-			get
-			{
-				return "maps.googleapis.com/maps/api/place/autocomplete/";
-			}
-		}
+		protected internal override string BaseUrl => "maps.googleapis.com/maps/api/place/autocomplete/";
 
-		/// <summary>
+        /// <summary>
 		/// Input (required) - the text string on which to search
 		/// </summary>
 		public string Input { get; set; }
@@ -70,17 +64,11 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 		/// </summary>
         	public bool StrinctBounds { get; set; }
 
-		public override bool IsSSL
+        protected override bool IsSsl
 		{
-			get
-			{
-				return true;
-			}
-			set
-			{
-				throw new NotSupportedException("This operation is not supported, PlaceAutocompleteRequest must use SSL");
-			}
-		}
+			get => true;
+            set => throw new NotSupportedException("This operation is not supported, PlaceAutocompleteRequest must use SSL");
+        }
 		
 		/// <summary>
 		/// A random string which identifies an autocomplete session for billing purposes.

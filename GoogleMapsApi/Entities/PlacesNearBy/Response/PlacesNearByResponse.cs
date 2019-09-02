@@ -17,15 +17,9 @@ namespace GoogleMapsApi.Entities.PlacesNearBy.Response
 		[DataMember(Name = "status")]
 		internal string StatusStr
 		{
-			get
-			{
-				return Status.ToString();
-			}
-			set
-			{
-				Status = (Status)Enum.Parse(typeof(Status), value);
-			}
-		}
+			get => Status.ToString();
+            set => Status = (Status)Enum.Parse(typeof(Status), value);
+        }
 
         /// <summary>
         /// If there is a next page of results, the token will be supplied by Google. Token should be set on the next PlacesRequest object to get the next page of results from Google.

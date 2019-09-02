@@ -6,10 +6,7 @@ namespace GoogleMapsApi.Entities.TimeZone.Request
 {
     public class TimeZoneRequest : SignableRequest
     {
-        protected internal override string BaseUrl
-        {
-            get { return base.BaseUrl + "timezone/"; }
-        }
+        protected internal override string BaseUrl => base.BaseUrl + "timezone/";
 
         /// <summary>
         /// location: a comma-separated lat,lng tuple (eg. location=-33.86,151.20), representing the location to look up
@@ -29,10 +26,10 @@ namespace GoogleMapsApi.Entities.TimeZone.Request
         /// <summary>
         /// The language in which to return results. See the list of supported domain languages. Note that we often update supported languages so this list may not be exhaustive. Defaults to en.
         /// </summary>
-        public override bool IsSSL
+        protected override bool IsSsl
         {
-            get { return true; }
-            set { throw new NotSupportedException("This operation is not supported, TimeZoneRequest must use SSL"); }
+            get => true;
+            set => throw new NotSupportedException("This operation is not supported, TimeZoneRequest must use SSL");
         }
 
         protected override QueryStringParametersList GetQueryStringParameters()

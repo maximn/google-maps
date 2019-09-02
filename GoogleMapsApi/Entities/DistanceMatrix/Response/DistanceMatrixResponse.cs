@@ -14,14 +14,8 @@
         [DataMember(Name = "status")]
         public string StatusStr
         {
-            get
-            {
-                return Status.ToString();
-            }
-            set
-            {
-                Status = (DistanceMatrixStatusCodes)Enum.Parse(typeof(DistanceMatrixStatusCodes), value);
-            }
+            get => Status.ToString();
+            set => Status = (DistanceMatrixStatusCodes)Enum.Parse(typeof(DistanceMatrixStatusCodes), value);
         }
 
         /// <summary>

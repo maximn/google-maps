@@ -5,19 +5,16 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Request
 {
     public class PlacesDetailsRequest : MapsBaseRequest
     {
-        protected internal override string BaseUrl
-        {
-            get { return "maps.googleapis.com/maps/api/place/details/"; }
-        }
+        protected internal override string BaseUrl => "maps.googleapis.com/maps/api/place/details/";
 
         public string PlaceId { get; set; } // required
 
         public string Language { get; set; } // optional
 
-        public override bool IsSSL
+        protected override bool IsSsl
         {
-            get { return true; }
-            set { throw new NotSupportedException("This operation is not supported, PlacesRequest must use SSL"); }
+            get => true;
+            set => throw new NotSupportedException("This operation is not supported, PlacesRequest must use SSL");
         }
         
         /// <summary>

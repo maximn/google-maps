@@ -13,15 +13,9 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		[DataMember(Name = "value")]
 		internal int ValueInSec
 		{
-			get
-			{
-				return (int)Math.Round(Value.TotalSeconds);
-			}
-			set
-			{
-				Value = TimeSpan.FromSeconds(value);
-			}
-		}
+			get => (int)Math.Round(Value.TotalSeconds);
+            set => Value = TimeSpan.FromSeconds(value);
+        }
 
 		/// <summary>
 		/// value indicates the duration in seconds.

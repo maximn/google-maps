@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Net;
-using System.Linq;
 
 namespace GoogleMapsApi.Entities.Common
 {
     public abstract class MapsBaseRequest
     {
-        public MapsBaseRequest()
+        protected MapsBaseRequest()
         {
-            this.isSsl = true;
+            this._isSsl = true;
             ApiKey = null;
         }
 
@@ -29,27 +25,21 @@ namespace GoogleMapsApi.Entities.Common
         /// <summary>
         /// True to use use the https protocol; false to use http. The default is false.
         /// </summary>
-        public virtual bool IsSSL
+        protected virtual bool IsSsl
         {
-            get { return isSsl; }
-            set { isSsl = value; }
+            get => _isSsl;
+            set => _isSsl = value;
         }
-        private bool isSsl;
+        private bool _isSsl;
 
 
-        protected internal virtual string BaseUrl
-        {
-            get
-            {
-                return "maps.googleapis.com/maps/api/";
-            }
-        }
+        protected internal virtual string BaseUrl => "maps.googleapis.com/maps/api/";
 
         /// <summary>
         /// Your application's API key. This key identifies your application for purposes of quota management and so that Places 
         /// added from your application are made immediately available to your app. Visit the APIs Console to create an API Project and obtain your key.
         /// </summary>
-        public string ApiKey { get; set; }
+        public string ApiKey { protected get; set; }
 
         protected virtual QueryStringParametersList GetQueryStringParameters()
         {
@@ -57,7 +47,7 @@ namespace GoogleMapsApi.Entities.Common
 
             if (!string.IsNullOrWhiteSpace(ApiKey))
             {
-                if (!this.IsSSL)
+                if (!this.IsSsl)
                 {
                     throw new ArgumentException("When using an ApiKey MUST send the request over SSL [IsSSL = true]");
                 }
@@ -69,7 +59,7 @@ namespace GoogleMapsApi.Entities.Common
 
         public virtual Uri GetUri()
         {
-            string scheme = IsSSL ? "https://" : "http://";
+            string scheme = IsSsl ? "https://" : "http://";
 
             var queryString = GetQueryStringParameters().GetQueryStringPostfix();
             return new Uri(scheme + BaseUrl + "json?" + queryString);

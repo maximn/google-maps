@@ -9,15 +9,9 @@ namespace GoogleMapsApi.Entities.Directions.Request
 {
 	public class DirectionsRequest : SignableRequest
 	{
-		protected internal override string BaseUrl
-		{
-			get
-			{
-				return base.BaseUrl + "directions/";
-			}
-		}
+		protected internal override string BaseUrl => base.BaseUrl + "directions/";
 
-		/// <summary>
+        /// <summary>
         /// origin (Required) - The address or textual latitude/longitude value from which you wish to calculate directions. 
         /// If you pass an address as a string, the Directions service will geocode the string and convert it to a latitude/longitude 
         /// coordinate to calculate directions. If you pass coordinates, ensure that no space exists between the latitude and longitude values.

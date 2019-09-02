@@ -8,7 +8,7 @@ namespace GoogleMapsApi
     {
         public static Task Delay(this TaskFactory task, TimeSpan dueTime, CancellationToken cancellationToken)
         {
-            if (dueTime.TotalMilliseconds <= 0) throw new ArgumentOutOfRangeException("dueTime");
+            if (dueTime.TotalMilliseconds <= 0) throw new ArgumentOutOfRangeException(nameof(dueTime));
 
             var tcs = new TaskCompletionSource<bool>();
             var timer = new Timer(self =>

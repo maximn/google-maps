@@ -17,15 +17,9 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Response
 		[DataMember(Name = "status")]
 		internal string StatusStr
 		{
-			get
-			{
-				return Status.ToString();
-			}
-			set
-			{
-				Status = (Status)Enum.Parse(typeof(Status), value);
-			}
-		}
+			get => Status.ToString();
+            set => Status = (Status)Enum.Parse(typeof(Status), value);
+        }
 
 		/// <summary>
 		/// "results" contains an array of predictions rather than full results, each including a description and a reference which can be queried further

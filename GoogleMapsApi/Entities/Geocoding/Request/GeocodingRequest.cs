@@ -7,13 +7,7 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
 {
     public class GeocodingRequest : SignableRequest
     {
-        protected internal override string BaseUrl
-        {
-            get
-            {
-                return base.BaseUrl + "geocode/";
-            }
-        }
+        protected internal override string BaseUrl => base.BaseUrl + "geocode/";
 
         /// <summary>
         /// address (required) — The address that you want to geocode.*

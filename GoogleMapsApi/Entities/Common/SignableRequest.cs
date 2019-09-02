@@ -1,24 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace GoogleMapsApi.Entities.Common
 {
-	/// <summary>
-	/// An abstract base class for requests that can be authenticated via URL signing.
-	/// </summary>
-	/// <remarks>
-	/// See https://developers.google.com/maps/documentation/business/webservices for details about signing.
-	/// </remarks>
-	public abstract class SignableRequest : MapsBaseRequest
+    /// <summary>
+    /// An abstract base class for requests that can be authenticated via URL signing.
+    /// </summary>
+    /// <remarks>
+    /// See https://developers.google.com/maps/documentation/business/webservices for details about signing.
+    /// </remarks>
+    public abstract class SignableRequest : MapsBaseRequest
 	{
 		/// <summary>
 		/// The client ID provided to you by Google Enterprise Support, or null to disable URL signing. All client IDs begin with a "gme-" prefix.
 		/// </summary>
-		public string ClientID { get; set; }
+		public string ClientId { get; set; }
 
 		/// <summary>
 		/// A cryptographic signing key (secret shared key), in base64url format, provided to you by Google Enterprise Support.
@@ -38,7 +35,7 @@ namespace GoogleMapsApi.Entities.Common
 
         public override Uri GetUri()
 		{
-			if (ClientID != null)
+			if (ClientId != null)
 				return Sign(base.GetUri());
 
 			return base.GetUri();
@@ -50,15 +47,15 @@ namespace GoogleMapsApi.Entities.Common
 		internal Uri Sign(Uri uri)
 		{
 			if (uri == null)
-				throw new ArgumentNullException("uri");
-			if (ClientID == null)
+				throw new ArgumentNullException(nameof(uri));
+			if (ClientId == null)
 				throw new ArgumentNullException("userID");
 			if (string.IsNullOrWhiteSpace(SigningKey))
 				throw new ArgumentException("Invalid signing key.");
-			if (!ClientID.StartsWith("gme-"))
+			if (!ClientId.StartsWith("gme-"))
 				throw new ArgumentException("A user ID must start with 'gme-'.");
 
-			var urlSegmentToSign = uri.LocalPath + uri.Query + "&client=" + ClientID;
+			var urlSegmentToSign = uri.LocalPath + uri.Query + "&client=" + ClientId;
 
 		    if (!string.IsNullOrWhiteSpace(Channel))
 		        urlSegmentToSign += "&channel=" + Channel;
