@@ -13,6 +13,8 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		ZERO_RESULTS, // indicates no route could be found between the origin and destination.
 		[EnumMember]
 		MAX_WAYPOINTS_EXCEEDED, // indicates that too many waypointss were provided in the request The maximum allowed waypoints is 8, plus the origin, and destination. ( Google Maps Premier customers may contain requests with up to 23 waypoints.)
+        [EnumMember]
+        MAX_ROUTE_LENGTH_EXCEEDED, // indicates the requested route is too long and cannot be processed.
 		[EnumMember]
 		INVALID_REQUEST, // indicates that the provided request was invalid.
 		[EnumMember]

@@ -16,7 +16,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         public void Directions_SumOfStepDistancesCorrect()
         {
             var request = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA" };
-
+            request.ApiKey = ApiKey;
             var result = GoogleMaps.Directions.Query(request);
 
             AssertInconclusive.NotExceedQuota(result);
@@ -44,8 +44,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void Directions_WithWayPoints()
         {
-            var request = new DirectionsRequest { Origin = "NYC, USA", Destination = "Miami, USA", Waypoints = new string[] { "Philadelphia, USA" }, OptimizeWaypoints = true };
-
+            var request = new DirectionsRequest { Origin = "NYC, USA", Destination = "Miami, USA", Waypoints = new string[] { "Philadelphia, USA" }, OptimizeWaypoints = true, ApiKey = ApiKey };
             var result = GoogleMaps.Directions.Query(request);
 
             AssertInconclusive.NotExceedQuota(result);
@@ -53,6 +52,33 @@ namespace GoogleMapsApi.Test.IntegrationTests
             Assert.AreEqual(156097, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 10 * 1000);
 
             StringAssert.Contains("Philadelphia", result.Routes.First().Legs.First().EndAddress);
+        }
+        [Test]
+        public void Directions_ExceedingRouteLength()
+        {
+            var request = new DirectionsRequest
+            {
+                Origin = "NYC, USA", Destination = "Miami, USA", Waypoints = new string[]
+                {
+                    "Seattle, USA",
+                    "Dallas, USA",
+                    "Naginey, USA",
+                    "Edmonton, Canada",
+                    "Seattle, USA",
+                    "Dallas, USA",
+                    "Naginey, USA",
+                    "Edmonton, Canada",
+                    "Seattle, USA",
+                    "Dallas, USA",
+                    "Naginey, USA",
+                    "Edmonton, Canada"
+                },
+                ApiKey = ApiKey
+            };
+            var result = GoogleMaps.Directions.Query(request);
+
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(DirectionsStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED, result.Status, result.ErrorMessage);
         }
 
         [Test]
