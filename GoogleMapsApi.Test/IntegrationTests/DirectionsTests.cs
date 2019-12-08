@@ -84,9 +84,12 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void Directions_Correct_OverviewPath()
         {
-            DirectionsRequest request = new DirectionsRequest();
-            request.Destination = "maleva 10, Ahtme, Kohtla-Järve, 31025 Ida-Viru County, Estonia";
-            request.Origin = "veski 2, Jõhvi Parish, 41532 Ida-Viru County, Estonia";
+            DirectionsRequest request = new DirectionsRequest
+            {
+                Destination = "maleva 10, Ahtme, Kohtla-Järve, 31025 Ida-Viru County, Estonia",
+                Origin = "veski 2, Jõhvi Parish, 41532 Ida-Viru County, Estonia",
+                ApiKey = ApiKey
+            };
 
             DirectionsResponse result = GoogleMaps.Directions.Query(request);
 
@@ -104,7 +107,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void DirectionsAsync_SumOfStepDistancesCorrect()
         {
-            var request = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA" };
+            var request = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA", ApiKey = ApiKey };
 
             var result = GoogleMaps.Directions.QueryAsync(request).Result;
 
@@ -121,7 +124,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 Origin = "75 9th Ave, New York, NY",
                 Destination = "MetLife Stadium Dr East Rutherford, NJ 07073",
-                TravelMode = TravelMode.Driving
+                TravelMode = TravelMode.Driving,
+                ApiKey = ApiKey
             };
 
             DirectionsResponse result = GoogleMaps.Directions.Query(request);
@@ -142,7 +146,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 Origin = "Genk, Belgium",
                 Destination = "Brussels, Belgium",
-                TravelMode = TravelMode.Driving
+                TravelMode = TravelMode.Driving,
+                ApiKey = ApiKey
             };
 
             DirectionsResponse result = GoogleMaps.Directions.Query(request);
@@ -174,7 +179,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Destination = "Kungsträdgården, Stockholm, Sverige",
                 TravelMode = TravelMode.Transit,
                 DepartureTime = dep_time,
-                Language = "sv"
+                Language = "sv",
+                ApiKey = ApiKey
 
             };
 
@@ -206,7 +212,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Destination = "Parnell",
                 TravelMode = TravelMode.Transit,
                 DepartureTime = dep_time,
-                Region = "nz"
+                Region = "nz",
+                ApiKey = ApiKey
             };
 
             DirectionsResponse result = GoogleMaps.Directions.Query(request);
