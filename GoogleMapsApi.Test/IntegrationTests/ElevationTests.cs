@@ -3,6 +3,7 @@ using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Elevation.Request;
 using NUnit.Framework;
 using GoogleMapsApi.Test.Utils;
+using System.Threading.Tasks;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -10,7 +11,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class ElevationTests : BaseTestIntegration
     {
         [Test]
-        public void Elevation_ReturnsCorrectElevation()
+        public async Task Elevation_ReturnsCorrectElevation()
         {
             var request = new ElevationRequest
             {
@@ -18,7 +19,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Locations = new[] { new Location(40.7141289, -73.9614074) }
             };
 
-            var result = GoogleMaps.Elevation.Query(request);
+            var result = await GoogleMaps.Elevation.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Entities.Elevation.Response.Status.OK, result.Status);

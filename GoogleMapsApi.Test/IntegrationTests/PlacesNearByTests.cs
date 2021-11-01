@@ -6,6 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -13,7 +14,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class PlacesNearByTests : BaseTestIntegration
     {
         [Test]
-        public void ReturnsNearbySearchRequest()
+        public async Task ReturnsNearbySearchRequest()
         {
             var request = new PlacesNearByRequest
             {
@@ -23,7 +24,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
             };
 
-            PlacesNearByResponse result = GoogleMaps.PlacesNearBy.Query(request);
+            PlacesNearByResponse result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
@@ -31,7 +32,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void TestNearbySearchType()
+        public async Task TestNearbySearchType()
         {
             var request = new PlacesNearByRequest
             {
@@ -41,7 +42,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Type = "airport",
             };
 
-            PlacesNearByResponse result = GoogleMaps.PlacesNearBy.Query(request);
+            PlacesNearByResponse result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
@@ -50,7 +51,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void TestNearbySearchPagination()
+        public async Task TestNearbySearchPagination()
         {
             var request = new PlacesNearByRequest
             {
@@ -60,7 +61,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
             };
 
-            PlacesNearByResponse result = GoogleMaps.PlacesNearBy.Query(request);
+            PlacesNearByResponse result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
@@ -82,12 +83,12 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
                 PageToken = result.NextPage
             };
-            result = GoogleMaps.PlacesNearBy.Query(request);
+            result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
             Assert.AreEqual(GoogleMapsApi.Entities.PlacesNearBy.Response.Status.OK, result.Status);
             //make sure the second page has some results
-            Assert.IsTrue(result.Results != null && result.Results.Count() > 0);
+            Assert.IsTrue(result.Results != null && result.Results.Any());
             //make sure the result from the first page isn't on the second page to confirm we actually got a second page with new results
-            Assert.IsFalse(result.Results.Any(t => t.Reference == resultFromFirstPage.Reference));
+            Assert.IsFalse(result.Results.Any(t => t.PlaceId == resultFromFirstPage.PlaceId));
         }
     }
 }

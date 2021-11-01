@@ -40,9 +40,6 @@ namespace GoogleMapsApi.Entities.TimeZone.Request
             if (Location == null)
                 throw new ArgumentException("Location is required");
 
-            if (TimeStamp == null)
-                throw new ArgumentException("TimeStamp is required");
-
             var parameters = base.GetQueryStringParameters();
 
             parameters.Add("location", this.Location.LocationString);

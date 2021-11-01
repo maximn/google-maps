@@ -17,7 +17,7 @@ namespace GoogleMapsApi.Test
 		public void BasicTest()
 		{
 			// downtown New York City
-			StaticMapRequest request = new StaticMapRequest(
+			StaticMapRequest request = new(
 				new AddressLocation("Brooklyn Bridge,New York,NY"), 14, new ImageSize(512, 512))
 				{
 					MapType = MapType.Roadmap,
@@ -91,9 +91,12 @@ namespace GoogleMapsApi.Test
 		[Test]
 		public void MapTypes()
 		{
-			var request = new StaticMapRequest(new Location(40.714728, -73.998672), 12, new ImageSize(400, 400));
-			request.MapType = MapType.Terrain;
-			string expectedResult = @"http://maps.google.com/maps/api/staticmap" +
+            var request = new StaticMapRequest(new Location(40.714728, -73.998672), 12, new ImageSize(400, 400))
+            {
+                MapType = MapType.Terrain
+            };
+
+            string expectedResult = @"http://maps.google.com/maps/api/staticmap" +
 									@"?center=40.714728%2C-73.998672&zoom=12&size=400x400&maptype=terrain";
 
 			string actualResult = new StaticMapsEngine().GenerateStaticMapURL(request);

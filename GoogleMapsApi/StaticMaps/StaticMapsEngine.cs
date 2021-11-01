@@ -43,12 +43,12 @@ namespace GoogleMapsApi.StaticMaps
 				parametersList.Add("center", centerLocation);
 			}
 
-			if (request.Zoom != default(int))
+			if (request.Zoom != default)
 			{
 				parametersList.Add("zoom", request.Zoom.ToString());
 			}
 
-		    if (request.Scale != default(int))
+		    if (request.Scale != default)
 		    {
 		        if (!ValidScales.Contains(request.Scale))
 		        {
@@ -58,7 +58,7 @@ namespace GoogleMapsApi.StaticMaps
                 parametersList.Add("scale", request.Scale.ToString());
 		    }
 
-			if (request.Size.Width != default(int) || request.Size.Height != default(int))
+			if (request.Size.Width != default || request.Size.Height != default)
 			{
 				ImageSize imageSize = request.Size;
 
@@ -69,7 +69,7 @@ namespace GoogleMapsApi.StaticMaps
 				throw new ArgumentException("Size is invalid");
 			}
 
-			if (request.ImageFormat != default(ImageFormat))
+			if (request.ImageFormat != default)
 			{
 				string format;
 
@@ -128,7 +128,7 @@ namespace GoogleMapsApi.StaticMaps
 
 				var styleComponents = new List<string>();
 
-				if (style.MapFeature != default(MapFeature))
+				if (style.MapFeature != default)
 				{
 					string mapFeature;
 
@@ -150,7 +150,7 @@ namespace GoogleMapsApi.StaticMaps
 					styleComponents.Add("feature:" + mapFeature);
 				}
 
-				if (style.MapElement != default(MapElement))
+				if (style.MapElement != default)
 				{
 					string element;
 
@@ -205,7 +205,7 @@ namespace GoogleMapsApi.StaticMaps
 
 				MapVisibility mapVisibility = style.MapVisibility;
 
-				if (mapVisibility != default(MapVisibility))
+				if (mapVisibility != default)
 				{
 					string visibility;
 
@@ -253,7 +253,7 @@ namespace GoogleMapsApi.StaticMaps
 							markerStyleParams.Add("label:" + markerStyle.Label);
 						}
 
-						if (markerStyle.Size != default(MarkerSize))
+						if (markerStyle.Size != default)
 						{
 							switch (markerStyle.Size)
 							{
@@ -304,7 +304,7 @@ namespace GoogleMapsApi.StaticMaps
 							pathStyleParams.Add("fillcolor:" + pathStyle.FillColor);
 						}
 
-						if (pathStyle.Weight != default(int))
+						if (pathStyle.Weight != default)
 						{
 							pathStyleParams.Add("weight:" + pathStyle.Weight);
 						}

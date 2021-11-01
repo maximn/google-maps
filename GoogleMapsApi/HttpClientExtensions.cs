@@ -43,7 +43,6 @@ namespace GoogleMapsApi
             return await GetCancelledTask<byte[]>().ConfigureAwait(false);
         }
 
-        [Obsolete]
         public static async Task<string> DownloadDataTaskAsyncAsString(this HttpClient client, Uri address, TimeSpan timeout, CancellationToken token = new CancellationToken())
         {
             var dataDownloaded = await DownloadData(client, address, timeout, token).ConfigureAwait(false);
@@ -54,7 +53,6 @@ namespace GoogleMapsApi
             return await GetCancelledTask<string>().ConfigureAwait(false);
         }
 
-        [Obsolete]
         private static async Task<T> GetCancelledTask<T>()
         {
             var tcs = new TaskCompletionSource<T>();
@@ -62,11 +60,10 @@ namespace GoogleMapsApi
             return await tcs.Task.ConfigureAwait(false);
         }
 
-        [Obsolete]
         private static async Task<HttpResponseMessage> DownloadData(this HttpClient client, Uri address, TimeSpan timeout, CancellationToken token = new CancellationToken())
         {
-            if (client == null) throw new ArgumentNullException("client");
-            if (address == null) throw new ArgumentNullException("address");
+            if (client == null) throw new ArgumentNullException(nameof(client));
+            if (address == null) throw new ArgumentNullException(nameof(address));
             if (timeout.TotalMilliseconds < 0 && timeout != InfiniteTimeout)
                 throw new ArgumentOutOfRangeException("address", timeout, "The timeout value must be a positive or equal to InfiniteTimeout.");
 

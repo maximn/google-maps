@@ -15,7 +15,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class GeocodingTests : BaseTestIntegration
     {
         [Test]
-        public void Geocoding_ReturnsCorrectLocation()
+        public async Task Geocoding_ReturnsCorrectLocation()
         {
             var request = new GeocodingRequest
             {
@@ -23,7 +23,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Address = "285 Bedford Ave, Brooklyn, NY 11211, USA"
             };
 
-            var result = GoogleMaps.Geocode.Query(request);
+            var result = await GoogleMaps.Geocode.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
@@ -52,9 +52,9 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public void Geocoding_InvalidClientCredentials_Throws()
         {
-            var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA", ClientID = "gme-ThisIsAUnitTest", SigningKey = "AAECAwQFBgcICQoLDA0ODxAREhM=" };
+            var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA", ApiKey = ApiKey, ClientID = "gme-ThisIsAUnitTest", SigningKey = "AAECAwQFBgcICQoLDA0ODxAREhM=" };
 
-            Assert.Throws<AuthenticationException>(() => GoogleMaps.Geocode.Query(request));
+            Assert.ThrowsAsync<AuthenticationException>(() => GoogleMaps.Geocode.QueryAsync(request));
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void ReverseGeocoding_ReturnsCorrectAddress()
+        public async Task ReverseGeocoding_ReturnsCorrectAddress()
         {
             var request = new GeocodingRequest
             {
@@ -101,7 +101,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Location(40.7141289, -73.9614074)
             };
 
-            var result = GoogleMaps.Geocode.Query(request);
+            var result = await GoogleMaps.Geocode.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);

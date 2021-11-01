@@ -4,6 +4,7 @@ using GoogleMapsApi.Entities.PlacesDetails.Request;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
 using NUnit.Framework;
 using GoogleMapsApi.Test.Utils;
+using System.Threading.Tasks;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -11,7 +12,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class PlacesDetailsTests  : BaseTestIntegration
     {
         [Test]
-        public void ReturnsPhotos()
+        public async void ReturnsPhotos()
         {
             var request = new PlacesDetailsRequest
             {
@@ -19,7 +20,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = "ChIJZ3VuVMQdLz4REP9PWpQ4SIY"
             };
 
-            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
+            PlacesDetailsResponse result = await GoogleMaps.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
@@ -27,7 +28,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void ReturnsNotFoundForWrongReferenceString()
+        public async Task ReturnsNotFoundForWrongReferenceString()
         {
             var request = new PlacesDetailsRequest
             {
@@ -36,24 +37,24 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = "ChIJbWWgrQAVkFQReAwrXXWzlYs"
             };
 
-            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
+            PlacesDetailsResponse result = await GoogleMaps.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.NOT_FOUND, result.Status);
         }
 
-        PriceLevel[] anyPriceLevel = new PriceLevel[] { PriceLevel.Free, PriceLevel.Inexpensive, PriceLevel.Moderate, PriceLevel.Expensive, PriceLevel.VeryExpensive };
+        readonly PriceLevel[] anyPriceLevel = new PriceLevel[] { PriceLevel.Free, PriceLevel.Inexpensive, PriceLevel.Moderate, PriceLevel.Expensive, PriceLevel.VeryExpensive };
 
         [Test]
-        public void ReturnsStronglyTypedPriceLevel()
+        public async Task ReturnsStronglyTypedPriceLevel()
         {
             var request = new PlacesDetailsRequest
             {
                 ApiKey = ApiKey,
-                PlaceId = GetMyPlaceId(),
+                PlaceId = await GetMyPlaceId(),
             };
 
-            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
+            PlacesDetailsResponse result = await GoogleMaps.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
@@ -61,15 +62,15 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void ReturnsOpeningTimes()
+        public async Task ReturnsOpeningTimes()
         {
             var request = new PlacesDetailsRequest
             {
                 ApiKey = ApiKey,
-                PlaceId = GetMyPlaceId(),
+                PlaceId = await GetMyPlaceId(),
             };
 
-            PlacesDetailsResponse result = GoogleMaps.PlacesDetails.Query(request);
+            PlacesDetailsResponse result = await GoogleMaps.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
@@ -87,7 +88,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         private string cachedMyPlaceId;
-        private string GetMyPlaceId()
+        private async Task<string> GetMyPlaceId()
         {
             if (cachedMyPlaceId == null)
             {
@@ -98,7 +99,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                     Location = new Location(-31.954453, 115.862717),
                     RankBy = Entities.Places.Request.RankBy.Distance,
                 };
-                var result = GoogleMaps.Places.Query(request);
+                var result = await GoogleMaps.Places.QueryAsync(request);
                 AssertInconclusive.NotExceedQuota(result);
                 cachedMyPlaceId = result.Results.First().PlaceId;
             }
