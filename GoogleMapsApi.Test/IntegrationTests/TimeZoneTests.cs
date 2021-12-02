@@ -3,6 +3,7 @@ using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
 using GoogleMapsApi.Test.Utils;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -10,13 +11,15 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class TimeZoneTests : BaseTestIntegration
     {
         [Test]
-        public void TimeZone_Correct_OverviewPath()
+        public async Task TimeZone_Correct_OverviewPath()
         {
-            TimeZoneRequest request = new TimeZoneRequest();
-            request.Location = new Location(55.866413, 12.501063);
-            request.Language = "en";
+            var request = new TimeZoneRequest
+            {
+                Location = new Location(55.866413, 12.501063),
+                Language = "en"
+            };
 
-            TimeZoneResponse result = GoogleMaps.TimeZone.Query(request);
+            TimeZoneResponse result = await GoogleMaps.TimeZone.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);

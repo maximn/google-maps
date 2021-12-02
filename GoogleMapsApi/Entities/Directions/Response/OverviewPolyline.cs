@@ -27,7 +27,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 
 		public OverviewPolyline()
 		{
-			InitLazyPoints(default(StreamingContext));
+			InitLazyPoints(default);
 		}
 
 		//NOTE that the CTOR isn't called when Deserialized so we use the Attribute

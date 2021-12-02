@@ -6,6 +6,7 @@ using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using NUnit.Framework;
 using GoogleMapsApi.Test.Utils;
+using System.Threading.Tasks;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -13,11 +14,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class DirectionsTests : BaseTestIntegration
     {
         [Test]
-        public void Directions_SumOfStepDistancesCorrect()
+        public async Task Directions_SumOfStepDistancesCorrect()
         {
             var request = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA" };
             request.ApiKey = ApiKey;
-            var result = GoogleMaps.Directions.Query(request);
+            var result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
@@ -25,7 +26,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
 		[Test]
-		public void Directions_ErrorMessage()
+		public async Task Directions_ErrorMessage()
 		{
 			var request = new DirectionsRequest
 			{
@@ -33,7 +34,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 				Origin = "285 Bedford Ave, Brooklyn, NY, USA",
 				Destination = "185 Broadway Ave, Manhattan, NY, USA"
 			};
-			var result = GoogleMaps.Directions.Query(request);
+			var result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(DirectionsStatusCodes.REQUEST_DENIED, result.Status);
@@ -42,10 +43,10 @@ namespace GoogleMapsApi.Test.IntegrationTests
 		}
 
         [Test]
-        public void Directions_WithWayPoints()
+        public async Task Directions_WithWayPoints()
         {
             var request = new DirectionsRequest { Origin = "NYC, USA", Destination = "Miami, USA", Waypoints = new string[] { "Philadelphia, USA" }, OptimizeWaypoints = true, ApiKey = ApiKey };
-            var result = GoogleMaps.Directions.Query(request);
+            var result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
@@ -54,7 +55,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             StringAssert.Contains("Philadelphia", result.Routes.First().Legs.First().EndAddress);
         }
         [Test]
-        public void Directions_ExceedingRouteLength()
+        public async Task Directions_ExceedingRouteLength()
         {
             var request = new DirectionsRequest
             {
@@ -75,29 +76,28 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 },
                 ApiKey = ApiKey
             };
-            var result = GoogleMaps.Directions.Query(request);
+            var result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(DirectionsStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED, result.Status, result.ErrorMessage);
         }
 
         [Test]
-        public void Directions_Correct_OverviewPath()
+        public async Task Directions_Correct_OverviewPath()
         {
-            DirectionsRequest request = new DirectionsRequest
+            var request = new DirectionsRequest
             {
                 Destination = "maleva 10, Ahtme, Kohtla-Järve, 31025 Ida-Viru County, Estonia",
                 Origin = "veski 2, Jõhvi Parish, 41532 Ida-Viru County, Estonia",
                 ApiKey = ApiKey
             };
 
-            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+            DirectionsResponse result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
 
             OverviewPolyline overviewPath = result.Routes.First().OverviewPath;
             OverviewPolyline polyline = result.Routes.First().Legs.First().Steps.First().PolyLine;
-            IEnumerable<Location> points = result.Routes.First().OverviewPath.Points;
 
             Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
             Assert.AreEqual(122, overviewPath.Points.Count(), 30);
@@ -118,7 +118,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
         //The sub_steps differes between google docs documentation and implementation. We use it as google implemented, so we have test to make sure it's not broken.
         [Test]
-        public void Directions_VerifysubSteps()
+        public async Task Directions_VerifysubSteps()
         {
             var request = new DirectionsRequest
             {
@@ -128,7 +128,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 ApiKey = ApiKey
             };
 
-            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+            DirectionsResponse result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
 
@@ -140,7 +140,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void Directions_VerifyBounds()
+        public async Task Directions_VerifyBounds()
         {
             var request = new DirectionsRequest
             {
@@ -150,7 +150,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 ApiKey = ApiKey
             };
 
-            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+            DirectionsResponse result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
 
@@ -167,7 +167,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void Directions_WithIcons()
+        public async Task Directions_WithIcons()
         {
             var dep_time = DateTime.Today
                             .AddDays(1)
@@ -184,7 +184,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             };
 
-            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+            DirectionsResponse result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
 
@@ -200,7 +200,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void Directions_WithRegionSearch()
+        public async Task Directions_WithRegionSearch()
         {
             var dep_time = DateTime.Today
                             .AddDays(1)
@@ -216,7 +216,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 ApiKey = ApiKey
             };
 
-            DirectionsResponse result = GoogleMaps.Directions.Query(request);
+            DirectionsResponse result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.IsNotEmpty(result.Routes);
@@ -224,7 +224,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void Directions_CanGetDurationWithTraffic()
+        public async Task Directions_CanGetDurationWithTraffic()
         {
             var request = new DirectionsRequest
             {
@@ -233,7 +233,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 DepartureTime = DateTime.Now.Date.AddDays(1).AddHours(8),
                 ApiKey = ApiKey //Duration in traffic requires an API key
             };
-            var result = GoogleMaps.Directions.Query(request);
+            var result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
 
@@ -255,7 +255,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 DepartureTime = new DateTime(2018, 08, 18, 15, 30, 00)
             };
 
-            Assert.DoesNotThrow(() => GoogleMaps.Directions.Query(request));
+            Assert.DoesNotThrowAsync(async () => await GoogleMaps.Directions.QueryAsync(request));
         }
     }
 }

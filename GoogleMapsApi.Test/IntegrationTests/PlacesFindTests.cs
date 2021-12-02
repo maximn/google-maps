@@ -14,7 +14,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class PlacesFindTests : BaseTestIntegration
     {
         [Test]
-        public void ReturnsResults()
+        public async Task ReturnsResults()
         {
             var request = new PlacesFindRequest
             {
@@ -23,7 +23,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 InputType = InputType.TextQuery
             };
 
-            PlacesFindResponse result = GoogleMaps.PlacesFind.Query(request);
+            PlacesFindResponse result = await GoogleMaps.PlacesFind.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
@@ -31,7 +31,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void DoesNotReturnFieldsWhenNotRequested()
+        public async Task DoesNotReturnFieldsWhenNotRequested()
         {
             var request = new PlacesFindRequest
             {
@@ -41,7 +41,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Fields = "place_id"
             };
 
-            PlacesFindResponse result = GoogleMaps.PlacesFind.Query(request);
+            PlacesFindResponse result = await GoogleMaps.PlacesFind.QueryAsync(request);
 
             //FormattedAddress should be null since it wasn't requested
             Assert.IsNotEmpty(result.Candidates);

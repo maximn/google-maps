@@ -99,7 +99,7 @@ namespace GoogleMapsApi.Entities.Directions.Request
 			if (!Enum.IsDefined(typeof(TravelMode), TravelMode))
 				throw new ArgumentException("Invalid enumeration value for 'TravelMode'");
 
-			if (TravelMode == TravelMode.Transit && (DepartureTime == default(DateTime) && ArrivalTime == default(DateTime)))
+			if (TravelMode == TravelMode.Transit && (DepartureTime == default && ArrivalTime == default))
 				throw new ArgumentException("You must set either DepatureTime or ArrivalTime when TravelMode = Transit");
 
 			var parameters = base.GetQueryStringParameters();
@@ -137,10 +137,10 @@ namespace GoogleMapsApi.Entities.Directions.Request
 				parameters.Add("waypoints", string.Join("|", waypoints));
 			}
 
-			if (ArrivalTime != default(DateTime))
+			if (ArrivalTime != default)
 				parameters.Add("arrival_time", UnixTimeConverter.DateTimeToUnixTimestamp(ArrivalTime).ToString(CultureInfo.InvariantCulture));
 
-			if (DepartureTime != default(DateTime))
+			if (DepartureTime != default)
 				parameters.Add("departure_time", UnixTimeConverter.DateTimeToUnixTimestamp(DepartureTime).ToString(CultureInfo.InvariantCulture));
 
 			return parameters;

@@ -4,6 +4,7 @@ using GoogleMapsApi.Test.Utils;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -11,7 +12,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
     class PlaceAutocompleteTests : BaseTestIntegration
     {
         [Test]
-        public void ReturnsNoResults()
+        public async Task ReturnsNoResults()
         {
             var request = new PlaceAutocompleteRequest
             {
@@ -21,14 +22,14 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.ZERO_RESULTS, result.Status);
         }
 
         [Test]
-        public void OffsetTest()
+        public async Task OffsetTest()
         {
             var request = new PlaceAutocompleteRequest
             {
@@ -38,7 +39,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.ZERO_RESULTS, result.Status, "results for jibberish");
@@ -51,14 +52,14 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Entities.Common.Location(53.4635332, -2.2419169)
             };
 
-            PlaceAutocompleteResponse offsetResult = GoogleMaps.PlaceAutocomplete.Query(offsetRequest);
+            PlaceAutocompleteResponse offsetResult = await GoogleMaps.PlaceAutocomplete.QueryAsync(offsetRequest);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, offsetResult.Status, "results using offset");
         }
 
         [Test]
-        public void TypeTest()
+        public async Task TypeTest()
         {
             var request = new PlaceAutocompleteRequest
             {
@@ -69,7 +70,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
@@ -84,7 +85,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
         [TestCase("oakfield road, chea", "CHEADLE")]
         [TestCase("128 abbey r", "MACCLESFIELD")]
-        public void CheckForExpectedRoad( string aSearch, string anExpected)
+        public async Task CheckForExpectedRoad( string aSearch, string anExpected)
         {
             var request = new PlaceAutocompleteRequest
             {
@@ -94,7 +95,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
@@ -103,27 +104,27 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test(Description = "Ensures that it is ok to sent 0 as a radius value")]
-        public void CheckZeroRadius() 
+        public async Task CheckZeroRadius() 
         {
             var request = CreatePlaceAutocompleteRequest("RIX", 0);
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
         }
         [Test(Description = "Ensures that it is ok to sent negative value as a radius")]
-        public void CheckNegativeRadius() 
+        public async Task CheckNegativeRadius() 
         {
             var request = CreatePlaceAutocompleteRequest("RIX", -1);
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
         }
 
         [Test(Description = "Ensures that it is ok to sent huge value as a radius")]
-        public void CheckLargerThenEarthRadius() 
+        public async Task CheckLargerThenEarthRadius() 
         {
             var request = CreatePlaceAutocompleteRequest("RIX", 30000000);
-            PlaceAutocompleteResponse result = GoogleMaps.PlaceAutocomplete.Query(request);
+            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
         }

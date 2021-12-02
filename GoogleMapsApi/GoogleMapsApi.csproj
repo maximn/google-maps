@@ -1,194 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{61E9FC82-47B0-43C3-8749-95D3A9967060}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoogleMapsApi</RootNamespace>
-    <AssemblyName>GoogleMapsApi</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <CopyNuGetImplementations>false</CopyNuGetImplementations>
+	<TargetFrameworks>net6.0;net5.0;netstandard2.0;net461;</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+
+	<version>$version$</version>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+	<AssemblyName>GoogleMapsApi</AssemblyName>
+	<Authors>Maxim Novak</Authors>
+	<PackageLicenseUrl>https://github.com/maximn/google-maps/blob/master/LICENSE.md</PackageLicenseUrl>
+	<Description>Google Maps Web Services API wrapper for .NET</Description>
+	<Copyright>Copyright ©  2010</Copyright>
+	<PackageTags>Map Geo Places Elevation Geocode Directions Maps</PackageTags>
+	<RepositoryType>git</RepositoryType>
+	<RepositoryUrl>https://github.com/maximn/google-maps</RepositoryUrl>
   </PropertyGroup>
+	
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+	
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\GoogleMapsApi.xml</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
+	 <IncludeSymbols>false</IncludeSymbols>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Net.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="EngineFacade.cs" />
-    <Compile Include="Engine\MapsAPIGenericEngine.cs" />
-    <Compile Include="Engine\UnixTimeConverter.cs" />
-    <Compile Include="Entities\Common\ILocationString.cs" />
-    <Compile Include="Entities\Common\IResponseFor.cs" />
-    <Compile Include="Entities\Common\Location.cs" />
-    <Compile Include="Entities\Common\MapsBaseRequest.cs" />
-    <Compile Include="Entities\Common\Photo.cs" />
-    <Compile Include="Entities\Common\SignableRequest.cs" />
-    <Compile Include="Entities\Common\Type.cs" />
-    <Compile Include="Entities\Directions\Request\AvoidWay.cs" />
-    <Compile Include="Entities\Directions\Request\DirectionsRequest.cs" />
-    <Compile Include="Entities\Directions\Request\TravelMode.cs" />
-    <Compile Include="Entities\Directions\Response\DirectionsResponse.cs" />
-    <Compile Include="Entities\Directions\Response\Distance.cs" />
-    <Compile Include="Entities\Directions\Response\Duration.cs" />
-    <Compile Include="Entities\Directions\Response\Leg.cs" />
-    <Compile Include="Entities\Directions\Response\Line.cs" />
-    <Compile Include="Entities\Directions\Response\OverviewPolyline.cs" />
-    <Compile Include="Entities\Directions\Response\PointsDecodingException.cs" />
-    <Compile Include="Entities\Directions\Response\Route.cs" />
-    <Compile Include="Entities\Directions\Response\StatusCodes.cs" />
-    <Compile Include="Entities\Directions\Response\Step.cs" />
-    <Compile Include="Entities\Directions\Response\Stop.cs" />
-    <Compile Include="Entities\Directions\Response\TransitAgency.cs" />
-    <Compile Include="Entities\Directions\Response\TransitDetails.cs" />
-    <Compile Include="Entities\Directions\Response\Vehicle.cs" />
-    <Compile Include="Entities\Directions\Response\VehicleType.cs" />
-    <Compile Include="Entities\DistanceMatrix\Request\DistanceMatrixRequest.cs" />
-    <Compile Include="Entities\DistanceMatrix\Request\Restrictions.cs" />
-    <Compile Include="Entities\DistanceMatrix\Request\Time.cs" />
-    <Compile Include="Entities\DistanceMatrix\Request\TrafficModel.cs" />
-    <Compile Include="Entities\DistanceMatrix\Request\TransitMode.cs" />
-    <Compile Include="Entities\DistanceMatrix\Request\TransitRoutingPreference.cs" />
-    <Compile Include="Entities\DistanceMatrix\Request\TravelMode.cs" />
-    <Compile Include="Entities\DistanceMatrix\Request\UnitSystem.cs" />
-    <Compile Include="Entities\DistanceMatrix\Response\Distance.cs" />
-    <Compile Include="Entities\DistanceMatrix\Response\DistanceMatrixResponse.cs" />
-    <Compile Include="Entities\DistanceMatrix\Response\Duration.cs" />
-    <Compile Include="Entities\DistanceMatrix\Response\Element.cs" />
-    <Compile Include="Entities\DistanceMatrix\Response\Row.cs" />
-    <Compile Include="Entities\DistanceMatrix\Response\ElementStatusCodes.cs" />
-    <Compile Include="Entities\DistanceMatrix\Response\StatusCodes.cs" />
-    <Compile Include="Entities\Elevation\Request\ElevationRequest.cs" />
-    <Compile Include="Entities\Elevation\Response\ElevationResponse.cs" />
-    <Compile Include="Entities\Elevation\Response\Result.cs" />
-    <Compile Include="Entities\Elevation\Response\Status.cs" />
-    <Compile Include="Entities\Geocoding\Request\GeocodingComponents.cs" />
-    <Compile Include="Entities\Geocoding\Request\GeocodingRequest.cs" />
-    <Compile Include="Entities\Geocoding\Response\AddressComponent.cs" />
-    <Compile Include="Entities\Geocoding\Response\FramedLocation.cs" />
-    <Compile Include="Entities\Geocoding\Response\GeocodingResponse.cs" />
-    <Compile Include="Entities\Geocoding\Response\Geometry.cs" />
-    <Compile Include="Entities\Geocoding\Response\LocationType.cs" />
-    <Compile Include="Entities\Geocoding\Response\Result.cs" />
-    <Compile Include="Entities\Geocoding\Response\Status.cs" />
-    <Compile Include="Entities\PlaceAutocomplete\Request\PlaceAutocompleteRequest.cs" />
-    <Compile Include="Entities\PlaceAutocomplete\Response\MatchedSubstring.cs" />
-    <Compile Include="Entities\PlaceAutocomplete\Response\PlaceAutocompleteResponse.cs" />
-    <Compile Include="Entities\PlaceAutocomplete\Response\Prediction.cs" />
-    <Compile Include="Entities\PlaceAutocomplete\Response\Status.cs" />
-    <Compile Include="Entities\PlaceAutocomplete\Response\Term.cs" />
-    <Compile Include="Entities\PlacesDetails\Request\PlacesDetailsRequest.cs" />
-    <Compile Include="Entities\PlacesDetails\Response\Aspect.cs" />
-    <Compile Include="Entities\PlacesDetails\Response\Geometry.cs" />
-    <Compile Include="Entities\PlacesDetails\Response\OpeningHours.cs" />
-    <Compile Include="Entities\PlacesDetails\Response\Period.cs" />
-    <Compile Include="Entities\PlacesDetails\Response\PlacesDetailsResponse.cs" />
-    <Compile Include="Entities\PlacesFind\Request\InputType.cs" />
-    <Compile Include="Entities\PlacesFind\Response\Candidate.cs" />
-    <Compile Include="Entities\PlacesFind\Response\Geometry.cs" />
-    <Compile Include="Entities\PlacesFind\Response\OpeningHours.cs" />
-    <Compile Include="Entities\PlacesFind\Response\PlacesFindResponse.cs" />
-    <Compile Include="Entities\PlacesDetails\Response\Review.cs" />
-    <Compile Include="Entities\PlacesDetails\Response\Events.cs" />
-    <Compile Include="Entities\PlacesDetails\Response\Result.cs" />
-    <Compile Include="Entities\PlacesDetails\Response\Status.cs" />
-    <Compile Include="Entities\PlacesDetails\Response\TimeOfWeek.cs" />
-    <Compile Include="Entities\PlacesFind\Request\PlacesFindRequest.cs" />
-    <Compile Include="Entities\PlacesFind\Response\Status.cs" />
-    <Compile Include="Entities\PlacesNearBy\Request\PlacesNearByRequest.cs" />
-    <Compile Include="Entities\PlacesNearBy\Request\RankBy.cs" />
-    <Compile Include="Entities\PlacesNearBy\Response\Geometry.cs" />
-    <Compile Include="Entities\PlacesNearBy\Response\PlacesNearByResponse.cs" />
-    <Compile Include="Entities\PlacesNearBy\Response\Result.cs" />
-    <Compile Include="Entities\PlacesNearBy\Response\Status.cs" />
-    <Compile Include="Entities\PlacesRadar\Request\PlacesRadarRequest.cs" />
-    <Compile Include="Entities\PlacesRadar\Response\Geometry.cs" />
-    <Compile Include="Entities\PlacesRadar\Response\PlacesRadarResponse.cs" />
-    <Compile Include="Entities\PlacesRadar\Response\Result.cs" />
-    <Compile Include="Entities\PlacesRadar\Response\Status.cs" />
-    <Compile Include="Entities\PlacesText\Request\PlacesTextRequest.cs" />
-    <Compile Include="Entities\PlacesText\Response\Geometry.cs" />
-    <Compile Include="Entities\PlacesText\Response\PlacesTextResponse.cs" />
-    <Compile Include="Entities\PlacesText\Response\Result.cs" />
-    <Compile Include="Entities\PlacesText\Response\Status.cs" />
-    <Compile Include="Entities\Places\Request\PlacesRequest.cs" />
-    <Compile Include="Entities\Places\Request\RankBy.cs" />
-    <Compile Include="Entities\Places\Response\Geometry.cs" />
-    <Compile Include="Entities\Places\Response\PlacesResponse.cs" />
-    <Compile Include="Entities\Places\Response\Result.cs" />
-    <Compile Include="Entities\Places\Response\Status.cs" />
-    <Compile Include="Entities\TimeZone\Request\TimeZoneRequest.cs" />
-    <Compile Include="Entities\TimeZone\Response\Status.cs" />
-    <Compile Include="Entities\TimeZone\Response\TimeZoneResponse.cs" />
-    <Compile Include="GoogleMaps.cs" />
-    <Compile Include="HttpClientExtensions.cs" />
-    <Compile Include="IEngineFacade.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\Common\AddressLocation.cs" />
-    <Compile Include="QueryStringParametersList.cs" />
-    <Compile Include="StaticMaps\Entities\Marker.cs" />
-    <Compile Include="StaticMaps\Entities\ImageSize.cs" />
-    <Compile Include="StaticMaps\Entities\MarkerStyle.cs" />
-    <Compile Include="StaticMaps\Entities\MapStyle.cs" />
-    <Compile Include="StaticMaps\Entities\Path.cs" />
-    <Compile Include="StaticMaps\Entities\PathStyle.cs" />
-    <Compile Include="StaticMaps\Enums\ImageFormat.cs" />
-    <Compile Include="StaticMaps\Enums\MapElement.cs" />
-    <Compile Include="StaticMaps\Enums\MapFeatures.cs" />
-    <Compile Include="StaticMaps\Enums\MapType.cs" />
-    <Compile Include="StaticMaps\Entities\StaticMapRequest.cs" />
-    <Compile Include="StaticMaps\Enums\MapVisibility.cs" />
-    <Compile Include="StaticMaps\Enums\MarkerSize.cs" />
-    <Compile Include="StaticMaps\StaticMapsEngine.cs" />
-    <Compile Include="TaskFactoryExtensions.cs" />
-  </ItemGroup>
+  
   <ItemGroup>
     <None Include="Entities\Directions\The Google Directions API - Google Maps API Web Services - Google Code.htm" />
-    <None Include="project.json" />
     <None Include="ReleaseNotes.md" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+  
 </Project>

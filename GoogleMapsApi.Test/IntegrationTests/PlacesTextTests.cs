@@ -3,6 +3,7 @@ using GoogleMapsApi.Entities.PlacesText.Request;
 using GoogleMapsApi.Entities.PlacesText.Response;
 using NUnit.Framework;
 using GoogleMapsApi.Test.Utils;
+using System.Threading.Tasks;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -10,7 +11,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class PlacesTextTests : BaseTestIntegration
     {
         [Test]
-        public void ReturnsFormattedAddress()
+        public async Task ReturnsFormattedAddress()
         {
             var request = new PlacesTextRequest
             {
@@ -19,7 +20,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Types = "address"
             };
 
-            PlacesTextResponse result = GoogleMaps.PlacesText.Query(request);
+            PlacesTextResponse result = await GoogleMaps.PlacesText.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
@@ -27,7 +28,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void ReturnsPhotos()
+        public async Task ReturnsPhotos()
         {
             var request = new PlacesTextRequest
             {
@@ -36,7 +37,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Types = "address"
             };
 
-            PlacesTextResponse result = GoogleMaps.PlacesText.Query(request);
+            PlacesTextResponse result = await GoogleMaps.PlacesText.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Status.OK, result.Status);
