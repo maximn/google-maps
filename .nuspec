@@ -24,6 +24,6 @@
     </dependencies>
   </metadata>
   <files>
-	<file src="GoogleMapsApi\bin\$configuration$\GoogleMapsApi.dll" target="lib\net40\" />
+	<file src="GoogleMapsApi\bin\$configuration$\GoogleMapsApi.dll" target="lib\net60\" />
   </files>
 </package>
