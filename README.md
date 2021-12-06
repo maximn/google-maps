@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/maximn/google-maps.svg?branch=master)](https://travis-ci.org/maximn/google-maps)
+[![Build Status](https://github.com/maximn/google-maps/actions/workflows/dotnet.yml/badge.svg)](https://github.com/maximn/google-maps/actions/workflows/dotnet.yml)
 [![NuGet Status](https://img.shields.io/nuget/v/GoogleMapsApi.svg)](https://www.nuget.org/packages/GoogleMapsApi/)
 
 google-maps
