@@ -11,7 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9D09CCCC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "artifacts", "artifacts", "{2A90AB7E-F3EC-48BD-974E-41F34A80E714}"
 	ProjectSection(SolutionItems) = preProject
-		.travis.yml = .travis.yml
 		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection
