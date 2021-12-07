@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
 	<TargetFrameworks>net6.0;net5.0;netstandard2.0;net461;</TargetFrameworks>
-    <LangVersion>latest</LangVersion>
-
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    	<LangVersion>latest</LangVersion>
+	<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
 	<AssemblyName>GoogleMapsApi</AssemblyName>
 	<Authors>Maxim Novak</Authors>
