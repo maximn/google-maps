@@ -16,9 +16,9 @@ namespace GoogleMapsApi.Test.IntegrationTests
         public BaseTestIntegration()
         {
             Configuration = new ConfigurationBuilder()
-                .AddEnvironmentVariables()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true)
+                .AddEnvironmentVariables()
                 .Build();
         }
 
