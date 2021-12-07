@@ -12,7 +12,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class PlacesDetailsTests  : BaseTestIntegration
     {
         [Test]
-        public async void ReturnsPhotos()
+        public async Task ReturnsPhotos()
         {
             var request = new PlacesDetailsRequest
             {

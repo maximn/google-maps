@@ -22,6 +22,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 .Build();
         }
 
-        protected string ApiKey => Configuration.GetValue<string>("ApiKey");
+        protected string ApiKey => Configuration.GetValue<string>("GOOGLE_API_KEY");
     }
 }

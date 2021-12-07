@@ -23,7 +23,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Entities.Elevation.Response.Status.OK, result.Status);
-            Assert.AreEqual(14.78, result.Results.First().Elevation, 1.0);
+            Assert.AreEqual(16.92, result.Results.First().Elevation, 1.0);
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.AreEqual(Entities.Elevation.Response.Status.OK, result.Status);
-            Assert.AreEqual(14.78, result.Results.First().Elevation, 1.0);
+            Assert.AreEqual(16.92, result.Results.First().Elevation, 1.0);
         } 
     }
 }
