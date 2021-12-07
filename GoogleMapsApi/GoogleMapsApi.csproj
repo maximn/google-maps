@@ -3,7 +3,6 @@
 	<TargetFrameworks>net6.0;net5.0;netstandard2.0;net461;</TargetFrameworks>
     <LangVersion>latest</LangVersion>
 
-	<version>$version$</version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
 	<AssemblyName>GoogleMapsApi</AssemblyName>
