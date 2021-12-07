@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
       env:
-          GOOGLE_API_KEY: ${{secrets.GOOGLE_API_KEY}}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
