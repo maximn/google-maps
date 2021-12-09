@@ -14,15 +14,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class DirectionsTests : BaseTestIntegration
     {
         [Test]
-        public async Task Directions_SumOfStepDistancesCorrect22()
-        {
-            
-            Assert.AreEqual("KEY", ApiKey);
-            
-        }
-
-
-        [Test]
         public async Task Directions_SumOfStepDistancesCorrect()
         {
             var request = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA" };
