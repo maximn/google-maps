@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
 
 namespace GoogleMapsApi.Test.IntegrationTests
@@ -11,17 +12,13 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
     public class BaseTestIntegration
     {
-        private readonly IConfigurationRoot Configuration;
+        private readonly string Key;
 
         public BaseTestIntegration()
         {
-            Configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true)
-                .AddEnvironmentVariables()
-                .Build();
+            Key = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
         }
 
-        protected string ApiKey => Configuration.GetValue<string>("GOOGLE_API_KEY");
+        protected string ApiKey => this.Key;
     }
 }
