@@ -6,7 +6,7 @@
     <title>Google Maps Web Services API wrapper for .NET</title>
     <authors>Maxim Novak</authors>
     <owners>Maxim Novak</owners>
-    <licenseUrl>https://github.com/maximn/google-maps/blob/master/LICENSE.md</licenseUrl>
+    <license>https://github.com/maximn/google-maps/blob/master/LICENSE.md</license>
     <projectUrl>https://github.com/maximn/google-maps/</projectUrl>
     <iconUrl>https://code.google.com/p/google-maps/logo?cct=1335784301</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
