@@ -9,13 +9,17 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        dotnet: ['3.1.x', '6.0.x' ]
+
     steps:
       - uses: actions/checkout@v2
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: ${{ matrix.dotnet-version }}
       
       - name: Restore dependencies
         run: dotnet restore
