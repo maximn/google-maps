@@ -35,7 +35,7 @@ jobs:
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
           #VERSION_FILE_PATH: # optional
           #VERSION_REGEX: # optional, default is ^\s*<Version>(.*)<\/Version>\s*$
-          VERSION_STATIC: 0.81.0
+          VERSION_STATIC: 1.0.1
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           # NuGet server uri hosting the packages, defaults to https://api.nuget.org
           #NUGET_SOURCE: # optional, default is https://api.nuget.org
