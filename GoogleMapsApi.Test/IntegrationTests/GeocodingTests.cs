@@ -31,7 +31,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
             StringAssert.IsMatch("40\\.\\d*,-73\\.\\d*", result.Results.First().Geometry.Location.LocationString);
         }
 
-
         [Test]
         public void GeocodingAsync_ReturnsCorrectLocation()
         {
@@ -93,12 +92,100 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public async Task ReverseGeocoding_ReturnsCorrectAddress()
+        public async Task ReverseGeocoding_LatLng_ReturnsCorrectAddress()
         {
             var request = new GeocodingRequest
             {
                 ApiKey = ApiKey,
                 Location = new Location(40.7141289, -73.9614074)
+            };
+
+            var result = await GoogleMaps.Geocode.QueryAsync(request);
+
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(Status.OK, result.Status);
+            StringAssert.Contains("Bedford Ave, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
+        }
+
+        [Test]
+        public async Task ReverseGeocoding_PlaceId_ReturnsCorrectAddress()
+        {
+            var request = new GeocodingRequest
+            {
+                ApiKey = ApiKey,
+                PlaceId = "ChIJo9YpQWBZwokR7OeY0hiWh8g"
+            };
+
+            var result = await GoogleMaps.Geocode.QueryAsync(request);
+
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(Status.OK, result.Status);
+            StringAssert.Contains("Bedford Ave, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
+        }
+
+        [Test]
+        public async Task ReverseGeocoding_PlaceIdAndRegion_ReturnsCorrectAddress()
+        {
+            var request = new GeocodingRequest
+            {
+                ApiKey = ApiKey,
+                PlaceId = "ChIJo9YpQWBZwokR7OeY0hiWh8g",
+                Region = "US"
+            };
+
+            var result = await GoogleMaps.Geocode.QueryAsync(request);
+
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(Status.OK, result.Status);
+            StringAssert.Contains("Bedford Ave, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
+        }
+
+        [Test]
+        public async Task ReverseGeocoding_PlaceIdAndBounds_ReturnsCorrectAddress()
+        {
+            var request = new GeocodingRequest
+            {
+                ApiKey = ApiKey,
+                PlaceId = "ChIJo9YpQWBZwokR7OeY0hiWh8g",
+                Bounds = new[]
+                {
+                    new Location(40.7154070802915, -73.9599636697085),
+                    new Location(40.7127091197085, -73.96266163029151)
+                }
+            };
+
+            var result = await GoogleMaps.Geocode.QueryAsync(request);
+
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(Status.OK, result.Status);
+            StringAssert.Contains("Bedford Ave, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
+        }
+
+        [Test]
+        public async Task ReverseGeocoding_PlaceIdAndComponents_ReturnsCorrectAddress()
+        {
+            var request = new GeocodingRequest
+            {
+                ApiKey = ApiKey,
+                PlaceId = "ChIJo9YpQWBZwokR7OeY0hiWh8g",
+                Components = new() { Country = "US" }
+            };
+
+            var result = await GoogleMaps.Geocode.QueryAsync(request);
+
+            AssertInconclusive.NotExceedQuota(result);
+            Assert.AreEqual(Status.OK, result.Status);
+            StringAssert.Contains("Bedford Ave, Brooklyn, NY 11211, USA", result.Results.First().FormattedAddress);
+        }
+
+        [Test]
+        public async Task ReverseGeocoding_PlaceIdAndAddress_ReturnsCorrectAddress()
+        {
+            var request = new GeocodingRequest
+            {
+                ApiKey = ApiKey,
+                PlaceId = "ChIJo9YpQWBZwokR7OeY0hiWh8g",
+                Address = "Should be ignored"
             };
 
             var result = await GoogleMaps.Geocode.QueryAsync(request);
