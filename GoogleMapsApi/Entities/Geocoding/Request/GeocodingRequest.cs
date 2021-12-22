@@ -56,33 +56,38 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
 
         protected override QueryStringParametersList GetQueryStringParameters()
         {
-            bool hasAddress = !string.IsNullOrWhiteSpace(Address);
             bool hasPlaceId = !string.IsNullOrWhiteSpace(PlaceId);
+            bool hasLocation = Location is not null;
+            bool hasAddress = !string.IsNullOrWhiteSpace(Address);
 
-            if (!hasAddress && Location == null && !Components.Exists && !hasPlaceId)
-                throw new ArgumentException("Address, Location, Components OR PlaceId is required");
+            if (!(hasPlaceId || hasLocation || hasAddress || Components.Exists))
+                throw new ArgumentException("PlaceId, Location, Address or Components is required");
 
             var parameters = base.GetQueryStringParameters();
 
-            if (Location != null)
-                parameters.Add(_latlng, Location.ToString());
-
-            if (hasAddress)
-                parameters.Add(_address, Address);
-
             if (hasPlaceId)
+            {
                 parameters.Add(_placeId, PlaceId);
+            }
+            else if (hasLocation)
+            {
+                parameters.Add(_latlng, Location.ToString());
+            }
+            else if (hasAddress)
+            {
+                parameters.Add(_address, Address);
+            }
 
-            if (Components.Exists)
+            if (Components.Exists && !hasPlaceId)
             {
                 string components = Components.Build();
                 parameters.Add(_components, components);
             }
 
-            if (Bounds != null && Bounds.Any())
+            if (Bounds != null && Bounds.Any() && !hasPlaceId)
                 parameters.Add(_bounds, string.Join("|", Bounds.AsEnumerable()));
 
-            if (!string.IsNullOrWhiteSpace(Region))
+            if (!string.IsNullOrWhiteSpace(Region) && !hasPlaceId)
                 parameters.Add(_region, Region);
 
             if (!string.IsNullOrWhiteSpace(Language))
@@ -91,12 +96,12 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
             return parameters;
         }
 
-        const string _latlng = "latlng";
-        const string _address = "address";
-        const string _placeId = "place_id";
-        const string _bounds = "bounds";
-        const string _region = "region";
-        const string _language = "language";
-        const string _components = "components";
+        private const string _latlng = "latlng";
+        private const string _address = "address";
+        private const string _placeId = "place_id";
+        private const string _bounds = "bounds";
+        private const string _region = "region";
+        private const string _language = "language";
+        private const string _components = "components";
     }
 }
