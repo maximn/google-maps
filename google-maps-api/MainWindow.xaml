@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:google_maps_api" xmlns:controls="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
         mc:Ignorable="d"
-        WindowStyle="None"
-        ResizeMode="CanMinimize"
-        xmlns:materialDesign="https://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:acb="http://wpfcontrols.com/"
+		ResizeMode="CanMinimize"
+         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
@@ -16,6 +16,9 @@
         <local:MainViewModel/>
     </Window.DataContext>
     <Grid>
+        <acb:AutoCompleteTextBox>
+            
+        </acb:AutoCompleteTextBox>
         <Border Margin="30" x:Name="border_main" Background="White" CornerRadius="10" BorderThickness="1" BorderBrush="White">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="40" ShadowDepth="0" Opacity="0.2" 
@@ -100,11 +103,26 @@
                     <controls:AutoCompleteBox Text="{Binding Destination, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name='tb_destination'>
                     </controls:AutoCompleteBox>
                 </StackPanel>
-                <Button Command="{Binding DrawCommand}" Click="btn_drawroute" Content="Draw route" Margin="574,54,19,472"/>
+                <Button Command="{Binding DrawCommand}" Click="btn_drawroute" Content="Draw route" Margin="574,55,19,471"/>
             </Grid>
         </Border>
-        <Image Source="{Binding ImageSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="50,100,50,24">
-        </Image>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"></ColumnDefinition>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="41*"></RowDefinition>
+                <RowDefinition Height="21*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.ColumnSpan="2" Source="{Binding ImageSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" Margin="50,100,50,24">
+            </Image>
+            <StackPanel Grid.Column="1" Margin="14,24,66,26" Grid.Row="1" >
+                <Button Margin="0,0,0,10"  FontSize="20" Height="50" HorizontalContentAlignment="Center" Width="50">+</Button>
+                <Button Margin="0,6,0,0" FontSize="20" Width="50" Height="50">-</Button>
+            </StackPanel>
+
+        </Grid>
 
     </Grid>
 </Window>

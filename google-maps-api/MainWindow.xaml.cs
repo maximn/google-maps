@@ -34,6 +34,8 @@ namespace google_maps_api
             InitializeComponent();
             tb_origin.FilterMode = AutoCompleteFilterMode.Contains;
             tb_origin.ItemsSource = new string[] { "New York", "Ukraine", "Odesa" };
+            tb_destination.FilterMode = AutoCompleteFilterMode.Contains;
+            tb_destination.ItemsSource = new string[] { "New York", "Kyiv", "Odesa" };
         }
 
         private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
