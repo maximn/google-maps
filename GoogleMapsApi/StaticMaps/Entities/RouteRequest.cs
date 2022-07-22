@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GoogleMapsApi.StaticMaps.Entities
 {
-	class RouteMapRequest:MapsBaseRequest
+	public class RouteMapRequest:MapsBaseRequest
 	{
 		// ------ FROM STATICMAPREQUEST ------
 
@@ -103,19 +103,17 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// </summary>
 		public string ApiKey { get; set; }
 
-		public RouteMapRequest(ILocationString center, int zoom, ImageSize imageSize)
+
+		public RouteMapRequest(ILocationString center, int zoom, ImageSize imageSize, string origin, string destination)
 		{
 			Center = center;
 			Zoom = zoom;
 			Size = imageSize;
+			Origin = origin;
+			Destination = destination;
+			IsSSL = true;
+			
 		}
-
-		public RouteMapRequest(IList<Marker> markers, ImageSize imageSize)
-		{
-			Markers = markers;
-			Size = imageSize;
-		}
-
 		// ------- FROM DIRECTIONSREQUEST ------- 
 
 		/// <summary>

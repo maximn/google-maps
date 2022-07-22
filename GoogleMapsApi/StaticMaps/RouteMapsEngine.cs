@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GoogleMapsApi.StaticMaps
 {
-	class RoutesEngine
+	public class RouteMapsEngine
 	{
 
 
@@ -34,6 +34,7 @@ namespace GoogleMapsApi.StaticMaps
 			{
 				ImageFormat = request.ImageFormat,
 				Center = request.Center,
+				Scale = request.Scale,
 				Language = request.Language,
 				IsSSL = request.IsSSL,
 				ApiKey = request.ApiKey,

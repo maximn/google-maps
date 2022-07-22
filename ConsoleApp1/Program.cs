@@ -18,9 +18,10 @@ namespace ConsoleApp1
 	
 	class Program
 	{
-        static void Test()
+		static string apikey = "AIzaSyDikeBAymgSWrWz-9Y7Danr2mNewZV_MwI";
+		static void Test()
 		{
-			string apikey = "AIzaSyDikeBAymgSWrWz-9Y7Danr2mNewZV_MwI";
+			
 			var drequest = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA" };
 			drequest.ApiKey = apikey;
 			var result = GoogleMaps.Directions.QueryAsync(drequest);
@@ -55,9 +56,18 @@ namespace ConsoleApp1
 			string generateStaticMapURL = new StaticMapsEngine().GenerateStaticMapURL(request);
 			Console.WriteLine(generateStaticMapURL);
 		}
+		static void Test2()
+		{
+			RouteMapRequest routeMapRequest = new RouteMapRequest(new AddressLocation("Odesa oblast"), 12, new ImageSize(800, 600), "Odesa", "Chornomorsk") { Scale = 2 };
+			routeMapRequest.ApiKey = apikey;
+			
+			var result = new RouteMapsEngine().GenerateRouteMapURL(routeMapRequest);
+			Console.WriteLine(result);
+		}
 		static void Main(string[] args)
 		{
-            Test();
+			//Test();
+			Test2();
             Console.ReadLine();
         }
 	}
