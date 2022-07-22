@@ -40,7 +40,7 @@ namespace GoogleMapsApi.StaticMaps
 				//km = ( 40000/2 ^ zl ) * 2
 				// let zoom = getBaseLog(2, 40000 / (km / 2))
 
-				request.Zoom = (int)Math.Log((int)(40000 / (km / 2)), (int)2)-1;
+				request.Zoom = (int)Math.Log((int)(40000 / (km / 2)), (int)2)-2;
 			}
 
 
