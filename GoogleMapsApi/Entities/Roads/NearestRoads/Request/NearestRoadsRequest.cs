@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace GoogleMapsApi.Entities.Roads.NearestRoads.Request
 {
-    public class NearestRoadsRequest : SignableRequest
+    public class NearestRoadsRequest : BaseRoadsRequest
     {
         protected internal override string BaseUrl
         {
-            get => "https://roads.googleapis.com/v1/nearestRoads"; 
+            get => "roads.googleapis.com/v1/nearestRoads"; 
         }
 
         public IEnumerable<Location> Points { get; set; }

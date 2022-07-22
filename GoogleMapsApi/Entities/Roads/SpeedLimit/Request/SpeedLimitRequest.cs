@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace GoogleMapsApi.Entities.Roads.SpeedLimit.Request
 {
-    public class SpeedLimitRequest : SignableRequest
-    {
+    public class SpeedLimitRequest : BaseRoadsRequest
+	{
         protected internal override string BaseUrl
         {
-			get => "https://roads.googleapis.com/v1/speedlimits";
+			get => "roads.googleapis.com/v1/speedLimits";
         }
 
 		public IEnumerable<Location> Locations { get; set; }

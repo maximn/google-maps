@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace GoogleMapsApi.Entities.Roads.SnapToRoads.Request
 {
-    public class SnapToRoadsRequest : SignableRequest
+    public class SnapToRoadsRequest : BaseRoadsRequest
     {
         protected internal override string BaseUrl
         {
-             get => "https://roads.googleapis.com/v1/snaptoroads";
+             get => "roads.googleapis.com/v1/snapToRoads";
         }
 
         public IEnumerable<Location> Path { get; set; }

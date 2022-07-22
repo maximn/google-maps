@@ -11,7 +11,7 @@ namespace GoogleMapsApi.Entities.Roads.SnapToRoads.Response
     public class SnappedPoint
     {
         [DataMember(Name = "location")]
-        public Location Location { get; set; }
+        public RoadsLocation Location { get; set; }
 
         [DataMember(Name = "placeId")]
         public string PlaceId { get; set; }
