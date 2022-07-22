@@ -84,7 +84,7 @@ namespace GoogleMapsApi
                     httpResponse.StatusCode == HttpStatusCode.RequestTimeout)
                     throw new TimeoutException($"The request has exceeded the timeout limit of {timeout} and has been aborted.");
 
-                throw new HttpRequestException($"Failed with HttpResponse: {httpResponse.StatusCode} and message: {httpResponse.ReasonPhrase}");
+                throw new HttpRequestException($"Failed with HttpResponse: {httpResponse.StatusCode} and message: {httpResponse.ReasonPhrase}. Address:{address.AbsoluteUri}");
             }
                 
             return httpResponse;

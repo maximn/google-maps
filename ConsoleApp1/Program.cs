@@ -10,7 +10,9 @@ using GoogleMapsApi.StaticMaps.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using GoogleMapsApi.StaticMaps.Enums;
-
+using GoogleMapsApi.Entities.Roads.SnapToRoad;
+using GoogleMapsApi.Entities.Roads.SnapToRoad.Request;
+//using GoogleMapsApi.
 namespace ConsoleApp1
 {
  
@@ -66,10 +68,52 @@ namespace ConsoleApp1
 			var result = new RouteMapsEngine().GenerateRouteMapURL(routeMapRequest);
 			Console.WriteLine(result);
 		}
+		static async void Test3()
+		{
+			
+			var res = await GoogleMaps.SnapToRoads.QueryAsync(new SnapToRoadRequest()
+			{
+				ApiKey = apikey,
+				IsSSL = true,
+				Path = new Path()
+				{
+					Locations = new List<ILocationString>() {
+					new Location(-35.27801,149.12958),
+					new Location(-35.28032,149.12907),
+					new Location(60.170877, 24.942796),
+
+				}
+				}
+
+			});
+			Console.WriteLine(res);
+			
+			//var res = await GoogleMaps.SnapToRoads.QueryAsync(new SnapToRoadRequest() { ApiKey = apikey, Keyword = "place", Location=new Location(60.170880, 24.942795),Radius=10 });
+		}
+		static async void Test4()
+		{
+			var res = await GoogleMaps.NearestRoads.QueryAsync(new NearestRoadsRequest()
+			{
+				ApiKey = apikey,
+				IsSSL = true,
+				Points = new List<ILocationString>()
+				{
+					new Location(60.170880,24.942795),
+					new Location(60.170879,24.942796),
+					new Location(60.170877,24.942796),
+				}
+			});
+			Console.WriteLine(res);
+		}
 		static void Main(string[] args)
 		{
 			//Test();
-			Test2();
+			//Test2();
+
+			//Test3();
+
+			Test4();
+			//Console.WriteLine(res);
             Console.ReadLine();
         }
 	}

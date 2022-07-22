@@ -23,6 +23,8 @@ using GoogleMapsApi.Entities.PlacesNearBy.Response;
 using GoogleMapsApi.Entities.PlacesFind.Response;
 using GoogleMapsApi.Entities.PlacesFind.Request;
 using System;
+using GoogleMapsApi.Entities.Roads;
+using GoogleMapsApi.Entities.Roads.SnapToRoad.Request;
 
 namespace GoogleMapsApi
 {
@@ -44,8 +46,22 @@ namespace GoogleMapsApi
 				return EngineFacade<DirectionsRequest, DirectionsResponse>.Instance;
 			}
 		}
-		/// <summary>Perform elevation operations.</summary>
-		public static IEngineFacade<ElevationRequest, ElevationResponse> Elevation
+        public static IEngineFacade<SnapToRoadRequest, SnapToRoadResponse> SnapToRoads
+        {
+            get
+            {
+                return EngineFacade<SnapToRoadRequest, SnapToRoadResponse>.Instance;
+            }
+        }
+        public static IEngineFacade<NearestRoadsRequest, NearestRoadsResponse> NearestRoads
+        {
+            get
+            {
+                return EngineFacade<NearestRoadsRequest, NearestRoadsResponse>.Instance;
+            }
+        }
+        /// <summary>Perform elevation operations.</summary>
+        public static IEngineFacade<ElevationRequest, ElevationResponse> Elevation
 		{
 			get
 			{
