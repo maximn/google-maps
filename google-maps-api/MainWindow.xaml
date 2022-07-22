@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:google_maps_api" xmlns:controls="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
         mc:Ignorable="d"
-        xmlns:acb="http://wpfcontrols.com/"
 		ResizeMode="CanMinimize"
          WindowStyle="None"
         AllowsTransparency="True"
@@ -16,9 +15,6 @@
         <local:MainViewModel/>
     </Window.DataContext>
     <Grid>
-        <acb:AutoCompleteTextBox>
-            
-        </acb:AutoCompleteTextBox>
         <Border Margin="30" x:Name="border_main" Background="White" CornerRadius="10" BorderThickness="1" BorderBrush="White">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="40" ShadowDepth="0" Opacity="0.2" 
@@ -118,10 +114,12 @@
             <Image Grid.ColumnSpan="2" Source="{Binding ImageSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" Margin="50,100,50,24">
             </Image>
             <StackPanel Grid.Column="1" Margin="14,24,66,26" Grid.Row="1" >
-                <Button Margin="0,0,0,10"  FontSize="20" Height="50" HorizontalContentAlignment="Center" Width="50">+</Button>
-                <Button Margin="0,6,0,0" FontSize="20" Width="50" Height="50">-</Button>
+                <Button Command="{Binding ZoomInCommand}" Margin="0,0,0,10"  FontSize="20" Height="50" HorizontalContentAlignment="Center" Width="50">+</Button>
+                <Button Command="{Binding ZoomOutCommand}" Margin="0,6,0,0" FontSize="20" Width="50" Height="50">-</Button>
             </StackPanel>
-
+            
+            
+            
         </Grid>
 
     </Grid>
