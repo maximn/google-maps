@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:google_maps_api" xmlns:controls="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
         mc:Ignorable="d"
-         WindowStyle="None"
+        WindowStyle="None"
+        ResizeMode="CanMinimize"
+        xmlns:materialDesign="https://materialdesigninxaml.net/winfx/xaml/themes"
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
@@ -98,7 +100,7 @@
                     <controls:AutoCompleteBox Text="{Binding Destination, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name='tb_destination'>
                     </controls:AutoCompleteBox>
                 </StackPanel>
-                <Button Command="{Binding DrawCommand}" Click="btn_drawroute" Content="Draw route" Margin="574,55,19,474"/>
+                <Button Command="{Binding DrawCommand}" Click="btn_drawroute" Content="Draw route" Margin="574,54,19,472"/>
             </Grid>
         </Border>
         <Image Source="{Binding ImageSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="50,100,50,24">

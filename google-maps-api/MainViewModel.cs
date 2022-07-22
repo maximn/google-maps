@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace google_maps_api
 {
@@ -68,13 +69,28 @@ namespace google_maps_api
             ImageSource = "https://media.discordapp.net/attachments/917760526094856212/1000076529226752072/unknown.png";
             DrawCommand = new RelayCommand((_) => {
 
+                try
+                {
                 RouteMapRequest routeMapRequest = new RouteMapRequest(new AddressLocation($"{Origin}"), new ImageSize(800, 400), $"{Origin}", $"{Destination}")
                 { Scale = 2 };
                 routeMapRequest.CalculateZoom = true;
                 routeMapRequest.ApiKey = apikey;
                 routeMapRequest.CalculateZoom = true;
                 ImageSource = new RouteMapsEngine().GenerateRouteMapURL(routeMapRequest);
-                
+                }
+                catch (NullReferenceException)
+                {
+                    MessageBox.Show("Route not found");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                {
+                    
+                }
+
+
             });
         }
         
