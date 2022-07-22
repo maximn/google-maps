@@ -30,6 +30,8 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// </summary>
 		public int Zoom { get; set; }
 
+		public bool CalculateZoom { get; set; }
+
 		/// <summary>
 		/// scale (optional) affects the number of pixels that are returned. scale=2 returns twice as many pixels as scale=1 while retaining the same coverage area and level of detail (i.e. the contents of the map don't change). This is useful when developing for high-resolution displays, or when generating a map for printing. The default value is 1. Accepted values are 2 and 4 (4 is only available to Google Maps APIs Premium Plan customers.) See Scale Values for more information.
 		/// </summary>
@@ -104,10 +106,9 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		public string ApiKey { get; set; }
 
 
-		public RouteMapRequest(ILocationString center, int zoom, ImageSize imageSize, string origin, string destination)
+		public RouteMapRequest(ILocationString center, ImageSize imageSize, string origin, string destination)
 		{
 			Center = center;
-			Zoom = zoom;
 			Size = imageSize;
 			Origin = origin;
 			Destination = destination;

@@ -58,9 +58,10 @@ namespace ConsoleApp1
 		}
 		static void Test2()
 		{
-			RouteMapRequest routeMapRequest = new RouteMapRequest(new AddressLocation("Odesa oblast"), 12, new ImageSize(800, 600), "Odesa", "Chornomorsk") { Scale = 2 };
+			RouteMapRequest routeMapRequest = new RouteMapRequest(new AddressLocation("Odesa oblast"), new ImageSize(800, 600), "Odesa", "Chornomorsk") { Scale = 2 };
+			routeMapRequest.CalculateZoom = true;
 			routeMapRequest.ApiKey = apikey;
-			
+			routeMapRequest.CalculateZoom = true;
 			var result = new RouteMapsEngine().GenerateRouteMapURL(routeMapRequest);
 			Console.WriteLine(result);
 		}

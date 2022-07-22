@@ -30,6 +30,20 @@ namespace GoogleMapsApi.StaticMaps
 			var directionsRequestResult = GoogleMaps.Directions.QueryAsync(directionsRequest);
 			var locs = directionsRequestResult.Result.Routes.FirstOrDefault().OverviewPath.Points;
 
+			if(request.CalculateZoom)
+			{
+				int distance = directionsRequestResult.Result.Routes.FirstOrDefault().Legs.FirstOrDefault().Distance.Value;
+				int km = distance / 1000;
+				int zMin = 0;
+				int zMax = 21;
+
+				//km = ( 40000/2 ^ zl ) * 2
+				// let zoom = getBaseLog(2, 40000 / (km / 2))
+
+				request.Zoom = (int)Math.Log((int)(40000 / (km / 2)), (int)2)-1;
+			}
+
+
 			StaticMapRequest staticMapRequest = new StaticMapRequest(request.Center, 12, request.Size)
 			{
 				ImageFormat = request.ImageFormat,
@@ -38,6 +52,7 @@ namespace GoogleMapsApi.StaticMaps
 				Language = request.Language,
 				IsSSL = request.IsSSL,
 				ApiKey = request.ApiKey,
+				Zoom = request.Zoom,
 				Pathes = new List<Path>()
 				{
 					new Path()
