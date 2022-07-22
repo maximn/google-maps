@@ -1,0 +1,59 @@
+﻿<Window x:Class="GoogleMapsWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GoogleMapsWPF"
+        mc:Ignorable="d"
+        Title="Google Maps Routes"
+        Height="450"
+        Width="800"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Name="image"
+               Grid.Column="1" Stretch="Uniform" />
+        <StackPanel HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch"
+                    Background="White"
+                    Width="Auto"
+                    Height="Auto"
+                    Grid.Column="0">
+            <TextBox materialDesign:HintAssist.Hint="Пункт відправлення"
+                     Name="origin"
+                     Padding="10"
+                     Margin="5" />
+            <TextBox  materialDesign:HintAssist.Hint="Пункт призначення"
+                      Name="destination"
+                      Padding="10"
+                      Margin="5 5 5 0"></TextBox>
+            <ListBox Style="{StaticResource MaterialDesignChoiceChipAccentOutlineListBox}"
+                     x:Name="RadioButtonGroup"
+                     Margin="10 10 10 0">
+                <ListBoxItem  IsSelected="True">
+                    <materialDesign:PackIcon Kind="Car" />
+                </ListBoxItem>
+                <ListBoxItem>
+                    <materialDesign:PackIcon Kind="Walk" />
+                </ListBoxItem>
+                <ListBoxItem>
+                    <materialDesign:PackIcon Kind="Bicycle" />
+                </ListBoxItem>
+            </ListBox>
+            <Button Content="Пошук"
+                    Name="search"
+                    Margin="10"
+                    Click="search_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
