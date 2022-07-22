@@ -23,6 +23,12 @@ using GoogleMapsApi.Entities.PlacesNearBy.Response;
 using GoogleMapsApi.Entities.PlacesFind.Response;
 using GoogleMapsApi.Entities.PlacesFind.Request;
 using System;
+using GoogleMapsApi.Entities.Roads.NearestRoads.Request;
+using GoogleMapsApi.Entities.Roads.NearestRoads.Response;
+using GoogleMapsApi.Entities.Roads.SpeedLimit.Response;
+using GoogleMapsApi.Entities.Roads.SpeedLimit.Request;
+using GoogleMapsApi.Entities.Roads.SnapToRoads.Request;
+using GoogleMapsApi.Entities.Roads.SnapToRoads.Response;
 
 namespace GoogleMapsApi
 {
@@ -135,5 +141,28 @@ namespace GoogleMapsApi
             }
         }
 
+        public static IEngineFacade<NearestRoadsRequest, NearestRoadsResponse> NearestRoads
+        {
+            get
+            {
+                return EngineFacade<NearestRoadsRequest, NearestRoadsResponse>.Instance;
+            }
+        }
+
+        public static IEngineFacade<SpeedLimitRequest, SpeedLimitResponse> SpeedLimit
+        {
+            get
+            {
+                return EngineFacade<SpeedLimitRequest, SpeedLimitResponse>.Instance;
+            }
+        }
+
+        public static IEngineFacade<SnapToRoadsRequest, SnapToRoadsResposne> SnapToRoads
+        {
+            get
+            {
+                return EngineFacade<SnapToRoadsRequest, SnapToRoadsResposne>.Instance;
+            }
+        }
     }
 }
