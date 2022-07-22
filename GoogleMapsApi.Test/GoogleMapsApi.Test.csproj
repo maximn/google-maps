@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
 	<TargetFrameworks>net5.0;</TargetFrameworks>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 	

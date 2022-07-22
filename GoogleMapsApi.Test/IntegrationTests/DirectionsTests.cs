@@ -7,6 +7,7 @@ using GoogleMapsApi.Entities.Directions.Response;
 using NUnit.Framework;
 using GoogleMapsApi.Test.Utils;
 using System.Threading.Tasks;
+using GoogleMapsApi.StaticMaps;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
@@ -17,12 +18,15 @@ namespace GoogleMapsApi.Test.IntegrationTests
         public async Task Directions_SumOfStepDistancesCorrect()
         {
             var request = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA" };
-            request.ApiKey = ApiKey;
+            request.ApiKey = "AIzaSyDikeBAymgSWrWz-9Y7Danr2mNewZV_MwI";
             var result = await GoogleMaps.Directions.QueryAsync(request);
 
+            //var map = new StaticMapsEngine().GenerateStaticMapURL(request);
             AssertInconclusive.NotExceedQuota(result);
+
             Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
             Assert.Greater(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 100);
+
         }
 
 		[Test]

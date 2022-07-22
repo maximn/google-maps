@@ -19,33 +19,48 @@ namespace GoogleMapsApi.Test
 			// downtown New York City
 			StaticMapRequest request = new(
 				new AddressLocation("Brooklyn Bridge,New York,NY"), 14, new ImageSize(512, 512))
-				{
-					MapType = MapType.Roadmap,
-					Markers =
-						new List<Marker>
+			{
+				MapType = MapType.Roadmap,
+				/*Markers =
+					new List<Marker>
+						{
+							new Marker
+								{
+									Style = new MarkerStyle { Color = "blue", Label = "S" },
+									Locations = new List<ILocationString> { new Location(40.702147, -74.015794) }
+								},
+							new Marker
+								{
+									Style = new MarkerStyle { Color = "green", Label = "G" },
+									Locations = new List<ILocationString> { new Location(40.711614, -74.012318) }
+								},
+							new Marker
+								{
+									Style = new MarkerStyle { Color = "red", Label = "C" },
+									Locations = new List<ILocationString> { new Location(40.718217, -73.998284) }
+								}
+						}
+				*/
+				Pathes = new List<Path>()
+					{
+						new Path()
+						{
+							Locations = new List<ILocationString> { new Location(40.711614, -74.012318), new Location(40.718217, -73.998284)},
+							Style = new PathStyle()
 							{
-								new Marker
-									{
-										Style = new MarkerStyle { Color = "blue", Label = "S" },
-										Locations = new List<ILocationString> { new Location(40.702147, -74.015794) }
-									},
-								new Marker
-									{
-										Style = new MarkerStyle { Color = "green", Label = "G" },
-										Locations = new List<ILocationString> { new Location(40.711614, -74.012318) }
-									},
-								new Marker
-									{
-										Style = new MarkerStyle { Color = "red", Label = "C" },
-										Locations = new List<ILocationString> { new Location(40.718217, -73.998284) }
-									}
+								Color = "blue",
+								Weight = 10
+								
 							}
+							
+						}
+					}
 				};
 			string expectedResult = "http://maps.google.com/maps/api/staticmap" +
 									"?center=Brooklyn%20Bridge%2CNew%20York%2CNY&zoom=14&size=512x512&maptype=roadmap" +
 									"&markers=color%3Ablue%7Clabel%3AS%7C40.702147%2C-74.015794&markers=color%3Agreen%7Clabel%3AG%7C40.711614%2C-74.012318" +
 									"&markers=color%3Ared%7Clabel%3AC%7C40.718217%2C-73.998284";
-
+			request.ApiKey = "AIzaSyDikeBAymgSWrWz-9Y7Danr2mNewZV_MwI";
 			string generateStaticMapURL = new StaticMapsEngine().GenerateStaticMapURL(request);
 
 			Assert.AreEqual(expectedResult, generateStaticMapURL);
