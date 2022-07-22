@@ -7,11 +7,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace google_maps_api
 {
     public class MainViewModel:INotifyPropertyChanged
     {
+        private RouteMapRequest _routemaprequest;
         private readonly string apikey = "AIzaSyDikeBAymgSWrWz-9Y7Danr2mNewZV_MwI";
         private RelayCommand _drawcommand;
         public RelayCommand DrawCommand
@@ -23,6 +25,27 @@ namespace google_maps_api
                 NotifyPropertyChanged();
             }
         }
+        private RelayCommand _zoomincommand;
+        public RelayCommand ZoomInCommand
+        {
+            get => _zoomincommand;
+            set
+            {
+                _zoomincommand = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private RelayCommand _zoomoutcommand;
+        public RelayCommand ZoomOutCommand
+        {
+            get => _zoomoutcommand;
+            set
+            {
+                _zoomoutcommand = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private string _imageSource;
         public string ImageSource
         {
@@ -68,14 +91,55 @@ namespace google_maps_api
             ImageSource = "https://media.discordapp.net/attachments/917760526094856212/1000076529226752072/unknown.png";
             DrawCommand = new RelayCommand((_) => {
 
-                RouteMapRequest routeMapRequest = new RouteMapRequest(new AddressLocation($"{Origin}"), new ImageSize(800, 400), $"{Origin}", $"{Destination}")
+                try
+                {
+                _routemaprequest = new RouteMapRequest(new AddressLocation($"{Origin}"), new ImageSize(800, 400), $"{Origin}", $"{Destination}")
                 { Scale = 2 };
-                routeMapRequest.CalculateZoom = true;
-                routeMapRequest.ApiKey = apikey;
-                routeMapRequest.CalculateZoom = true;
-                ImageSource = new RouteMapsEngine().GenerateRouteMapURL(routeMapRequest);
-                
+                _routemaprequest.CalculateZoom = true;
+                _routemaprequest.ApiKey = apikey;
+                ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
+                }
+                catch (NullReferenceException)
+                {
+                    MessageBox.Show("Route not found");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             });
+
+            ZoomInCommand = new RelayCommand((_) =>
+            {
+                try
+                {
+                    _routemaprequest.CalculateZoom = false;
+                    _routemaprequest.Zoom += 1;
+                    ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+
+            });
+            ZoomOutCommand = new RelayCommand((_) =>
+            {
+                try
+                {
+                    _routemaprequest.CalculateZoom = false;
+                    _routemaprequest.Zoom -= 1;
+                    ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            });
+
+
         }
         
         

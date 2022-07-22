@@ -11,6 +11,9 @@
   <ItemGroup>
     <PackageReference Include="DotNetProjects.WpfToolkit.Input" Version="6.1.94" />
     <PackageReference Include="GoogleMapsApi" Version="1.2.0" />
+    <PackageReference Include="MaterialDesignColors" Version="2.0.7-ci246" />
+    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.6.0-ci246" />
   </ItemGroup>
 
   <ItemGroup>

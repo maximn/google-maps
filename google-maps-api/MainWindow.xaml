@@ -11,113 +11,116 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         Title="MapsRouter" Height="620" Width="800">
-	<Window.DataContext>
-		<local:MainViewModel/>
-	</Window.DataContext>
-	<Grid>
-		<Border Margin="30" x:Name="border_main" Background="White" CornerRadius="10" BorderThickness="1" BorderBrush="White">
-			<Border.Effect>
-				<DropShadowEffect BlurRadius="40" ShadowDepth="0" Opacity="0.2" 
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Border Margin="30" x:Name="border_main" Background="White" CornerRadius="10" BorderThickness="1" BorderBrush="White">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="40" ShadowDepth="0" Opacity="0.2" 
                 Color="Black" />
-			</Border.Effect>
-			<Grid>
-				<Border x:Name="border_titlebar" Background="#F3F3F3" BorderBrush="#F3F3F3" BorderThickness="1,1,1,0" MouseDown="TitleBar_MouseDown" Height="40" VerticalAlignment="Top" CornerRadius="7,7,0,0" Margin="-1,-1,-1,0">
-					<Grid x:Name="grid_titlebar" Margin="-1,-1,-1,0" Height="40" VerticalAlignment="Top">
-						<StackPanel Margin="641,0,0,0" Orientation="Horizontal" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100">
-							<StackPanel.Resources>
-								<Style TargetType="{x:Type Button}">
-									<Setter Property="Template">
-										<Setter.Value>
-											<ControlTemplate TargetType="{x:Type Button}">
-												<Border Background="{TemplateBinding Background}">
-													<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-												</Border>
-											</ControlTemplate>
-										</Setter.Value>
-									</Setter>
-									<Setter Property="Background" Value="Transparent"></Setter>
-									<Setter Property="Margin" Value="3,0,0,0"/>
-									<Style.Triggers>
-										<Trigger Property="IsMouseOver" Value="True">
-											<Setter Property="Background" Value="#CACACA"/>
-										</Trigger>
-									</Style.Triggers>
-								</Style>
-							</StackPanel.Resources>
-							<Button Name="btn_minimize" Click="btn_minimize_Click" Width="48" Height="40">
-								<Path Fill="#919191" Width="12" Height="2" Stretch="Fill">
-									<Path.Data>
-										<PathGeometry Figures="M3 9.25H13V8.25H3V9.25Z" FillRule="EvenOdd"/>
-									</Path.Data>
-								</Path>
-							</Button>
-							<Button Click="btn_close_Click" Name="btn_close" Width="48" Height="40">
-								<Path VerticalAlignment="Center" Width="12" Height="12" Stretch="Fill">
-									<Path.Data>
-										<PathGeometry Figures="M12.5 3.00003L8.354 7.14703L4.207 3.00003L3.5 3.70703L7.646 7.85403L3.5 12L4.207 12.707L8.354 8.56103L12.5 12.707L13.207 12L9.06 7.85403L13.207 3.70703L12.5 3.00003Z" FillRule="EvenOdd"/>
-									</Path.Data>
-									<Path.Style>
-										<Style TargetType="{x:Type Path}">
-											<Setter Property="Fill" Value="#919191"></Setter>
-											<Style.Triggers>
-												<DataTrigger Binding="{Binding ElementName=btn_close, Path=IsMouseOver}" Value="True">
-													<Setter Property="Fill" Value="White"/>
-												</DataTrigger>
-											</Style.Triggers>
-										</Style>
-									</Path.Style>
-								</Path>
-								<Button.Style>
-									<Style TargetType="{x:Type Button}">
-										<Setter Property="Template">
-											<Setter.Value>
-												<ControlTemplate TargetType="{x:Type Button}">
-													<Border Background="{TemplateBinding Background}" CornerRadius="0,7,0,0">
-														<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-													</Border>
-												</ControlTemplate>
-											</Setter.Value>
-										</Setter>
-										<Setter Property="Margin" Value="0,0,0,0"></Setter>
-										<Setter Property="Background" Value="Transparent"></Setter>
-										<Style.Triggers>
-											<Trigger Property="IsMouseOver" Value="True">
-												<Setter Property="Background" Value="#EB4C42"/>
-											</Trigger>
-										</Style.Triggers>
-									</Style>
-								</Button.Style>
-							</Button>
-						</StackPanel>
-					</Grid>
-				</Border>
-				<StackPanel Orientation='Vertical' Margin="19,59,460,270">
-					<controls:AutoCompleteBox Text="{Binding Origin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name='tb_origin'>
-					</controls:AutoCompleteBox>
-				</StackPanel>
-				<StackPanel Orientation='Vertical' Margin="297,59,182,270">
-					<controls:AutoCompleteBox Text="{Binding Destination, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name='tb_destination'>
-					</controls:AutoCompleteBox>
-				</StackPanel>
-				<Button Command="{Binding DrawCommand}" Click="btn_drawroute" Content="Draw route" Margin="574,55,19,474"/>
-			</Grid>
-		</Border>
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="33*"></ColumnDefinition>
-				<ColumnDefinition Width="7*"></ColumnDefinition>
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="41*"></RowDefinition>
-				<RowDefinition Height="21*"></RowDefinition>
-			</Grid.RowDefinitions>
-			<Image Grid.ColumnSpan="2" Source="{Binding ImageSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" Margin="50,100,50,24">
-			</Image>
-			<StackPanel Grid.Row="1" Grid.Column="1" Margin="15,10,65,40" >
-				<Button Padding="10,20" Margin="0,0,0,10">+</Button>
-				<Button Padding="10,20">-</Button>
-			</StackPanel>
-		</Grid>
+            </Border.Effect>
+            <Grid>
+                <Border x:Name="border_titlebar" Background="#F3F3F3" BorderBrush="#F3F3F3" BorderThickness="1,1,1,0" MouseDown="TitleBar_MouseDown" Height="40" VerticalAlignment="Top" CornerRadius="7,7,0,0" Margin="-1,-1,-1,0">
+                    <Grid x:Name="grid_titlebar" Margin="-1,-1,-1,0" Height="40" VerticalAlignment="Top">
+                        <StackPanel Margin="641,0,0,0" Orientation="Horizontal" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                    <Setter Property="Margin" Value="3,0,0,0"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#CACACA"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Button Name="btn_minimize" Click="btn_minimize_Click" Width="48" Height="40">
+                                <Path Fill="#919191" Width="12" Height="2" Stretch="Fill">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M3 9.25H13V8.25H3V9.25Z" FillRule="EvenOdd"/>
+                                    </Path.Data>
+                                </Path>
+                            </Button>
+                            <Button Click="btn_close_Click" Name="btn_close" Width="48" Height="40">
+                                <Path VerticalAlignment="Center" Width="12" Height="12" Stretch="Fill">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M12.5 3.00003L8.354 7.14703L4.207 3.00003L3.5 3.70703L7.646 7.85403L3.5 12L4.207 12.707L8.354 8.56103L12.5 12.707L13.207 12L9.06 7.85403L13.207 3.70703L12.5 3.00003Z" FillRule="EvenOdd"/>
+                                    </Path.Data>
+                                    <Path.Style>
+                                        <Style TargetType="{x:Type Path}">
+                                            <Setter Property="Fill" Value="#919191"></Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=btn_close, Path=IsMouseOver}" Value="True">
+                                                    <Setter Property="Fill" Value="White"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}" CornerRadius="0,7,0,0">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="Margin" Value="0,0,0,0"></Setter>
+                                        <Setter Property="Background" Value="Transparent"></Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#EB4C42"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <StackPanel Orientation='Vertical' Margin="19,59,460,270">
+                    <controls:AutoCompleteBox Text="{Binding Origin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name='tb_origin'>
+                    </controls:AutoCompleteBox>
+                </StackPanel>
+                <StackPanel Orientation='Vertical' Margin="297,59,182,270">
+                    <controls:AutoCompleteBox Text="{Binding Destination, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name='tb_destination'>
+                    </controls:AutoCompleteBox>
+                </StackPanel>
+                <Button Command="{Binding DrawCommand}" Click="btn_drawroute" Content="Draw route" Margin="574,55,19,471"/>
+            </Grid>
+        </Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"></ColumnDefinition>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="41*"></RowDefinition>
+                <RowDefinition Height="21*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.ColumnSpan="2" Source="{Binding ImageSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" Margin="50,100,50,24">
+            </Image>
+            <StackPanel Grid.Column="1" Margin="14,24,66,26" Grid.Row="1" >
+                <Button Command="{Binding ZoomInCommand}" Margin="0,0,0,10"  FontSize="20" Height="50" HorizontalContentAlignment="Center" Width="50">+</Button>
+                <Button Command="{Binding ZoomOutCommand}" Margin="0,6,0,0" FontSize="20" Width="50" Height="50">-</Button>
+            </StackPanel>
+            
+            
+            
+        </Grid>
 
-	</Grid>
+    </Grid>
 </Window>
