@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace google_maps_api
 {
-    public class MainViewModel
+    public class MainViewModel:INotifyPropertyChanged
     {
         private readonly string apikey = "AIzaSyDikeBAymgSWrWz-9Y7Danr2mNewZV_MwI";
         private RelayCommand _drawcommand;
