@@ -23,6 +23,7 @@ using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
 using GoogleMapsApi.StaticMaps;
 using GoogleMapsApi.StaticMaps.Entities;
+using MaterialDesignThemes.Wpf;
 
 namespace GoogleMapsWPF
 {
@@ -62,7 +63,7 @@ namespace GoogleMapsWPF
             string[] waypoints = new string[destinations.Children.Count - 2];
             for (int i = 1; i < destinations.Children.Count - 1; i++)
             {
-                waypoints[i - 1] = (destinations.Children[i] as TextBox).Text;
+                waypoints[i - 1] = ((destinations.Children[i] as StackPanel).Children[0] as TextBox).Text;
             }
 
             DirectionsRequest directionsRequest = new DirectionsRequest()
@@ -145,17 +146,39 @@ namespace GoogleMapsWPF
             {
                 swap.Visibility = Visibility.Collapsed;
 
+                StackPanel sp = new StackPanel();
+                sp.Orientation = Orientation.Horizontal;
+
                 TextBox destinationTB = new TextBox();
                 destinationTB.Margin = new Thickness(5);
+                destinationTB.Width = 170;
                 destinationTB.Padding = new Thickness(10);
-                MaterialDesignThemes.Wpf.HintAssist.SetHint(destinationTB, "Пункт призначення");
+                HintAssist.SetHint(destinationTB, "Пункт призначення");
 
-                destinations.Children.Insert(destinations.Children.Count - 1, destinationTB);
+                PackIcon packIcon = new PackIcon();
+                packIcon.Kind = PackIconKind.DeleteCircleOutline;
+                packIcon.Width = 20;
+                packIcon.Height = 20;
+                packIcon.VerticalAlignment = VerticalAlignment.Center;
+                packIcon.Cursor = Cursors.Hand;
+                packIcon.MouseLeftButtonUp += delete_Click;
+
+                sp.Children.Add(destinationTB);
+                sp.Children.Add(packIcon);
+
+                destinations.Children.Insert(destinations.Children.Count - 1, sp);
             }
             else
             {
                 addDestination.Visibility = Visibility.Collapsed;
             }
         }
+
+        private void delete_Click(object sender, MouseButtonEventArgs e)
+        {
+            StackPanel sp = (sender as PackIcon).Parent as StackPanel;
+            destinations.Children.Remove(sp);
+        }
+
     }
 }
