@@ -49,7 +49,7 @@ namespace GoogleMapsApi.StaticMaps
 		{
 			return (int)Math.Ceiling(Math.Log(km, 4));
 		}
-		public RouteMapGenerationResult GenerateRouteMapURLSnap(RouteMapRequest request)
+		public string GenerateRouteMapURLSnap(RouteMapRequest request)
 		{
 			GeocodingRequest grA = new GeocodingRequest()
 			{
@@ -81,16 +81,16 @@ namespace GoogleMapsApi.StaticMaps
 			{
 				ApiKey = request.ApiKey,
 				Path = path,
-				
+
 
 
 			};
 			var snapToRoadResult = GoogleMaps.SnapToRoads.QueryAsync(snapToRoadRequest);
 			var points = snapToRoadResult.Result.snappedPoints;
 			List<Location> locs = new List<Location>();
-			foreach(var p in points)
+			foreach (var p in points)
 			{
-				var loc = new GoogleMapsApi.Entities.Common.Location(p.Location.Latitude,p.Location.Longitude);
+				var loc = new GoogleMapsApi.Entities.Common.Location(p.Location.Latitude, p.Location.Longitude);
 				locs.Add(p.Location);
 			}
 
@@ -101,14 +101,15 @@ namespace GoogleMapsApi.StaticMaps
 				request.Zoom = (int)Math.Log((int)(40000 / (km / 2)), (int)2) - 2;
 			}
 			
+
 			int weight = 10;
 			weight = CalculateWeight(km);
 
-			string url = new StaticMapsEngine().GenerateStaticMapURL(CreateStaticMapRequest(request, locs,weight));
-			return new RouteMapGenerationResult(url);
+			string url = new StaticMapsEngine().GenerateStaticMapURL(CreateStaticMapRequest(request, locs, weight));
+			return url;
 		}
 
-		public RouteMapGenerationResult GenerateRouteMapURL(RouteMapRequest request)
+		public string GenerateRouteMapURL(RouteMapRequest request)
 		{
 			DirectionsRequest directionsRequest = new DirectionsRequest()
 			{
@@ -128,15 +129,15 @@ namespace GoogleMapsApi.StaticMaps
 			int distance = directionsRequestResult.Result.Routes.FirstOrDefault().Legs.FirstOrDefault().Distance.Value;
 			int km = distance / 1000;
 			if (request.CalculateZoom)
-			{ 
-				request.Zoom = (int)Math.Log((int)(40000 / (km / 2)), (int)2)-2;
+			{
+				request.Zoom = (int)Math.Log((int)(40000 / (km / 2)), (int)2) - 2;
 			}
 			int weight = 10;
 			weight = CalculateWeight(km);
 
 
 			string url = new StaticMapsEngine().GenerateStaticMapURL(CreateStaticMapRequest(request, locs, weight));
-			return new RouteMapGenerationResult(url);
+			return url;
 		}
 	}
 }

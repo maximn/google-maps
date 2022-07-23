@@ -19,7 +19,7 @@ namespace google_maps_api
     {
         private RouteMapRequest _routemaprequest;
         public string apikey { get => "AIzaSyDikeBAymgSWrWz-9Y7Danr2mNewZV_MwI"; }
-            
+
         private RelayCommand _drawcommand;
         public RelayCommand DrawCommand
         {
@@ -125,16 +125,22 @@ namespace google_maps_api
 
                 try
                 {
-                _routemaprequest = new RouteMapRequest(new AddressLocation($"{Origin}"), new ImageSize(800, 400), $"{Origin}", $"{Destination}")
-                { Scale = 2 };
-                _routemaprequest.CalculateZoom = true;
-                _routemaprequest.ApiKey = apikey;
-                //ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
-                ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest).URL;
+                    _routemaprequest = new RouteMapRequest(new AddressLocation($"{Origin}"), new ImageSize(800, 400), $"{Origin}", $"{Destination}")
+                    { Scale = 2 };
+                    _routemaprequest.CalculateZoom = true;
+                    _routemaprequest.ApiKey = apikey;
+                    if (UsingDirections)
+                    {
+                        ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
+                    }
+                    else
+                    {
+                        ImageSource = new RouteMapsEngine().GenerateRouteMapURLSnap(_routemaprequest);
+                    }
                 }
                 catch (NullReferenceException)
                 {
-                    MessageBox.Show("Route not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Route not found");
                 }
                 catch (Exception ex)
                 {
@@ -149,7 +155,14 @@ namespace google_maps_api
                     if (_routemaprequest is null) return;
                     _routemaprequest.CalculateZoom = false;
                     _routemaprequest.Zoom += 1;
-                    ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest).URL;
+                    if (UsingDirections)
+                    {
+                        ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
+                    }
+                    else
+                    {
+                        ImageSource = new RouteMapsEngine().GenerateRouteMapURLSnap(_routemaprequest);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -163,7 +176,14 @@ namespace google_maps_api
                     if (_routemaprequest is null) return;
                     _routemaprequest.CalculateZoom = false;
                     _routemaprequest.Zoom -= 1;
-                    ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest).URL;
+                    if (UsingDirections)
+                    {
+                        ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
+                    }
+                    else
+                    {
+                        ImageSource = new RouteMapsEngine().GenerateRouteMapURLSnap(_routemaprequest);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -192,19 +212,49 @@ namespace google_maps_api
             {
                 try
                 {
-                    
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }); 
-
+            });
+            UsingDirections = true;
+            UsingSnap = false;
 
         }
         private async Task<PlaceAutocompleteResponse> GetAutocompleteResponse(PlaceAutocompleteRequest? request)
         {
             return await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
+        }
+
+        bool usingDirections;
+        bool usingSnap;
+        public bool UsingDirections
+        {
+            get
+            {
+                return usingDirections;
+            }
+            set
+            {
+                usingDirections = value;
+                NotifyPropertyChanged();
+
+            }
+        }
+        public bool UsingSnap
+        {
+            get
+            {
+                return usingSnap;
+            }
+            set
+            {
+                usingSnap = value;
+                NotifyPropertyChanged();
+
+            }
         }
 
     }
