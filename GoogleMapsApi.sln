@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "artifacts", "artifacts", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleMapsApi", "GoogleMapsApi\GoogleMapsApi.csproj", "{61E9FC82-47B0-43C3-8749-95D3A9967060}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapsWebApi", "MapsWebApi\MapsWebApi.csproj", "{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,18 @@ Global
 		{61E9FC82-47B0-43C3-8749-95D3A9967060}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{61E9FC82-47B0-43C3-8749-95D3A9967060}.Release|x86.ActiveCfg = Release|Any CPU
 		{61E9FC82-47B0-43C3-8749-95D3A9967060}.Release|x86.Build.0 = Release|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Debug|x86.Build.0 = Debug|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Release|x86.ActiveCfg = Release|Any CPU
+		{891CE452-5FE0-4FFC-AC0B-FDF146D4313E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
