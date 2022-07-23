@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="GoogleMapsApi" Version="1.2.0" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
