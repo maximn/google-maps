@@ -12,6 +12,19 @@ namespace GoogleMapsApi.Entities.Common
 		[DataMember(Name = "lng")]
 		public double Longitude { get; set; }
 
+		[DataMember(Name ="longitude")]
+		public double LongitudeAlternate
+		{
+			get { return Longitude; }
+			set { Longitude = value; }
+		}
+		[DataMember(Name = "latitude")]
+		public double LatitudeAlternate
+		{
+			get { return Latitude; }
+			set { Latitude = value; }
+		}
+
 		public Location(double lat, double lng)
 		{
 			Latitude = lat;

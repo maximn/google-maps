@@ -8,30 +8,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoogleMapsApi.Entities.Roads.SnapToRoad.Request
+namespace GoogleMapsApi.Entities.Roads.SpeedLimits.Request
 {
-	public class SnapToRoadRequest:MapsBaseRequest
+	public class SpeedLimitsRequest : MapsBaseRequest
 	{
+		public enum SpeedUnit
+		{
+			KPH,
+			MPH
+		}
 		
 		protected internal override string BaseUrl
 		{
 			get
 			{
-				return "roads.googleapis.com/v1/snapToRoads/";
+				return "roads.googleapis.com/v1/speedLimits/";
 			}
 		}
 		public IList<ILocationString> Path { get; set; }
-		public bool Interpolate { get; set; }
+		public string PlaceId { get; set; }
+		SpeedUnit Unit { get; set; }
+
 		protected override QueryStringParametersList GetQueryStringParameters()
 		{
-			if (Path == null)
-				throw new ArgumentException("Path must be provided.");
+			if (Path == null && PlaceId==null)
+				throw new ArgumentException("Either a path of PlaceId must be provided.");
 			if (string.IsNullOrWhiteSpace(ApiKey))
 				throw new ArgumentException("ApiKey must be provided");
+			if(Path!=null & PlaceId!=null)
+			{
+				throw new ArgumentException("Only one of path or PlaceId must be provided.");
+			}
+
 
 			var parameters = base.GetQueryStringParameters();
-			parameters.Add("path", string.Join("|", Path));
-			parameters.Add("interpolate", Interpolate.ToString());
+			if (Path != null) parameters.Add("points", string.Join("|", Path));
+			else if (PlaceId != null) parameters.Add("placeId", PlaceId);
+			parameters.Add("unit", Unit.ToString());
 
 
 			return parameters;

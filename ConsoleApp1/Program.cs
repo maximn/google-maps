@@ -75,14 +75,14 @@ namespace ConsoleApp1
 			{
 				ApiKey = apikey,
 				IsSSL = true,
-				Path = new Path()
+				Path = new List<ILocationString>()
 				{
-					Locations = new List<ILocationString>() {
+					
 					new Location(-35.27801,149.12958),
 					new Location(-35.28032,149.12907),
 					new Location(60.170877, 24.942796),
 
-				}
+				
 				}
 
 			});
