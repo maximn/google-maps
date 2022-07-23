@@ -45,6 +45,10 @@ namespace GoogleMapsApi.StaticMaps
 			};
 			return staticMapRequest;
 		}
+		private int CalculateWeight(double km)
+		{
+			return (int)Math.Ceiling(Math.Log(km, 4));
+		}
 		public RouteMapGenerationResult GenerateRouteMapURLSnap(RouteMapRequest request)
 		{
 			GeocodingRequest grA = new GeocodingRequest()
@@ -98,8 +102,8 @@ namespace GoogleMapsApi.StaticMaps
 			}
 			
 			int weight = 10;
-			weight = (int)Math.Ceiling((double)(km/10));
-			
+			weight = CalculateWeight(km);
+
 			string url = new StaticMapsEngine().GenerateStaticMapURL(CreateStaticMapRequest(request, locs,weight));
 			return new RouteMapGenerationResult(url);
 		}
@@ -128,7 +132,8 @@ namespace GoogleMapsApi.StaticMaps
 				request.Zoom = (int)Math.Log((int)(40000 / (km / 2)), (int)2)-2;
 			}
 			int weight = 10;
-			weight = (int)Math.Ceiling((double)(km / 10));
+			weight = CalculateWeight(km);
+
 
 			string url = new StaticMapsEngine().GenerateStaticMapURL(CreateStaticMapRequest(request, locs, weight));
 			return new RouteMapGenerationResult(url);
