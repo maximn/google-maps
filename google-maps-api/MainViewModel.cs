@@ -113,6 +113,7 @@ namespace google_maps_api
             {
                 try
                 {
+                    if (_routemaprequest is null) return;
                     _routemaprequest.CalculateZoom = false;
                     _routemaprequest.Zoom += 1;
                     ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
@@ -128,6 +129,7 @@ namespace google_maps_api
             {
                 try
                 {
+                    if (_routemaprequest is null) return;
                     _routemaprequest.CalculateZoom = false;
                     _routemaprequest.Zoom -= 1;
                     ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);

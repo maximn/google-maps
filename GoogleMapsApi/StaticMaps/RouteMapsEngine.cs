@@ -13,6 +13,8 @@ namespace GoogleMapsApi.StaticMaps
 	{
 
 
+		
+
 		public string GenerateRouteMapURL(RouteMapRequest request)
 		{
 			DirectionsRequest directionsRequest = new DirectionsRequest()
