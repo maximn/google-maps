@@ -45,8 +45,8 @@ namespace MapsWebApi.Controllers
             DirectionsRequest directionsRequest = new DirectionsRequest()
             {
                 ApiKey = configuration["Key"],
-                Origin = $"{request.City}, {request.Origin}",
-                Destination = $"{request.City}, {request.Destination}"
+                Origin = isCoordinates(request.Origin) ? request.Origin : $"{request.City}, {request.Origin}",
+                Destination = isCoordinates(request.Destination) ? request.Destination : $"{request.City}, {request.Destination}"
             };
 
             DirectionsResponse directions = GoogleMaps.Directions.QueryAsync(directionsRequest).Result;
@@ -80,7 +80,11 @@ namespace MapsWebApi.Controllers
             string url = staticMapGenerator.GenerateStaticMapURL(staticMapRequest);
 
             var route = directions.Routes.First().Legs.First();
-            return Ok(JsonConvert.SerializeObject(new Data(url, route.StartAddress, route.EndAddress, route.Duration.Text)));
+            return Ok(JsonConvert.SerializeObject(new Data(url, String.Join(",", route.StartAddress.Split(',')[0..3]), String.Join(",", route.EndAddress.Split(',')[0..3]), route.Duration.Text)));
+        }
+        bool isCoordinates(string value)
+        {
+            return Double.TryParse(value.Split(',')[0], out _);
         }
     }
 }
