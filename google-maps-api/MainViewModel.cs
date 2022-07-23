@@ -1,8 +1,12 @@
-﻿using GoogleMapsApi.Entities.Common;
+﻿using GoogleMapsApi;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.PlaceAutocomplete.Request;
+using GoogleMapsApi.Entities.PlaceAutocomplete.Response;
 using GoogleMapsApi.StaticMaps;
 using GoogleMapsApi.StaticMaps.Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -11,10 +15,11 @@ using System.Windows;
 
 namespace google_maps_api
 {
-    public class MainViewModel:INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
         private RouteMapRequest _routemaprequest;
-        private readonly string apikey = "AIzaSyDikeBAymgSWrWz-9Y7Danr2mNewZV_MwI";
+        public string apikey { get => "AIzaSyDikeBAymgSWrWz-9Y7Danr2mNewZV_MwI"; }
+            
         private RelayCommand _drawcommand;
         public RelayCommand DrawCommand
         {
@@ -45,6 +50,31 @@ namespace google_maps_api
                 NotifyPropertyChanged();
             }
         }
+
+        private RelayCommand _origincommand;
+        public RelayCommand OriginCommand
+        {
+            get => _origincommand;
+            set
+            {
+                _origincommand = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private RelayCommand _destinationcommand;
+        public RelayCommand DestinationCommand
+        {
+            get => _destinationcommand;
+            set
+            {
+                _destinationcommand = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> OriginSource { get; set; }
+        public ObservableCollection<string> DestinationSource { get; set; }
 
         private string _imageSource;
         public string ImageSource
@@ -88,6 +118,8 @@ namespace google_maps_api
 
         public MainViewModel()
         {
+            OriginSource = new ObservableCollection<string>();
+            DestinationSource = new ObservableCollection<string>();
             ImageSource = "https://media.discordapp.net/attachments/917760526094856212/1000076529226752072/unknown.png";
             DrawCommand = new RelayCommand((_) => {
 
@@ -123,8 +155,6 @@ namespace google_maps_api
                 {
                     MessageBox.Show(ex.Message);
                 }
-
-
             });
             ZoomOutCommand = new RelayCommand((_) =>
             {
@@ -142,9 +172,40 @@ namespace google_maps_api
 
             });
 
+            OriginCommand = new RelayCommand((_) =>
+            {
+                try
+                {
+                    var request = new PlaceAutocompleteRequest
+                    {
+                        ApiKey = apikey,
+                        Input = Origin,
+                    };
+                    OriginSource = new ObservableCollection<string>(GetAutocompleteResponse(request).Result.Results.Select(x => x.Description));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            });
+            DestinationCommand = new RelayCommand((_) =>
+            {
+                try
+                {
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }); 
+
 
         }
-        
-        
+        private async Task<PlaceAutocompleteResponse> GetAutocompleteResponse(PlaceAutocompleteRequest? request)
+        {
+            return await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
+        }
+
     }
 }

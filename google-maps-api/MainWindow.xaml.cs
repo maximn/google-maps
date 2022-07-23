@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
+using GoogleMapsApi.Entities.PlaceAutocomplete.Request;
 using GoogleMapsApi.StaticMaps;
 using GoogleMapsApi.StaticMaps.Entities;
 
@@ -35,7 +37,7 @@ namespace google_maps_api
             tb_origin.FilterMode = AutoCompleteFilterMode.Contains;
             tb_origin.ItemsSource = new string[] { "New York", "Ukraine", "Odesa" };
             tb_destination.FilterMode = AutoCompleteFilterMode.Contains;
-            tb_destination.ItemsSource = new string[] { "New York", "Kyiv", "Odesa" };
+            //tb_destination.ItemsSource = new string[] { "New York", "Kyiv", "Odesa" };
         }
 
         private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
@@ -62,9 +64,26 @@ namespace google_maps_api
             //((MainViewModel)this.DataContext).ImageSource = result;
         }
 
-		private void tb_TextChanged(object sender, RoutedEventArgs e)
-		{
+        private async void tb_origin_TextChanged(object sender, RoutedEventArgs e)
+        {   
+            var request = new PlaceAutocompleteRequest
+            {
+                ApiKey = ((MainViewModel)DataContext).apikey,
+                Input = $"{tb_origin.Text}",
+            };
+            
+            tb_origin.ItemsSource = (await GoogleMaps.PlaceAutocomplete.QueryAsync(request)).Results.Select(x => x.Description);
+        }
 
-		}
-	}
+        private async void tb_destination_TextChanged(object sender, RoutedEventArgs e)
+        {
+            var request = new PlaceAutocompleteRequest
+            {
+                ApiKey = ((MainViewModel)DataContext).apikey,
+                Input = $"{tb_destination.Text}",
+            };
+
+            tb_destination.ItemsSource = (await GoogleMaps.PlaceAutocomplete.QueryAsync(request)).Results.Select(x => x.Description);
+        }
+    }
 }
