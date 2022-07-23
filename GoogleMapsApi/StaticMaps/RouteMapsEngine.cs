@@ -60,6 +60,16 @@ namespace GoogleMapsApi.StaticMaps
 				var loc = new GoogleMapsApi.Entities.Common.Location(p.Location.Latitude,p.Location.Longitude);
 				locs.Add(p.Location);
 			}
+
+			int km;
+			km = (int)DistanceCalculator.DistanceTo(locA.Latitude, locA.Longitude, locB.Latitude, locB.Longitude);
+			if (request.CalculateZoom)
+			{
+				request.Zoom = (int)Math.Log((int)(40000 / (km / 2)), (int)2) - 2;
+			}
+			
+			int weight = 10;
+			weight = (int)Math.Ceiling((double)(km/10));
 			StaticMapRequest staticMapRequest = new StaticMapRequest(request.Center, 12, request.Size)
 			{
 				ImageFormat = request.ImageFormat,
@@ -77,7 +87,7 @@ namespace GoogleMapsApi.StaticMaps
 						Style = new PathStyle()
 						{
 							Color = "blue",
-							Weight = 10
+							Weight = weight
 
 						}
 
@@ -106,19 +116,14 @@ namespace GoogleMapsApi.StaticMaps
 			var directionsRequestResult = GoogleMaps.Directions.QueryAsync(directionsRequest);
 			var locs = directionsRequestResult.Result.Routes.FirstOrDefault().OverviewPath.Points;
 
-			if(request.CalculateZoom)
-			{
-				int distance = directionsRequestResult.Result.Routes.FirstOrDefault().Legs.FirstOrDefault().Distance.Value;
-				int km = distance / 1000;
-				int zMin = 0;
-				int zMax = 21;
-
-				//km = ( 40000/2 ^ zl ) * 2
-				// let zoom = getBaseLog(2, 40000 / (km / 2))
-
+			int distance = directionsRequestResult.Result.Routes.FirstOrDefault().Legs.FirstOrDefault().Distance.Value;
+			int km = distance / 1000;
+			if (request.CalculateZoom)
+			{ 
 				request.Zoom = (int)Math.Log((int)(40000 / (km / 2)), (int)2)-2;
 			}
-
+			int weight = 10;
+			weight = (int)Math.Ceiling((double)(km / 10));
 
 			StaticMapRequest staticMapRequest = new StaticMapRequest(request.Center, 12, request.Size)
 			{
@@ -137,7 +142,7 @@ namespace GoogleMapsApi.StaticMaps
 						Style = new PathStyle()
 						{
 							Color = "blue",
-							Weight = 10
+							Weight = weight
 							
 						}
 

@@ -109,8 +109,9 @@ namespace ConsoleApp1
 		{
 			var res = new RouteMapsEngine().GenerateRouteMapURLSnap(new RouteMapRequest(new AddressLocation("Odesa"), new ImageSize(800, 400), "Odesa", "Chornomorsk")
 			{
-				ApiKey = apikey
-
+				ApiKey = apikey,
+				CalculateZoom=true,
+				Scale=4
 			});
 			Console.WriteLine(res);
 		}
