@@ -115,7 +115,17 @@ namespace google_maps_api
                 NotifyPropertyChanged();
             }
         }
-
+        void Draw()
+		{
+            if (UsingDirections)
+            {
+                ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
+            }
+            else
+            {
+                ImageSource = new RouteMapsEngine().GenerateRouteMapURLSnap(_routemaprequest);
+            }
+        }
         public MainViewModel()
         {
             OriginSource = new ObservableCollection<string>();
@@ -129,14 +139,7 @@ namespace google_maps_api
                     { Scale = 2 };
                     _routemaprequest.CalculateZoom = true;
                     _routemaprequest.ApiKey = apikey;
-                    if (UsingDirections)
-                    {
-                        ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
-                    }
-                    else
-                    {
-                        ImageSource = new RouteMapsEngine().GenerateRouteMapURLSnap(_routemaprequest);
-                    }
+                    Draw();
                 }
                 catch (NullReferenceException)
                 {
@@ -155,14 +158,7 @@ namespace google_maps_api
                     if (_routemaprequest is null) return;
                     _routemaprequest.CalculateZoom = false;
                     _routemaprequest.Zoom += 1;
-                    if (UsingDirections)
-                    {
-                        ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
-                    }
-                    else
-                    {
-                        ImageSource = new RouteMapsEngine().GenerateRouteMapURLSnap(_routemaprequest);
-                    }
+                    Draw();
                 }
                 catch (Exception ex)
                 {
@@ -176,14 +172,7 @@ namespace google_maps_api
                     if (_routemaprequest is null) return;
                     _routemaprequest.CalculateZoom = false;
                     _routemaprequest.Zoom -= 1;
-                    if (UsingDirections)
-                    {
-                        ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
-                    }
-                    else
-                    {
-                        ImageSource = new RouteMapsEngine().GenerateRouteMapURLSnap(_routemaprequest);
-                    }
+                    Draw();
                 }
                 catch (Exception ex)
                 {
