@@ -15,7 +15,36 @@ namespace GoogleMapsApi.StaticMaps
 	public class RouteMapsEngine
 	{
 		//TODO: REFACTOR
+		private StaticMapRequest CreateStaticMapRequest(RouteMapRequest request, IEnumerable<Location> locs, int weight)
+		{
+			StaticMapRequest staticMapRequest = new StaticMapRequest(request.Center, 12, request.Size)
+			{
+				ImageFormat = request.ImageFormat,
+				Center = request.Center,
+				Scale = request.Scale,
+				Language = request.Language,
+				IsSSL = request.IsSSL,
+				ApiKey = request.ApiKey,
+				Zoom = request.Zoom,
+				Pathes = new List<Path>()
+				{
+					new Path()
+					{
+						Locations = new List<ILocationString>(locs),
+						Style = new PathStyle()
+						{
+							Color = "blue",
+							Weight = weight
 
+						}
+
+					}
+				},
+
+
+			};
+			return staticMapRequest;
+		}
 		public RouteMapGenerationResult GenerateRouteMapURLSnap(RouteMapRequest request)
 		{
 			GeocodingRequest grA = new GeocodingRequest()
@@ -70,33 +99,8 @@ namespace GoogleMapsApi.StaticMaps
 			
 			int weight = 10;
 			weight = (int)Math.Ceiling((double)(km/10));
-			StaticMapRequest staticMapRequest = new StaticMapRequest(request.Center, 12, request.Size)
-			{
-				ImageFormat = request.ImageFormat,
-				Center = request.Center,
-				Scale = request.Scale,
-				Language = request.Language,
-				IsSSL = request.IsSSL,
-				ApiKey = request.ApiKey,
-				Zoom = request.Zoom,
-				Pathes = new List<Path>()
-				{
-					new Path()
-					{
-						Locations = new List<ILocationString>(locs),
-						Style = new PathStyle()
-						{
-							Color = "blue",
-							Weight = weight
-
-						}
-
-					}
-				},
-
-
-			};
-			string url = new StaticMapsEngine().GenerateStaticMapURL(staticMapRequest);
+			
+			string url = new StaticMapsEngine().GenerateStaticMapURL(CreateStaticMapRequest(request, locs,weight));
 			return new RouteMapGenerationResult(url);
 		}
 
@@ -126,33 +130,7 @@ namespace GoogleMapsApi.StaticMaps
 			int weight = 10;
 			weight = (int)Math.Ceiling((double)(km / 10));
 
-			StaticMapRequest staticMapRequest = new StaticMapRequest(request.Center, 12, request.Size)
-			{
-				ImageFormat = request.ImageFormat,
-				Center = request.Center,
-				Scale = request.Scale,
-				Language = request.Language,
-				IsSSL = request.IsSSL,
-				ApiKey = request.ApiKey,
-				Zoom = request.Zoom,
-				Pathes = new List<Path>()
-				{
-					new Path()
-					{
-						Locations = new List<ILocationString>(locs),
-						Style = new PathStyle()
-						{
-							Color = "blue",
-							Weight = weight
-							
-						}
-
-					}
-				},
-
-
-			};
-			string url = new StaticMapsEngine().GenerateStaticMapURL(staticMapRequest);
+			string url = new StaticMapsEngine().GenerateStaticMapURL(CreateStaticMapRequest(request, locs, weight));
 			return new RouteMapGenerationResult(url);
 		}
 	}
