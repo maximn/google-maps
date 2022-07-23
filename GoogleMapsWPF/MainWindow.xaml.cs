@@ -110,5 +110,12 @@ namespace GoogleMapsWPF
 
 
         }
+
+        private void swap_Click(object sender, RoutedEventArgs e)
+        {
+            origin.Text = origin.Text + destination.Text;
+            destination.Text = origin.Text.Substring(0, origin.Text.Length - destination.Text.Length);
+            origin.Text = origin.Text.Substring(destination.Text.Length);
+        }
     }
 }
