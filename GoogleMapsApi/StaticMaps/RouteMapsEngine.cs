@@ -14,9 +14,9 @@ namespace GoogleMapsApi.StaticMaps
 {
 	public class RouteMapsEngine
 	{
+		//TODO: REFACTOR
 
-
-		public string GenerateRouteMapURLSnap(RouteMapRequest request)
+		public RouteMapGenerationResult GenerateRouteMapURLSnap(RouteMapRequest request)
 		{
 			GeocodingRequest grA = new GeocodingRequest()
 			{
@@ -54,7 +54,7 @@ namespace GoogleMapsApi.StaticMaps
 			};
 			var snapToRoadResult = GoogleMaps.SnapToRoads.QueryAsync(snapToRoadRequest);
 			var points = snapToRoadResult.Result.snappedPoints;
-			List<GoogleMapsApi.Entities.Roads.Location> locs = new List<GoogleMapsApi.Entities.Roads.Location>();
+			List<Location> locs = new List<Location>();
 			foreach(var p in points)
 			{
 				var loc = new GoogleMapsApi.Entities.Common.Location(p.Location.Latitude,p.Location.Longitude);
@@ -96,10 +96,11 @@ namespace GoogleMapsApi.StaticMaps
 
 
 			};
-			return new StaticMapsEngine().GenerateStaticMapURL(staticMapRequest);
+			string url = new StaticMapsEngine().GenerateStaticMapURL(staticMapRequest);
+			return new RouteMapGenerationResult(url);
 		}
 
-		public string GenerateRouteMapURL(RouteMapRequest request)
+		public RouteMapGenerationResult GenerateRouteMapURL(RouteMapRequest request)
 		{
 			DirectionsRequest directionsRequest = new DirectionsRequest()
 			{
@@ -151,7 +152,8 @@ namespace GoogleMapsApi.StaticMaps
 
 
 			};
-			return new StaticMapsEngine().GenerateStaticMapURL(staticMapRequest);
+			string url = new StaticMapsEngine().GenerateStaticMapURL(staticMapRequest);
+			return new RouteMapGenerationResult(url);
 		}
 	}
 }

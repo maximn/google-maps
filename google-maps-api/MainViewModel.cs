@@ -98,11 +98,11 @@ namespace google_maps_api
                 _routemaprequest.CalculateZoom = true;
                 _routemaprequest.ApiKey = apikey;
                 //ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
-                ImageSource = new RouteMapsEngine().GenerateRouteMapURLSnap(_routemaprequest);
+                ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest).URL;
                 }
                 catch (NullReferenceException)
                 {
-                    MessageBox.Show("Route not found");
+                    MessageBox.Show("Route not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
@@ -117,7 +117,7 @@ namespace google_maps_api
                     if (_routemaprequest is null) return;
                     _routemaprequest.CalculateZoom = false;
                     _routemaprequest.Zoom += 1;
-                    ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
+                    ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest).URL;
                 }
                 catch (Exception ex)
                 {
@@ -133,7 +133,7 @@ namespace google_maps_api
                     if (_routemaprequest is null) return;
                     _routemaprequest.CalculateZoom = false;
                     _routemaprequest.Zoom -= 1;
-                    ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
+                    ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest).URL;
                 }
                 catch (Exception ex)
                 {
