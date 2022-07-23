@@ -56,10 +56,20 @@ namespace GoogleMapsWPF
 
         private async void search_Click(object sender, RoutedEventArgs e)
         {
+            if (String.IsNullOrEmpty(origin.Text) || String.IsNullOrEmpty(destination.Text))
+                return;
+
+            string[] waypoints = new string[destinations.Children.Count - 2];
+            for (int i = 1; i < destinations.Children.Count - 1; i++)
+            {
+                waypoints[i - 1] = (destinations.Children[i] as TextBox).Text;
+            }
+
             DirectionsRequest directionsRequest = new DirectionsRequest()
             {
                 Origin = origin.Text,
                 Destination = destination.Text,
+                Waypoints = waypoints,
                 TravelMode = (TravelMode)RadioButtonGroup.SelectedIndex,
                 ApiKey = "AIzaSyDikeBAymgSWrWz-9Y7Danr2mNewZV_MwI"
             };
@@ -72,14 +82,27 @@ namespace GoogleMapsWPF
             //Path from previos directions request
             if (directions.Status == DirectionsStatusCodes.OK)
             {
-                IEnumerable<Step> steps = directions.Routes.First().Legs.First().Steps;
+                List<Step> steps = new List<Step>();
+                
+                foreach (Route route in directions.Routes)
+                {
+                    foreach (Leg leg in route.Legs)
+                    {
+                        steps.AddRange(leg.Steps);
+                    }
+                }
+
                 // All start locations
                 IList<ILocationString> path = steps.Select(step => step.StartLocation).ToList<ILocationString>();
                 // also the end location of the last step
                 path.Add(steps.Last().EndLocation);
-                // 4. Choose Map center
+
+                // Choose Map center
                 int mid = path.Count / 2;
-                string url = staticMapGenerator.GenerateStaticMapURL(new StaticMapRequest(path[mid], 15, new ImageSize(800, 400))
+
+                int sum = steps.Sum(step => step.Distance.Value);
+                int zoom = sum > 45000 ? (45000 / sum) : 15; //needs to be completed
+                string url = staticMapGenerator.GenerateStaticMapURL(new StaticMapRequest(path[mid], zoom, new ImageSize(800, 400))
                 {
                     Pathes = new List<GoogleMapsApi.StaticMaps.Entities.Path>(){ new GoogleMapsApi.StaticMaps.Entities.Path()
                 {
@@ -107,8 +130,6 @@ namespace GoogleMapsWPF
                 }
             }
             else MessageBox.Show("Нажаль, маршрут не знайдено");
-
-
         }
 
         private void swap_Click(object sender, RoutedEventArgs e)
@@ -116,6 +137,25 @@ namespace GoogleMapsWPF
             origin.Text = origin.Text + destination.Text;
             destination.Text = origin.Text.Substring(0, origin.Text.Length - destination.Text.Length);
             origin.Text = origin.Text.Substring(destination.Text.Length);
+        }
+
+        private void addDestination_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (destinations.Children.Count < 9)
+            {
+                swap.Visibility = Visibility.Collapsed;
+
+                TextBox destinationTB = new TextBox();
+                destinationTB.Margin = new Thickness(5);
+                destinationTB.Padding = new Thickness(10);
+                MaterialDesignThemes.Wpf.HintAssist.SetHint(destinationTB, "Пункт призначення");
+
+                destinations.Children.Insert(destinations.Children.Count - 1, destinationTB);
+            }
+            else
+            {
+                addDestination.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

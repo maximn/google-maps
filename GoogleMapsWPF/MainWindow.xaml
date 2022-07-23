@@ -24,48 +24,63 @@
         <Image Name="image"
                Grid.Column="1"
                Stretch="Uniform" />
-        <StackPanel HorizontalAlignment="Left"
-                    VerticalAlignment="Stretch"
-                    Background="White"
-                    Width="Auto"
-                    Height="Auto"
-                    Grid.Column="0">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <StackPanel>
-                    <TextBox materialDesign:HintAssist.Hint="Пункт відправлення"
-                             Name="origin"
-                             Padding="10"
-                             Margin="5" />
-                    <TextBox  materialDesign:HintAssist.Hint="Пункт призначення"
-                              Name="destination"
-                              Padding="10"
-                              Margin="5 5 5 0"></TextBox>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch"
+                        Background="White"
+                        Width="Auto"
+                        Height="Auto"
+                        Grid.Column="0">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <StackPanel Name="destinations"
+                                Width="200">
+                        <TextBox materialDesign:HintAssist.Hint="Пункт відправлення"
+                                 Name="origin"
+                                 Padding="10"
+                                 Margin="5" />
+                        <TextBox  materialDesign:HintAssist.Hint="Пункт призначення"
+                                  Name="destination"
+                                  Padding="10"
+                                  Margin="5 5 5 0" />
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Center"
+                                Margin="5">
+                        <materialDesign:PackIcon Kind="SwapVertical"
+                                                 Name="swap"
+                                                 Cursor="Hand"
+                                                 MouseLeftButtonUp="swap_Click" />
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel VerticalAlignment="Center" Margin="5">
-                    <materialDesign:PackIcon Kind="SwapVertical"
-                                             Name="swap"
-                                             Cursor="Hand"
-                                             MouseLeftButtonUp="swap_Click" />
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 10"
+                            HorizontalAlignment="Center"
+                            Cursor="Hand"
+                            Name="addDestination"
+                            MouseLeftButtonUp="addDestination_Click">
+                    <materialDesign:PackIcon Kind="PlusCircleOutline"
+                                             VerticalAlignment="Center" />
+                    <TextBlock Text="Додати пункт призначення"
+                               Margin="5" />
                 </StackPanel>
+                <ListBox Style="{StaticResource MaterialDesignChoiceChipAccentOutlineListBox}"
+                         x:Name="RadioButtonGroup" HorizontalAlignment="Center"
+                         Margin="10">
+                    <ListBoxItem  IsSelected="True">
+                        <materialDesign:PackIcon Kind="Car" />
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <materialDesign:PackIcon Kind="Walk" />
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <materialDesign:PackIcon Kind="Bicycle" />
+                    </ListBoxItem>
+                </ListBox>
+                <Button Content="Пошук"
+                        Name="search"
+                        Margin="10 0"
+                        Click="search_Click" />
             </StackPanel>
-
-            <ListBox Style="{StaticResource MaterialDesignChoiceChipAccentOutlineListBox}"
-                     x:Name="RadioButtonGroup"
-                     Margin="10 10 10 0">
-                <ListBoxItem  IsSelected="True">
-                    <materialDesign:PackIcon Kind="Car" />
-                </ListBoxItem>
-                <ListBoxItem>
-                    <materialDesign:PackIcon Kind="Walk" />
-                </ListBoxItem>
-                <ListBoxItem>
-                    <materialDesign:PackIcon Kind="Bicycle" />
-                </ListBoxItem>
-            </ListBox>
-            <Button Content="Пошук"
-                    Name="search"
-                    Margin="10"
-                    Click="search_Click" />
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
