@@ -60,6 +60,16 @@ namespace GoogleMapsApi.StaticMaps
 				var loc = new GoogleMapsApi.Entities.Common.Location(p.Location.Latitude,p.Location.Longitude);
 				locs.Add(p.Location);
 			}
+
+			int km;
+			km = (int)DistanceCalculator.DistanceTo(locA.Latitude, locA.Longitude, locB.Latitude, locB.Longitude);
+			if (request.CalculateZoom)
+			{
+				request.Zoom = (int)Math.Log((int)(40000 / (km / 2)), (int)2) - 2;
+			}
+			
+			int weight = 10;
+			weight = (int)Math.Ceiling((double)(km/10));
 			StaticMapRequest staticMapRequest = new StaticMapRequest(request.Center, 12, request.Size)
 			{
 				ImageFormat = request.ImageFormat,
@@ -77,7 +87,7 @@ namespace GoogleMapsApi.StaticMaps
 						Style = new PathStyle()
 						{
 							Color = "blue",
-							Weight = 10
+							Weight = weight
 
 						}
 
