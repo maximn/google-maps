@@ -105,6 +105,15 @@ namespace ConsoleApp1
 			});
 			Console.WriteLine(res);
 		}
+		static async void Test5()
+		{
+			var res = new RouteMapsEngine().GenerateRouteMapURLSnap(new RouteMapRequest(new AddressLocation("Odesa"), new ImageSize(800, 400), "Odesa", "Chornomorsk")
+			{
+				ApiKey = apikey
+
+			});
+			Console.WriteLine(res);
+		}
 		static void Main(string[] args)
 		{
 			//Test();
@@ -112,8 +121,20 @@ namespace ConsoleApp1
 
 			//Test3();
 
-			Test4();
+			//Test4();
+			Test5();
+			/*
+			var list = LocationInterpolator.GetList(
+				new GoogleMapsApi.Entities.Roads.Location(46.456382, 30.721864),
+				new GoogleMapsApi.Entities.Roads.Location(50.376512, 30.502683)
+				);
+
+			foreach(var l in list)
+			{
+				Console.WriteLine(l);
+			}
 			//Console.WriteLine(res);
+			*/
             Console.ReadLine();
         }
 	}

@@ -97,7 +97,8 @@ namespace google_maps_api
                 { Scale = 2 };
                 _routemaprequest.CalculateZoom = true;
                 _routemaprequest.ApiKey = apikey;
-                ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
+                //ImageSource = new RouteMapsEngine().GenerateRouteMapURL(_routemaprequest);
+                ImageSource = new RouteMapsEngine().GenerateRouteMapURLSnap(_routemaprequest);
                 }
                 catch (NullReferenceException)
                 {

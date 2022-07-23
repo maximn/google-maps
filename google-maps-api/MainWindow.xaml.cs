@@ -61,5 +61,10 @@ namespace google_maps_api
            
             //((MainViewModel)this.DataContext).ImageSource = result;
         }
-    }
+
+		private void tb_TextChanged(object sender, RoutedEventArgs e)
+		{
+
+		}
+	}
 }

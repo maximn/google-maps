@@ -92,11 +92,11 @@
                     </Grid>
                 </Border>
                 <StackPanel Orientation='Vertical' Margin="19,59,460,270">
-                    <controls:AutoCompleteBox Text="{Binding Origin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name='tb_origin'>
+                    <controls:AutoCompleteBox Text="{Binding Origin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="tb_TextChanged" x:Name='tb_origin'>
                     </controls:AutoCompleteBox>
                 </StackPanel>
                 <StackPanel Orientation='Vertical' Margin="297,59,182,270">
-                    <controls:AutoCompleteBox Text="{Binding Destination, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name='tb_destination'>
+					<controls:AutoCompleteBox Text="{Binding Destination, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="tb_TextChanged" x:Name='tb_destination'>
                     </controls:AutoCompleteBox>
                 </StackPanel>
                 <Button Command="{Binding DrawCommand}" Click="btn_drawroute" Content="Draw route" Margin="574,55,19,471"/>
