@@ -312,7 +312,10 @@ namespace GoogleMapsApi.StaticMaps
 
 					string styleString = string.Join("|", pathStyleParams);
 
-					string locations = string.Join("|", path.Locations.Select(location => location.LocationString));
+					string locations = string.IsNullOrEmpty(path.EncodePolyline) ? 
+						string.Join("|", path.Locations.Select(location => location.LocationString))
+						: $"enc:{path.EncodePolyline}";
+
 
 					parametersList.Add("path", string.Format("{0}|{1}", styleString, locations));
 				}

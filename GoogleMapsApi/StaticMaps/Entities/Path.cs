@@ -8,5 +8,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		public PathStyle Style { get; set; }
 
 		public IList<ILocationString> Locations { get; set; }
+		public string EncodePolyline { get; set; } = string.Empty;
+
 	}
 }
