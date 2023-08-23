@@ -1,8 +1,7 @@
 [![Build Status](https://github.com/maximn/google-maps/actions/workflows/dotnet.yml/badge.svg)](https://github.com/maximn/google-maps/actions/workflows/dotnet.yml)
 [![NuGet Status](https://img.shields.io/nuget/v/GoogleMapsApi.svg)](https://www.nuget.org/packages/GoogleMapsApi/)
 
-google-maps
-===========
+# google-maps
 
 Google Maps Web Services API wrapper for .NET
 
@@ -11,7 +10,6 @@ For Quickstart and more info read the wiki pages (https://github.com/maximn/goog
 The web page - http://maximn.github.com/google-maps
 
 NuGet page - https://www.nuget.org/packages/GoogleMapsApi/
-
 
 **Check out my blog at http://maxondev.com**
 
@@ -26,7 +24,8 @@ NEW! Now you can easily show the results on a Static Google Map!
 This Library is well documented and easy to use.
 
 Code sample -
-``` C#
+
+```C#
 using GoogleMapsApi;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Directions.Request;
@@ -37,22 +36,26 @@ using GoogleMapsApi.StaticMaps;
 using GoogleMapsApi.StaticMaps.Entities;
 
 //Static class use (Directions) (Can be made from static/instance class)
-DirectionsRequest directionsRequest = new DirectionsRequest()
+var directionsRequest = new DirectionsRequest()
 {
     Origin = "NYC, 5th and 39",
     Destination = "Philladephia, Chesnut and Wallnut",
+    IsSSL = true,
+    ApiKey = googleAPIKey,
 };
 
-DirectionsResponse directions = GoogleMaps.Directions.Query(directionsRequest);
+var directions = await GoogleMaps.Directions.QueryAsync(directionsRequest);
 Console.WriteLine(directions);
 
 //Instance class use (Geocode)  (Can be made from static/instance class)
-GeocodingRequest geocodeRequest = new GeocodingRequest()
+var geocodeRequest = new GeocodingRequest()
 {
-    Address = "new york city",
+    Address = "NYC, 5th and 39",
+    IsSSL = true,
+    ApiKey = googleAPIKey,
 };
 var geocodingEngine = GoogleMaps.Geocode;
-GeocodingResponse geocode = geocodingEngine.Query(geocodeRequest);
+var geocode = await geocodingEngine.QueryAsync(geocodeRequest);
 Console.WriteLine(geocode);
 
 // Static maps API - get static map of with the path of the directions request
@@ -75,6 +78,29 @@ string url = staticMapGenerator.GenerateStaticMapURL(new StaticMapRequest(new Lo
             },
             Locations = path
     }}
+    ,
+    IsSSL = true
+    ,
+    ApiKey = googleAPIKey
 });
 Console.WriteLine("Map with path: " + url);
+
+//use EncodePath
+var overviewEncodePath = directions.Routes.First().OverviewPath.GetRawPointsData();
+string encodePathUrl = staticMapGenerator.GenerateStaticMapURL(new StaticMapRequest(new Location(40.38742, -74.55366), 9, new ImageSize(800, 400))
+{
+    Pathes = new List<GoogleMapsApi.StaticMaps.Entities.Path>(){ new GoogleMapsApi.StaticMaps.Entities.Path()
+    {
+            Style = new PathStyle()
+            {
+                    Color = "red"
+            },
+            EncodePolyline = overviewEncodePath
+    }}
+    ,
+    IsSSL = true
+    ,
+    ApiKey = googleAPIKey
+});
+Console.WriteLine("Map with EncodePath: " + encodePathUrl);
 ```

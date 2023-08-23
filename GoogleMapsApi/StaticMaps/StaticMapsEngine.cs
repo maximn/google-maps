@@ -28,13 +28,13 @@ namespace GoogleMapsApi.StaticMaps
 
 			var parametersList = new QueryStringParametersList();
 
-            if (!string.IsNullOrEmpty(request.ApiKey))
-            {
-                string apiKey = request.ApiKey;
-                parametersList.Add("key", apiKey);
-            }
+			if (!string.IsNullOrEmpty(request.ApiKey))
+			{
+				string apiKey = request.ApiKey;
+				parametersList.Add("key", apiKey);
+			}
 
-            if (request.Center != null)
+			if (request.Center != null)
 			{
 				ILocationString center = request.Center;
 
@@ -48,15 +48,15 @@ namespace GoogleMapsApi.StaticMaps
 				parametersList.Add("zoom", request.Zoom.ToString());
 			}
 
-		    if (request.Scale != default)
-		    {
-		        if (!ValidScales.Contains(request.Scale))
-		        {
-                    throw new ArgumentException("Scale is invalid; must be a value of 1, 2 or 4");
-		        }
+			if (request.Scale != default)
+			{
+				if (!ValidScales.Contains(request.Scale))
+				{
+					throw new ArgumentException("Scale is invalid; must be a value of 1, 2 or 4");
+				}
 
-                parametersList.Add("scale", request.Scale.ToString());
-		    }
+				parametersList.Add("scale", request.Scale.ToString());
+			}
 
 			if (request.Size.Width != default || request.Size.Height != default)
 			{
