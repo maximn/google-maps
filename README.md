@@ -35,6 +35,7 @@ using GoogleMapsApi.Entities.Geocoding.Response;
 using GoogleMapsApi.StaticMaps;
 using GoogleMapsApi.StaticMaps.Entities;
 
+var googleAPIKey = "google api key";
 //Static class use (Directions) (Can be made from static/instance class)
 var directionsRequest = new DirectionsRequest()
 {
