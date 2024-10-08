@@ -21,10 +21,11 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build --configuration Release --no-restore
+      
       
       - name: List Files
-        run: ls -la GoogleMapsApi/
+        run: ls -la GoogleMapsApi/bin/Release
 
       - name: Publish NuGet
         # You may pin to the exact commit or the version.
