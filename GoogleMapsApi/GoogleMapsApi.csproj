@@ -8,7 +8,7 @@
 
 	<AssemblyName>GoogleMapsApi</AssemblyName>
 	<Authors>Maxim Novak</Authors>
-	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+	<PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
 	<Description>Google Maps Web Services API wrapper for .NET</Description>
 	<Copyright>Copyright ©  2010</Copyright>
 	<PackageTags>Map Geo Places Elevation Geocode Directions Maps</PackageTags>
@@ -33,9 +33,5 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Include="LICENSE.md" Pack="true" PackagePath=""/>
   </ItemGroup>
 </Project>
