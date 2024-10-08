@@ -1,7 +1,6 @@
 name: Publish Nuget
 
 on:
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   push:
     tags:
@@ -9,7 +8,6 @@ on:
 
 jobs:
   publish:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     steps:
