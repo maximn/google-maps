@@ -18,6 +18,7 @@ namespace GoogleMapsApi.Engine
 		where TResponse : IResponseFor<TRequest>
 	{
         internal static event UriCreatedDelegate OnUriCreated;
+        internal static event RawResponseReciviedDelegate OnRawResponseRecivied;
 		internal static TimeSpan DefaultTimeout = TimeSpan.FromSeconds(100);
 
 		protected internal static async Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default)
