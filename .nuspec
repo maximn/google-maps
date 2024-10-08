@@ -20,7 +20,7 @@
     <copyright></copyright>
     <tags>Map Geo Places Elevation Geocode Directions Maps</tags>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="11.0.2" />
+      <dependency id="Newtonsoft.Json" version="13.0.3" />
     </dependencies>
   </metadata>
   <files>
