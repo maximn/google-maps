@@ -2,13 +2,13 @@
   <PropertyGroup>
 	<TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.0</TargetFrameworks>
     	<LangVersion>latest</LangVersion>
-    	<Version>1.2.3</Version>
+    	<Version>1.2.5</Version>
 	<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
 	<AssemblyName>GoogleMapsApi</AssemblyName>
 	<Authors>Maxim Novak</Authors>
-	<PackageLicenseUrl>https://github.com/maximn/google-maps/blob/master/LICENSE.md</PackageLicenseUrl>
+	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
 	<Description>Google Maps Web Services API wrapper for .NET</Description>
 	<Copyright>Copyright ©  2010</Copyright>
 	<PackageTags>Map Geo Places Elevation Geocode Directions Maps</PackageTags>
@@ -35,4 +35,7 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
   
+  <ItemGroup>
+    <None Include="LICENSE.md" Pack="true" PackagePath=""/>
+  </ItemGroup>
 </Project>
