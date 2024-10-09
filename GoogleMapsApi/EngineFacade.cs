@@ -35,17 +35,17 @@ namespace GoogleMapsApi
         }
 
         /// <summary>
-        /// Occurs when raw data from Google API recivied.
+        /// Occurs when raw data from Google API received.
         /// </summary>
-        public event RawResponseReciviedDelegate OnRawResponseRecivied
+        public event RawResponseReceivedDelegate OnRawResponseReceived
         {
             add
             {
-                MapsAPIGenericEngine<TRequest, TResponse>.OnRawResponseRecivied += value;
+                MapsAPIGenericEngine<TRequest, TResponse>.OnRawResponseReceived += value;
             }
             remove
             {
-                MapsAPIGenericEngine<TRequest, TResponse>.OnRawResponseRecivied -= value;
+                MapsAPIGenericEngine<TRequest, TResponse>.OnRawResponseReceived -= value;
             }
         }
 

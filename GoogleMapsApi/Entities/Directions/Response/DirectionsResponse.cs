@@ -11,7 +11,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 	public class DirectionsResponse : IResponseFor<DirectionsRequest>
 	{
 		/// <summary>
-		/// Error message recived from the server when the call fails
+		/// Error message received from the server when the call fails
 		/// </summary>
 		/// <value>Error message</value>
 		[DataMember(Name = "error_message")]

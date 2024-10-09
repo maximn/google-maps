@@ -14,12 +14,12 @@ namespace GoogleMapsApi
         /// <summary>
         /// Occurs when the Url created. Can be used for override the Url.
         /// </summary>
-        event UriCreatedDelegate OnUriCreated;
+        public event UriCreatedDelegate OnUriCreated;
 
         /// <summary>
-        /// Occurs when raw data from Google API recivied.
+        /// Occurs when raw data from Google API received.
         /// </summary>
-        event RawResponseReciviedDelegate OnRawResponseRecivied;
+        public event RawResponseReceivedDelegate OnRawResponseReceived;
 
         /// <summary>
         /// Asynchronously query the Google Maps API using the provided request.

@@ -218,7 +218,7 @@
 
         [Test]
         [Ignore("Need to fix it")]
-        public async Task ShouldPassRawDataToOnRawResponseRecivied()
+        public async Task ShouldPassRawDataToOnRawResponseReceived()
         {
             var request = new DistanceMatrixRequest
             {
@@ -229,8 +229,8 @@
 
             var rawData = Array.Empty<byte>();
 
-            void onRawResponseRecivied(byte[] data) => rawData = data;
-            GoogleMaps.DistanceMatrix.OnRawResponseRecivied += onRawResponseRecivied;
+            void onRawResponseReceived(byte[] data) => rawData = data;
+            GoogleMaps.DistanceMatrix.OnRawResponseReceived += onRawResponseReceived;
 
             try
             {
@@ -242,7 +242,7 @@
             }
             finally
             {
-                GoogleMaps.DistanceMatrix.OnRawResponseRecivied -= onRawResponseRecivied;
+                GoogleMaps.DistanceMatrix.OnRawResponseReceived -= onRawResponseReceived;
             }
         }
     }
