@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	<TargetFrameworks>net8.0;net6.0;netcoreapp3.1;netstandard2.0</TargetFrameworks>
+	<TargetFrameworks>net8.0;net6.0;netstandard2.0</TargetFrameworks>
 	<LangVersion>latest</LangVersion>
 	<Version>1.2.5</Version>
 	<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
@@ -19,6 +19,7 @@
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
@@ -32,6 +33,6 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
   </ItemGroup>
 </Project>
