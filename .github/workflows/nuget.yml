@@ -18,6 +18,14 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Update version in project file
+        run: |
+          sed -i 's/<Version>0.0.0<\/Version>/<Version>${{ steps.get_version.outputs.VERSION }}<\/Version>/' GoogleMapsApi/GoogleMapsApi.csproj
+
       - name: Restore dependencies
         run: dotnet restore
 
