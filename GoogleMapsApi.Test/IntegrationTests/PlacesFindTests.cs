@@ -26,8 +26,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlacesFindResponse result = await GoogleMaps.PlacesFind.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Status.OK, result.Status);
-            Assert.IsNotEmpty(result.Candidates);
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
+            Assert.That(result.Candidates, Is.Not.Empty);
         }
 
         [Test]
@@ -44,8 +44,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlacesFindResponse result = await GoogleMaps.PlacesFind.QueryAsync(request);
 
             //FormattedAddress should be null since it wasn't requested
-            Assert.IsNotEmpty(result.Candidates);
-            Assert.IsNull(result.Candidates.FirstOrDefault()?.FormattedAddress);
+            Assert.That(result.Candidates, Is.Not.Empty);
+            Assert.That(result.Candidates.FirstOrDefault()?.FormattedAddress, Is.Null);
         }
     }
 }

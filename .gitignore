@@ -12,3 +12,5 @@ packages
 \.vs/
 
 GoogleMapsApi/project\.lock\.json
+
+**/appsettings.json

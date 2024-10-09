@@ -21,8 +21,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
-            Assert.Greater(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 100);
+            Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.OK), result.ErrorMessage);
+            Assert.That(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), Is.GreaterThan(100));
         }
 
 		[Test]
@@ -37,9 +37,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 			var result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(DirectionsStatusCodes.REQUEST_DENIED, result.Status);
-			Assert.IsNotNull (result.ErrorMessage);
-			Assert.IsNotEmpty (result.ErrorMessage);
+            Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.REQUEST_DENIED));
+			Assert.That(result.ErrorMessage, Is.Not.Null.And.Not.Empty);
 		}
 
         [Test]
@@ -49,11 +48,12 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
-            Assert.AreEqual(156097, result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 10 * 1000);
+            Assert.That(DirectionsStatusCodes.OK, Is.EqualTo(result.Status), result.ErrorMessage);
+            Assert.That(156097, Is.EqualTo(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value)).Within(10 * 1000));
 
-            StringAssert.Contains("Philadelphia", result.Routes.First().Legs.First().EndAddress);
+            Assert.That(result.Routes.First().Legs.First().EndAddress, Does.Contain("Philadelphia"));
         }
+
         [Test]
         public async Task Directions_ExceedingRouteLength()
         {
@@ -79,7 +79,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(DirectionsStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED, result.Status, result.ErrorMessage);
+            Assert.That(DirectionsStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED, Is.EqualTo(result.Status), result.ErrorMessage);
         }
 
         [Test]
@@ -99,9 +99,9 @@ namespace GoogleMapsApi.Test.IntegrationTests
             OverviewPolyline overviewPath = result.Routes.First().OverviewPath;
             OverviewPolyline polyline = result.Routes.First().Legs.First().Steps.First().PolyLine;
 
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
-            Assert.AreEqual(122, overviewPath.Points.Count(), 30);
-            Assert.Greater(polyline.Points.Count(), 1);
+            Assert.That(DirectionsStatusCodes.OK, Is.EqualTo(result.Status), result.ErrorMessage);
+            Assert.That(122, Is.EqualTo(overviewPath.Points.Count()).Within(30));
+            Assert.That(polyline.Points.Count(), Is.GreaterThan(1));
         }
 
         [Test]
@@ -112,8 +112,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = GoogleMaps.Directions.QueryAsync(request).Result;
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(DirectionsStatusCodes.OK, result.Status, result.ErrorMessage);
-            Assert.Greater(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), 100);
+            Assert.That(DirectionsStatusCodes.OK, Is.EqualTo(result.Status), result.ErrorMessage);
+            Assert.That(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), Is.GreaterThan(100));
         }
 
         //The sub_steps differes between google docs documentation and implementation. We use it as google implemented, so we have test to make sure it's not broken.
@@ -136,7 +136,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var leg = route.Legs.First();
             var step = leg.Steps.First();
 
-            Assert.NotNull(step);
+            Assert.That(step, Is.Not.Null);
         }
 
         [Test]
@@ -156,14 +156,14 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             var route = result.Routes.First();
 
-            Assert.NotNull(route);
-            Assert.NotNull(route.Bounds);
-            Assert.Greater(route.Bounds.NorthEast.Latitude, 50);
-            Assert.Greater(route.Bounds.NorthEast.Longitude, 3);
-            Assert.Greater(route.Bounds.SouthWest.Latitude, 50);
-            Assert.Greater(route.Bounds.SouthWest.Longitude, 3);
-            Assert.Greater(route.Bounds.Center.Latitude, 50);
-            Assert.Greater(route.Bounds.Center.Longitude, 3);
+            Assert.That(route, Is.Not.Null);
+            Assert.That(route.Bounds, Is.Not.Null);
+            Assert.That(route.Bounds.NorthEast.Latitude, Is.GreaterThan(50));
+            Assert.That(route.Bounds.NorthEast.Longitude, Is.GreaterThan(3));
+            Assert.That(route.Bounds.SouthWest.Latitude, Is.GreaterThan(50));
+            Assert.That(route.Bounds.SouthWest.Longitude, Is.GreaterThan(3));
+            Assert.That(route.Bounds.Center.Latitude, Is.GreaterThan(50));
+            Assert.That(route.Bounds.Center.Longitude, Is.GreaterThan(3));
         }
 
         [Test]
@@ -192,11 +192,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var leg = route.Legs.First();
             var steps = leg.Steps;
 
-            Assert.IsNotEmpty(steps.Where(s =>
+            Assert.That(steps.Where(s =>
                 s.TransitDetails?
                 .Lines?
                 .Vehicle?
-                .Icon != null));
+                .Icon != null), Is.Not.Empty);
         }
 
         [Test]
@@ -219,8 +219,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             DirectionsResponse result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.IsNotEmpty(result.Routes);
-            Assert.True(result.Status.Equals(DirectionsStatusCodes.OK));
+            Assert.That(result.Routes, Is.Not.Empty);
+            Assert.That(result.Status.Equals(DirectionsStatusCodes.OK), Is.True);
         }
 
         [Test]
@@ -238,10 +238,10 @@ namespace GoogleMapsApi.Test.IntegrationTests
             AssertInconclusive.NotExceedQuota(result);
 
             //All legs have duration
-            Assert.IsTrue(result.Routes.First().Legs.All(l => l.DurationInTraffic != null));
+            Assert.That(result.Routes.First().Legs.All(l => l.DurationInTraffic != null), Is.True);
 
             //Duration with traffic is usually longer but is not guaranteed
-            Assert.AreNotEqual(result.Routes.First().Legs.Sum(s => s.Duration.Value.TotalSeconds), result.Routes.First().Legs.Sum(s => s.DurationInTraffic.Value.TotalSeconds));
+            Assert.That(result.Routes.First().Legs.Sum(s => s.Duration.Value.TotalSeconds), Is.Not.EqualTo(result.Routes.First().Legs.Sum(s => s.DurationInTraffic.Value.TotalSeconds)));
         }
 
         [Test]

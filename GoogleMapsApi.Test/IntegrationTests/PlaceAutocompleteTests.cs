@@ -25,7 +25,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Status.ZERO_RESULTS, result.Status);
+            Assert.That(result.Status, Is.EqualTo(Status.ZERO_RESULTS));
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Status.ZERO_RESULTS, result.Status, "results for jibberish");
+            Assert.That(Status.ZERO_RESULTS, Is.EqualTo(result.Status), "results for jibberish");
 
             var offsetRequest = new PlaceAutocompleteRequest
             {
@@ -55,7 +55,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlaceAutocompleteResponse offsetResult = await GoogleMaps.PlaceAutocomplete.QueryAsync(offsetRequest);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Status.OK, offsetResult.Status, "results using offset");
+            Assert.That(Status.OK, Is.EqualTo(offsetResult.Status), "results using offset");
         }
 
         [Test]
@@ -73,12 +73,12 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Status.OK, result.Status);
+            Assert.That(Status.OK, Is.EqualTo(result.Status));
 
             foreach (var oneResult in result.Results)
             {
-                Assert.IsNotNull(oneResult.Types, "result with no type classification");
-                Assert.IsTrue(new List<string>(oneResult.Types).Contains("geocode"), "non-geocode result");
+                Assert.That(oneResult.Types, Is.Not.Null, "result with no type classification");
+                Assert.That(new List<string>(oneResult.Types).Contains("geocode"), "non-geocode result");
             }
         }
 
@@ -98,7 +98,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
+            Assert.That(Status.ZERO_RESULTS, Is.Not.EqualTo(result.Status));
 
             Assert.That(result.Results.Any(t => t.Description.ToUpper().Contains(anExpected)));
         }
@@ -109,7 +109,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var request = CreatePlaceAutocompleteRequest("RIX", 0);
             PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
+            Assert.That(Status.ZERO_RESULTS, Is.Not.EqualTo(result.Status));
         }
         [Test(Description = "Ensures that it is ok to sent negative value as a radius")]
         public async Task CheckNegativeRadius() 
@@ -117,7 +117,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var request = CreatePlaceAutocompleteRequest("RIX", -1);
             PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
+            Assert.That(Status.ZERO_RESULTS, Is.Not.EqualTo(result.Status));
         }
 
         [Test(Description = "Ensures that it is ok to sent huge value as a radius")]
@@ -126,7 +126,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var request = CreatePlaceAutocompleteRequest("RIX", 30000000);
             PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreNotEqual(Status.ZERO_RESULTS, result.Status);
+            Assert.That(Status.ZERO_RESULTS, Is.Not.EqualTo(result.Status));
         }
 
         private PlaceAutocompleteRequest CreatePlaceAutocompleteRequest(string query, double? radius) 

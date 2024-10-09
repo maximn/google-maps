@@ -22,8 +22,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Elevation.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Entities.Elevation.Response.Status.OK, result.Status);
-            Assert.AreEqual(16.92, result.Results.First().Elevation, 1.0);
+            Assert.That(result.Status, Is.EqualTo(Entities.Elevation.Response.Status.OK));
+            Assert.That(result.Results.First().Elevation, Is.EqualTo(16.92).Within(1.0));
         }
 
         [Test]
@@ -38,8 +38,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = GoogleMaps.Elevation.QueryAsync(request).Result;
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Entities.Elevation.Response.Status.OK, result.Status);
-            Assert.AreEqual(16.92, result.Results.First().Elevation, 1.0);
+            Assert.That(Entities.Elevation.Response.Status.OK, Is.EqualTo(result.Status));
+            Assert.That(16.92, Is.EqualTo(result.Results.First().Elevation).Within(1.0));
         } 
     }
 }

@@ -12,8 +12,10 @@ namespace GoogleMapsApi.Test
         {
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             const int expected = 0;
-            Assert.AreEqual(UnixTimeConverter.DateTimeToUnixTimestamp(epoch), expected);
-            Assert.AreEqual(UnixTimeConverter.DateTimeToUnixTimestamp(epoch.ToLocalTime()), expected);
+            
+            // Updated Assertions
+            Assert.That(UnixTimeConverter.DateTimeToUnixTimestamp(epoch), Is.EqualTo(expected));
+            Assert.That(UnixTimeConverter.DateTimeToUnixTimestamp(epoch.ToLocalTime()), Is.EqualTo(expected));
         }
 
         [Test]
@@ -21,8 +23,10 @@ namespace GoogleMapsApi.Test
         {
             var dst = new DateTime(2016, 4, 4, 10, 0, 0, DateTimeKind.Utc);
             const int expected = 1459764000;
-            Assert.AreEqual(UnixTimeConverter.DateTimeToUnixTimestamp(dst), expected);
-            Assert.AreEqual(UnixTimeConverter.DateTimeToUnixTimestamp(dst.ToLocalTime()), expected);
+            
+            // Updated Assertions
+            Assert.That(UnixTimeConverter.DateTimeToUnixTimestamp(dst), Is.EqualTo(expected));
+            Assert.That(UnixTimeConverter.DateTimeToUnixTimestamp(dst.ToLocalTime()), Is.EqualTo(expected));
         }
 
         [Test]
@@ -30,8 +34,10 @@ namespace GoogleMapsApi.Test
         {
             var nonDst = new DateTime(2016, 3, 1, 11, 0, 0, DateTimeKind.Utc);
             const int expected = 1456830000;
-            Assert.AreEqual(UnixTimeConverter.DateTimeToUnixTimestamp(nonDst), expected);
-            Assert.AreEqual(UnixTimeConverter.DateTimeToUnixTimestamp(nonDst.ToLocalTime()), expected);
+            
+            // Updated Assertions
+            Assert.That(UnixTimeConverter.DateTimeToUnixTimestamp(nonDst), Is.EqualTo(expected));
+            Assert.That(UnixTimeConverter.DateTimeToUnixTimestamp(nonDst.ToLocalTime()), Is.EqualTo(expected));
         }
     }
 }

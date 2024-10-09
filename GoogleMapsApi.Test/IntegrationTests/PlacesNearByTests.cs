@@ -27,8 +27,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlacesNearByResponse result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Status.OK, result.Status);
-            Assert.IsTrue(result.Results.Count() > 5);
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
+            Assert.That(result.Results.Count(), Is.GreaterThan(5));
         }
 
         [Test]
@@ -46,9 +46,9 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlacesNearByResponse result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Status.OK, result.Status);
-            Assert.IsTrue(result.Results.Any());
-            Assert.IsTrue(result.Results.Any(t => t.Name.Contains("John F. Kennedy")));
+            Assert.That(Status.OK, Is.EqualTo(result.Status));
+            Assert.That(result.Results.Any(), Is.True);
+            Assert.That(result.Results.Any(t => t.Name.Contains("John F. Kennedy")), Is.True);
         }
 
         [Test]
@@ -65,11 +65,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlacesNearByResponse result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Status.OK, result.Status);
+            Assert.That(Status.OK, Is.EqualTo(result.Status));
             //we should have more than one page of pizza results from the NearBy Search
-            Assert.IsTrue(!String.IsNullOrEmpty(result.NextPage));
+            Assert.That(!String.IsNullOrEmpty(result.NextPage), Is.True);
             //a full page of results is always 20
-            Assert.IsTrue(result.Results.Count() == 20);
+            Assert.That(result.Results.Count(), Is.EqualTo(20));
             var resultFromFirstPage = result.Results.FirstOrDefault(); //hold onto this
 
             //get the second page of results. Delay request by 2 seconds
@@ -85,11 +85,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PageToken = result.NextPage
             };
             result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
-            Assert.AreEqual(GoogleMapsApi.Entities.PlacesNearBy.Response.Status.OK, result.Status);
+            Assert.That(GoogleMapsApi.Entities.PlacesNearBy.Response.Status.OK, Is.EqualTo(result.Status));
             //make sure the second page has some results
-            Assert.IsTrue(result.Results != null && result.Results.Any());
+            Assert.That(result.Results != null && result.Results.Any(), Is.True);
             //make sure the result from the first page isn't on the second page to confirm we actually got a second page with new results
-            Assert.IsFalse(result.Results.Any(t => t.PlaceId == resultFromFirstPage.PlaceId));
+            Assert.That(result.Results.Any(t => t.PlaceId == resultFromFirstPage.PlaceId), Is.False);
         }
     }
 }

@@ -48,7 +48,8 @@ namespace GoogleMapsApi.Test
 
 			string generateStaticMapURL = new StaticMapsEngine().GenerateStaticMapURL(request);
 
-			Assert.AreEqual(expectedResult, generateStaticMapURL);
+			// Updated Assertion
+			Assert.That(generateStaticMapURL, Is.EqualTo(expectedResult));
 		}
 
 		[Test]
@@ -60,7 +61,8 @@ namespace GoogleMapsApi.Test
 
 			string generateStaticMapURL = new StaticMapsEngine().GenerateStaticMapURL(request);
 
-			Assert.AreEqual(expectedResult, generateStaticMapURL);
+			// Updated Assertion
+			Assert.That(generateStaticMapURL, Is.EqualTo(expectedResult));
 		}
 
 		[Test]
@@ -72,7 +74,8 @@ namespace GoogleMapsApi.Test
 
 			string generateStaticMapURL = new StaticMapsEngine().GenerateStaticMapURL(request);
 
-			Assert.AreEqual(expectedResult, generateStaticMapURL);
+			// Updated Assertion
+			Assert.That(generateStaticMapURL, Is.EqualTo(expectedResult));
 		}
 
 		[Test]
@@ -84,7 +87,8 @@ namespace GoogleMapsApi.Test
 
 			string generateStaticMapURL = new StaticMapsEngine().GenerateStaticMapURL(request);
 
-			Assert.AreEqual(expectedResult, generateStaticMapURL);
+			// Updated Assertion
+			Assert.That(generateStaticMapURL, Is.EqualTo(expectedResult));
 		}
 
 
@@ -101,7 +105,8 @@ namespace GoogleMapsApi.Test
 
 			string actualResult = new StaticMapsEngine().GenerateStaticMapURL(request);
 
-			Assert.AreEqual(expectedResult, actualResult);
+			// Updated Assertion
+			Assert.That(actualResult, Is.EqualTo(expectedResult));
 		}
 	}
 }

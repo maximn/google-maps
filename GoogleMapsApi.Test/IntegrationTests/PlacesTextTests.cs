@@ -23,8 +23,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlacesTextResponse result = await GoogleMaps.PlacesText.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Status.OK, result.Status);
-            Assert.AreEqual("1 Smith St, Parramatta NSW 2150, Australia", result.Results.First().FormattedAddress);
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
+            Assert.That(result.Results.First().FormattedAddress, Is.EqualTo("1 Smith St, Parramatta NSW 2150, Australia"));
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlacesTextResponse result = await GoogleMaps.PlacesText.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.AreEqual(Status.OK, result.Status);
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
             Assert.That(result.Results, Is.Not.Null.And.Not.Empty);
         }
     }
