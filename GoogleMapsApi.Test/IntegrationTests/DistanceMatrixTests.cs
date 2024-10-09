@@ -48,12 +48,12 @@
             var result = await GoogleMaps.DistanceMatrix.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(DistanceMatrixStatusCodes.OK, Is.EqualTo(result.Status), result.ErrorMessage);
+            Assert.That(result.Status, Is.EqualTo(DistanceMatrixStatusCodes.OK));
             Assert.That(result.DestinationAddresses, Is.EqualTo(new[] { "Alter Sirksfelder Weg 10, 23881 Koberg, Germany" }));
             Assert.That(result.OriginAddresses, Is.EqualTo(new[] { "St2154 18, 92726 Waidhaus, Germany", "Böhmerwaldstraße 19, 93444 Bad Kötzting, Germany" }));
-            Assert.That(2, Is.EqualTo(result.Rows.Count()));
-            Assert.That(DistanceMatrixElementStatusCodes.OK, Is.EqualTo(result.Rows.First().Elements.First().Status));
-            Assert.That(DistanceMatrixElementStatusCodes.OK, Is.EqualTo(result.Rows.Last().Elements.First().Status));
+            Assert.That(result.Rows.Count(), Is.EqualTo(2));
+            Assert.That(result.Rows.First().Elements.First().Status, Is.EqualTo(DistanceMatrixElementStatusCodes.OK));
+            Assert.That(result.Rows.Last().Elements.First().Status, Is.EqualTo(DistanceMatrixElementStatusCodes.OK));
         }
 
         [Test]
@@ -70,7 +70,7 @@
             var result = await GoogleMaps.DistanceMatrix.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(DistanceMatrixStatusCodes.OK, Is.EqualTo(result.Status), result.ErrorMessage);
+            Assert.That(result.Status, Is.EqualTo(DistanceMatrixStatusCodes.OK));
             Assert.That(result.Rows.First().Elements.First().DurationInTraffic, Is.Not.Null);
         }
 
@@ -207,8 +207,8 @@
                 var result = await GoogleMaps.DistanceMatrix.QueryAsync(request);
 
                 AssertInconclusive.NotExceedQuota(result);
-                Assert.That(DistanceMatrixStatusCodes.OK, Is.EqualTo(result.Status), result.ErrorMessage);
-                Assert.That("1,2", Is.EqualTo(result.OriginAddresses.First()));
+                Assert.That(result.Status, Is.EqualTo(DistanceMatrixStatusCodes.OK), result.ErrorMessage);
+                Assert.That(result.OriginAddresses.First(), Is.EqualTo("1,2"));
             }
             finally
             {
@@ -237,7 +237,7 @@
                 var result = await GoogleMaps.DistanceMatrix.QueryAsync(request);
 
                 AssertInconclusive.NotExceedQuota(result);
-                Assert.That(DistanceMatrixStatusCodes.OK, Is.EqualTo(result.Status), result.ErrorMessage);
+                Assert.That(result.Status, Is.EqualTo(DistanceMatrixStatusCodes.OK), result.ErrorMessage);
                 Assert.That(rawData, Is.Not.Empty);
             }
             finally

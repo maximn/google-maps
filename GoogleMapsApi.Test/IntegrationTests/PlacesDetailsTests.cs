@@ -40,7 +40,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlacesDetailsResponse result = await GoogleMaps.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(Status.NOT_FOUND, Is.EqualTo(result.Status));
+            Assert.That(result.Status, Is.EqualTo(Status.NOT_FOUND));
         }
 
         readonly PriceLevel[] anyPriceLevel = new PriceLevel[] { PriceLevel.Free, PriceLevel.Inexpensive, PriceLevel.Moderate, PriceLevel.Expensive, PriceLevel.VeryExpensive };
@@ -57,7 +57,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlacesDetailsResponse result = await GoogleMaps.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(Status.OK, Is.EqualTo(result.Status));
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
+            Assert.That(result.Result.PriceLevel, Is.Not.Null);
             Assert.That(new PriceLevel[] { result.Result.PriceLevel.Value }, Is.SubsetOf(anyPriceLevel));
         }
 
@@ -73,7 +74,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             PlacesDetailsResponse result = await GoogleMaps.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(Status.OK, Is.EqualTo(result.Status));
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
             
             // commented out because seems like google doesn't have opening hours for this place anymore
             /*
@@ -87,7 +88,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
              */
         }
 
-        private string cachedMyPlaceId;
+        private string? cachedMyPlaceId;
         private async Task<string> GetMyPlaceId()
         {
             if (cachedMyPlaceId == null)

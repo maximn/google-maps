@@ -42,7 +42,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = GoogleMaps.Geocode.QueryAsync(request).Result;
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(Status.OK, Is.EqualTo(result.Status));
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
             // 40.{*}, -73.{*}
             Assert.That(result.Results.First().Geometry.Location.LocationString, Does.Match("40\\.\\d*,-73\\.\\d*"));
         }
@@ -102,7 +102,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Geocode.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(Status.OK, Is.EqualTo(result.Status));
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
             Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
@@ -118,7 +118,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Geocode.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(Status.OK, Is.EqualTo(result.Status));
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
             Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
@@ -135,7 +135,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Geocode.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(Status.OK, Is.EqualTo(result.Status));
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
             Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
@@ -156,7 +156,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Geocode.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(Status.OK, Is.EqualTo(result.Status));
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
             Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
@@ -173,7 +173,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Geocode.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(Status.OK, Is.EqualTo(result.Status));
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
             Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
@@ -190,7 +190,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Geocode.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(Status.OK, Is.EqualTo(result.Status));
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
             Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
@@ -206,7 +206,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = GoogleMaps.Geocode.QueryAsync(request).Result;
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(Status.OK, Is.EqualTo(result.Status));
+            Assert.That(result.Status, Is.EqualTo(Status.OK));
             Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
     }

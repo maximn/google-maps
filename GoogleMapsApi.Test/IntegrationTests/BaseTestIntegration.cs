@@ -2,7 +2,7 @@
 using System.IO;
 
 namespace GoogleMapsApi.Test.IntegrationTests
-{
+{ 
     //  Note:	The integration tests run against the real Google API web
     //			servers and count towards your query limit. Also, the tests
     //			require a working internet connection in order to pass.
@@ -11,6 +11,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
     public class BaseTestIntegration
     {
+        const string ApiKeyEnvironmentVariable = "GOOGLE_API_KEY";
         private readonly IConfigurationRoot Configuration;
 
         public BaseTestIntegration()
@@ -22,6 +23,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 .Build();
         }
 
-        protected string ApiKey => Configuration.GetValue<string>("GOOGLE_API_KEY");
+        protected string ApiKey => Configuration.GetValue<string>(ApiKeyEnvironmentVariable) ?? throw new InvalidOperationException($"API key is not configured. Please set the {ApiKeyEnvironmentVariable} environment variable.");
     }
 }

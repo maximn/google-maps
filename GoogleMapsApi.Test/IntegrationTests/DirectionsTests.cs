@@ -48,8 +48,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(DirectionsStatusCodes.OK, Is.EqualTo(result.Status), result.ErrorMessage);
-            Assert.That(156097, Is.EqualTo(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value)).Within(10 * 1000));
+            Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.OK), result.ErrorMessage);
+            Assert.That(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), Is.EqualTo(156097).Within(10 * 1000));
 
             Assert.That(result.Routes.First().Legs.First().EndAddress, Does.Contain("Philadelphia"));
         }
@@ -79,7 +79,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await GoogleMaps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(DirectionsStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED, Is.EqualTo(result.Status), result.ErrorMessage);
+            Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED), result.ErrorMessage);
         }
 
         [Test]
@@ -99,8 +99,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
             OverviewPolyline overviewPath = result.Routes.First().OverviewPath;
             OverviewPolyline polyline = result.Routes.First().Legs.First().Steps.First().PolyLine;
 
-            Assert.That(DirectionsStatusCodes.OK, Is.EqualTo(result.Status), result.ErrorMessage);
-            Assert.That(122, Is.EqualTo(overviewPath.Points.Count()).Within(30));
+            Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.OK), result.ErrorMessage);
+            Assert.That(overviewPath.Points.Count(), Is.EqualTo(122).Within(30));
             Assert.That(polyline.Points.Count(), Is.GreaterThan(1));
         }
 
@@ -112,7 +112,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = GoogleMaps.Directions.QueryAsync(request).Result;
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(DirectionsStatusCodes.OK, Is.EqualTo(result.Status), result.ErrorMessage);
+            Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.OK));
             Assert.That(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), Is.GreaterThan(100));
         }
 
