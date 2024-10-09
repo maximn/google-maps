@@ -17,5 +17,14 @@ namespace GoogleMapsApi.Entities.Elevation.Response
 		/// </summary>
 		[DataMember(Name = "elevation")]
 		public double Elevation { get; set; }
+
+		/// <summary>
+		/// The value indicating the maximum distance between data points from which the elevation was interpolated, in meters.
+		/// This property will be missing if the resolution is not known. 
+		/// Note that elevation data becomes more coarse (larger resolution values) when multiple points are passed.
+		/// To obtain the most accurate elevation value for a point, it should be queried independently.
+		/// </summary>
+		[DataMember(Name = "resolution")]
+		public double Resolution { get; set; }
 	}
 }
