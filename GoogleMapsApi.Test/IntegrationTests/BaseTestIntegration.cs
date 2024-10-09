@@ -16,13 +16,21 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
         public BaseTestIntegration()
         {
-            Configuration = new ConfigurationBuilder()
+            var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true)
-                .AddEnvironmentVariables()
-                .Build();
+                .AddEnvironmentVariables();
+
+            string appsettingsPath = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
+            if (File.Exists(appsettingsPath))
+            {
+                builder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            }
+
+            Configuration = builder.Build();
         }
 
-        protected string ApiKey => Configuration.GetValue<string>(ApiKeyEnvironmentVariable) ?? throw new InvalidOperationException($"API key is not configured. Please set the {ApiKeyEnvironmentVariable} environment variable.");
+        protected string ApiKey => Configuration.GetValue<string>(ApiKeyEnvironmentVariable) 
+            ?? Environment.GetEnvironmentVariable(ApiKeyEnvironmentVariable) 
+            ?? throw new InvalidOperationException($"API key is not configured. Please set the {ApiKeyEnvironmentVariable} environment variable.");
     }
 }
