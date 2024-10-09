@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text;
+
 
 namespace GoogleMapsApi.Engine
 {
@@ -26,15 +28,14 @@ namespace GoogleMapsApi.Engine
 			if (request == null)
 				throw new ArgumentNullException(nameof(request));
 
-            var uri = request.GetUri();
-            if (OnUriCreated != null)
-            {
-                uri = OnUriCreated(uri);
-            }
-
+            var requstUri = request.GetUri();
+            var uri = OnUriCreated?.Invoke(requstUri) ?? requstUri;
+            
 		    var client = new HttpClient();
 
 			var response = await client.DownloadDataTaskAsyncAsString(uri, timeout, token).ConfigureAwait(false);
+
+            OnRawResponseReceived?.Invoke(Encoding.UTF8.GetBytes(response));
 
             return JsonConvert.DeserializeObject<TResponse>(response);
 		}

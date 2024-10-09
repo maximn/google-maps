@@ -217,7 +217,6 @@
         }
 
         [Test]
-        [Ignore("Need to fix it")]
         public async Task ShouldPassRawDataToOnRawResponseReceived()
         {
             var request = new DistanceMatrixRequest
