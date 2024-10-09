@@ -1,37 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	<TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.0</TargetFrameworks>
-    	<LangVersion>latest</LangVersion>
-    	<Version>1.2.5</Version>
+	<TargetFrameworks>net8.0;net6.0;netcoreapp3.1;netstandard2.0</TargetFrameworks>
+	<LangVersion>latest</LangVersion>
+	<Version>1.2.5</Version>
 	<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<AssemblyName>GoogleMapsApi</AssemblyName>
 	<Authors>Maxim Novak</Authors>
 	<PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
 	<Description>Google Maps Web Services API wrapper for .NET</Description>
-	<Copyright>Copyright ©  2010</Copyright>
-	<PackageTags>Map Geo Places Elevation Geocode Directions Maps</PackageTags>
+	<Copyright>Copyright © 2010-$([System.DateTime]::Now.Year)</Copyright>
+	<PackageTags>Google;Maps;API;Geo;Places;Elevation;Geocode;Directions</PackageTags>
 	<RepositoryType>git</RepositoryType>
 	<RepositoryUrl>https://github.com/maximn/google-maps</RepositoryUrl>
-  </PropertyGroup>
-	
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<PackageProjectUrl>https://github.com/maximn/google-maps</PackageProjectUrl>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
-	
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-	 <IncludeSymbols>false</IncludeSymbols>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+	<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <None Include="Entities\Directions\The Google Directions API - Google Maps API Web Services - Google Code.htm" />
-    <None Include="ReleaseNotes.md" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\LICENSE.md" Pack="true" PackagePath="\" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 </Project>
