@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Text;
 
-
 namespace GoogleMapsApi.Engine
 {
     public delegate Uri UriCreatedDelegate(Uri uri);
@@ -21,7 +20,8 @@ namespace GoogleMapsApi.Engine
 	{
         internal static event UriCreatedDelegate OnUriCreated;
         internal static event RawResponseReceivedDelegate OnRawResponseReceived;
-		internal static TimeSpan DefaultTimeout = TimeSpan.FromSeconds(100);
+
+		private static readonly HttpClient client = new HttpClient();
 
 		protected internal static async Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default)
 		{
@@ -31,9 +31,7 @@ namespace GoogleMapsApi.Engine
             var requstUri = request.GetUri();
             var uri = OnUriCreated?.Invoke(requstUri) ?? requstUri;
             
-		    var client = new HttpClient();
-
-			var response = await client.DownloadDataTaskAsyncAsString(uri, timeout, token).ConfigureAwait(false);
+		    var response = await client.DownloadDataTaskAsyncAsString(uri, timeout, token).ConfigureAwait(false);
 
             OnRawResponseReceived?.Invoke(Encoding.UTF8.GetBytes(response));
 

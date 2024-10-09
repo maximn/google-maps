@@ -45,12 +45,14 @@ namespace GoogleMapsApi
 
         public static async Task<string> DownloadDataTaskAsyncAsString(this HttpClient client, Uri address, TimeSpan timeout, CancellationToken token = new CancellationToken())
         {
-            var dataDownloaded = await DownloadData(client, address, timeout, token).ConfigureAwait(false);
-
-            if (dataDownloaded != null)
-                return await dataDownloaded.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            return await GetCancelledTask<string>().ConfigureAwait(false);
+            using (var cts = CancellationTokenSource.CreateLinkedTokenSource(token))
+            {
+                cts.CancelAfter(timeout);
+                
+                HttpResponseMessage response = await client.GetAsync(address, cts.Token).ConfigureAwait(false);
+                await HandleResponse(response, timeout);
+                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
         }
 
         private static async Task<T> GetCancelledTask<T>()
@@ -70,24 +72,26 @@ namespace GoogleMapsApi
             if (token.IsCancellationRequested)
                 return null;
 
-            client.Timeout = timeout;
             var httpResponse = await client.GetAsync(address, token).ConfigureAwait(false);
+            await HandleResponse(httpResponse, timeout);
+            return httpResponse;
+        }
 
-            if (!httpResponse.IsSuccessStatusCode)
+        private static async Task HandleResponse(HttpResponseMessage response, TimeSpan timeout)
+        {
+            if (!response.IsSuccessStatusCode)
             {
-                if (httpResponse.StatusCode == HttpStatusCode.Forbidden ||
-                    httpResponse.StatusCode == HttpStatusCode.ProxyAuthenticationRequired ||
-                    httpResponse.StatusCode == HttpStatusCode.Unauthorized)
-                    throw new AuthenticationException(await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false));
+                if (response.StatusCode == HttpStatusCode.Forbidden ||
+                    response.StatusCode == HttpStatusCode.ProxyAuthenticationRequired ||
+                    response.StatusCode == HttpStatusCode.Unauthorized)
+                    throw new AuthenticationException(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
 
-                if (httpResponse.StatusCode == HttpStatusCode.GatewayTimeout ||
-                    httpResponse.StatusCode == HttpStatusCode.RequestTimeout)
+                if (response.StatusCode == HttpStatusCode.GatewayTimeout ||
+                    response.StatusCode == HttpStatusCode.RequestTimeout)
                     throw new TimeoutException($"The request has exceeded the timeout limit of {timeout} and has been aborted.");
 
-                throw new HttpRequestException($"Failed with HttpResponse: {httpResponse.StatusCode} and message: {httpResponse.ReasonPhrase}");
+                throw new HttpRequestException($"Failed with HttpResponse: {response.StatusCode} and message: {response.ReasonPhrase}");
             }
-                
-            return httpResponse;
         }
     }
 }
