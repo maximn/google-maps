@@ -195,9 +195,7 @@
 
             static Uri onUriCreated(Uri uri)
             {
-                var builder = new UriBuilder(uri);
-                builder.Query = builder.Query.Replace("placeholder", "1,2");
-                return builder.Uri;
+                return new Uri(uri.ToString().Replace("placeholder", "1,2"));
             }
 
             GoogleMaps.DistanceMatrix.OnUriCreated += onUriCreated;

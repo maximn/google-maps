@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using GoogleMapsApi.Test.Utils;
 using System.IO;
 
 namespace GoogleMapsApi.Test.IntegrationTests
@@ -12,24 +12,12 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class BaseTestIntegration
     {
         const string ApiKeyEnvironmentVariable = "GOOGLE_API_KEY";
-        private readonly IConfigurationRoot Configuration;
 
         public BaseTestIntegration()
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddEnvironmentVariables();
-
-            string appsettingsPath = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
-            if (File.Exists(appsettingsPath))
-            {
-                builder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            }
-
-            Configuration = builder.Build();
         }
 
-        protected string ApiKey => Configuration.GetValue<string>(ApiKeyEnvironmentVariable) 
+        protected string ApiKey => AppSettings.Load()?.GoogleApiKey
             ?? Environment.GetEnvironmentVariable(ApiKeyEnvironmentVariable) 
             ?? throw new InvalidOperationException($"API key is not configured. Please set the {ApiKeyEnvironmentVariable} environment variable.");
     }
