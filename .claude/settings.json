@@ -1,0 +1,12 @@
+{
+  "buildCommand": "dotnet build",
+  "testCommand": "dotnet test --verbosity normal",
+  "restoreCommand": "dotnet restore",
+  "packCommand": "dotnet pack --no-build",
+  "cleanCommand": "dotnet clean",
+  "lintCommand": null,
+  "typeCheckCommand": null,
+  "formatCommand": "dotnet format",
+  "devCommand": null,
+  "startCommand": null
+}
