@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
+using System.Linq;
 using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.PlacesDetails.Response
@@ -13,6 +14,11 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// name contains the human-readable name for the returned result. For establishment results, this is usually the canonicalized business name.
         /// </summary>
     
+        /// <summary>
+        /// address_components is an array containing the separate address components.
+        /// Use the helper methods on this Result class to easily extract street address, state, postal code, etc.
+        /// Example: result.GetStreetAddress(), result.GetState(), result.GetPostalCode()
+        /// </summary>
         [DataMember(Name="address_components")]
         public IEnumerable<GoogleMapsApi.Entities.Geocoding.Response.AddressComponent> AddressComponent { get; set; }
 
@@ -228,6 +234,164 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
 
         [DataMember(Name = "place_id")]
         public string PlaceId { get; set; }
+
+        #region Address Component Helper Methods
+
+        /// <summary>
+        /// Gets the street address (street number + route) from address components
+        /// </summary>
+        /// <returns>Street address or null if not found</returns>
+        public string GetStreetAddress()
+        {
+            if (AddressComponent == null)
+                return null;
+
+            var streetNumber = GetAddressComponentByType("street_number")?.LongName;
+            var route = GetAddressComponentByType("route")?.LongName;
+
+            if (string.IsNullOrEmpty(streetNumber) && string.IsNullOrEmpty(route))
+                return null;
+
+            if (string.IsNullOrEmpty(streetNumber))
+                return route;
+
+            if (string.IsNullOrEmpty(route))
+                return streetNumber;
+
+            return $"{streetNumber} {route}";
+        }
+
+        /// <summary>
+        /// Gets the state/province from address components
+        /// </summary>
+        /// <param name="useShortName">If true, returns short name (e.g., "NY"), otherwise long name (e.g., "New York")</param>
+        /// <returns>State/province or null if not found</returns>
+        public string GetState(bool useShortName = false)
+        {
+            if (AddressComponent == null)
+                return null;
+
+            var component = GetAddressComponentByType("administrative_area_level_1");
+            return component == null ? null : (useShortName ? component.ShortName : component.LongName);
+        }
+
+        /// <summary>
+        /// Gets the postal code from address components
+        /// </summary>
+        /// <returns>Postal code or null if not found</returns>
+        public string GetPostalCode()
+        {
+            if (AddressComponent == null)
+                return null;
+
+            return GetAddressComponentByType("postal_code")?.LongName;
+        }
+
+        /// <summary>
+        /// Gets the city/locality from address components
+        /// </summary>
+        /// <param name="useShortName">If true, returns short name, otherwise long name</param>
+        /// <returns>City/locality or null if not found</returns>
+        public string GetCity(bool useShortName = false)
+        {
+            if (AddressComponent == null)
+                return null;
+
+            // Try locality first, then sublocality
+            var component = GetAddressComponentByType("locality") 
+                          ?? GetAddressComponentByType("sublocality");
+            
+            return component == null ? null : (useShortName ? component.ShortName : component.LongName);
+        }
+
+        /// <summary>
+        /// Gets the country from address components
+        /// </summary>
+        /// <param name="useShortName">If true, returns short name (e.g., "US"), otherwise long name (e.g., "United States")</param>
+        /// <returns>Country or null if not found</returns>
+        public string GetCountry(bool useShortName = false)
+        {
+            if (AddressComponent == null)
+                return null;
+
+            var component = GetAddressComponentByType("country");
+            return component == null ? null : (useShortName ? component.ShortName : component.LongName);
+        }
+
+        /// <summary>
+        /// Gets a complete address breakdown from address components
+        /// </summary>
+        /// <returns>Address breakdown object</returns>
+        public AddressBreakdown GetAddressBreakdown()
+        {
+            if (AddressComponent == null)
+                return new AddressBreakdown();
+
+            return new AddressBreakdown
+            {
+                StreetAddress = GetStreetAddress(),
+                City = GetCity(),
+                State = GetState(),
+                PostalCode = GetPostalCode(),
+                Country = GetCountry()
+            };
+        }
+
+        /// <summary>
+        /// Helper method to find an address component by type
+        /// </summary>
+        /// <param name="type">The type to search for</param>
+        /// <returns>Address component or null if not found</returns>
+        private GoogleMapsApi.Entities.Geocoding.Response.AddressComponent GetAddressComponentByType(string type)
+        {
+            return AddressComponent?.FirstOrDefault(ac => ac.Types?.Contains(type) == true);
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Represents a complete address breakdown with individual components
+    /// </summary>
+    public class AddressBreakdown
+    {
+        /// <summary>
+        /// Street address (street number + route)
+        /// </summary>
+        public string StreetAddress { get; set; }
+
+        /// <summary>
+        /// City/locality
+        /// </summary>
+        public string City { get; set; }
+
+        /// <summary>
+        /// State/province
+        /// </summary>
+        public string State { get; set; }
+
+        /// <summary>
+        /// Postal code
+        /// </summary>
+        public string PostalCode { get; set; }
+
+        /// <summary>
+        /// Country
+        /// </summary>
+        public string Country { get; set; }
+
+        /// <summary>
+        /// Returns a formatted address string
+        /// </summary>
+        /// <returns>Formatted address</returns>
+        public override string ToString()
+        {
+            var parts = new[] { StreetAddress, City, State, PostalCode, Country }
+                .Where(part => !string.IsNullOrEmpty(part))
+                .ToArray();
+
+            return string.Join(", ", parts);
+        }
     }
 
     public enum PriceLevel
