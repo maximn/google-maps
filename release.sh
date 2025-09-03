@@ -141,4 +141,19 @@ fi
 
 echo -e "${GREEN}🎉 Release process completed!${NC}"
 echo -e "${GREEN}📦 GitHub Actions will now build and publish the NuGet package${NC}"
-echo -e "${YELLOW}📋 You can monitor the progress at: https://github.com/maximn/google-maps/actions${NC}"
+
+# Try to get direct link to the workflow run (best effort)
+echo -e "${YELLOW}🔍 Looking for triggered workflow...${NC}"
+sleep 3  # Give GitHub a moment to register the workflow
+
+if command -v gh >/dev/null 2>&1; then
+    # Get the most recent workflow run (should be ours)
+    RUN_URL=$(gh run list --limit 1 --json url --jq '.[0].url' 2>/dev/null)
+    if [[ -n "$RUN_URL" && "$RUN_URL" != "null" ]]; then
+        echo -e "${YELLOW}📋 Direct link to workflow: ${RUN_URL}${NC}"
+    else
+        echo -e "${YELLOW}📋 You can monitor the progress at: https://github.com/maximn/google-maps/actions${NC}"
+    fi
+else
+    echo -e "${YELLOW}📋 You can monitor the progress at: https://github.com/maximn/google-maps/actions${NC}"
+fi
