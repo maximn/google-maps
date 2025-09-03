@@ -122,6 +122,7 @@ namespace GoogleMapsApi.StaticMaps
 				parametersList.Add("maptype", type);
 			}
 
+			// Handle single style (legacy)
 			if (request.Style != null)
 			{
 				MapStyle style = request.Style;
@@ -228,6 +229,68 @@ namespace GoogleMapsApi.StaticMaps
 				}
 
 				parametersList.Add("style", string.Join("|", styleComponents));
+			}
+
+			// Handle multiple styles from Google Styling Wizard
+			if (request.Styles != null && request.Styles.Count > 0)
+			{
+				foreach (var styleRule in request.Styles)
+				{
+					var styleComponents = new List<string>();
+
+					// Add feature type if specified
+					if (!string.IsNullOrEmpty(styleRule.FeatureType))
+					{
+						styleComponents.Add("feature:" + styleRule.FeatureType);
+					}
+
+					// Add element type if specified
+					if (!string.IsNullOrEmpty(styleRule.ElementType))
+					{
+						styleComponents.Add("element:" + styleRule.ElementType);
+					}
+
+					// Add stylers
+					foreach (var styler in styleRule.Stylers)
+					{
+						if (!string.IsNullOrEmpty(styler.Color))
+						{
+							styleComponents.Add("color:" + styler.Color);
+						}
+
+						if (!string.IsNullOrEmpty(styler.Visibility))
+						{
+							styleComponents.Add("visibility:" + styler.Visibility);
+						}
+
+						if (styler.Lightness.HasValue)
+						{
+							styleComponents.Add("lightness:" + styler.Lightness.Value);
+						}
+
+						if (styler.Saturation.HasValue)
+						{
+							styleComponents.Add("saturation:" + styler.Saturation.Value);
+						}
+
+						if (styler.Gamma.HasValue)
+						{
+							styleComponents.Add("gamma:" + styler.Gamma.Value);
+						}
+
+						if (!string.IsNullOrEmpty(styler.Hue))
+						{
+							styleComponents.Add("hue:" + styler.Hue);
+						}
+
+						if (styler.Weight.HasValue)
+						{
+							styleComponents.Add("weight:" + styler.Weight.Value);
+						}
+					}
+
+					parametersList.Add("style", string.Join("|", styleComponents));
+				}
 			}
 
 			IList<Marker> markers = request.Markers;

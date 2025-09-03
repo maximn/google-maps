@@ -1,9 +1,23 @@
 namespace GoogleMapsApi.StaticMaps.Enums
 {
-	public enum MapVisibility
-	{
-		On,
-		Off,
-		Simplified
-	}
+    /// <summary>
+    /// Visibility options for map elements
+    /// </summary>
+    public enum MapVisibility
+    {
+        /// <summary>
+        /// Element is visible (default)
+        /// </summary>
+        On,
+
+        /// <summary>
+        /// Element is hidden
+        /// </summary>
+        Off,
+
+        /// <summary>
+        /// Element is simplified
+        /// </summary>
+        Simplified
+    }
 }
