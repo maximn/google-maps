@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json;
 using Newtonsoft.Json.Linq;
 
 namespace GoogleMapsApi.StaticMaps.Entities
@@ -22,8 +22,11 @@ namespace GoogleMapsApi.StaticMaps.Entities
 
             try
             {
-                var jsonArray = JArray.Parse(json);
-                return FromJsonArray(jsonArray);
+                using var document = JsonDocument.Parse(json);
+                if (document.RootElement.ValueKind != JsonValueKind.Array)
+                    throw new ArgumentException("JSON must be an array", nameof(json));
+                
+                return FromJsonArray(document.RootElement);
             }
             catch (JsonException ex)
             {
@@ -36,66 +39,66 @@ namespace GoogleMapsApi.StaticMaps.Entities
         /// </summary>
         /// <param name="jsonArray">The JSON array from Google Styling Wizard</param>
         /// <returns>List of MapStyleRule objects</returns>
-        public static List<MapStyleRule> FromJsonArray(JArray jsonArray)
+        public static List<MapStyleRule> FromJsonArray(JsonElement jsonArray)
         {
             var rules = new List<MapStyleRule>();
 
-            foreach (var element in jsonArray)
+            foreach (var element in jsonArray.EnumerateArray())
             {
                 var rule = new MapStyleRule();
 
                 // Parse elementType
-                if (element["elementType"] != null)
+                if (element.TryGetProperty("elementType", out var elementTypeProperty))
                 {
-                    rule.ElementType = element["elementType"].Value<string>();
+                    rule.ElementType = elementTypeProperty.GetString();
                 }
 
                 // Parse featureType
-                if (element["featureType"] != null)
+                if (element.TryGetProperty("featureType", out var featureTypeProperty))
                 {
-                    rule.FeatureType = element["featureType"].Value<string>();
+                    rule.FeatureType = featureTypeProperty.GetString();
                 }
 
                 // Parse stylers
-                if (element["stylers"] is JArray stylersArray)
+                if (element.TryGetProperty("stylers", out var stylersProperty) && stylersProperty.ValueKind == JsonValueKind.Array)
                 {
-                    foreach (var stylerElement in stylersArray)
+                    foreach (var stylerElement in stylersProperty.EnumerateArray())
                     {
                         var styler = new MapStyleStyler();
 
-                        if (stylerElement["color"] != null)
+                        if (stylerElement.TryGetProperty("color", out var colorProperty))
                         {
-                            styler.Color = stylerElement["color"].Value<string>();
+                            styler.Color = colorProperty.GetString();
                         }
 
-                        if (stylerElement["visibility"] != null)
+                        if (stylerElement.TryGetProperty("visibility", out var visibilityProperty))
                         {
-                            styler.Visibility = stylerElement["visibility"].Value<string>();
+                            styler.Visibility = visibilityProperty.GetString();
                         }
 
-                        if (stylerElement["lightness"] != null)
+                        if (stylerElement.TryGetProperty("lightness", out var lightnessProperty))
                         {
-                            styler.Lightness = stylerElement["lightness"].Value<float?>();
+                            styler.Lightness = lightnessProperty.ValueKind == JsonValueKind.Number ? lightnessProperty.GetSingle() : null;
                         }
 
-                        if (stylerElement["saturation"] != null)
+                        if (stylerElement.TryGetProperty("saturation", out var saturationProperty))
                         {
-                            styler.Saturation = stylerElement["saturation"].Value<float?>();
+                            styler.Saturation = saturationProperty.ValueKind == JsonValueKind.Number ? saturationProperty.GetSingle() : null;
                         }
 
-                        if (stylerElement["gamma"] != null)
+                        if (stylerElement.TryGetProperty("gamma", out var gammaProperty))
                         {
-                            styler.Gamma = stylerElement["gamma"].Value<float?>();
+                            styler.Gamma = gammaProperty.ValueKind == JsonValueKind.Number ? gammaProperty.GetSingle() : null;
                         }
 
-                        if (stylerElement["hue"] != null)
+                        if (stylerElement.TryGetProperty("hue", out var hueProperty))
                         {
-                            styler.Hue = stylerElement["hue"].Value<string>();
+                            styler.Hue = hueProperty.GetString();
                         }
 
-                        if (stylerElement["weight"] != null)
+                        if (stylerElement.TryGetProperty("weight", out var weightProperty))
                         {
-                            styler.Weight = stylerElement["weight"].Value<int?>();
+                            styler.Weight = weightProperty.ValueKind == JsonValueKind.Number ? weightProperty.GetInt32() : null;
                         }
 
                         rule.Stylers.Add(styler);
