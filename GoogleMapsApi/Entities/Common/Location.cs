@@ -1,16 +1,19 @@
 using System.Globalization;
-using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace GoogleMapsApi.Entities.Common
 {
-    [DataContract]
 	public class Location : ILocationString
 	{
-		[DataMember(Name = "lat")]
+		[JsonPropertyName("lat")]
 		public double Latitude { get; set; }
 
-		[DataMember(Name = "lng")]
+		[JsonPropertyName("lng")]
 		public double Longitude { get; set; }
+
+		public Location()
+		{
+		}
 
 		public Location(double lat, double lng)
 		{

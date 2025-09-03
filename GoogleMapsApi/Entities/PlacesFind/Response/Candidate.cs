@@ -2,61 +2,60 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GoogleMapsApi.Entities.PlacesFind.Response
 {
-    [DataContract]
     public class Candidate
     {
         // basic fields
-        [DataMember(Name = "formatted_address")]
+        [JsonPropertyName("formatted_address")]
         public string FormattedAddress { get; set; }
 
-        [DataMember(Name = "geometry")]
+        [JsonPropertyName("geometry")]
         public Geometry Geometry { get; set; }
 
-        [DataMember(Name = "icon")]
+        [JsonPropertyName("icon")]
         public string Icon { get; set; }
 
-        [DataMember(Name = "id")]
+        [JsonPropertyName("id")]
         public string ID { get; set; }
 
-        [DataMember(Name = "name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [DataMember(Name = "permanently_closed")]
+        [JsonPropertyName("permanently_closed")]
         public bool? PermanentlyClosed { get; set; }
 
-        [DataMember(Name = "photos")]
+        [JsonPropertyName("photos")]
         public IEnumerable<Photo> Photos { get; set; }
 
-        [DataMember(Name = "place_id")]
+        [JsonPropertyName("place_id")]
         public string PlaceId { get; set; }
 
-        [DataMember(Name = "plus_code")]
+        [JsonPropertyName("plus_code")]
         public string PlusCode { get; set; }
 
-        [DataMember(Name = "scope")]
+        [JsonPropertyName("scope")]
         public string Scope { get; set; }
 
-        [DataMember(Name = "types")]
+        [JsonPropertyName("types")]
         public string[] Types { get; set; }
 
         // contact fields
         /// <summary>
         /// Place Search returns only open_now; use a Place Details request to get the full opening_hours results.
         /// </summary>
-        [DataMember(Name = "opening_hours")]
+        [JsonPropertyName("opening_hours")]
         public OpeningHours OpeningHours { get; set; }
 
         // atmosphere fields
-        [DataMember(Name = "price_level")]
+        [JsonPropertyName("price_level")]
         public int? PriceLevel { get; set; }
 
-        [DataMember(Name = "rating")]
+        [JsonPropertyName("rating")]
         public double? Rating { get; set; }
     }
 }

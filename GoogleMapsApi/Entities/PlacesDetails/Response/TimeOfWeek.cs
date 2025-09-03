@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace GoogleMapsApi.Entities.PlacesDetails.Response
 {
-    [DataContract]
     public class TimeOfWeek
     {
         /// <remarks>
@@ -11,7 +10,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// conversion step is not needed, the deserializer's direct casting will work.
         /// http://msdn.microsoft.com/en-us/library/system.dayofweek.aspx
         /// </remarks>
-        [DataMember(Name = "day")]
+        [JsonPropertyName("day")]
         public DayOfWeek Day { get; set; }
 
         /// <summary>
@@ -22,7 +21,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// Didn't make this stronly typed due to .net's lack of an explicit 'Time' class.
         /// http://noda-time.blogspot.com.au/2011/08/what-wrong-with-datetime-anyway.html
         /// </remarks>
-        [DataMember(Name = "time")]
+        [JsonPropertyName("time")]
         public int Time { get; set; }
     }
 }

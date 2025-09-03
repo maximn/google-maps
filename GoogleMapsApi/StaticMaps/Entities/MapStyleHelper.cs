@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
-using Newtonsoft.Json.Linq;
 
 namespace GoogleMapsApi.StaticMaps.Entities
 {

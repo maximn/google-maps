@@ -1,4 +1,4 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace GoogleMapsApi.Entities.PlacesDetails.Response
 {
@@ -9,13 +9,12 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
     /// time may contain a time of day in 24-hour hhmm format. Values are in the range 0000–2359. The time will be reported in the Place’s time zone.
     /// close may contain a pair of day and time objects describing when the Place closes. Note: If a Place is always open, the close section will be missing from the response. Clients can rely on always-open being represented as an open period containing day with value 0 and time with value 0000, and no close.
     /// </summary>
-    [DataContract]
     public class Period
     {
-        [DataMember(Name = "open")]
+        [JsonPropertyName("open")]
         public TimeOfWeek OpenTime { get; set; }
 
-        [DataMember(Name = "close")]
+        [JsonPropertyName("close")]
         public TimeOfWeek CloseTime { get; set; }
     }
 }
