@@ -99,6 +99,12 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		public MapStyle Style { get; set; }
 
 		/// <summary>
+		/// (optional) defines multiple custom styles from Google Styling Wizard JSON.
+		/// This allows you to apply complex styling rules that match the output from Google's Styling Wizard.
+		/// </summary>
+		public IList<MapStyleRule> Styles { get; set; }
+
+		/// <summary>
 		/// (obsolete) sensor specifies whether the application requesting the static map is using a sensor to determine the user's
 		/// location.
 		/// </summary>
