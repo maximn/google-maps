@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.Directions.Response
@@ -8,13 +8,12 @@ namespace GoogleMapsApi.Entities.Directions.Response
 	/// <summary>
 	/// Contains the encoded and decoded data returned in the overview_polyline field.
 	/// </summary>
-	[DataContract]
 	public class OverviewPolyline
 	{
 		/// <summary>
 		/// The encoded string containing the overview path points as they were received.
 		/// </summary>
-		[DataMember(Name = "points")]
+		[JsonPropertyName("points")]
 		internal string EncodedPoints { get; set; }
 
 		private Lazy<IEnumerable<Location>> pointsLazy;
@@ -27,14 +26,19 @@ namespace GoogleMapsApi.Entities.Directions.Response
 
 		public OverviewPolyline()
 		{
-			InitLazyPoints(default);
+			InitLazyPoints();
 		}
 
-		//NOTE that the CTOR isn't called when Deserialized so we use the Attribute
-		[OnDeserializing]
-		private void InitLazyPoints(StreamingContext contex)
+		// Initialize lazy points after deserialization
+		private void InitLazyPoints()
 		{
 			pointsLazy = new Lazy<IEnumerable<Location>>(DecodePoints);
+		}
+
+		// Called after deserialization to initialize lazy points
+		internal void OnDeserialized()
+		{
+			InitLazyPoints();
 		}
 
 		// Adapted from http://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java

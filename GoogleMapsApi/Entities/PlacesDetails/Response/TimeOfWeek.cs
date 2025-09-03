@@ -15,13 +15,9 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
 
         /// <summary>
         /// May contain a time of day in 24-hour hhmm format (values are in the range 0000–2359). The time will
-        /// be reported in the Place’s timezone.
+        /// be reported in the Place's timezone.
         /// </summary>
-        /// <remarks>
-        /// Didn't make this stronly typed due to .net's lack of an explicit 'Time' class.
-        /// http://noda-time.blogspot.com.au/2011/08/what-wrong-with-datetime-anyway.html
-        /// </remarks>
         [JsonPropertyName("time")]
-        public int Time { get; set; }
+        public string Time { get; set; }
     }
 }

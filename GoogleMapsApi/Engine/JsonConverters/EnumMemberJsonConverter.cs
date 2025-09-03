@@ -22,16 +22,29 @@ namespace GoogleMapsApi.Engine.JsonConverters
 
         public override TEnum Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (reader.TokenType != JsonTokenType.String)
-                throw new JsonException($"Expected String, got {reader.TokenType}");
+            if (reader.TokenType == JsonTokenType.String)
+            {
+                var stringValue = reader.GetString();
+                var stringToEnum = GetStringToEnumMapping(typeToConvert);
 
-            var stringValue = reader.GetString();
-            var stringToEnum = GetStringToEnumMapping(typeToConvert);
+                if (stringToEnum.TryGetValue(stringValue, out var enumValue))
+                    return enumValue;
 
-            if (stringToEnum.TryGetValue(stringValue, out var enumValue))
-                return enumValue;
-
-            throw new JsonException($"Unable to convert \"{stringValue}\" to {typeToConvert.Name}");
+                throw new JsonException($"Unable to convert \"{stringValue}\" to {typeToConvert.Name}");
+            }
+            else if (reader.TokenType == JsonTokenType.Number)
+            {
+                var numericValue = reader.GetInt32();
+                if (Enum.IsDefined(typeToConvert, numericValue))
+                {
+                    return (TEnum)Enum.ToObject(typeToConvert, numericValue);
+                }
+                throw new JsonException($"Unable to convert {numericValue} to {typeToConvert.Name}");
+            }
+            else
+            {
+                throw new JsonException($"Expected String or Number, got {reader.TokenType}");
+            }
         }
 
         public override void Write(Utf8JsonWriter writer, TEnum value, JsonSerializerOptions options)

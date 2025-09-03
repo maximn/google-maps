@@ -31,8 +31,10 @@ namespace GoogleMapsApi.Engine
 				PropertyNameCaseInsensitive = true
 			};
 
+			// Add JsonStringEnumConverter for all enums
+			options.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+			
 			// Add custom converters
-			options.Converters.Add(new EnumMemberJsonConverterFactory());
 			options.Converters.Add(new PriceLevelJsonConverter());
 			options.Converters.Add(new OverviewPolylineJsonConverter());
 			

@@ -37,6 +37,8 @@ namespace GoogleMapsApi.Engine.JsonConverters
                 }
             }
 
+            // Initialize lazy points after deserialization
+            polyline.OnDeserialized();
             return polyline;
         }
 

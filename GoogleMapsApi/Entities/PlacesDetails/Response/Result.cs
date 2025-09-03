@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Globalization;
-using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using System.Linq;
 using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Engine.JsonConverters;
 
 namespace GoogleMapsApi.Entities.PlacesDetails.Response
 {
-    [DataContract]
     public class Result
     {
         /// <summary>
@@ -19,220 +19,204 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// Use the helper methods on this Result class to easily extract street address, state, postal code, etc.
         /// Example: result.GetStreetAddress(), result.GetState(), result.GetPostalCode()
         /// </summary>
-        [DataMember(Name="address_components")]
+        [JsonPropertyName("address_components")]
         public IEnumerable<GoogleMapsApi.Entities.Geocoding.Response.AddressComponent> AddressComponent { get; set; }
 
         /// <summary>
         /// A representation of the place's address in the adr microformat.
         /// </summary>
-        [DataMember(Name="adr_address")]
+        [JsonPropertyName("adr_address")]
         public string AdrAddress { get; set; }
 
         /// <summary>
         /// Indicates the operational status of the place, if it is a business.
         /// </summary>
-        [DataMember(Name="business_status")]
+        [JsonPropertyName("business_status")]
+        [JsonConverter(typeof(EnumMemberJsonConverter<BusinessStatus>))]
         public BusinessStatus? BusinessStatus { get; set; }
 
         /// <summary>
         /// Specifies if the business supports curbside pickup.
         /// </summary>
-        [DataMember(Name = "curbside_pickup")]
+        [JsonPropertyName("curbside_pickup")]
         public bool? CurbsidePickup { get; set; }
 
         /// <summary>
         /// Contains the hours of operation for the next seven days (including today).
         /// </summary>
-        [DataMember(Name = "current_opening_hours")]
+        [JsonPropertyName("current_opening_hours")]
         public OpeningHours CurrentOpeningHours { get; set; }
 
         /// <summary>
         /// Specifies if the business supports delivery.
         /// </summary>
-        [DataMember(Name = "delivery")]
+        [JsonPropertyName("delivery")]
         public bool? Delivery { get; set; }
 
         /// <summary>
         /// Specifies if the business supports indoor or outdoor seating options.
         /// </summary>
-        [DataMember(Name = "dine_in")]
+        [JsonPropertyName("dine_in")]
         public bool? DineIn { get; set; }
 
         /// <summary>
         /// Contains a summary of the place.
         /// </summary>
-        [DataMember(Name = "editorial_summary")]
+        [JsonPropertyName("editorial_summary")]
         public PlaceEditorialSummary EditorialSummary { get; set; }
 
 
-        [DataMember(Name = "events")]
+        [JsonPropertyName("events")]
         public IEnumerable<Event> Event { get; set; }
 
-        [DataMember(Name = "formatted_address")]
+        [JsonPropertyName("formatted_address")]
         public string FormattedAddress { get; set; }
 
-        [DataMember(Name = "formatted_phone_number")]
+        [JsonPropertyName("formatted_phone_number")]
         public string FormattedPhoneNumber { get; set; }
 
-        [DataMember(Name = "geometry")]
+        [JsonPropertyName("geometry")]
         public Geometry Geometry { get; set; }
 
-        [DataMember(Name = "icon")]
+        [JsonPropertyName("icon")]
         public string Icon { get; set; }
 
         /// <summary>
         /// Contains the default HEX color code for the place's category.
         /// </summary>
-        [DataMember(Name = "icon_background_color")]
+        [JsonPropertyName("icon_background_color")]
         public string IconBackgroundColor { get; set; }
 
         /// <summary>
         /// Contains the URL of a recommended icon, minus the .svg or .png file type extension.
         /// </summary>
-        [DataMember(Name = "icon_mask_base_uri")]
+        [JsonPropertyName("icon_mask_base_uri")]
         public string IconMaskBaseUri { get; set; }
 
-        [DataMember(Name = "id")]
+        [JsonPropertyName("id")]
         public string ID { get; set; }
 
-        [DataMember(Name = "international_phone_number")]
+        [JsonPropertyName("international_phone_number")]
         public string InternationalPhoneNumber { get; set; }
 
-        [DataMember(Name = "name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Opening hours information
         /// </summary>
-        [DataMember(Name = "opening_hours")]
+        [JsonPropertyName("opening_hours")]
         public OpeningHours OpeningHours { get; set; }
 
-        [DataMember(Name = "permanently_closed")]
+        [JsonPropertyName("permanently_closed")]
         [Obsolete("Use BusinessStatus property instead. See https://developers.google.com/maps/documentation/places/web-service/details#fields for more information.")]
         public bool PermanentlyClosed { get; set; }
 
         /// <summary>
         /// An encoded location reference, derived from latitude and longitude coordinates.
         /// </summary>
-        [DataMember(Name = "plus_code")]
+        [JsonPropertyName("plus_code")]
         public PlusCode PlusCode { get; set; }
 
-        [DataMember(Name = "photos")]
+        [JsonPropertyName("photos")]
         public IEnumerable<Photo> Photos { get; set; }
 
-        public PriceLevel? PriceLevel;
+        [JsonPropertyName("price_level")]
+        [JsonConverter(typeof(GoogleMapsApi.Engine.JsonConverters.PriceLevelJsonConverter))]
+        public PriceLevel? PriceLevel { get; set; }
 
-        [DataMember(Name = "price_level")]
-        internal string string_PriceLevel
-        {
-            get { return PriceLevel.HasValue ? ((int) PriceLevel).ToString(CultureInfo.InvariantCulture) : null; }
-            set
-            {
-                if (value == null)
-                    PriceLevel = null;
-                else
-                {
-                    int priceLevelInt;
-                    if (int.TryParse(value, out priceLevelInt))
-                        PriceLevel = (PriceLevel) priceLevelInt;
-                    else
-                        PriceLevel = null;
-                }
-            }
-        }
-
-        [DataMember(Name = "rating")]
+        [JsonPropertyName("rating")]
         public double Rating { get; set; }
 
-        [DataMember(Name = "reference")]
+        [JsonPropertyName("reference")]
         [Obsolete("Use place_id instead.  See https://developers.google.com/places/documentation/search#deprecation for more information.")]
         public string Reference { get; set; }
 
-        [DataMember(Name = "reviews")]
+        [JsonPropertyName("reviews")]
         public IEnumerable<Review> Review { get; set; }
 
         /// <summary>
         /// Contains an array of entries for the next seven days including information about secondary hours of a business.
         /// </summary>
-        [DataMember(Name = "secondary_opening_hours")]
+        [JsonPropertyName("secondary_opening_hours")]
         public IEnumerable<OpeningHours> SecondaryOpeningHours { get; set; }
 
         /// <summary>
         /// Specifies if the place serves beer.
         /// </summary>
-        [DataMember(Name = "serves_beer")]
+        [JsonPropertyName("serves_beer")]
         public bool? ServesBeer { get; set; }
 
         /// <summary>
         /// Specifies if the place serves breakfast.
         /// </summary>
-        [DataMember(Name = "serves_breakfast")]
+        [JsonPropertyName("serves_breakfast")]
         public bool? ServesBreakfast { get; set; }
 
         /// <summary>
         /// Specifies if the place serves brunch.
         /// </summary>
-        [DataMember(Name = "serves_brunch")]
+        [JsonPropertyName("serves_brunch")]
         public bool? ServesBrunch { get; set; }
 
         /// <summary>
         /// Specifies if the place serves dinner.
         /// </summary>
-        [DataMember(Name = "serves_dinner")]
+        [JsonPropertyName("serves_dinner")]
         public bool? ServesDinner { get; set; }
 
         /// <summary>
         /// Specifies if the place serves lunch.
         /// </summary>
-        [DataMember(Name = "serves_lunch")]
+        [JsonPropertyName("serves_lunch")]
         public bool? ServesLunch { get; set; }
 
         /// <summary>
         /// Specifies if the place serves vegetarian food.
         /// </summary>
-        [DataMember(Name = "serves_vegetarian_food")]
+        [JsonPropertyName("serves_vegetarian_food")]
         public bool? ServesVegetarianFood { get; set; }
 
         /// <summary>
         /// Specifies if the place serves wine.
         /// </summary>
-        [DataMember(Name = "serves_wine")]
+        [JsonPropertyName("serves_wine")]
         public bool? ServesWine { get; set; }
 
         /// <summary>
         /// Specifies if the business supports takeout.
         /// </summary>
-        [DataMember(Name = "takeout")]
+        [JsonPropertyName("takeout")]
         public bool? Takeout { get; set; }
 
-        [DataMember(Name = "types")]
+        [JsonPropertyName("types")]
         public string[] Types { get; set; }
 
-        [DataMember(Name = "url")]
+        [JsonPropertyName("url")]
         public string URL { get; set; }
 
         /// <summary>
         /// The total number of reviews, with or without text, for this place.
         /// </summary>
-        [DataMember(Name = "user_ratings_total")]
+        [JsonPropertyName("user_ratings_total")]
         public int? UserRatingsTotal { get; set; }
 
-        [DataMember(Name = "utc_offset")]
-        public string UTCOffset { get; set; }
+        [JsonPropertyName("utc_offset")]
+        public int? UTCOffset { get; set; }
 
-        [DataMember(Name = "vicinity")]
+        [JsonPropertyName("vicinity")]
         public string Vicinity { get; set; }
 
-        [DataMember(Name = "website")]
+        [JsonPropertyName("website")]
         public string Website { get; set; }
 
         /// <summary>
         /// Specifies if the place has an entrance that is wheelchair-accessible.
         /// </summary>
-        [DataMember(Name = "wheelchair_accessible_entrance")]
+        [JsonPropertyName("wheelchair_accessible_entrance")]
         public bool? WheelchairAccessibleEntrance { get; set; }
 
-        [DataMember(Name = "place_id")]
+        [JsonPropertyName("place_id")]
         public string PlaceId { get; set; }
 
         #region Address Component Helper Methods
