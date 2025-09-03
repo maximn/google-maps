@@ -34,7 +34,7 @@ namespace GoogleMapsApi.Entities.Common
     private static string ToNonScientificString(double value)
     {
       var formattedString = value.ToString(DoubleFormat, CultureInfo.InvariantCulture);
-      if (formattedString.Contains('.'))
+      if (formattedString.Contains("."))
       {
         formattedString = formattedString.TrimEnd('0').TrimEnd('.');
       }
