@@ -32,5 +32,11 @@ namespace GoogleMapsApi.Entities.PlacesText.Response
         /// </summary>
         [DataMember(Name = "results")]
         public IEnumerable<Result> Results { get; set; }
+
+        /// <summary>
+        /// Contains a token that can be used to return up to 20 additional results. When a next_page_token is returned, it contains the next set of results.
+        /// </summary>
+        [DataMember(Name = "next_page_token")]
+        public string NextPage { get; set; }
     }
 }

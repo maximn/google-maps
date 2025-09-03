@@ -17,6 +17,7 @@ namespace GoogleMapsApi.Entities.PlacesText.Request
         public double? Radius { get; set; } // optional
         public string Language { get; set; } // optional
         public string Types { get; set; } // optional
+        public string PageToken { get; set; } // optional
 
         public override bool IsSSL
         {
@@ -41,6 +42,7 @@ namespace GoogleMapsApi.Entities.PlacesText.Request
             if (Radius != null) parameters.Add("radius", Radius.Value.ToString(CultureInfo.InvariantCulture));
             if (!string.IsNullOrWhiteSpace(Language)) parameters.Add("language", Language);
             if (!string.IsNullOrWhiteSpace(Types)) parameters.Add("types", Types);
+            if (!string.IsNullOrWhiteSpace(PageToken)) parameters.Add("pagetoken", PageToken);
 
             return parameters;
         }
