@@ -31,10 +31,14 @@ namespace GoogleMapsApi.Entities.Common
 			return LocationString;
 		}
 
-    private static string ToNonScientificString(double d)
+    private static string ToNonScientificString(double value)
     {
-      var s = d.ToString(DoubleFormat, CultureInfo.InvariantCulture).TrimEnd('0');
-      return s.Length == 0 ? "0.0" : s;
+      var formattedString = value.ToString(DoubleFormat, CultureInfo.InvariantCulture);
+      if (formattedString.Contains("."))
+      {
+        formattedString = formattedString.TrimEnd('0').TrimEnd('.');
+      }
+      return formattedString.Length == 0 ? "0" : formattedString;
     }
         
 	    private static readonly string DoubleFormat = "0." + new string('#', 339);
