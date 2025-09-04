@@ -11,13 +11,13 @@ namespace GoogleMapsApi.Test.IntegrationTests
     public class TimeZoneTests : BaseTestIntegration
     {
         [Test]
-        [Ignore("Need to fix it")]
         public async Task TimeZone_Correct_OverviewPath()
         {
             var request = new TimeZoneRequest
             {
                 ApiKey = ApiKey,
                 Location = new Location(55.866413, 12.501063),
+                TimeStamp = DateTime.UtcNow,
                 Language = "en"
             };
 
