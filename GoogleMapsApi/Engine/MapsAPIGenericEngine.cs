@@ -50,14 +50,51 @@ namespace GoogleMapsApi.Engine
 			if (request == null)
 				throw new ArgumentNullException(nameof(request));
 
-            var requstUri = request.GetUri();
-            var uri = OnUriCreated?.Invoke(requstUri) ?? requstUri;
+            var requestUri = request.GetUri();
+            var uri = OnUriCreated?.Invoke(requestUri) ?? requestUri;
             
-		    var response = await client.DownloadDataTaskAsyncAsString(uri, timeout, token).ConfigureAwait(false);
+		    var responseContent = await GetHttpResponseAsync(uri, timeout, token).ConfigureAwait(false);
 
-            OnRawResponseReceived?.Invoke(Encoding.UTF8.GetBytes(response));
+            OnRawResponseReceived?.Invoke(Encoding.UTF8.GetBytes(responseContent));
 
-            return JsonSerializer.Deserialize<TResponse>(response, jsonOptions);
+            return JsonSerializer.Deserialize<TResponse>(responseContent, jsonOptions);
+		}
+
+		private static async Task<string> GetHttpResponseAsync(Uri uri, TimeSpan timeout, CancellationToken cancellationToken)
+		{
+			using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+			if (timeout != TimeSpan.FromMilliseconds(-1))
+				cts.CancelAfter(timeout);
+			
+			try
+			{
+				using var response = await client.GetAsync(uri, cts.Token).ConfigureAwait(false);
+				await HandleHttpResponse(response, timeout).ConfigureAwait(false);
+				return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+			}
+			catch (OperationCanceledException) when (cts.Token.IsCancellationRequested && !cancellationToken.IsCancellationRequested)
+			{
+				throw new TimeoutException($"The request has exceeded the timeout limit of {timeout} and has been aborted.");
+			}
+		}
+
+		private static async Task HandleHttpResponse(HttpResponseMessage response, TimeSpan timeout)
+		{
+			if (!response.IsSuccessStatusCode)
+			{
+				var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+				if (response.StatusCode == HttpStatusCode.Forbidden ||
+					response.StatusCode == HttpStatusCode.ProxyAuthenticationRequired ||
+					response.StatusCode == HttpStatusCode.Unauthorized)
+					throw new System.Security.Authentication.AuthenticationException(responseContent);
+
+				if (response.StatusCode == HttpStatusCode.GatewayTimeout ||
+					response.StatusCode == HttpStatusCode.RequestTimeout)
+					throw new TimeoutException($"The request has exceeded the timeout limit of {timeout} and has been aborted.");
+
+				throw new HttpRequestException($"Failed with HttpResponse: {response.StatusCode} and message: {response.ReasonPhrase}");
+			}
 		}
 
     }
