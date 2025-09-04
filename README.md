@@ -15,17 +15,47 @@ NuGet page - https://www.nuget.org/packages/GoogleMapsApi/
 
 **Check out my blog at http://maxondev.com**
 
+# Installation
+
+Install via NuGet Package Manager:
+```
+Install-Package GoogleMapsApi
+```
+
+Or via .NET CLI:
+```
+dotnet add package GoogleMapsApi
+```
+
 # Quickstart
 
 This library wraps Google maps API.
 
-You can easily query Google maps for Geocoding, Directions, Elevation, and Places.
+You can easily query Google maps for Geocoding, Directions, Elevation, Distance Matrix, and Places.
 
 NEW! Now you can easily show the results on a Static Google Map!
 
 This Library is well documented and easy to use.
 
-Code sample -
+## API Key Configuration
+
+You can configure your Google Maps API key in several ways:
+
+```csharp
+// Option 1: Set API key per request
+DirectionsRequest directionsRequest = new DirectionsRequest()
+{
+    Origin = "NYC, 5th and 39",
+    Destination = "Philadelphia, Chestnut and Walnut",
+    ApiKey = "your-google-maps-api-key"
+};
+
+// Option 2: Set globally via app.config/appsettings.json (see wiki for details)
+```
+
+## Code Examples
+
+### Basic Usage
 ``` C#
 using GoogleMapsApi;
 using GoogleMapsApi.Entities.Common;
@@ -40,10 +70,15 @@ using GoogleMapsApi.StaticMaps.Entities;
 DirectionsRequest directionsRequest = new DirectionsRequest()
 {
     Origin = "NYC, 5th and 39",
-    Destination = "Philladephia, Chesnut and Wallnut",
+    Destination = "Philadelphia, Chestnut and Walnut",
 };
 
+// Synchronous call
 DirectionsResponse directions = GoogleMaps.Directions.Query(directionsRequest);
+Console.WriteLine(directions);
+
+// Async call (recommended)
+DirectionsResponse directions = await GoogleMaps.Directions.QueryAsync(directionsRequest);
 Console.WriteLine(directions);
 
 //Instance class use (Geocode)  (Can be made from static/instance class)
@@ -52,7 +87,7 @@ GeocodingRequest geocodeRequest = new GeocodingRequest()
     Address = "new york city",
 };
 var geocodingEngine = GoogleMaps.Geocode;
-GeocodingResponse geocode = geocodingEngine.Query(geocodeRequest);
+GeocodingResponse geocode = await geocodingEngine.QueryAsync(geocodeRequest);
 Console.WriteLine(geocode);
 
 // Static maps API - get static map of with the path of the directions request
