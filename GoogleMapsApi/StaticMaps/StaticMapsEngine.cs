@@ -164,7 +164,7 @@ namespace GoogleMapsApi.StaticMaps
 							element = "geometry";
 							break;
 						case MapElement.Labels:
-							element = "lables";
+							element = "labels";
 							break;
 						default:
 							throw new ArgumentOutOfRangeException();
@@ -201,7 +201,7 @@ namespace GoogleMapsApi.StaticMaps
 				bool inverseLightness = style.InverseLightness;
 				if (inverseLightness)
 				{
-					styleComponents.Add("inverse_lightnes:true");
+					styleComponents.Add("inverse_lightness:true");
 				}
 
 				MapVisibility mapVisibility = style.MapVisibility;
