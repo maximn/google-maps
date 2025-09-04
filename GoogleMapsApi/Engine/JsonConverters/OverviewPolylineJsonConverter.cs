@@ -55,7 +55,7 @@ namespace GoogleMapsApi.Engine.JsonConverters
             var encodedPointsProperty = typeof(OverviewPolyline).GetProperty("EncodedPoints",
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             
-            var encodedPoints = (string)encodedPointsProperty?.GetValue(value);
+            var encodedPoints = encodedPointsProperty?.GetValue(value) as string;
             if (encodedPoints != null)
             {
                 writer.WriteString("points", encodedPoints);
