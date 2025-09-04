@@ -18,8 +18,8 @@ namespace GoogleMapsApi.Engine
 		where TRequest : MapsBaseRequest, new()
 		where TResponse : IResponseFor<TRequest>
 	{
-        internal static event UriCreatedDelegate? OnUriCreated;
-        internal static event RawResponseReceivedDelegate? OnRawResponseReceived;
+        internal static event UriCreatedDelegate OnUriCreated;
+        internal static event RawResponseReceivedDelegate OnRawResponseReceived;
 
 		private static readonly HttpClient client = new HttpClient();
 		private static readonly JsonSerializerOptions jsonOptions = CreateJsonOptions();
@@ -57,8 +57,7 @@ namespace GoogleMapsApi.Engine
 
             OnRawResponseReceived?.Invoke(Encoding.UTF8.GetBytes(responseContent));
 
-            return JsonSerializer.Deserialize<TResponse>(responseContent, jsonOptions) 
-                ?? throw new InvalidOperationException("Failed to deserialize API response");
+            return JsonSerializer.Deserialize<TResponse>(responseContent, jsonOptions);
 		}
 
 		private static async Task<string> GetHttpResponseAsync(Uri uri, TimeSpan timeout, CancellationToken cancellationToken)
