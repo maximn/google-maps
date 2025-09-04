@@ -32,7 +32,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        [Ignore("Need to fix it")]
         public async Task TestNearbySearchType()
         {
             var request = new PlacesNearByRequest
