@@ -3,7 +3,7 @@
 Runs NUnit tests for the Google Maps API library.
 
 ```bash
-dotnet test --verbosity normal
+dotnet test --framework net8.0 --verbosity normal 
 ```
 
 ## Environment Requirements
@@ -21,13 +21,16 @@ Tests require a `GOOGLE_API_KEY` environment variable for integration tests.
 
 ```bash
 # Run all tests
-dotnet test --verbosity normal
+dotnet test --framework net8.0 --verbosity normal
 
 # Run tests without building
-dotnet test --no-build --verbosity normal
+dotnet test --framework net8.0 --no-build --verbosity normal
 
 # Run with code coverage
-dotnet test --collect:"XPlat Code Coverage"
+dotnet test --framework net8.0 --collect:"XPlat Code Coverage"
+
+# Skip integration tests
+dotnet test --framework net8.0 --verbosity normal --filter "TestCategory!=Integration
 ```
 
 ## Test Configuration

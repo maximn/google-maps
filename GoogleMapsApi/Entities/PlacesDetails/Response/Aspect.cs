@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace GoogleMapsApi.Entities.PlacesDetails.Response
 {
-    [DataContract]
     public class Aspect
     {
         /// <summary>
         /// Event id.
         /// </summary>
-        [DataMember(Name = "rating")]
+        [JsonPropertyName("rating")]
         public int Rating { get; set; }
 
-        [DataMember(Name = "type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; }
 
     }

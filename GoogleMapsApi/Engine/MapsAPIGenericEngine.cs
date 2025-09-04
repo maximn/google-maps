@@ -1,10 +1,10 @@
 using GoogleMapsApi.Entities.Common;
-using Newtonsoft.Json;
+using GoogleMapsApi.Engine.JsonConverters;
 using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.Serialization.Json;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Text;
@@ -22,6 +22,28 @@ namespace GoogleMapsApi.Engine
         internal static event RawResponseReceivedDelegate OnRawResponseReceived;
 
 		private static readonly HttpClient client = new HttpClient();
+		private static readonly JsonSerializerOptions jsonOptions = CreateJsonOptions();
+
+		private static JsonSerializerOptions CreateJsonOptions()
+		{
+			var options = new JsonSerializerOptions
+			{
+				PropertyNameCaseInsensitive = true
+			};
+
+			// Add JsonStringEnumConverter for all enums
+			options.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+			
+			// Add custom converters
+			options.Converters.Add(new PriceLevelJsonConverter());
+			options.Converters.Add(new OverviewPolylineJsonConverter());
+			
+			// Add Duration converters for specific types
+			options.Converters.Add(new DurationJsonConverter<GoogleMapsApi.Entities.DistanceMatrix.Response.Duration>());
+			options.Converters.Add(new DurationJsonConverter<GoogleMapsApi.Entities.Directions.Response.Duration>());
+
+			return options;
+		}
 
 		protected internal static async Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default)
 		{
@@ -35,7 +57,7 @@ namespace GoogleMapsApi.Engine
 
             OnRawResponseReceived?.Invoke(Encoding.UTF8.GetBytes(response));
 
-            return JsonConvert.DeserializeObject<TResponse>(response);
+            return JsonSerializer.Deserialize<TResponse>(response, jsonOptions);
 		}
 
     }
