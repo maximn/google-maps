@@ -11,13 +11,13 @@ namespace GoogleMapsApi.Entities.PlacesText.Request
             get { return "maps.googleapis.com/maps/api/place/textsearch/"; }
         }
 
-        public string Query { get; set; } // required
+        public string Query { get; set; } = null!; // required
 
-        public Location Location { get; set; } // optional
+        public Location? Location { get; set; } // optional
         public double? Radius { get; set; } // optional
-        public string Language { get; set; } // optional
-        public string Types { get; set; } // optional
-        public string PageToken { get; set; } // optional
+        public string? Language { get; set; } // optional
+        public string? Types { get; set; } // optional
+        public string? PageToken { get; set; } // optional
 
         public override bool IsSSL
         {

@@ -22,7 +22,7 @@ namespace GoogleMapsApi.Entities.PlacesRadar.Request
 	    /// <summary>
         /// Required. The latitude/longitude around which to retrieve place information. This must be specified as latitude,longitude.
 		/// </summary>
-		public Location Location { get; set; } //Required
+		public Location Location { get; set; } = null!; //Required
 
 		/// <summary>
         /// Required. Defines the distance (in meters) within which to return place results. The maximum allowed radius is 50 000 meters.
@@ -32,7 +32,7 @@ namespace GoogleMapsApi.Entities.PlacesRadar.Request
 		/// <summary>
         /// Optional. A term to be matched against all content that Google has indexed for this place, including but not limited to name, type, and address, as well as customer reviews and other third-party content.
 		/// </summary>
-		public string Keyword { get; set; }
+		public string? Keyword { get; set; }
 
         /// <summary>
         /// Optional. Restricts results to only those places within the specified price level. Valid values are in the range from 0 (most affordable) to 4 (most expensive), inclusive. The exact amount indicated by a specific value will vary from region to region.
@@ -47,7 +47,7 @@ namespace GoogleMapsApi.Entities.PlacesRadar.Request
 		/// <summary>
         /// Optional. One or more terms to be matched against the names of places, separated by a space character. Results will be restricted to those containing the passed name values. Note that a place may have additional names associated with it, beyond its listed name. The API will try to match the passed name value against all of these names. As a result, places may be returned in the results whose listed names do not match the search term, but whose associated names do.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
         /// <summary>
         /// Optional. Set to true to only return those places that are open for business at the time the query is sent. Places that do not specify opening hours in the Google Places database will not be returned if you include this parameter in your query.
@@ -58,7 +58,7 @@ namespace GoogleMapsApi.Entities.PlacesRadar.Request
 		/// Optional. Restricts the results to Places matching the specified type. 
 		/// See the list of supported types - https://developers.google.com/maps/documentation/places/supported_types
 		/// </summary>
-		public string Type { get; set; }
+		public string? Type { get; set; }
 
 		public override bool IsSSL
 		{

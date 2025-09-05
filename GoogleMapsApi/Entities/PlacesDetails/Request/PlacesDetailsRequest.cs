@@ -10,9 +10,9 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Request
             get { return "maps.googleapis.com/maps/api/place/details/"; }
         }
 
-        public string PlaceId { get; set; } // required
+        public string PlaceId { get; set; } = null!; // required
 
-        public string Language { get; set; } // optional
+        public string? Language { get; set; } // optional
 
         public override bool IsSSL
         {
@@ -24,7 +24,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Request
         /// A random string which identifies an autocomplete session for billing purposes.
         /// If this parameter is omitted from an autocomplete request, the request is billed independently.
         /// </summary>
-        public string SessionToken { get; set; }
+        public string? SessionToken { get; set; }
 
         protected override QueryStringParametersList GetQueryStringParameters()
         {

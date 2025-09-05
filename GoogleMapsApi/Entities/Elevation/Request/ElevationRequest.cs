@@ -25,12 +25,12 @@ namespace GoogleMapsApi.Entities.Elevation.Request
 		/// <summary>
 		/// locations (required) defines the location(s) on the earth from which to return elevation data. This parameter takes either a single location as a comma-separated {latitude,longitude} pair (e.g. "40.714728,-73.998672") or multiple latitude/longitude pairs passed as an array or as an encoded polyline. For more information, see Specifying Locations below.
 		/// </summary>
-		public IEnumerable<Location> Locations { get; set; }
+		public IEnumerable<Location>? Locations { get; set; }
 
 		/// <summary>
 		/// 
 		/// </summary>
-		public IEnumerable<Location> Path { get; set; }
+		public IEnumerable<Location>? Path { get; set; }
 
 		protected override QueryStringParametersList GetQueryStringParameters()
 		{

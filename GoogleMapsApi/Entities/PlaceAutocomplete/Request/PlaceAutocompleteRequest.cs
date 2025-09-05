@@ -22,7 +22,7 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 		/// <summary>
 		/// Input (required) - the text string on which to search
 		/// </summary>
-		public string Input { get; set; }
+		public string Input { get; set; } = null!;
 
 		/// <summary>
 		/// The position, in the input term, of the last character that the service uses to match predictions (optional).
@@ -36,7 +36,7 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 		/// <summary>
 		/// location (optional) — The textual latitude/longitude value from which you wish to retrieve place information.
 		/// </summary>
-		public Location Location { get; set; }
+		public Location? Location { get; set; }
 
 		/// <summary>
 		/// Defines the distance (in meters) within which to return Place results (optional). The maximum allowed radius is 50 000 meters. 
@@ -48,21 +48,21 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 		/// The language code, indicating in which language the results should be returned, if possible. See the list of supported languages and their codes. 
 		/// Note that we often update supported languages so this list may not be exhaustive.
 		/// </summary>
-		public string Language { get; set; }
+		public string? Language { get; set; }
 
         /// <summary>
         /// (optional) Restricts the results to Places matching the specified type . 
         /// See the list of supported types - https://developers.google.com/maps/documentation/places/supported_types
         /// 
         /// </summary>
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
 		/// <summary>
 		///  A grouping of places to which you would like to restrict your results (optional). Currently, you can use components to filter by country. 
 		///  The country must be passed as a two character, ISO 3166-1 Alpha-2 compatible country code. For example: components=country:fr would 
 		///  restrict your results to places within France.
 		/// </summary>
-		public string Components { get; set; }
+		public string? Components { get; set; }
 
 		/// <summary>
 		///  Returns only those places that are strictly within the region defined by location and radius. 
@@ -86,7 +86,7 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Request
 		/// A random string which identifies an autocomplete session for billing purposes.
 		/// If this parameter is omitted from an autocomplete request, the request is billed independently.
 		/// </summary>
-		public string SessionToken { get; set; }
+		public string? SessionToken { get; set; }
 
 		protected override QueryStringParametersList GetQueryStringParameters()
 		{

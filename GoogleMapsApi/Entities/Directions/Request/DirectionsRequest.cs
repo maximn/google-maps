@@ -22,14 +22,14 @@ namespace GoogleMapsApi.Entities.Directions.Request
         /// If you pass an address as a string, the Directions service will geocode the string and convert it to a latitude/longitude 
         /// coordinate to calculate directions. If you pass coordinates, ensure that no space exists between the latitude and longitude values.
 		/// </summary>
-		public string Origin { get; set; }
+		public string Origin { get; set; } = null!;
 
 		/// <summary>
         /// destination (required) — The address or textual latitude/longitude value from which you wish to calculate directions. 
         /// If you pass an address as a string, the Directions service will geocode the string and convert it to a latitude/longitude 
         /// coordinate to calculate directions. If you pass coordinates, ensure that no space exists between the latitude and longitude values.
 		/// </summary>
-		public string Destination { get; set; }
+		public string Destination { get; set; } = null!;
 
 		/// <summary>
 		/// The time of departure.
@@ -46,7 +46,7 @@ namespace GoogleMapsApi.Entities.Directions.Request
 		/// <summary>
 		/// waypoints (optional) specifies an array of waypoints. Waypoints alter a route by routing it through the specified location(s). A waypoint is specified as either a latitude/longitude coordinate or as an address which will be geocoded. (For more information on waypoints, see Using Waypoints in Routes below.)
 		/// </summary>
-		public string[] Waypoints { get; set; }
+		public string[]? Waypoints { get; set; }
 
 		/// <summary>
 		/// optimize the provided route by rearranging the waypoints in a more efficient order. (This optimization is an application of the Travelling Salesman Problem.)
@@ -58,6 +58,7 @@ namespace GoogleMapsApi.Entities.Directions.Request
 		/// alternatives (optional), if set to true, specifies that the Directions service may provide more than one route alternative in the response. Note that providing route alternatives may increase the response time from the server.
 		/// </summary>
 		public bool Alternatives { get; set; }
+		
 
 		/// <summary>
 		/// avoid (optional) indicates that the calculated route(s) should avoid the indicated features. Currently, this parameter supports the following two arguments:
@@ -74,7 +75,7 @@ namespace GoogleMapsApi.Entities.Directions.Request
 		/// You may also explicitly bias the results by using localized domains of http://map.google.com. 
 		/// See Region Biasing for more information.
 		/// </summary>
-		public string Language { get; set; }
+		public string? Language { get; set; }
 
 		/// <summary>
 		/// (optional, defaults to driving) — specifies what mode of transport to use when calculating directions. Valid values are specified in Travel Modes.
@@ -86,7 +87,7 @@ namespace GoogleMapsApi.Entities.Directions.Request
         /// In most cases, these tags map directly to familiar ccTLD ("top-level domain") two-character values such as "uk" in "co.uk" for example.
         ///  In some cases, the region tag also supports ISO-3166-1 codes, which sometimes differ from ccTLD values ("GB" for "Great Britain" for example).
         /// </summary>
-        public string Region { get; set; }
+        public string? Region { get; set; }
 
 		protected override QueryStringParametersList GetQueryStringParameters()
 		{

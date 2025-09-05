@@ -22,7 +22,7 @@ namespace GoogleMapsApi.Entities.PlacesNearBy.Request
 		/// <summary>
 		/// location (required) — The textual latitude/longitude value from which you wish to retrieve place information.
 		/// </summary>
-		public Location Location { get; set; } //Required
+		public Location Location { get; set; } = null!; //Required
 
 		/// <summary>
 		/// Defines the distance (in meters) within which to return Place results. The maximum allowed radius is 50 000 meters. 
@@ -34,18 +34,18 @@ namespace GoogleMapsApi.Entities.PlacesNearBy.Request
 		/// A term to be matched against all content that Google has indexed for this Place, 
 		/// including but not limited to name, type, and address, as well as customer reviews and other third-party content.
 		/// </summary>
-		public string Keyword { get; set; }
+		public string? Keyword { get; set; }
 
 		/// <summary>
 		/// The language code, indicating in which language the results should be returned, if possible. See the list of supported languages and their codes. 
 		/// Note that we often update supported languages so this list may not be exhaustive.
 		/// </summary>
-		public string Language { get; set; }
+		public string? Language { get; set; }
 
 		/// <summary>
 		///  A term to be matched against the names of Places. Results will be restricted to those containing the passed name value.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// Specifies the order in which results are listed
@@ -57,13 +57,13 @@ namespace GoogleMapsApi.Entities.PlacesNearBy.Request
 		/// See the list of supported types - https://developers.google.com/maps/documentation/places/supported_types
 		/// 
 		/// </summary>
-		public string Type { get; set; }
+		public string? Type { get; set; }
 
 		/// <summary>
 		/// If there is a next page of results, this token will be supplied by Google in a previous PlacesResponse. PageToken should be set to the previous response value to get the next page of results from Google.
 		/// When PageToken is set, all other Request parameters are ignored.
 		/// </summary>
-		public string PageToken { get; set; }
+		public string? PageToken { get; set; }
 
 		public override bool IsSSL
 		{
