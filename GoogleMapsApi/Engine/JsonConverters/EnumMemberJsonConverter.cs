@@ -25,6 +25,9 @@ namespace GoogleMapsApi.Engine.JsonConverters
             if (reader.TokenType == JsonTokenType.String)
             {
                 var stringValue = reader.GetString();
+                if (stringValue == null)
+                    throw new JsonException($"Unable to convert null string to {typeToConvert.Name}");
+                    
                 var stringToEnum = GetStringToEnumMapping(typeToConvert);
 
                 if (stringToEnum.TryGetValue(stringValue, out var enumValue))
@@ -115,7 +118,7 @@ namespace GoogleMapsApi.Engine.JsonConverters
         public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
         {
             var converterType = typeof(EnumMemberJsonConverter<>).MakeGenericType(typeToConvert);
-            return (JsonConverter)Activator.CreateInstance(converterType);
+            return (JsonConverter)Activator.CreateInstance(converterType)!;
         }
     }
 }

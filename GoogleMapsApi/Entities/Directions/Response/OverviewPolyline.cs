@@ -64,7 +64,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 				int lat = 0;
 				int lng = 0;
 
-				while (index < EncodedPoints.Length)
+				while (index < EncodedPoints!.Length)
 				{
 					int b, shift = 0, result = 0;
 					do
@@ -94,7 +94,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 			}
 			catch (Exception ex)
 			{
-				throw new PointsDecodingException("Couldn't decode points", EncodedPoints, ex);
+				throw new PointsDecodingException("Couldn't decode points", EncodedPoints!, ex);
 			}
 
 			return points;

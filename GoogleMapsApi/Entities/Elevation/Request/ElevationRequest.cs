@@ -38,7 +38,7 @@ namespace GoogleMapsApi.Entities.Elevation.Request
 				throw new ArgumentException("Either Locations or Path must be specified, and both cannot be specified.");
 
 			var parameters = base.GetQueryStringParameters();
-			parameters.Add(Locations != null ? "locations" : "path", string.Join("|", Locations ?? Path));
+			parameters.Add(Locations != null ? "locations" : "path", string.Join("|", (Locations ?? Path)!));
 
 			return parameters;
 		}

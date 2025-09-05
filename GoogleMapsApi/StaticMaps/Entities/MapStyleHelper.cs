@@ -72,7 +72,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
 
                         if (stylerElement.TryGetProperty("visibility", out var visibilityProperty))
                         {
-                            styler.Visibility = visibilityProperty.GetString();
+                            styler.Visibility = visibilityProperty.GetString()!;
                         }
 
                         if (stylerElement.TryGetProperty("lightness", out var lightnessProperty))

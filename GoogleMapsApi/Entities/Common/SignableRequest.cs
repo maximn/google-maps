@@ -18,7 +18,7 @@ namespace GoogleMapsApi.Entities.Common
 		/// <summary>
 		/// The client ID provided to you by Google Enterprise Support, or null to disable URL signing. All client IDs begin with a "gme-" prefix.
 		/// </summary>
-		public string? ClientID { get; set; }
+		public string ClientID { get; set; } = null!;
 
 		/// <summary>
 		/// A cryptographic signing key (secret shared key), in base64url format, provided to you by Google Enterprise Support.
@@ -29,7 +29,7 @@ namespace GoogleMapsApi.Entities.Common
 		/// that developers without a Maps API for Business license are required to use when loading the Maps JavaScript API V2 and 
 		/// Maps API for Flash, or the keys issued by the Google APIs Console for use with the Google Places API.
 		/// </remarks>
-		public string? SigningKey { get; set; }
+		public string SigningKey { get; set; } = null!;
 
 	    /// <summary>
 	    /// Add the channel parameter to requests so you can view more detailed usage reports when using a Premium Plan
@@ -63,7 +63,7 @@ namespace GoogleMapsApi.Entities.Common
 		    if (!string.IsNullOrWhiteSpace(Channel))
 		        urlSegmentToSign += "&channel=" + Channel;
 
-            byte[] privateKey = FromBase64UrlString(SigningKey);
+            byte[] privateKey = FromBase64UrlString(SigningKey!);
 			byte[] signature;
 
 			using (var algorithm = new HMACSHA1(privateKey))

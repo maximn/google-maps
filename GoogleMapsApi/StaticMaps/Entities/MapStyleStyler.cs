@@ -13,7 +13,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
         /// <summary>
         /// Visibility setting ("on", "off", "simplified")
         /// </summary>
-        public string Visibility { get; set; }
+        public string? Visibility { get; set; }
 
         /// <summary>
         /// Lightness value (-100 to 100)

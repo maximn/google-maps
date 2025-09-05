@@ -71,7 +71,7 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
             }
             else if (hasLocation)
             {
-                parameters.Add(_latlng, Location.ToString());
+                parameters.Add(_latlng, Location!.ToString());
             }
             else if (hasAddress)
             {
