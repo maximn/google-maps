@@ -4,7 +4,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 {
 	public class PointsDecodingException : Exception
 	{
-		public string EncodedString { get; set; }
+		public string? EncodedString { get; set; }
 
 		public PointsDecodingException()
 		{

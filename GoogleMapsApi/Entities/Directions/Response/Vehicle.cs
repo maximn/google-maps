@@ -10,7 +10,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
         /// Contains the name of the vehicle on this line. eg. "Subway."
         /// </summary>
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
 		/// Contains the type of vehicle that runs on this line.
@@ -23,12 +23,12 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// Contains the URL for an icon associated with this vehicle type.
 		/// </summary>
 		[JsonPropertyName("icon")]
-		public string Icon { get; set; }
+		public string? Icon { get; set; }
 
         /// <summary>
         /// Contains the URL for a localized icon associated with this vehicle type.
         /// </summary>
         [JsonPropertyName("local_icon")]
-        public string LocalIcon { get; set; }
+        public string? LocalIcon { get; set; }
     }
 }

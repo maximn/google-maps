@@ -9,6 +9,6 @@ namespace GoogleMapsApi.Entities.Places.Response
     public class Geometry
     {
         [JsonPropertyName("location")]
-        public Location Location { get; set; } 
+        public Location Location { get; set; } = null!;
     }
 }

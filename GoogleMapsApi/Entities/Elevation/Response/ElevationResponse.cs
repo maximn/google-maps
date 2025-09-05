@@ -15,7 +15,7 @@ namespace GoogleMapsApi.Entities.Elevation.Response
 		public Status Status { get; set; }
 
 		[JsonPropertyName("results")]
-		public IEnumerable<Result> Results { get; set; }
+		public IEnumerable<Result>? Results { get; set; }
 
 
 		public override string ToString()

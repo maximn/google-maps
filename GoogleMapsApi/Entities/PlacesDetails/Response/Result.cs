@@ -20,13 +20,13 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// Example: result.GetStreetAddress(), result.GetState(), result.GetPostalCode()
         /// </summary>
         [JsonPropertyName("address_components")]
-        public IEnumerable<GoogleMapsApi.Entities.Geocoding.Response.AddressComponent> AddressComponent { get; set; }
+        public IEnumerable<GoogleMapsApi.Entities.Geocoding.Response.AddressComponent>? AddressComponent { get; set; }
 
         /// <summary>
         /// A representation of the place's address in the adr microformat.
         /// </summary>
         [JsonPropertyName("adr_address")]
-        public string AdrAddress { get; set; }
+        public string AdrAddress { get; set; } = null!;
 
         /// <summary>
         /// Indicates the operational status of the place, if it is a business.
@@ -45,7 +45,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// Contains the hours of operation for the next seven days (including today).
         /// </summary>
         [JsonPropertyName("current_opening_hours")]
-        public OpeningHours CurrentOpeningHours { get; set; }
+        public OpeningHours CurrentOpeningHours { get; set; } = null!;
 
         /// <summary>
         /// Specifies if the business supports delivery.
@@ -63,50 +63,50 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// Contains a summary of the place.
         /// </summary>
         [JsonPropertyName("editorial_summary")]
-        public PlaceEditorialSummary EditorialSummary { get; set; }
+        public PlaceEditorialSummary EditorialSummary { get; set; } = null!;
 
 
         [JsonPropertyName("events")]
-        public IEnumerable<Event> Event { get; set; }
+        public IEnumerable<Event> Event { get; set; } = null!;
 
         [JsonPropertyName("formatted_address")]
-        public string FormattedAddress { get; set; }
+        public string FormattedAddress { get; set; } = null!;
 
         [JsonPropertyName("formatted_phone_number")]
-        public string FormattedPhoneNumber { get; set; }
+        public string FormattedPhoneNumber { get; set; } = null!;
 
         [JsonPropertyName("geometry")]
-        public Geometry Geometry { get; set; }
+        public Geometry Geometry { get; set; } = null!;
 
         [JsonPropertyName("icon")]
-        public string Icon { get; set; }
+        public string Icon { get; set; } = null!;
 
         /// <summary>
         /// Contains the default HEX color code for the place's category.
         /// </summary>
         [JsonPropertyName("icon_background_color")]
-        public string IconBackgroundColor { get; set; }
+        public string IconBackgroundColor { get; set; } = null!;
 
         /// <summary>
         /// Contains the URL of a recommended icon, minus the .svg or .png file type extension.
         /// </summary>
         [JsonPropertyName("icon_mask_base_uri")]
-        public string IconMaskBaseUri { get; set; }
+        public string IconMaskBaseUri { get; set; } = null!;
 
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string ID { get; set; } = null!;
 
         [JsonPropertyName("international_phone_number")]
-        public string InternationalPhoneNumber { get; set; }
+        public string InternationalPhoneNumber { get; set; } = null!;
 
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>
         /// Opening hours information
         /// </summary>
         [JsonPropertyName("opening_hours")]
-        public OpeningHours OpeningHours { get; set; }
+        public OpeningHours OpeningHours { get; set; } = null!;
 
         [JsonPropertyName("permanently_closed")]
         [Obsolete("Use BusinessStatus property instead. See https://developers.google.com/maps/documentation/places/web-service/details#fields for more information.")]
@@ -116,10 +116,10 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// An encoded location reference, derived from latitude and longitude coordinates.
         /// </summary>
         [JsonPropertyName("plus_code")]
-        public PlusCode PlusCode { get; set; }
+        public PlusCode PlusCode { get; set; } = null!;
 
         [JsonPropertyName("photos")]
-        public IEnumerable<Photo> Photos { get; set; }
+        public IEnumerable<Photo> Photos { get; set; } = null!;
 
         [JsonPropertyName("price_level")]
         [JsonConverter(typeof(GoogleMapsApi.Engine.JsonConverters.PriceLevelJsonConverter))]
@@ -130,16 +130,16 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
 
         [JsonPropertyName("reference")]
         [Obsolete("Use place_id instead.  See https://developers.google.com/places/documentation/search#deprecation for more information.")]
-        public string Reference { get; set; }
+        public string Reference { get; set; } = null!;
 
         [JsonPropertyName("reviews")]
-        public IEnumerable<Review> Review { get; set; }
+        public IEnumerable<Review> Review { get; set; } = null!;
 
         /// <summary>
         /// Contains an array of entries for the next seven days including information about secondary hours of a business.
         /// </summary>
         [JsonPropertyName("secondary_opening_hours")]
-        public IEnumerable<OpeningHours> SecondaryOpeningHours { get; set; }
+        public IEnumerable<OpeningHours> SecondaryOpeningHours { get; set; } = null!;
 
         /// <summary>
         /// Specifies if the place serves beer.
@@ -190,10 +190,10 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         public bool? Takeout { get; set; }
 
         [JsonPropertyName("types")]
-        public string[] Types { get; set; }
+        public string[] Types { get; set; } = null!;
 
         [JsonPropertyName("url")]
-        public string URL { get; set; }
+        public string URL { get; set; } = null!;
 
         /// <summary>
         /// The total number of reviews, with or without text, for this place.
@@ -205,10 +205,10 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         public int? UTCOffset { get; set; }
 
         [JsonPropertyName("vicinity")]
-        public string Vicinity { get; set; }
+        public string Vicinity { get; set; } = null!;
 
         [JsonPropertyName("website")]
-        public string Website { get; set; }
+        public string Website { get; set; } = null!;
 
         /// <summary>
         /// Specifies if the place has an entrance that is wheelchair-accessible.
@@ -217,7 +217,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         public bool? WheelchairAccessibleEntrance { get; set; }
 
         [JsonPropertyName("place_id")]
-        public string PlaceId { get; set; }
+        public string PlaceId { get; set; } = null!;
 
         #region Address Component Helper Methods
 
@@ -342,27 +342,27 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// <summary>
         /// Street address (street number + route)
         /// </summary>
-        public string StreetAddress { get; set; }
+        public string StreetAddress { get; set; } = null!;
 
         /// <summary>
         /// City/locality
         /// </summary>
-        public string City { get; set; }
+        public string City { get; set; } = null!;
 
         /// <summary>
         /// State/province
         /// </summary>
-        public string State { get; set; }
+        public string State { get; set; } = null!;
 
         /// <summary>
         /// Postal code
         /// </summary>
-        public string PostalCode { get; set; }
+        public string PostalCode { get; set; } = null!;
 
         /// <summary>
         /// Country
         /// </summary>
-        public string Country { get; set; }
+        public string Country { get; set; } = null!;
 
         /// <summary>
         /// Returns a formatted address string

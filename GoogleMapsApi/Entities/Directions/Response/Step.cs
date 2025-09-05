@@ -16,50 +16,50 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// html_instructions contains formatted instructions for this step, presented as an HTML text string.
 		/// </summary>
 		[JsonPropertyName("html_instructions")]
-		public string HtmlInstructions { get; set; }
+		public string? HtmlInstructions { get; set; }
 
 		/// <summary>
 		/// Contains an object holding an array of encoded points that represent an approximate (smoothed) path of the resulting directions.
 		/// </summary>
 		[JsonPropertyName("polyline")]
-		public OverviewPolyline PolyLine { get; set; }
+		public OverviewPolyline? PolyLine { get; set; }
 
 		/// <summary>
 		/// distance contains the distance covered by this step until the next step. (See the discussion of this field in Directions Legs above.) This field may be undefined if the distance is unknown.
 		/// </summary>
 		[JsonPropertyName("distance")]
-		public Distance Distance { get; set; }
+		public Distance? Distance { get; set; }
 
 		/// <summary>
 		/// duration contains the typical time required to perform the step, until the next step (See the description in Directions Legs above.) This field may be undefined if the duration is unknown.
 		/// </summary>
 		[JsonPropertyName("duration")]
-		public Duration Duration { get; set; }
+		public Duration? Duration { get; set; }
 
 		/// <summary>
 		/// start_location contains the location of the starting point of this step, as a single set of lat and lng fields.
 		/// </summary>
 		[JsonPropertyName("start_location")]
-		public Location StartLocation { get; set; }
+		public Location? StartLocation { get; set; }
 
 		/// <summary>
 		/// end_location contains the location of the starting point of this step, as a single set of lat and lng fields.
 		/// </summary>
 		[JsonPropertyName("end_location")]
-		public Location EndLocation { get; set; }
+		public Location? EndLocation { get; set; }
 
 		/// <summary>
 		/// More information about the step. Only avaliable when TravelMode = Transit
 		/// </summary>
 		[JsonPropertyName("transit_details")]
-		public TransitDetails TransitDetails { get; set; }
+		public TransitDetails? TransitDetails { get; set; }
 
 		/// <summary>
 		/// Contains detailed directions for walking or driving steps in transit directions. Substeps are only available when TravelMode is set to Transit.
         /// * NOTE : Google documentations states that it should be 'sub_steps' but implemented as 'steps' so we use the actual implementation
 		/// </summary>
         [JsonPropertyName("steps")]
-        public IEnumerable<Step> SubSteps { get; set; }
+        public IEnumerable<Step>? SubSteps { get; set; }
 
 		/// <summary>
 		/// Gets the mode of transportation used in this step
@@ -72,6 +72,6 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// Gets the action to take for the current step (turn left, merge, straight, etc.) - Values in this list are subject to change. See documentation.
 		/// </summary>
 		[JsonPropertyName("maneuver")]
-		public string Maneuver { get; set; }
+		public string? Maneuver { get; set; }
 	}
 }

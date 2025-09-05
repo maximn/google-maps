@@ -14,7 +14,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// The encoded string containing the overview path points as they were received.
 		/// </summary>
 		[JsonPropertyName("points")]
-		internal string EncodedPoints { get; set; }
+		internal string? EncodedPoints { get; set; }
 
 		private Lazy<IEnumerable<Location>> pointsLazy;
 
@@ -54,6 +54,11 @@ namespace GoogleMapsApi.Entities.Directions.Response
 
 			try
 			{
+				if (string.IsNullOrEmpty(EncodedPoints))
+				{
+					return new List<Location>();
+				}
+
 				var poly = new List<Location>();
 				int index = 0;
 				int lat = 0;
@@ -99,7 +104,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// The RAW data of points from Google
 		/// </summary>
 		/// <returns></returns>
-		public string GetRawPointsData()
+		public string? GetRawPointsData()
 		{
 			return this.EncodedPoints;
 		}

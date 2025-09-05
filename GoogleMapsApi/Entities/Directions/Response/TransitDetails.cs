@@ -8,31 +8,31 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// Contains information about the stop/station for this part of the trip
 		/// </summary>
 		[JsonPropertyName("arrival_stop")]
-		public Stop ArrivalStop { get; set; }
+		public Stop? ArrivalStop { get; set; }
 
 		/// <summary>
 		/// Contains information about the stop/station for this part of the trip.
 		/// </summary>
 		[JsonPropertyName("departure_stop")]
-		public Stop DepartureStop { get; set; }
+		public Stop? DepartureStop { get; set; }
 
 		/// <summary>
 		/// Contain the arrival times for this leg of the journey
 		/// </summary>
 		[JsonPropertyName("arrival_time")]
-		public Duration ArrivalTime { get; set; }
+		public Duration? ArrivalTime { get; set; }
 
 		/// <summary>
 		/// Contain the departure times for this leg of the journey
 		/// </summary>
 		[JsonPropertyName("departure_time")]
-		public Duration DepartureTime { get; set; }
+		public Duration? DepartureTime { get; set; }
 
 		/// <summary>
 		/// Specifies the direction in which to travel on this line, as it is marked on the vehicle or at the departure stop. This will often be the terminus station.
 		/// </summary>
 		[JsonPropertyName("headsign")]
-		public string Headsign { get; set; }
+		public string? Headsign { get; set; }
 
 		/// <summary>
 		/// Specifies the expected number of seconds between departures from the same stop at this time. For example, with a headway value of 600, you would expect a ten minute wait if you should miss your bus.
@@ -50,6 +50,6 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// Contains information about the transit line used in this step.
 		/// </summary>
 		[JsonPropertyName("line")]
-		public Line Lines { get; set; }
+		public Line? Lines { get; set; }
 	}
 }

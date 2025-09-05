@@ -34,13 +34,13 @@ namespace GoogleMapsApi.Entities.TimeZone.Response
         /// TimeZoneId: a string containing the ID of the time zone, such as "America/Los_Angeles" or "Australia/Sydney".
         /// </summary>
         [JsonPropertyName("timeZoneId")]
-        public string TimeZoneId { get; set; }
+        public string TimeZoneId { get; set; } = null!;
         
         /// <summary>
         /// TimeZoneName: a string containing the long form name of the time zone. This field will be localized if the language parameter is set. eg. "Pacific Daylight Time" or "Australian.
         /// </summary>
         [JsonPropertyName("timeZoneName")]
-        public string TimeZoneName { get; set; }
+        public string TimeZoneName { get; set; } = null!;
     }
 }
  

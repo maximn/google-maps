@@ -18,6 +18,6 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// be reported in the Place's timezone.
         /// </summary>
         [JsonPropertyName("time")]
-        public string Time { get; set; }
+        public string Time { get; set; } = null!;
     }
 }

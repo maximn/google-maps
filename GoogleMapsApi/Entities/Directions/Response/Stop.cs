@@ -13,12 +13,12 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// The name of the transit station/stop. eg. "Union Square".
 		/// </summary>
 		[DataMember(Name = "name")]
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The location of the transit station/stop, represented as lattitude and longitude.
 		/// </summary>
 		[DataMember(Name = "location")]
-		public Location Location { get; set; }
+		public Location? Location { get; set; }
 	}
 }

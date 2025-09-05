@@ -17,6 +17,6 @@ namespace GoogleMapsApi.Entities.PlacesFind.Response
         /// Collection of places. Each result contains only the data types that were specified using the fields parameter, plus html_attributions.
         /// </summary>
         [JsonPropertyName("candidates")]
-        public IEnumerable<Candidate> Candidates { get; set; }
+        public IEnumerable<Candidate> Candidates { get; set; } = null!;
     }
 }

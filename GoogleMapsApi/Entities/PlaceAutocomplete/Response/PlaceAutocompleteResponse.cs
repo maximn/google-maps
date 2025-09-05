@@ -21,6 +21,6 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Response
         /// to get the full place details
 		/// </summary>
 		[JsonPropertyName("predictions")]
-		public IEnumerable<Prediction> Results { get; set; }
+		public IEnumerable<Prediction> Results { get; set; } = null!;
 	}
 }

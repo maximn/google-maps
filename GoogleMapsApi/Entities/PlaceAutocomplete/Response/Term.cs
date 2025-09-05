@@ -12,7 +12,7 @@ namespace GoogleMapsApi.Entities.PlaceAutocomplete.Response
         /// The text of the term
         /// </summary>
         [JsonPropertyName("value")]
-        public string Value { get; set; }
+        public string Value { get; set; } = null!;
 
         /// <summary>
         /// The start position of this term in the description, measured in Unicode characters
