@@ -22,28 +22,7 @@ namespace GoogleMapsApi.Engine
         internal static event RawResponseReceivedDelegate? OnRawResponseReceived;
 
 		private static readonly HttpClient client = new HttpClient();
-		private static readonly JsonSerializerOptions jsonOptions = CreateJsonOptions();
-
-		private static JsonSerializerOptions CreateJsonOptions()
-		{
-			var options = new JsonSerializerOptions
-			{
-				PropertyNameCaseInsensitive = true
-			};
-
-			// Add JsonStringEnumConverter for all enums
-			options.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
-			
-			// Add custom converters
-			options.Converters.Add(new PriceLevelJsonConverter());
-			options.Converters.Add(new OverviewPolylineJsonConverter());
-			
-			// Add Duration converters for specific types
-			options.Converters.Add(new DurationJsonConverter<GoogleMapsApi.Entities.DistanceMatrix.Response.Duration>());
-			options.Converters.Add(new DurationJsonConverter<GoogleMapsApi.Entities.Directions.Response.Duration>());
-
-			return options;
-		}
+		private static readonly JsonSerializerOptions jsonOptions = JsonSerializerConfiguration.CreateOptions();
 
 		protected internal static async Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default)
 		{
@@ -75,6 +54,21 @@ namespace GoogleMapsApi.Engine
 			catch (OperationCanceledException) when (cts.Token.IsCancellationRequested && !cancellationToken.IsCancellationRequested)
 			{
 				throw new TimeoutException($"The request has exceeded the timeout limit of {timeout} and has been aborted.");
+			}
+			catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+			{
+				// Re-throw OperationCanceledException when cancellation token was cancelled
+				throw;
+			}
+			catch (TaskCanceledException ex)
+			{
+				// Check if this was due to our cancellation token being cancelled
+				if (cancellationToken.IsCancellationRequested)
+				{
+					throw new OperationCanceledException("The operation was cancelled.", ex, cancellationToken);
+				}
+				// If not due to our cancellation token, it might be due to timeout, re-throw as is
+				throw;
 			}
 		}
 

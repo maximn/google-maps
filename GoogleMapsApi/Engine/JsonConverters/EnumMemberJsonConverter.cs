@@ -38,6 +38,9 @@ namespace GoogleMapsApi.Engine.JsonConverters
             else if (reader.TokenType == JsonTokenType.Number)
             {
                 var numericValue = reader.GetInt32();
+                
+                // Check if the numeric value corresponds to a valid enum value
+                // by checking if it's defined in the enum
                 if (Enum.IsDefined(typeToConvert, numericValue))
                 {
                     return (TEnum)Enum.ToObject(typeToConvert, numericValue);
@@ -88,7 +91,7 @@ namespace GoogleMapsApi.Engine.JsonConverters
         {
             return StringToEnumCache.GetOrAdd(enumType, type =>
             {
-                var mapping = new Dictionary<string, TEnum>();
+                var mapping = new Dictionary<string, TEnum>(StringComparer.OrdinalIgnoreCase);
                 var enumValues = Enum.GetValues(type).Cast<TEnum>();
 
                 foreach (var enumValue in enumValues)
