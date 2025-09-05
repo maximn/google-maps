@@ -1,6 +1,7 @@
 using System;
 using System.Text.Json;
 using GoogleMapsApi.Engine.JsonConverters;
+using GoogleMapsApi.Engine;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Response;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
@@ -17,15 +18,11 @@ namespace GoogleMapsApi.Test
         [SetUp]
         public void Setup()
         {
-            _options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-            _options.Converters.Add(new DurationJsonConverter<GoogleMapsApi.Entities.Directions.Response.Duration>());
-            _options.Converters.Add(new DurationJsonConverter<GoogleMapsApi.Entities.DistanceMatrix.Response.Duration>());
-            _options.Converters.Add(new PriceLevelJsonConverter());
+            // Use centralized configuration for consistency with production code
+            _options = JsonSerializerConfiguration.CreateOptions();
+            
+            // Add only the custom EnumMemberJsonConverter for testing
             _options.Converters.Add(new EnumMemberJsonConverter<TravelMode>());
-            _options.Converters.Add(new OverviewPolylineJsonConverter());
         }
 
         #region DurationJsonConverter Tests

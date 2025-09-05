@@ -60,7 +60,7 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
             bool hasLocation = Location is not null;
             bool hasAddress = !string.IsNullOrWhiteSpace(Address);
 
-            if (!(hasPlaceId || hasLocation || hasAddress || Components.Exists))
+            if (!(hasPlaceId || hasLocation || hasAddress || (Components?.Exists ?? false)))
                 throw new ArgumentException("PlaceId, Location, Address or Components is required");
 
             var parameters = base.GetQueryStringParameters();
@@ -78,7 +78,7 @@ namespace GoogleMapsApi.Entities.Geocoding.Request
                 parameters.Add(_address, Address);
             }
 
-            if (Components.Exists && !hasPlaceId)
+            if (Components?.Exists == true && !hasPlaceId)
             {
                 string components = Components.Build();
                 parameters.Add(_components, components);
