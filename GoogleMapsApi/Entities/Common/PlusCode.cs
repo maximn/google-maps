@@ -14,13 +14,13 @@ namespace GoogleMapsApi.Entities.Common
         /// A 4 character area code and 6 character or longer local code (849VCWC8+R9).
         /// </summary>
         [JsonPropertyName("global_code")]
-        public string GlobalCode { get; set; }
+        public string GlobalCode { get; set; } = null!;
 
         /// <summary>
         /// A 6 character or longer local code with an explicit location (CWC8+R9, Mountain View, CA, USA).
         /// May return an empty string if the compound_code is not available.
         /// </summary>
         [JsonPropertyName("compound_code")]
-        public string CompoundCode { get; set; }
+        public string CompoundCode { get; set; } = null!;
     }
 }
