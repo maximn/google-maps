@@ -22,7 +22,12 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.OK), result.ErrorMessage);
-            Assert.That(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), Is.GreaterThan(100));
+            
+            Assert.That(result.Routes, Is.Not.Null.And.Not.Empty, "Routes should not be null or empty");
+            Assert.That(result.Routes!.First().Legs, Is.Not.Null.And.Not.Empty, "Legs should not be null or empty");
+            Assert.That(result.Routes!.First().Legs!.First().Steps, Is.Not.Null.And.Not.Empty, "Steps should not be null or empty");
+            
+            Assert.That(result.Routes!.First().Legs!.First().Steps!.Sum(s => s.Distance!.Value), Is.GreaterThan(100));
         }
 
 		[Test]
@@ -49,9 +54,13 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.OK), result.ErrorMessage);
-            Assert.That(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), Is.EqualTo(156097).Within(10 * 1000));
-
-            Assert.That(result.Routes.First().Legs.First().EndAddress, Does.Contain("Philadelphia"));
+            
+            Assert.That(result.Routes, Is.Not.Null.And.Not.Empty, "Routes should not be null or empty");
+            Assert.That(result.Routes!.First().Legs, Is.Not.Null.And.Not.Empty, "Legs should not be null or empty");
+            Assert.That(result.Routes!.First().Legs!.First().Steps, Is.Not.Null.And.Not.Empty, "Steps should not be null or empty");
+            
+            Assert.That(result.Routes!.First().Legs!.First().Steps!.Sum(s => s.Distance!.Value), Is.EqualTo(156097).Within(10 * 1000));
+            Assert.That(result.Routes!.First().Legs!.First().EndAddress, Does.Contain("Philadelphia"));
         }
 
         [Test]
@@ -96,12 +105,18 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
 
-            OverviewPolyline overviewPath = result.Routes.First().OverviewPath;
-            OverviewPolyline polyline = result.Routes.First().Legs.First().Steps.First().PolyLine;
+            Assert.That(result.Routes, Is.Not.Null.And.Not.Empty, "Routes should not be null or empty");
+            Assert.That(result.Routes!.First().Legs, Is.Not.Null.And.Not.Empty, "Legs should not be null or empty");
+            Assert.That(result.Routes!.First().Legs!.First().Steps, Is.Not.Null.And.Not.Empty, "Steps should not be null or empty");
+            
+            OverviewPolyline overviewPath = result.Routes!.First().OverviewPath!;
+            OverviewPolyline polyline = result.Routes!.First().Legs!.First().Steps!.First().PolyLine!;
 
             Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.OK), result.ErrorMessage);
-            Assert.That(overviewPath.Points.Count(), Is.EqualTo(122).Within(30));
-            Assert.That(polyline.Points.Count(), Is.GreaterThan(1));
+            Assert.That(overviewPath.Points, Is.Not.Null, "OverviewPath.Points should not be null");
+            Assert.That(polyline.Points, Is.Not.Null, "PolyLine.Points should not be null");
+            Assert.That(overviewPath.Points!.Count(), Is.EqualTo(122).Within(30));
+            Assert.That(polyline.Points!.Count(), Is.GreaterThan(1));
         }
 
         [Test]
@@ -113,7 +128,12 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.OK));
-            Assert.That(result.Routes.First().Legs.First().Steps.Sum(s => s.Distance.Value), Is.GreaterThan(100));
+            
+            Assert.That(result.Routes, Is.Not.Null.And.Not.Empty, "Routes should not be null or empty");
+            Assert.That(result.Routes!.First().Legs, Is.Not.Null.And.Not.Empty, "Legs should not be null or empty");
+            Assert.That(result.Routes!.First().Legs!.First().Steps, Is.Not.Null.And.Not.Empty, "Steps should not be null or empty");
+            
+            Assert.That(result.Routes!.First().Legs!.First().Steps!.Sum(s => s.Distance!.Value), Is.GreaterThan(100));
         }
 
         //The sub_steps differes between google docs documentation and implementation. We use it as google implemented, so we have test to make sure it's not broken.
@@ -132,9 +152,13 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
 
-            var route = result.Routes.First();
-            var leg = route.Legs.First();
-            var step = leg.Steps.First();
+            Assert.That(result.Routes, Is.Not.Null.And.Not.Empty, "Routes should not be null or empty");
+            Assert.That(result.Routes!.First().Legs, Is.Not.Null.And.Not.Empty, "Legs should not be null or empty");
+            Assert.That(result.Routes!.First().Legs!.First().Steps, Is.Not.Null.And.Not.Empty, "Steps should not be null or empty");
+            
+            var route = result.Routes!.First();
+            var leg = route.Legs!.First();
+            var step = leg.Steps!.First();
 
             Assert.That(step, Is.Not.Null);
         }
@@ -154,16 +178,22 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
 
-            var route = result.Routes.First();
+            Assert.That(result.Routes, Is.Not.Null.And.Not.Empty, "Routes should not be null or empty");
+            
+            var route = result.Routes!.First();
 
             Assert.That(route, Is.Not.Null);
-            Assert.That(route.Bounds, Is.Not.Null);
-            Assert.That(route.Bounds.NorthEast.Latitude, Is.GreaterThan(50));
-            Assert.That(route.Bounds.NorthEast.Longitude, Is.GreaterThan(3));
-            Assert.That(route.Bounds.SouthWest.Latitude, Is.GreaterThan(50));
-            Assert.That(route.Bounds.SouthWest.Longitude, Is.GreaterThan(3));
-            Assert.That(route.Bounds.Center.Latitude, Is.GreaterThan(50));
-            Assert.That(route.Bounds.Center.Longitude, Is.GreaterThan(3));
+            Assert.That(route.Bounds, Is.Not.Null, "Route.Bounds should not be null");
+            Assert.That(route.Bounds!.NorthEast, Is.Not.Null, "Route.Bounds.NorthEast should not be null");
+            Assert.That(route.Bounds!.SouthWest, Is.Not.Null, "Route.Bounds.SouthWest should not be null");
+            Assert.That(route.Bounds!.Center, Is.Not.Null, "Route.Bounds.Center should not be null");
+            
+            Assert.That(route.Bounds!.NorthEast!.Latitude, Is.GreaterThan(50));
+            Assert.That(route.Bounds!.NorthEast!.Longitude, Is.GreaterThan(3));
+            Assert.That(route.Bounds!.SouthWest!.Latitude, Is.GreaterThan(50));
+            Assert.That(route.Bounds!.SouthWest!.Longitude, Is.GreaterThan(3));
+            Assert.That(route.Bounds!.Center!.Latitude, Is.GreaterThan(50));
+            Assert.That(route.Bounds!.Center!.Longitude, Is.GreaterThan(3));
         }
 
         [Test]
@@ -188,9 +218,13 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
 
-            var route = result.Routes.First();
-            var leg = route.Legs.First();
-            var steps = leg.Steps;
+            Assert.That(result.Routes, Is.Not.Null.And.Not.Empty, "Routes should not be null or empty");
+            Assert.That(result.Routes!.First().Legs, Is.Not.Null.And.Not.Empty, "Legs should not be null or empty");
+            Assert.That(result.Routes!.First().Legs!.First().Steps, Is.Not.Null.And.Not.Empty, "Steps should not be null or empty");
+            
+            var route = result.Routes!.First();
+            var leg = route.Legs!.First();
+            var steps = leg.Steps!;
 
             Assert.That(steps.Where(s =>
                 s.TransitDetails?
@@ -237,11 +271,17 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
 
+            Assert.That(result.Routes, Is.Not.Null.And.Not.Empty, "Routes should not be null or empty");
+            Assert.That(result.Routes!.First().Legs, Is.Not.Null.And.Not.Empty, "Legs should not be null or empty");
+            
+            var routes = result.Routes!;
+            var legs = routes.First().Legs!;
+
             //All legs have duration
-            Assert.That(result.Routes.First().Legs.All(l => l.DurationInTraffic != null), Is.True);
+            Assert.That(legs.All(l => l.DurationInTraffic != null), Is.True);
 
             //Duration with traffic is usually longer but is not guaranteed
-            Assert.That(result.Routes.First().Legs.Sum(s => s.Duration.Value.TotalSeconds), Is.Not.EqualTo(result.Routes.First().Legs.Sum(s => s.DurationInTraffic.Value.TotalSeconds)));
+            Assert.That(legs.Sum(s => s.Duration!.Value.TotalSeconds), Is.Not.EqualTo(legs.Sum(s => s.DurationInTraffic!.Value.TotalSeconds)));
         }
 
         [Test]

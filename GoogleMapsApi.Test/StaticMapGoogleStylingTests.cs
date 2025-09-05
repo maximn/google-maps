@@ -144,7 +144,7 @@ namespace GoogleMapsApi.Test
         public void TestEmptyJsonThrowsException()
         {
             Assert.Throws<ArgumentException>(() => MapStyleHelper.FromJson(""));
-            Assert.Throws<ArgumentException>(() => MapStyleHelper.FromJson(null));
+            Assert.Throws<ArgumentException>(() => MapStyleHelper.FromJson(null!));
         }
 
         [Test]

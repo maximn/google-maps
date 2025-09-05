@@ -102,7 +102,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 };
                 var result = await GoogleMaps.Places.QueryAsync(request);
                 AssertInconclusive.NotExceedQuota(result);
-                cachedMyPlaceId = result.Results.First().PlaceId;
+                Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+                cachedMyPlaceId = result.Results!.First().PlaceId;
             }
             return cachedMyPlaceId;
         }

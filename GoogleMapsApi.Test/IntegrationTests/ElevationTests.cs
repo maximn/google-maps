@@ -23,8 +23,9 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Entities.Elevation.Response.Status.OK));
-            Assert.That(result.Results.First().Elevation, Is.EqualTo(16.92).Within(1.0));
-            Assert.That(result.Results.First().Resolution, Is.EqualTo(75.0).Within(10.0));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+            Assert.That(result.Results!.First().Elevation, Is.EqualTo(16.92).Within(1.0));
+            Assert.That(result.Results!.First().Resolution, Is.EqualTo(75.0).Within(10.0));
         }
 
         [Test]
@@ -40,8 +41,9 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Entities.Elevation.Response.Status.OK));
-            Assert.That(result.Results.First().Elevation, Is.EqualTo(16.92).Within(1.0));
-            Assert.That(result.Results.First().Resolution, Is.EqualTo(75.0).Within(10.0));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+            Assert.That(result.Results!.First().Elevation, Is.EqualTo(16.92).Within(1.0));
+            Assert.That(result.Results!.First().Resolution, Is.EqualTo(75.0).Within(10.0));
         } 
     }
 }
