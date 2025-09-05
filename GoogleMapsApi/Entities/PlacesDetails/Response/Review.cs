@@ -10,13 +10,13 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// Event id.
         /// </summary>
         [DataMember(Name = "aspect")]
-        public Aspect Aspect { get; set; }
+        public Aspect Aspect { get; set; } = null!;
 
         [DataMember(Name = "author_name")]
-        public string AuthorName { get; set; }
+        public string AuthorName { get; set; } = null!;
 
         [DataMember(Name = "author_url")]
-        public string AuthorUrl { get; set; }
+        public string AuthorUrl { get; set; } = null!;
 
         public DateTime Time;
 
@@ -35,7 +35,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         }
 
         [DataMember(Name = "text")]
-        public string Text { get; set; }
+        public string Text { get; set; } = null!;
 
     }
 }

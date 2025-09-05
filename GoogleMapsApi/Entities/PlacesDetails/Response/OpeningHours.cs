@@ -17,6 +17,6 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// open contains a pair of day and time objects describing when the Place opens
         /// </summary>
         [JsonPropertyName("periods")]
-        public IEnumerable<Period> Periods { get; set; }
+        public IEnumerable<Period> Periods { get; set; } = null!;
     }
 }

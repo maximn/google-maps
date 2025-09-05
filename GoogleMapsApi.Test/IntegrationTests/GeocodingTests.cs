@@ -27,7 +27,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
-            Assert.That(result.Results.First().Geometry.Location.LocationString, Does.Match("40\\.\\d*,-73\\.\\d*"));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+            Assert.That(result.Results!.First().Geometry.Location.LocationString, Does.Match("40\\.\\d*,-73\\.\\d*"));
         }
 
         [Test]
@@ -43,8 +44,9 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
             // 40.{*}, -73.{*}
-            Assert.That(result.Results.First().Geometry.Location.LocationString, Does.Match("40\\.\\d*,-73\\.\\d*"));
+            Assert.That(result.Results!.First().Geometry.Location.LocationString, Does.Match("40\\.\\d*,-73\\.\\d*"));
         }
 
         [Test]
@@ -103,7 +105,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
-            Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+            Assert.That(result.Results!.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
         [Test]
@@ -119,7 +122,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
-            Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+            Assert.That(result.Results!.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
         [Test]
@@ -136,7 +140,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
-            Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+            Assert.That(result.Results!.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
         [Test]
@@ -157,7 +162,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
-            Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+            Assert.That(result.Results!.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
         [Test]
@@ -174,7 +180,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
-            Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+            Assert.That(result.Results!.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
         [Test]
@@ -191,7 +198,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
-            Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+            Assert.That(result.Results!.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
 
         [Test]
@@ -207,7 +215,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
-            Assert.That(result.Results.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+            Assert.That(result.Results!.First().FormattedAddress, Does.Contain("Bedford Ave, Brooklyn, NY 11211, USA"));
         }
     }
 }

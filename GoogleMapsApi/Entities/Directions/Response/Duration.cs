@@ -32,9 +32,9 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// text contains a human-readable representation of the duration.
 		/// </summary>
 		[DataMember(Name = "text")]
-		public string Text { get; set; }
+		public string? Text { get; set; }
 
 		[DataMember(Name = "time_zone")]
-		public string TimeZone { get; set; }
+		public string? TimeZone { get; set; }
 	}
 }

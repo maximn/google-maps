@@ -11,8 +11,8 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// <summary>
 		/// Marker's style
 		/// </summary>
-		public MarkerStyle Style { get; set; }
+		public MarkerStyle? Style { get; set; }
 
-		public IList<ILocationString> Locations { get; set; }
+		public IList<ILocationString> Locations { get; set; } = null!;
 	}
 }

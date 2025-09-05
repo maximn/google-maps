@@ -30,8 +30,7 @@ namespace GoogleMapsApi.StaticMaps
 
             if (!string.IsNullOrEmpty(request.ApiKey))
             {
-                string apiKey = request.ApiKey;
-                parametersList.Add("key", apiKey);
+                parametersList.Add("key", request.ApiKey);
             }
 
             if (request.Center != null)
@@ -173,7 +172,7 @@ namespace GoogleMapsApi.StaticMaps
 					styleComponents.Add("element:" + element);
 				}
 
-				string hue = style.HUE;
+				string? hue = style.HUE;
 				if (hue != null)
 				{
 					styleComponents.Add("hue:" + hue);
@@ -293,7 +292,7 @@ namespace GoogleMapsApi.StaticMaps
 				}
 			}
 
-			IList<Marker> markers = request.Markers;
+			IList<Marker>? markers = request.Markers;
 
 			if (markers != null)
 			{
@@ -301,7 +300,7 @@ namespace GoogleMapsApi.StaticMaps
 				{
 					var markerStyleParams = new List<string>();
 
-					MarkerStyle markerStyle = marker.Style;
+					MarkerStyle? markerStyle = marker.Style;
 					if (markerStyle != null)
 					{
 						if (string.IsNullOrWhiteSpace(markerStyle.Color))
@@ -343,7 +342,7 @@ namespace GoogleMapsApi.StaticMaps
 				}
 			}
 
-			IList<Path> pathes = request.Pathes;
+			IList<Path>? pathes = request.Pathes;
 
 			if (pathes != null)
 			{
@@ -351,7 +350,7 @@ namespace GoogleMapsApi.StaticMaps
 				{
 					var pathStyleParams = new List<string>();
 
-					PathStyle pathStyle = path.Style;
+					PathStyle? pathStyle = path.Style;
 
 					if (pathStyle != null)
 					{

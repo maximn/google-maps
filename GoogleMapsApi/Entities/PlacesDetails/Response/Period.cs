@@ -12,9 +12,9 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
     public class Period
     {
         [JsonPropertyName("open")]
-        public TimeOfWeek OpenTime { get; set; }
+        public TimeOfWeek OpenTime { get; set; } = null!;
 
         [JsonPropertyName("close")]
-        public TimeOfWeek CloseTime { get; set; }
+        public TimeOfWeek CloseTime { get; set; } = null!;
     }
 }

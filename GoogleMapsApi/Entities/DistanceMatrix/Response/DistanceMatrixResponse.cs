@@ -19,16 +19,16 @@
         public DistanceMatrixStatusCodes Status { get; set; }
 
         [JsonPropertyName("rows")]
-        public IEnumerable<Row> Rows { get; set; }
+        public IEnumerable<Row> Rows { get; set; } = null!;
 
         [JsonPropertyName("destination_addresses")]
-        public IEnumerable<string> DestinationAddresses { get; set; }
+        public IEnumerable<string> DestinationAddresses { get; set; } = null!;
 
 
         [JsonPropertyName("origin_addresses")]
-        public IEnumerable<string> OriginAddresses { get; set; }
+        public IEnumerable<string> OriginAddresses { get; set; } = null!;
         
         [JsonPropertyName("error_message")]
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage { get; set; } = null!;
     }
 }

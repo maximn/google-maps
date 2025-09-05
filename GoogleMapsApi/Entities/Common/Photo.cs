@@ -12,7 +12,7 @@ namespace GoogleMapsApi.Entities.Common
         /// PhotoReference — a string used to identify the photo when you perform a Photo request.
         /// </summary>
         [JsonPropertyName("photo_reference")]
-        public virtual string PhotoReference { get; set; }
+        public virtual string? PhotoReference { get; set; }
 
         /// <summary>
         /// Height — the maximum height of the image.
@@ -30,6 +30,6 @@ namespace GoogleMapsApi.Entities.Common
         /// HtmlAttributions — contains any required attributions. This field will always be present, but may be empty.
         /// </summary>
         [JsonPropertyName("html_attributions")]
-        public virtual IEnumerable<string> HtmlAttributions { get; set; }
+        public virtual IEnumerable<string>? HtmlAttributions { get; set; }
     }
 }

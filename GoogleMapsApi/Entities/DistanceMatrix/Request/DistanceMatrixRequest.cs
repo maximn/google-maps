@@ -20,9 +20,9 @@
             }
         }
 
-        public string[] Origins { get; set; }
+        public string[] Origins { get; set; } = null!;
 
-        public string[] Destinations { get; set; }
+        public string[] Destinations { get; set; } = null!;
 
         /// <summary>
 		/// alternatives (optional), if set to true, specifies that the Directions service may provide more than one route alternative in the response. Note that providing route alternatives may increase the response time from the server.
@@ -32,12 +32,12 @@
         /// <summary>
 		///  The desired time of departure. 
 		/// </summary>
-		public Time DepartureTime { get; set; }
+		public Time? DepartureTime { get; set; }
 
         /// <summary>
 		///  The desired time of arrival. 
 		/// </summary>
-		public Time ArrivalTime { get; set; }
+		public Time? ArrivalTime { get; set; }
 
         /// <summary>
         /// For the calculation of distances, you may specify the transportation mode to use. By default, distances are calculated for driving mode. The following travel modes are supported:
@@ -72,7 +72,7 @@
         /// - tram indicates that the calculated route should prefer travel by tram and light rail.
         /// - rail indicates that the calculated route should prefer travel by train, tram, light rail, and subway. This is equivalent to transit_mode= train | tram | subway.
         /// </summary>
-        public DistanceMatrixTransitModes[] TransitModes { get; set; }
+        public DistanceMatrixTransitModes[]? TransitModes { get; set; }
 
         /// <summary>
         /// Distances may be calculated that adhere to certain restrictions. Restrictions are indicated by use of the avoid parameter, and an argument to that parameter indicating the restriction to avoid. The following restrictions are supported:
@@ -89,7 +89,7 @@
         /// </summary>
         public DistanceMatrixUnitSystems? Units { get; set; }
 
-        public string Language { get; set; }
+        public string? Language { get; set; }
 
         protected override QueryStringParametersList GetQueryStringParameters()
         {

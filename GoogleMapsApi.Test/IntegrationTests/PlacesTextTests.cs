@@ -24,7 +24,8 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
-            Assert.That(result.Results.First().FormattedAddress, Is.EqualTo("1 Smith St, Parramatta NSW 2150, Australia"));
+            Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
+            Assert.That(result.Results!.First().FormattedAddress, Is.EqualTo("1 Smith St, Parramatta NSW 2150, Australia"));
         }
 
         [Test]

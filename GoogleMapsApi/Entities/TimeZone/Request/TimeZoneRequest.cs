@@ -14,7 +14,7 @@ namespace GoogleMapsApi.Entities.TimeZone.Request
         /// <summary>
         /// location: a comma-separated lat,lng tuple (eg. location=-33.86,151.20), representing the location to look up
         /// </summary>
-        public Location Location { get; set; } // required
+        public Location Location { get; set; } = null!; // required
         
         /// <summary>
         /// Timestamp specifies the desired time as seconds since midnight, January 1, 1970 UTC. The Time Zone API uses the timestamp to determine whether or not Daylight Savings should be applied. Times before 1970 can be expressed as negative values.
@@ -24,7 +24,7 @@ namespace GoogleMapsApi.Entities.TimeZone.Request
         /// <summary>
         /// The language in which to return results. See the list of supported domain languages. Note that we often update supported languages so this list may not be exhaustive. Defaults to en
         /// </summary>
-        public string Language { get; set; } // optional
+        public string? Language { get; set; } // optional
 
         /// <summary>
         /// The language in which to return results. See the list of supported domain languages. Note that we often update supported languages so this list may not be exhaustive. Defaults to en.

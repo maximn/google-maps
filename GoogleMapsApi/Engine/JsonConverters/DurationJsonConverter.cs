@@ -74,7 +74,7 @@ namespace GoogleMapsApi.Engine.JsonConverters
 
             if (textProperty != null)
             {
-                var text = (string)textProperty.GetValue(value);
+                var text = (string?)textProperty.GetValue(value);
                 if (text != null)
                 {
                     writer.WriteString("text", text);

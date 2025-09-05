@@ -49,7 +49,7 @@ namespace GoogleMapsApi.Entities.Common
         /// Your application's API key. This key identifies your application for purposes of quota management and so that Places 
         /// added from your application are made immediately available to your app. Visit the APIs Console to create an API Project and obtain your key.
         /// </summary>
-        public string ApiKey { get; set; }
+        public string? ApiKey { get; set; }
 
         protected virtual QueryStringParametersList GetQueryStringParameters()
         {

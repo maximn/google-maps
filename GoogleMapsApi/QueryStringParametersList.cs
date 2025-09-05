@@ -14,9 +14,10 @@ namespace GoogleMapsApi
 			list = new List<KeyValuePair<string, string>>();
 		}
 
-		public void Add(string key, string value)
+		public void Add(string key, string? value)
 		{
-			list.Add(new KeyValuePair<string, string>(key, value));
+			if (value is not null)
+				list.Add(new KeyValuePair<string, string>(key, value));
 		}
 
 		public string GetQueryStringPostfix()

@@ -15,7 +15,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// </summary>
 		/// <value>Error message</value>
 		[JsonPropertyName("error_message")]
-		public string ErrorMessage { get; set; }
+		public string ErrorMessage { get; set; } = null!;
 
 		/// <summary>
 		/// "status" contains metadata on the request. See Status Codes below.
@@ -28,7 +28,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// "routes" contains an array of routes from the origin to the destination. See Routes below.
 		/// </summary>
 		[JsonPropertyName("routes")]
-		public IEnumerable<Route> Routes { get; set; }
+		public IEnumerable<Route>? Routes { get; set; }
 
 
 		public override string ToString()

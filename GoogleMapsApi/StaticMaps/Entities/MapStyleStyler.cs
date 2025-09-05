@@ -8,12 +8,12 @@ namespace GoogleMapsApi.StaticMaps.Entities
         /// <summary>
         /// Color in hex format (e.g., "#f5f5f5")
         /// </summary>
-        public string Color { get; set; }
+        public string? Color { get; set; }
 
         /// <summary>
         /// Visibility setting ("on", "off", "simplified")
         /// </summary>
-        public string Visibility { get; set; }
+        public string? Visibility { get; set; }
 
         /// <summary>
         /// Lightness value (-100 to 100)
@@ -33,7 +33,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
         /// <summary>
         /// Hue value (hex color)
         /// </summary>
-        public string Hue { get; set; }
+        public string? Hue { get; set; }
 
         /// <summary>
         /// Weight for lines/paths
