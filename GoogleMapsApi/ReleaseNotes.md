@@ -1,5 +1,15 @@
 ﻿# Release notes
 
+## V 1.4.0
+* Add comprehensive test suite and JSON converter enhancements (#187)
+* Complete Nullable Reference Types Migration - 644/644 Warnings Eliminated (#186)
+* Fully migrate from Newtonsoft.Json to System.Text.Json (#180)
+* Modernize HTTP Client Usage (#182)
+* Fix static maps typos (#183)
+* Un-ignore all tests (#181)
+* Modernize readme files
+* Add docs directory
+
 ## V 1.3.9
 * Update target versions (#178)
 * Fix issue #141: Add Google Styling Wizard JSON support to StaticMapRequest (#177)
