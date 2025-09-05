@@ -225,7 +225,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// Gets the street address (street number + route) from address components
         /// </summary>
         /// <returns>Street address or null if not found</returns>
-        public string GetStreetAddress()
+        public string? GetStreetAddress()
         {
             if (AddressComponent == null)
                 return null;
@@ -250,7 +250,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// </summary>
         /// <param name="useShortName">If true, returns short name (e.g., "NY"), otherwise long name (e.g., "New York")</param>
         /// <returns>State/province or null if not found</returns>
-        public string GetState(bool useShortName = false)
+        public string? GetState(bool useShortName = false)
         {
             if (AddressComponent == null)
                 return null;
@@ -263,7 +263,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// Gets the postal code from address components
         /// </summary>
         /// <returns>Postal code or null if not found</returns>
-        public string GetPostalCode()
+        public string? GetPostalCode()
         {
             if (AddressComponent == null)
                 return null;
@@ -276,7 +276,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// </summary>
         /// <param name="useShortName">If true, returns short name, otherwise long name</param>
         /// <returns>City/locality or null if not found</returns>
-        public string GetCity(bool useShortName = false)
+        public string? GetCity(bool useShortName = false)
         {
             if (AddressComponent == null)
                 return null;
@@ -293,7 +293,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// </summary>
         /// <param name="useShortName">If true, returns short name (e.g., "US"), otherwise long name (e.g., "United States")</param>
         /// <returns>Country or null if not found</returns>
-        public string GetCountry(bool useShortName = false)
+        public string? GetCountry(bool useShortName = false)
         {
             if (AddressComponent == null)
                 return null;
@@ -326,7 +326,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// </summary>
         /// <param name="type">The type to search for</param>
         /// <returns>Address component or null if not found</returns>
-        private GoogleMapsApi.Entities.Geocoding.Response.AddressComponent GetAddressComponentByType(string type)
+        private GoogleMapsApi.Entities.Geocoding.Response.AddressComponent? GetAddressComponentByType(string type)
         {
             return AddressComponent?.FirstOrDefault(ac => ac.Types?.Contains(type) == true);
         }
@@ -342,27 +342,27 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// <summary>
         /// Street address (street number + route)
         /// </summary>
-        public string StreetAddress { get; set; } = null!;
+        public string? StreetAddress { get; set; }
 
         /// <summary>
         /// City/locality
         /// </summary>
-        public string City { get; set; } = null!;
+        public string? City { get; set; }
 
         /// <summary>
         /// State/province
         /// </summary>
-        public string State { get; set; } = null!;
+        public string? State { get; set; }
 
         /// <summary>
         /// Postal code
         /// </summary>
-        public string PostalCode { get; set; } = null!;
+        public string? PostalCode { get; set; }
 
         /// <summary>
         /// Country
         /// </summary>
-        public string Country { get; set; } = null!;
+        public string? Country { get; set; }
 
         /// <summary>
         /// Returns a formatted address string

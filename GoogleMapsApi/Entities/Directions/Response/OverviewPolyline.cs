@@ -16,7 +16,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		[JsonPropertyName("points")]
 		internal string? EncodedPoints { get; set; }
 
-		private Lazy<IEnumerable<Location>> pointsLazy;
+		private Lazy<IEnumerable<Location>> pointsLazy = null!;
 
 		/// <summary>
 		/// An array of Location objects representing the points in the overview path, decoded from the string contained in the EncodedPoints property.

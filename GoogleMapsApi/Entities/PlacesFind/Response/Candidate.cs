@@ -12,44 +12,44 @@ namespace GoogleMapsApi.Entities.PlacesFind.Response
     {
         // basic fields
         [JsonPropertyName("formatted_address")]
-        public string FormattedAddress { get; set; }
+        public string FormattedAddress { get; set; } = null!;
 
         [JsonPropertyName("geometry")]
-        public Geometry Geometry { get; set; }
+        public Geometry Geometry { get; set; } = null!;
 
         [JsonPropertyName("icon")]
-        public string Icon { get; set; }
+        public string Icon { get; set; } = null!;
 
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string ID { get; set; } = null!;
 
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [JsonPropertyName("permanently_closed")]
         public bool? PermanentlyClosed { get; set; }
 
         [JsonPropertyName("photos")]
-        public IEnumerable<Photo> Photos { get; set; }
+        public IEnumerable<Photo> Photos { get; set; } = null!;
 
         [JsonPropertyName("place_id")]
-        public string PlaceId { get; set; }
+        public string PlaceId { get; set; } = null!;
 
         [JsonPropertyName("plus_code")]
-        public string PlusCode { get; set; }
+        public string PlusCode { get; set; } = null!;
 
         [JsonPropertyName("scope")]
-        public string Scope { get; set; }
+        public string Scope { get; set; } = null!;
 
         [JsonPropertyName("types")]
-        public string[] Types { get; set; }
+        public string[] Types { get; set; } = null!;
 
         // contact fields
         /// <summary>
         /// Place Search returns only open_now; use a Place Details request to get the full opening_hours results.
         /// </summary>
         [JsonPropertyName("opening_hours")]
-        public OpeningHours OpeningHours { get; set; }
+        public OpeningHours OpeningHours { get; set; } = null!;
 
         // atmosphere fields
         [JsonPropertyName("price_level")]

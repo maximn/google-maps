@@ -12,7 +12,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         /// Event id.
         /// </summary>
         [DataMember(Name = "event_id")]
-        public string EventId { get; set; }
+        public string EventId { get; set; } = null!;
 
         public DateTime StartTime;
 
@@ -31,10 +31,10 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         }
 
         [DataMember(Name = "summary")]
-        public string Summary { get; set; }
+        public string Summary { get; set; } = null!;
 
         [DataMember(Name = "url")]
-        public string Url { get; set; }
+        public string Url { get; set; } = null!;
 
     }
 }
