@@ -21,7 +21,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// <summary>
 		/// (an RGB hex string of format 0xRRGGBB) indicates the basic color to apply to the selection. 
 		/// </summary>
-		public string HUE { get; set; }
+		public string? HUE { get; set; }
 
 		/// <summary>
 		/// (a floating point value between -100 and 100) indicates the percentage change in brightness of the element. Negative values increase darkness (where -100 specifies black) while positive values increase brightness (where +100 specifies white).

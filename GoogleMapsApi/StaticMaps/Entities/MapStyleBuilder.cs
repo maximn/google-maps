@@ -84,7 +84,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
         /// <summary>
         /// Converts MapFeatureType enum to string representation
         /// </summary>
-        private static string ConvertFeatureTypeToString(MapFeatureType featureType)
+        private static string? ConvertFeatureTypeToString(MapFeatureType featureType)
         {
             switch (featureType)
             {
@@ -160,7 +160,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
         /// <summary>
         /// Converts MapElementType enum to string representation
         /// </summary>
-        private static string ConvertElementTypeToString(MapElementType elementType)
+        private static string? ConvertElementTypeToString(MapElementType elementType)
         {
             switch (elementType)
             {

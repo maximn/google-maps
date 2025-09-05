@@ -20,7 +20,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// This parameter takes a location as either a comma-separated {latitude,longitude} pair (e.g. "40.714728,-73.998672") or
 		/// a string address (e.g. "city hall, new york, ny") identifying a unique location on the face of the earth.
 		/// </summary>
-		public ILocationString Center { get; set; }
+		public ILocationString? Center { get; set; }
 
 		/// <summary>
 		///  (required if markers not present) defines the zoom level of the map, which determines the magnification level of the map.
@@ -65,7 +65,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// Note that this parameter is only supported for some country tiles;
 		/// if the specific language requested is not supported for the tile set, then the default language for that tileset will be used.
 		/// </summary>
-		public string Language { get; set; }
+		public string? Language { get; set; }
 
 		/// <summary>
 		/// (optional) define one or more markers to attach to the image at specified locations.
@@ -74,7 +74,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// you may add additional markers of differing styles by adding additional markers parameters.
 		/// Note that if you supply markers for a map, you do not need to specify the (normally required) center and zoom parameters.
 		/// </summary>
-		public IList<Marker> Markers { get; set; }
+		public IList<Marker>? Markers { get; set; }
 
 		/// <summary>
 		///  (optional) defines a single path of two or more connected points to overlay on the image at specified locations.
@@ -82,27 +82,27 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// You may supply additional paths by adding additional path parameters.
 		/// Note that if you supply a path for a map, you do not need to specify the (normally required) center and zoom parameters.
 		/// </summary>
-		public IList<Path>	Pathes { get; set; }
+		public IList<Path>? Pathes { get; set; }
 
 		/// <summary>
 		/// (optional) specifies one or more locations that should remain visible on the map,
 		/// though no markers or other indicators will be displayed.
 		/// Use this parameter to ensure that certain features or map locations are shown on the static map.
 		/// </summary>
-		public ILocationString Visible { get; set; }
+		public ILocationString? Visible { get; set; }
 
 		/// <summary>
 		/// (optional) defines a custom style to alter the presentation of a specific feature (road, park, etc.) of the map.
 		/// This parameter takes feature and element arguments identifying the features to select and a set of style operations to
 		/// apply to that selection. You may supply multiple styles by adding additional style parameters.
 		/// </summary>
-		public MapStyle Style { get; set; }
+		public MapStyle? Style { get; set; }
 
 		/// <summary>
 		/// (optional) defines multiple custom styles from Google Styling Wizard JSON.
 		/// This allows you to apply complex styling rules that match the output from Google's Styling Wizard.
 		/// </summary>
-		public IList<MapStyleRule> Styles { get; set; }
+		public IList<MapStyleRule>? Styles { get; set; }
 
 		/// <summary>
 		/// (obsolete) sensor specifies whether the application requesting the static map is using a sensor to determine the user's
@@ -120,7 +120,7 @@ namespace GoogleMapsApi.StaticMaps.Entities
         /// <summary>
         /// Add API key support for the static map. This parameter is required for all static map requests.
         /// </summary>
-        public string ApiKey { get; set; }
+        public string ApiKey { get; set; } = null!;
 
         public StaticMapRequest(ILocationString center, int zoom, ImageSize imageSize)
 		{
