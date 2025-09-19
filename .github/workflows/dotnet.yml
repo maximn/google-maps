@@ -3,7 +3,7 @@ name: .NET CI
 on:
   push:
     branches: [ master ]
-  pull_request:
+  pull_request_target:
 
 jobs:
   build:
@@ -11,6 +11,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -28,6 +30,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
