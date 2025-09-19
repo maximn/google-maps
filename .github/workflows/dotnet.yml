@@ -21,22 +21,23 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-output-${{ github.run_id }}
-        path: |
-          **/bin/
-          **/obj/
-        retention-days: 1
 
   test:
     needs: build
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        framework: [net8.0, net6.0, net481, net462]
+        include:
+          - framework: net8.0
+            os: ubuntu-latest
+          - framework: net6.0
+            os: ubuntu-latest
+          - framework: net481
+            os: windows-latest
+          - framework: net462
+            os: windows-latest
       fail-fast: false
+
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
@@ -46,10 +47,10 @@ jobs:
         dotnet-version: |
           6.0.x
           8.0.x
-    - name: Download build artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: build-output-${{ github.run_id }}
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
     - name: Test ${{ matrix.framework }}
       run: dotnet test --no-build --verbosity normal --framework ${{ matrix.framework }}
       env:
