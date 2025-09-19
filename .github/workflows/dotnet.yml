@@ -1,4 +1,4 @@
-name: .NET
+name: Build and Test
 
 on:
   push:
@@ -22,7 +22,10 @@ jobs:
       run: dotnet build --no-restore
 
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     needs: build
     steps:
     - uses: actions/checkout@v4
@@ -37,6 +40,6 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --framework net8.0
+      run: dotnet test --no-build --verbosity normal
       env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
