@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -24,6 +23,7 @@ jobs:
 
   test:
     needs: build
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         include:
@@ -36,9 +36,6 @@ jobs:
           - framework: net462
             os: windows-latest
       fail-fast: false
-
-    runs-on: ${{ matrix.os }}
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -54,4 +51,4 @@ jobs:
     - name: Test ${{ matrix.framework }}
       run: dotnet test --no-build --verbosity normal --framework ${{ matrix.framework }}
       env:
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
