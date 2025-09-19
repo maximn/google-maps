@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      artifact-name: ${{ steps.artifact.outputs.name }}
 
     steps:
     - uses: actions/checkout@v4
@@ -24,7 +22,6 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Upload build artifacts
-      id: artifact
       uses: actions/upload-artifact@v4
       with:
         name: build-output-${{ github.run_id }}
@@ -52,7 +49,7 @@ jobs:
     - name: Download build artifacts
       uses: actions/download-artifact@v4
       with:
-        name: ${{ needs.build.outputs.artifact-name }}
+        name: build-output-${{ github.run_id }}
     - name: Test ${{ matrix.framework }}
       run: dotnet test --no-build --verbosity normal --framework ${{ matrix.framework }}
       env:
