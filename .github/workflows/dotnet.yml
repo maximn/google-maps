@@ -20,7 +20,7 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.sha || github.sha }}
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: |
           6.0.x
