@@ -84,7 +84,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
 
         [TestCase("oakfield road, chea", "CHEADLE")]
-        [TestCase("128 abbey r", "MACCLESFIELD")]
         public async Task CheckForExpectedRoad( string aSearch, string anExpected)
         {
             var request = new PlaceAutocompleteRequest

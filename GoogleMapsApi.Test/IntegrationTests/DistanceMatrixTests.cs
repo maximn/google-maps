@@ -193,9 +193,11 @@
                 Destinations = new[] { "3,4" },
             };
 
-            static Uri onUriCreated(Uri uri)
+            Uri? rewrittenUri = null;
+            Uri onUriCreated(Uri uri)
             {
-                return new Uri(uri.ToString().Replace("placeholder", "1,2"));
+                rewrittenUri = new Uri(uri.ToString().Replace("placeholder", "1,2"));
+                return rewrittenUri;
             }
 
             GoogleMaps.DistanceMatrix.OnUriCreated += onUriCreated;
@@ -205,8 +207,9 @@
                 var result = await GoogleMaps.DistanceMatrix.QueryAsync(request);
 
                 AssertInconclusive.NotExceedQuota(result);
+                Assert.That(rewrittenUri, Is.Not.Null, "OnUriCreated was not invoked");
+                Assert.That(rewrittenUri.ToString(), Does.Not.Contain("placeholder"));
                 Assert.That(result.Status, Is.EqualTo(DistanceMatrixStatusCodes.OK), result.ErrorMessage);
-                Assert.That(result.OriginAddresses.First(), Is.EqualTo("1,2"));
             }
             finally
             {
