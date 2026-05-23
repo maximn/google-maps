@@ -5,6 +5,9 @@ on:
     branches: [ master ]
   pull_request_target:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     if: >
