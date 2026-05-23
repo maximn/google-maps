@@ -1,0 +1,53 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits"
+  ],
+  "minimumReleaseAge": "3 days",
+  "packageRules": [
+    {
+      "description": "Auto-merge GitHub Actions (non-major)",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch", "digest", "pin"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "description": "Auto-merge test/dev dependencies (non-major)",
+      "matchManagers": ["nuget"],
+      "matchPackageNames": [
+        "NUnit",
+        "NUnit.Analyzers",
+        "NUnit3TestAdapter",
+        "Microsoft.NET.Test.Sdk",
+        "coverlet.collector"
+      ],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "description": "Auto-merge patch updates for runtime dependencies",
+      "matchManagers": ["nuget"],
+      "matchPackageNames": [
+        "Newtonsoft.Json",
+        "System.Text.Json",
+        "System.Text.Encodings.Web",
+        "Microsoft.SourceLink.GitHub"
+      ],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "description": "Never auto-merge majors",
+      "matchUpdateTypes": ["major"],
+      "automerge": false
+    }
+  ]
+}
