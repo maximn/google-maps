@@ -7,11 +7,15 @@ on:
 
 jobs:
   build:
-
+    if: >
+      github.event_name == 'push' ||
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
