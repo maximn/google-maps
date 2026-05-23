@@ -14,6 +14,7 @@ usage() {
     echo "  major: Increment major version (x.y.z -> x+1.0.0)"
     echo "  --dry-run: Show what would be done without making changes"
     echo "  --no-notes: Skip release notes generation and GitHub Release creation"
+    echo "  --edit: Open generated notes in \$EDITOR before accepting"
     echo "  If no argument provided, defaults to patch"
     exit 1
 }
@@ -48,6 +49,7 @@ increment_version() {
 # Parse command line arguments
 DRY_RUN=false
 NO_NOTES=false
+EDIT_NOTES=false
 INCREMENT_TYPE="patch"
 
 for arg in "$@"; do
@@ -57,6 +59,9 @@ for arg in "$@"; do
             ;;
         --no-notes)
             NO_NOTES=true
+            ;;
+        --edit)
+            EDIT_NOTES=true
             ;;
         patch|minor|major)
             INCREMENT_TYPE="$arg"
@@ -154,14 +159,22 @@ ${COMMIT_LOG}"
     fi
 
     if [ "$DRY_RUN" = false ]; then
-        echo -e "${YELLOW}--- Generated release notes ---${NC}"
-        cat "$NOTES_FILE"
-        echo -e "${YELLOW}--- end notes ---${NC}"
-        read -p "Accept these notes? (y/N): " -n 1 -r
-        echo
-        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            echo -e "${YELLOW}Release cancelled${NC}"
-            exit 0
+        if [ "$EDIT_NOTES" = true ]; then
+            ${EDITOR:-vi} "$NOTES_FILE"
+            if [ ! -s "$NOTES_FILE" ]; then
+                echo -e "${RED}Release cancelled (empty notes)${NC}"
+                exit 0
+            fi
+        else
+            echo -e "${YELLOW}--- Generated release notes ---${NC}"
+            cat "$NOTES_FILE"
+            echo -e "${YELLOW}--- end notes ---${NC}"
+            read -p "Accept these notes? (y/N): " -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                echo -e "${YELLOW}Release cancelled${NC}"
+                exit 0
+            fi
         fi
     fi
 fi
