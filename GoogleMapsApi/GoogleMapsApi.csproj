@@ -27,6 +27,18 @@
 	<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
+  <!--
+    Repro for issue #195: AOT/trim incompatibility.
+    Enabling the AOT/trim analyzers and promoting IL2026/IL3050 to errors will fail
+    the build on every reflection-based JsonSerializer call site and on the enum
+    JsonConverterFactory. Once a source-generated JsonSerializerContext replaces
+    them, this build should go green with no further changes here.
+  -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <IsAotCompatible>true</IsAotCompatible>
+    <WarningsAsErrors>IL2026;IL2104;IL3050;IL3053</WarningsAsErrors>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="..\README.md" Pack="true" PackagePath="\" />
     <None Include="..\LICENSE.md" Pack="true" PackagePath="\" />
