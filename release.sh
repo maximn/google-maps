@@ -154,10 +154,13 @@ ${COMMIT_LOG}"
     fi
 
     if [ "$DRY_RUN" = false ]; then
-        echo -e "${YELLOW}📝 Opening notes in ${EDITOR:-vi} for review (save & exit to continue, exit with empty file to abort)...${NC}"
-        "${EDITOR:-vi}" "$NOTES_FILE"
-        if [ ! -s "$NOTES_FILE" ]; then
-            echo -e "${RED}Release cancelled (empty notes)${NC}"
+        echo -e "${YELLOW}--- Generated release notes ---${NC}"
+        cat "$NOTES_FILE"
+        echo -e "${YELLOW}--- end notes ---${NC}"
+        read -p "Accept these notes? (y/N): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo -e "${YELLOW}Release cancelled${NC}"
             exit 0
         fi
     fi
