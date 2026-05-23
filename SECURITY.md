@@ -2,20 +2,14 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+Only the latest released version on [NuGet](https://www.nuget.org/packages/GoogleMaps) receives security updates.
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+Please report security vulnerabilities privately via GitHub's [Private Vulnerability Reporting](https://github.com/maximn/google-maps/security/advisories/new). Do not open public issues for security reports.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+You can expect:
+
+- An acknowledgement within 7 days.
+- A status update on the assessment within 30 days.
+- Public disclosure coordinated with the fix release once a patch is available.
