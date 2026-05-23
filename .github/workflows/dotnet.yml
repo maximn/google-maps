@@ -25,11 +25,16 @@ jobs:
         dotnet-version: |
           6.0.x
           8.0.x
+          10.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Test
+    - name: Test (net8.0)
       run: dotnet test --no-build --verbosity normal --framework net8.0
+      env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+    - name: Test (net10.0)
+      run: dotnet test --no-build --verbosity normal --framework net10.0
       env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
