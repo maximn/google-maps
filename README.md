@@ -36,6 +36,8 @@ Or via .NET CLI:
 dotnet add package GoogleMapsApi
 ```
 
+Looking for runnable examples? See [`samples/`](samples/) — console, ASP.NET Core minimal API, and Blazor Server.
+
 # Quickstart
 
 ## API Key Configuration
