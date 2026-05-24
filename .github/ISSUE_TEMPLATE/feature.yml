@@ -1,0 +1,26 @@
+name: Feature request
+description: Propose a new API surface or enhancement
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What would you like?
+    validations: {required: true}
+  - type: textarea
+    id: why
+    attributes:
+      label: Why / use case
+    validations: {required: true}
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed API shape
+      description: Optional. Example signatures or pseudo-code.
+      render: csharp
+    validations: {required: false}
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations: {required: false}
