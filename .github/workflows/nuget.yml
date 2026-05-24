@@ -21,6 +21,10 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write       # create GitHub Release
+      id-token: write       # Sigstore OIDC
+      attestations: write   # GitHub attestations API
 
     steps:
       - uses: actions/checkout@v6
@@ -54,6 +58,13 @@ jobs:
       - name: Pack
         run: dotnet pack --configuration Release --no-build --output . -p:Version=${{ steps.get_version.outputs.VERSION }}
 
+      - name: Attest build provenance
+        if: github.event_name == 'push' || inputs.dry_run == false
+        id: attest
+        uses: actions/attest-build-provenance@96278af6caaf10aea03fd8d33a09a777ca52d62f  # v3.2.0
+        with:
+          subject-path: '*.nupkg'
+
       - name: Upload nupkg artifact
         if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v7
@@ -64,3 +75,15 @@ jobs:
       - name: Publish NuGet
         if: github.event_name == 'push' || inputs.dry_run == false
         run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Create GitHub Release
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+          ATTESTATION_BUNDLE: ${{ steps.attest.outputs.bundle-path }}
+        run: |
+          gh release create "v${VERSION}" \
+            --title "v${VERSION}" \
+            --generate-notes \
+            ./*.nupkg "${ATTESTATION_BUNDLE}"
