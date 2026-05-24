@@ -21,6 +21,8 @@
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	<Nullable>enable</Nullable>
 	<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">

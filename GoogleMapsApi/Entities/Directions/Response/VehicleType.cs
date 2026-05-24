@@ -89,7 +89,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 
         /// <summary>
         /// Not by google documented vehicle type. But returned by e.g. following directions API call:
-        /// https://maps.googleapis.com/maps/api/directions/json?&mode=transit&origin=zurich+airport&destination=brig&departure_time=1534606200
+        /// https://maps.googleapis.com/maps/api/directions/json?&amp;mode=transit&amp;origin=zurich+airport&amp;destination=brig&amp;departure_time=1534606200
         /// </summary>
         LONG_DISTANCE_TRAIN
     }

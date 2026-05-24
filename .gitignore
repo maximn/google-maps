@@ -412,3 +412,8 @@ GoogleMapsApi/project.lock.json
 
 # Planning scratch dir
 .planning/
+
+# DocFX generated output
+docs/_site/
+docs/api/
+docs/obj/

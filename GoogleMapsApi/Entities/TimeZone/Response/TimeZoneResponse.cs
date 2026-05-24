@@ -6,8 +6,11 @@ using GoogleMapsApi.Engine.JsonConverters;
 
 namespace GoogleMapsApi.Entities.TimeZone.Response
 {
+    /// <summary>
+    /// Response from the Google Time Zone API containing the time-zone identifier, UTC offset, and DST offset for the queried location.
+    /// </summary>
     public class TimeZoneResponse : IResponseFor<TimeZoneRequest>
-    {        
+    {
         /// <summary>
         /// "status" contains metadata on the request.
         /// </summary>

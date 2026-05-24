@@ -3,6 +3,10 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.PlacesDetails.Request
 {
+    /// <summary>
+    /// Request for the Google Place Details API, which returns rich information about a single place
+    /// identified by its Place ID.
+    /// </summary>
     public class PlacesDetailsRequest : MapsBaseRequest
     {
         protected internal override string BaseUrl

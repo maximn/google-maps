@@ -38,6 +38,8 @@ Or via .NET CLI:
 dotnet add package GoogleMapsApi
 ```
 
+Looking for runnable examples? See [`samples/`](samples/) — console, ASP.NET Core minimal API, and Blazor Server.
+
 # Quickstart
 
 ## API Key Configuration
@@ -56,7 +58,7 @@ DirectionsRequest directionsRequest = new DirectionsRequest()
 // Option 2: Set globally via app.config/appsettings.json (see wiki for details)
 ```
 
-For more configuration options and detailed guides, see the [wiki](https://github.com/maximn/google-maps/wiki).
+For more configuration options and detailed guides, see the [wiki](https://github.com/maximn/google-maps/wiki). Full API reference is published at [maximn.github.io/google-maps](https://maximn.github.io/google-maps/).
 
 ## Code Examples
 

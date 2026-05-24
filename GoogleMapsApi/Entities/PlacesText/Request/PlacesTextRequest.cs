@@ -4,6 +4,10 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.PlacesText.Request
 {
+    /// <summary>
+    /// Request for the Google Places Text Search API, which returns places matching a free-form text query,
+    /// optionally biased by location and radius.
+    /// </summary>
     public class PlacesTextRequest : MapsBaseRequest
     {
         protected internal override string BaseUrl
