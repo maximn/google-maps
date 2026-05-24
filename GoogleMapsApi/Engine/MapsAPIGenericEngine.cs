@@ -24,22 +24,35 @@ namespace GoogleMapsApi.Engine
 		private static readonly HttpClient client = new HttpClient();
 		private static readonly JsonSerializerOptions jsonOptions = JsonSerializerConfiguration.CreateOptions();
 
-		protected internal static async Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default)
+		protected internal static Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default)
 		{
+			return QueryGoogleAPIAsync(client, request, timeout, token, OnUriCreated, OnRawResponseReceived);
+		}
+
+		internal static async Task<TResponse> QueryGoogleAPIAsync(
+			HttpClient httpClient,
+			TRequest request,
+			TimeSpan timeout,
+			CancellationToken token,
+			UriCreatedDelegate? onUriCreated,
+			RawResponseReceivedDelegate? onRawResponseReceived)
+		{
+			if (httpClient == null)
+				throw new ArgumentNullException(nameof(httpClient));
 			if (request == null)
 				throw new ArgumentNullException(nameof(request));
 
-            var requestUri = request.GetUri();
-            var uri = OnUriCreated?.Invoke(requestUri) ?? requestUri;
-            
-		    var responseContent = await GetHttpResponseAsync(uri, timeout, token).ConfigureAwait(false);
+			var requestUri = request.GetUri();
+			var uri = onUriCreated?.Invoke(requestUri) ?? requestUri;
 
-            OnRawResponseReceived?.Invoke(Encoding.UTF8.GetBytes(responseContent));
+			var responseContent = await GetHttpResponseAsync(httpClient, uri, timeout, token).ConfigureAwait(false);
 
-            return JsonSerializer.Deserialize<TResponse>(responseContent, jsonOptions)!;
+			onRawResponseReceived?.Invoke(Encoding.UTF8.GetBytes(responseContent));
+
+			return JsonSerializer.Deserialize<TResponse>(responseContent, jsonOptions)!;
 		}
 
-		private static async Task<string> GetHttpResponseAsync(Uri uri, TimeSpan timeout, CancellationToken cancellationToken)
+		private static async Task<string> GetHttpResponseAsync(HttpClient httpClient, Uri uri, TimeSpan timeout, CancellationToken cancellationToken)
 		{
 			using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 			if (timeout != TimeSpan.FromMilliseconds(-1))
@@ -47,7 +60,7 @@ namespace GoogleMapsApi.Engine
 			
 			try
 			{
-				using var response = await client.GetAsync(uri, cts.Token).ConfigureAwait(false);
+				using var response = await httpClient.GetAsync(uri, cts.Token).ConfigureAwait(false);
 				await HandleHttpResponse(response, timeout).ConfigureAwait(false);
 				return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 			}
