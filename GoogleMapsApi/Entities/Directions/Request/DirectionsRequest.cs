@@ -7,6 +7,10 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.Directions.Request
 {
+	/// <summary>
+	/// Request for the Google Directions API, which computes a route between an origin and a destination
+	/// for a chosen travel mode, with optional waypoints and routing preferences.
+	/// </summary>
 	public class DirectionsRequest : SignableRequest
 	{
 		protected internal override string BaseUrl

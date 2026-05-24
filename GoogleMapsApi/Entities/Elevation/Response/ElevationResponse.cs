@@ -8,6 +8,9 @@ using GoogleMapsApi.Engine.JsonConverters;
 
 namespace GoogleMapsApi.Entities.Elevation.Response
 {
+	/// <summary>
+	/// Response from the Google Elevation API containing elevation values for the requested locations or path.
+	/// </summary>
 	public class ElevationResponse : IResponseFor<ElevationRequest>
 	{
 		[JsonPropertyName("status")]

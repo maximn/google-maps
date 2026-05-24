@@ -4,6 +4,10 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.TimeZone.Request
 {
+    /// <summary>
+    /// Request for the Google Time Zone API, which returns the time-zone identifier and UTC offset
+    /// (including any DST offset) for a given location and timestamp.
+    /// </summary>
     public class TimeZoneRequest : SignableRequest
     {
         protected internal override string BaseUrl
