@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.8] - 2026-05-24
+
+### Added
+- SLSA provenance attestations and GitHub Release publishing for NuGet packages (#235)
+- Sample apps: console, minimal API, and Blazor (#231)
+- DocFX documentation site published via GitHub Pages (#226)
+- XML documentation generation with comments on core public APIs (#232)
+- OpenSSF Scorecard and CodeQL workflows with status badges (#228)
+- CONTRIBUTING guide, Code of Conduct, and GitHub issue/PR templates (#222)
+
+### Changed
+- Promoted ReleaseNotes to root CHANGELOG.md in Keep a Changelog format (#227)
+- Modernized README header, badges, and elevator pitch (#221)
+- Repo hygiene: removed scratch files, expanded .gitignore, and dropped legacy docs dir (#223, #220)
+- Bumped `actions/deploy-pages` to v5 (#230)
+- Bumped `actions/configure-pages` to v6 (#229)
+
+### Security
+- Pinned all GitHub Actions to commit SHAs and added a Renovate digest preset (#237)
+- Replaced `pull_request_target` with `pull_request` to resolve Scorecard Dangerous-Workflow finding (#234)
+- Pinned `ossf/scorecard-action` to v2.4.3 (#233)
+
 ## [1.4.7] - 2026-05-23
 
 ### Added
@@ -387,7 +409,8 @@ _Re-release of 1.4.1; no functional changes._
 - Fixed issue #4
 - "jpg-baselin" → "jpg-baseline" in `StaticMapsEngine`
 
-[Unreleased]: https://github.com/maximn/google-maps/compare/v1.4.7...HEAD
+[Unreleased]: https://github.com/maximn/google-maps/compare/v1.4.8...HEAD
+[1.4.8]: https://github.com/maximn/google-maps/compare/v1.4.7...v1.4.8
 [1.4.7]: https://github.com/maximn/google-maps/compare/v1.4.6...v1.4.7
 [1.4.6]: https://github.com/maximn/google-maps/compare/v1.4.5...v1.4.6
 [1.4.5]: https://github.com/maximn/google-maps/compare/v1.4.4...v1.4.5
