@@ -6,8 +6,14 @@ using System.Linq;
 
 namespace GoogleMapsApi.Entities.Common
 {
+    /// <summary>
+    /// Base class for all Google Maps Web Service requests. Provides API key, SSL, and URL composition.
+    /// </summary>
     public abstract class MapsBaseRequest
     {
+        /// <summary>
+        /// Initializes a new request with SSL enabled and no API key.
+        /// </summary>
         public MapsBaseRequest()
         {
             this.isSsl = true;
@@ -37,6 +43,10 @@ namespace GoogleMapsApi.Entities.Common
         private bool isSsl;
 
 
+        /// <summary>
+        /// Base URL (without scheme) for the Google Maps Web Service endpoint this request targets.
+        /// Derived requests append their service-specific path.
+        /// </summary>
         protected internal virtual string BaseUrl
         {
             get
@@ -51,6 +61,11 @@ namespace GoogleMapsApi.Entities.Common
         /// </summary>
         public string? ApiKey { get; set; }
 
+        /// <summary>
+        /// Builds the list of query-string parameters that will be sent with the request.
+        /// Derived classes override to contribute their service-specific parameters.
+        /// </summary>
+        /// <returns>The parameters to include in the request URL.</returns>
         protected virtual QueryStringParametersList GetQueryStringParameters()
         {
             QueryStringParametersList parametersList = new QueryStringParametersList();
@@ -67,6 +82,10 @@ namespace GoogleMapsApi.Entities.Common
             return parametersList;
         }
 
+        /// <summary>
+        /// Builds the absolute request URI, including scheme, base URL, and serialized query-string parameters.
+        /// </summary>
+        /// <returns>The fully composed URI to send to the Google Maps API.</returns>
         public virtual Uri GetUri()
         {
             string scheme = IsSSL ? "https://" : "http://";

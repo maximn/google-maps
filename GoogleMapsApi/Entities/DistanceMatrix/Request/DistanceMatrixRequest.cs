@@ -10,6 +10,10 @@
 
     using GoogleMapsApi.Engine;
 
+    /// <summary>
+    /// Request for the Google Distance Matrix API, which returns travel distance and duration
+    /// for a matrix of origins and destinations across a chosen travel mode.
+    /// </summary>
     public class DistanceMatrixRequest : SignableRequest
     {
         protected internal override string BaseUrl
@@ -42,8 +46,8 @@
         /// <summary>
         /// For the calculation of distances, you may specify the transportation mode to use. By default, distances are calculated for driving mode. The following travel modes are supported:
         /// - driving(default) indicates distance calculation using the road network.
-        /// - walking requests distance calculation for walking via pedestrian paths & sidewalks (where available).
-        /// - bicycling requests distance calculation for bicycling via bicycle paths & preferred streets(where available).
+        /// - walking requests distance calculation for walking via pedestrian paths &amp; sidewalks (where available).
+        /// - bicycling requests distance calculation for bicycling via bicycle paths &amp; preferred streets(where available).
         /// - transit requests distance calculation via public transit routes(where available). This value may only be specified if the request includes an API key or a Google Maps APIs Premium Plan client ID.If you set the mode to transit you can optionally specify either a departure_time or an arrival_time.If neither time is specified, the departure_time defaults to now(that is, the departure time defaults to the current time). You can also optionally include a transit_mode and/or a transit_routing_preference.
         /// * Note: Both walking and bicycling routes may sometimes not include clear pedestrian or bicycling paths, so these responses will return warnings in the returned result which you must display to the user.
         /// </summary>

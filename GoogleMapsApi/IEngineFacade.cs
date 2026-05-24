@@ -7,6 +7,11 @@ namespace GoogleMapsApi
 {
     using Engine;
 
+    /// <summary>
+    /// Contract for a Google Maps API engine that executes a strongly-typed request and returns its matching response.
+    /// </summary>
+    /// <typeparam name="TRequest">The request type, deriving from <see cref="MapsBaseRequest"/>.</typeparam>
+    /// <typeparam name="TResponse">The response type returned for <typeparamref name="TRequest"/>.</typeparam>
     public interface IEngineFacade<in TRequest, TResponse>
         where TRequest : MapsBaseRequest, new()
         where TResponse : IResponseFor<TRequest>

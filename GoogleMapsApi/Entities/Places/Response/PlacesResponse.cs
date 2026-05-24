@@ -7,6 +7,9 @@ using GoogleMapsApi.Engine.JsonConverters;
 
 namespace GoogleMapsApi.Entities.Places.Response
 {
+	/// <summary>
+	/// Response from the Google Places Search API containing places matching the search criteria.
+	/// </summary>
 	public class PlacesResponse : IResponseFor<PlacesRequest>
 	{
 		/// <summary>

@@ -22,6 +22,11 @@ namespace GoogleMapsApi.StaticMaps
 			BaseUrl = @"maps.google.com/maps/api/staticmap";
 		}
 
+		/// <summary>
+		/// Builds the Google Static Maps URL for the given request, including center, zoom, size, markers, paths, and style parameters.
+		/// </summary>
+		/// <param name="request">The static map request to serialize.</param>
+		/// <returns>The fully composed Static Maps URL.</returns>
 		public string GenerateStaticMapURL(StaticMapRequest request)
 		{
 			string scheme = request.IsSSL ? "https://" : "http://";

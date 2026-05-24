@@ -5,6 +5,10 @@ using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.Geocoding.Request
 {
+    /// <summary>
+    /// Request for the Google Geocoding API, which converts between addresses and geographic coordinates.
+    /// Supports forward geocoding (address to coordinates) and reverse geocoding (coordinates to address).
+    /// </summary>
     public class GeocodingRequest : SignableRequest
     {
         protected internal override string BaseUrl

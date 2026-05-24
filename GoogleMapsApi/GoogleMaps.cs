@@ -26,6 +26,10 @@ using System;
 
 namespace GoogleMapsApi
 {
+    /// <summary>
+    /// Static facade exposing strongly-typed accessors to every supported Google Maps Web Service.
+    /// Each property returns a singleton engine that handles request execution for a specific API.
+    /// </summary>
     public class GoogleMaps
 	{
 		/// <summary>Perform geocoding operations.</summary>
