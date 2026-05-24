@@ -1,6 +1,8 @@
 [![NuGet Downloads](https://img.shields.io/nuget/dt/GoogleMapsApi.svg)](https://www.nuget.org/packages/GoogleMapsApi/)
 [![NuGet Version](https://img.shields.io/nuget/v/GoogleMapsApi.svg)](https://www.nuget.org/packages/GoogleMapsApi/)
 [![Build Status](https://github.com/maximn/google-maps/actions/workflows/dotnet.yml/badge.svg)](https://github.com/maximn/google-maps/actions/workflows/dotnet.yml)
+[![CodeQL](https://github.com/maximn/google-maps/actions/workflows/codeql.yml/badge.svg)](https://github.com/maximn/google-maps/actions/workflows/codeql.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/maximn/google-maps/badge)](https://scorecard.dev/viewer/?uri=github.com/maximn/google-maps)
 [![License: BSD-2-Clause](https://img.shields.io/badge/License-BSD_2--Clause-blue.svg)](LICENSE.md)
 [![.NET](https://img.shields.io/badge/.NET-net10.0%20%7C%20net8.0%20%7C%20netstandard2.0%20%7C%20net481%20%7C%20net462-512BD4)](https://dotnet.microsoft.com/)
 
