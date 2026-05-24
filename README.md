@@ -54,7 +54,7 @@ DirectionsRequest directionsRequest = new DirectionsRequest()
 // Option 2: Set globally via app.config/appsettings.json (see wiki for details)
 ```
 
-For more configuration options and detailed guides, see the [wiki](https://github.com/maximn/google-maps/wiki).
+For more configuration options and detailed guides, see the [wiki](https://github.com/maximn/google-maps/wiki). Full API reference is published at [maximn.github.io/google-maps](https://maximn.github.io/google-maps/).
 
 ## Code Examples
 
