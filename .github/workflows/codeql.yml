@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   analyze:
-    name: Analyze (csharp)
+    name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
     timeout-minutes: 360
 
@@ -25,29 +25,35 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp' ]
+        include:
+          - language: csharp
+            build-mode: manual
+          - language: actions
+            build-mode: none
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
 
       - name: Setup .NET
+        if: matrix.build-mode == 'manual'
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 8.0.x
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
-
-      - name: Restore dependencies
-        run: dotnet restore GoogleMapsApi/GoogleMapsApi.csproj
+          build-mode: ${{ matrix.build-mode }}
 
       - name: Build
-        run: dotnet build GoogleMapsApi/GoogleMapsApi.csproj --framework net8.0 --no-restore --configuration Release
+        if: matrix.build-mode == 'manual'
+        run: |
+          dotnet restore GoogleMapsApi/GoogleMapsApi.csproj
+          dotnet build GoogleMapsApi/GoogleMapsApi.csproj --framework net8.0 --no-restore --configuration Release
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{ matrix.language }}"
