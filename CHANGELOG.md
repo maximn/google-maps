@@ -7,6 +7,70 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.7] - 2026-05-23
+
+### Added
+- `net10.0` target framework (#216)
+
+### Changed
+- Generate release notes with `claude -p` and post them as a GitHub Release (#214)
+- Add TestGlance for PR test summaries (#218)
+- Drop `net6.0` from the test project (#215)
+- Add `RELEASING.md` describing the release process (#212)
+- Update .NET monorepo to v10 (#211)
+- Update `Microsoft.NET.Test.Sdk` to v18 (#209)
+- Update `coverlet.collector` to v10 (#208)
+- Update `NUnit3TestAdapter` to v6 (#210)
+- Update `actions/checkout` to v6 (#206)
+- Update `actions/setup-dotnet` to v5 (#207)
+- Update `actions/upload-artifact` to v7 (#213)
+
+### Fixed
+- Replace editor-based release-notes review with a terminal prompt (#219)
+
+## [1.4.6] - 2026-05-23
+
+### Added
+- Configure Renovate for automated dependency updates (#194)
+
+### Changed
+- Tighten workflow permissions, drop EOL .NET 7, refresh `SECURITY.md` (#201)
+- Check out the PR head SHA and gate `pull_request_target` to same-repo PRs (#200)
+- Update NUnit to 4.6.1 (#204)
+- Update `nunit.analyzers` to 4.13.0 (#205)
+- Update `coverlet.collector` to 6.0.4 (#196)
+- Update `Newtonsoft.Json` to 13.0.4 (#197)
+- Update .NET monorepo dependencies (#202)
+
+### Fixed
+- Stabilize integration tests against Google API drift (#199)
+
+## [1.4.5] - 2025-09-23
+
+### Changed
+- Bump `System.Text.Encodings.Web` from 5.0.0 to 5.0.1 (#193)
+
+## [1.4.4] - 2025-09-19
+
+### Changed
+- Update `System.Text.Json` dependency to reference minimum supported versions per target framework (#188)
+
+## [1.4.3] - 2025-09-19
+
+_Re-release of 1.4.2; no functional changes._
+
+## [1.4.2] - 2025-09-19
+
+_Re-release of 1.4.1; no functional changes._
+
+## [1.4.1] - 2025-09-19
+
+### Changed
+- Split CI workflow into separate build and test jobs
+
+### Fixed
+- Enable secrets access for external contributor PRs (#189)
+
 ## [1.4.0] - 2025-09-05
 
 ### Added
@@ -324,6 +388,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - "jpg-baselin" → "jpg-baseline" in `StaticMapsEngine`
 
 [Unreleased]: https://github.com/maximn/google-maps/compare/v1.4.7...HEAD
+[1.4.7]: https://github.com/maximn/google-maps/compare/v1.4.6...v1.4.7
+[1.4.6]: https://github.com/maximn/google-maps/compare/v1.4.5...v1.4.6
+[1.4.5]: https://github.com/maximn/google-maps/compare/v1.4.4...v1.4.5
+[1.4.4]: https://github.com/maximn/google-maps/compare/v1.4.3...v1.4.4
+[1.4.3]: https://github.com/maximn/google-maps/compare/v1.4.2...v1.4.3
+[1.4.2]: https://github.com/maximn/google-maps/compare/v1.4.1...v1.4.2
+[1.4.1]: https://github.com/maximn/google-maps/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/maximn/google-maps/compare/v1.3.9...v1.4.0
 [1.3.9]: https://github.com/maximn/google-maps/compare/v1.3.8...v1.3.9
 [1.3.8]: https://github.com/maximn/google-maps/compare/v1.3.7...v1.3.8

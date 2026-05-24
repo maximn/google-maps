@@ -36,8 +36,15 @@ The script:
 1. Verifies the working tree is clean
 2. Reads the latest `v*` tag
 3. Computes the next version based on the bump type (defaults to `patch`)
-4. Prompts `y/N` before doing anything
-5. On confirmation, creates the tag locally and pushes it to `origin`
+4. Generates release notes from the commit log via `claude -p`, using [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) categories (`Added` / `Changed` / `Deprecated` / `Removed` / `Fixed` / `Security`)
+5. Shows you the notes and prompts `y/N` before doing anything (`--edit` opens them in `$EDITOR` first)
+6. On confirmation:
+   - Moves `## [Unreleased]` content into a new `## [NEW_VERSION] - YYYY-MM-DD` section in [`CHANGELOG.md`](CHANGELOG.md) and refreshes the compare-link footnotes
+   - Commits `CHANGELOG.md` as `chore(release): vX.Y.Z` and pushes it to the current branch
+   - Creates the annotated tag (with the notes as the tag message) and pushes it to `origin`
+   - Creates a GitHub Release with the same notes
+
+Use `--no-notes` to skip the `claude -p` step, the `CHANGELOG.md` update, and the GitHub Release — useful for out-of-band hotfix tags where you just want to push the `v*` tag.
 
 ## Option 2: Tag manually
 
@@ -47,6 +54,8 @@ If you want to pick an explicit version (out-of-band release, hotfix on an older
 git tag v1.4.6
 git push origin v1.4.6
 ```
+
+If you go this route, update [`CHANGELOG.md`](CHANGELOG.md) by hand: move the `## [Unreleased]` content into a new `## [1.4.6] - YYYY-MM-DD` section and add a matching `[1.4.6]: …/compare/v1.4.5...v1.4.6` footnote.
 
 Both options end at the same place — a `v*` tag in `origin` — and trigger the same workflow.
 

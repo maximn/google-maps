@@ -139,16 +139,20 @@ if [ "$NO_NOTES" = false ]; then
 
     PROMPT="Generate concise release notes in GitHub-flavored markdown for version ${NEW_VERSION} of a .NET library (Google Maps API wrapper).
 
-Group commits under these H2 sections, omitting any section with no entries:
-## Features
-## Bug fixes
-## Dependencies
-## Other
+Use Keep a Changelog 1.1.0 categories as H3 sections, in this order, omitting any section with no entries:
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
 
 Rules:
 - Use short, user-facing bullets. Strip conventional-commit prefixes (feat:, fix:, chore:, etc.).
-- Do not include commit hashes, PR numbers, or a title heading.
-- If a commit is purely internal (CI, formatting), put it under Other or omit.
+- Keep PR numbers like (#123) when present in the commit subject; do not invent any.
+- Do not include commit hashes or a title heading.
+- Dependency bumps go under Changed.
+- Purely internal commits (CI, formatting, repo hygiene) go under Changed or are omitted.
 
 Commits:
 ${COMMIT_LOG}"
@@ -179,12 +183,75 @@ ${COMMIT_LOG}"
     fi
 fi
 
+CHANGELOG_FILE="CHANGELOG.md"
+RELEASE_DATE=$(date +%Y-%m-%d)
+REPO_COMPARE_URL="https://github.com/maximn/google-maps"
+UPDATE_CHANGELOG=false
+if [ "$NO_NOTES" = false ] && [ -f "$CHANGELOG_FILE" ]; then
+    if ! grep -q "^## \[Unreleased\]" "$CHANGELOG_FILE"; then
+        echo -e "${RED}Error: ${CHANGELOG_FILE} has no '## [Unreleased]' section — cannot update.${NC}"
+        exit 1
+    fi
+    UPDATE_CHANGELOG=true
+fi
+
+# Rewrites CHANGELOG.md: turn [Unreleased] into [NEW_VERSION] - DATE with notes,
+# re-add an empty [Unreleased] above it, and add/refresh the compare-link footnotes.
+update_changelog() {
+    local tmp_file
+    tmp_file=$(mktemp)
+
+    awk -v new_version="$NEW_VERSION" \
+        -v release_date="$RELEASE_DATE" \
+        -v notes_file="$NOTES_FILE" \
+        '
+        BEGIN {
+            while ((getline line < notes_file) > 0) {
+                notes = (notes == "" ? line : notes "\n" line)
+            }
+            close(notes_file)
+        }
+        /^## \[Unreleased\]$/ && !done {
+            print "## [Unreleased]"
+            print ""
+            print "## [" new_version "] - " release_date
+            print ""
+            print notes
+            print ""
+            done = 1
+            getline next_line
+            if (next_line != "") print next_line
+            next
+        }
+        { print }
+        ' "$CHANGELOG_FILE" > "$tmp_file" && mv "$tmp_file" "$CHANGELOG_FILE"
+
+    tmp_file=$(mktemp)
+    awk -v prev_tag="v${CURRENT_VERSION}" \
+        -v new_tag="v${NEW_VERSION}" \
+        -v new_version="$NEW_VERSION" \
+        -v repo="$REPO_COMPARE_URL" \
+        '
+        /^\[Unreleased\]: / {
+            print "[Unreleased]: " repo "/compare/" new_tag "...HEAD"
+            print "[" new_version "]: " repo "/compare/" prev_tag "..." new_tag
+            next
+        }
+        { print }
+        ' "$CHANGELOG_FILE" > "$tmp_file" && mv "$tmp_file" "$CHANGELOG_FILE"
+}
+
 if [ "$DRY_RUN" = true ]; then
     echo -e "${GREEN}🔍 DRY RUN SUMMARY:${NC}"
     echo -e "${GREEN}  - Current version: ${CURRENT_VERSION}${NC}"
     echo -e "${GREEN}  - New version: ${NEW_VERSION}${NC}"
     echo -e "${GREEN}  - Tag to create: ${NEW_TAG}${NC}"
     echo -e "${GREEN}  - Commands that would run:${NC}"
+    if [ "$UPDATE_CHANGELOG" = true ]; then
+        echo -e "${GREEN}    update ${CHANGELOG_FILE} ([Unreleased] → [${NEW_VERSION}] - ${RELEASE_DATE} + compare link)${NC}"
+        echo -e "${GREEN}    git add ${CHANGELOG_FILE} && git commit -m \"chore(release): ${NEW_TAG}\"${NC}"
+        echo -e "${GREEN}    git push origin <current-branch>${NC}"
+    fi
     if [ "$NO_NOTES" = false ]; then
         echo -e "${GREEN}    git tag -a ${NEW_TAG} -F <notes>${NC}"
     else
@@ -208,6 +275,25 @@ echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo -e "${YELLOW}Release cancelled${NC}"
     exit 0
+fi
+
+if [ "$UPDATE_CHANGELOG" = true ]; then
+    echo -e "${YELLOW}📝 Updating ${CHANGELOG_FILE}...${NC}"
+    update_changelog
+    CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    git add "$CHANGELOG_FILE"
+    if git commit -m "chore(release): ${NEW_TAG}"; then
+        echo -e "${GREEN}✅ Release commit created on ${CURRENT_BRANCH}${NC}"
+    else
+        echo -e "${RED}❌ Failed to commit ${CHANGELOG_FILE}${NC}"
+        exit 1
+    fi
+    if git push origin "$CURRENT_BRANCH"; then
+        echo -e "${GREEN}✅ Release commit pushed to origin/${CURRENT_BRANCH}${NC}"
+    else
+        echo -e "${RED}❌ Failed to push release commit. Resolve and retry — tag has NOT been created yet.${NC}"
+        exit 1
+    fi
 fi
 
 echo -e "${YELLOW}📝 Creating and pushing tag...${NC}"
