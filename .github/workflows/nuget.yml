@@ -76,14 +76,18 @@ jobs:
         if: github.event_name == 'push' || inputs.dry_run == false
         run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
-      - name: Create GitHub Release
-        if: github.event_name == 'push'
+      - name: Create or update GitHub Release
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.dry_run == false)
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.get_version.outputs.VERSION }}
           ATTESTATION_BUNDLE: ${{ steps.attest.outputs.bundle-path }}
         run: |
-          gh release create "v${VERSION}" \
-            --title "v${VERSION}" \
-            --generate-notes \
-            ./*.nupkg "${ATTESTATION_BUNDLE}"
+          if gh release view "v${VERSION}" >/dev/null 2>&1; then
+            gh release upload "v${VERSION}" ./*.nupkg "${ATTESTATION_BUNDLE}" --clobber
+          else
+            gh release create "v${VERSION}" \
+              --title "v${VERSION}" \
+              --generate-notes \
+              ./*.nupkg "${ATTESTATION_BUNDLE}"
+          fi
