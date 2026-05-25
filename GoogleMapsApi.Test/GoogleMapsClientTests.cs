@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -174,6 +177,32 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
+        public async Task ConcurrentClients_WithSharedRequest_EachSeeTheirOwnAmbientKey()
+        {
+            using var handler = new RecordingHandler(OkGeocodingJson);
+            using var http = new HttpClient(handler);
+            var clientA = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "key-a" });
+            var clientB = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "key-b" });
+
+            var sharedRequest = new GeocodingRequest { Address = "shared" };
+
+            var tasks = new Task[200];
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                var client = i % 2 == 0 ? clientA : clientB;
+                tasks[i] = client.Geocode.QueryAsync(sharedRequest);
+            }
+            await Task.WhenAll(tasks);
+
+            Assert.That(sharedRequest.ApiKey, Is.Null);
+            Assert.That(handler.RequestUris, Has.Count.EqualTo(tasks.Length));
+            int aCount = handler.RequestUris.Count(u => u.Query.Contains("key=key-a"));
+            int bCount = handler.RequestUris.Count(u => u.Query.Contains("key=key-b"));
+            Assert.That(aCount, Is.EqualTo(tasks.Length / 2));
+            Assert.That(bCount, Is.EqualTo(tasks.Length / 2));
+        }
+
+        [Test]
         public void QueryAsync_CancelledToken_Throws()
         {
             using var handler = new CapturingHandler(OkGeocodingJson);
@@ -245,6 +274,29 @@ namespace GoogleMapsApi.Test
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 LastRequestUri = request.RequestUri;
+                return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(_responseBody)
+                });
+            }
+        }
+
+        private sealed class RecordingHandler : HttpMessageHandler
+        {
+            private readonly string _responseBody;
+            private readonly ConcurrentBag<Uri> _uris = new();
+
+            public RecordingHandler(string responseBody)
+            {
+                _responseBody = responseBody;
+            }
+
+            public IReadOnlyCollection<Uri> RequestUris => _uris;
+
+            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                _uris.Add(request.RequestUri!);
                 return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent(_responseBody)

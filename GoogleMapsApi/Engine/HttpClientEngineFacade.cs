@@ -41,28 +41,20 @@ namespace GoogleMapsApi.Engine
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            // The engine builds the URI from request.ApiKey synchronously, before its first await.
-            // We briefly assign the ambient key, let the engine capture the URI, then restore the
-            // caller's original value so the request object the caller passed in is left untouched.
-            var shouldRestoreApiKey = string.IsNullOrEmpty(request.ApiKey) && !string.IsNullOrEmpty(_options.ApiKey);
-            if (shouldRestoreApiKey)
-                request.ApiKey = _options.ApiKey;
+            var effectiveRequest = request;
+            if (string.IsNullOrEmpty(request.ApiKey) && !string.IsNullOrEmpty(_options.ApiKey))
+            {
+                effectiveRequest = (TRequest)request.CloneShallow();
+                effectiveRequest.ApiKey = _options.ApiKey;
+            }
 
-            try
-            {
-                return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPIAsync(
-                    _httpClient,
-                    request,
-                    timeout,
-                    token,
-                    OnUriCreated,
-                    OnRawResponseReceived);
-            }
-            finally
-            {
-                if (shouldRestoreApiKey)
-                    request.ApiKey = null;
-            }
+            return MapsAPIGenericEngine<TRequest, TResponse>.QueryGoogleAPIAsync(
+                _httpClient,
+                effectiveRequest,
+                timeout,
+                token,
+                OnUriCreated,
+                OnRawResponseReceived);
         }
     }
 }
