@@ -137,6 +137,43 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
+        public async Task QueryAsync_DoesNotMutate_CallerRequest_ApiKey()
+        {
+            using var handler = new CapturingHandler(OkGeocodingJson);
+            using var http = new HttpClient(handler);
+            var client = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "ambient-key" });
+
+            var request = new GeocodingRequest { Address = "Pier 39" };
+            Assert.That(request.ApiKey, Is.Null, "precondition: request starts with no ApiKey");
+
+            await client.Geocode.QueryAsync(request);
+
+            Assert.That(handler.LastRequestUri!.Query, Does.Contain("key=ambient-key"));
+            Assert.That(request.ApiKey, Is.Null, "caller's request must not be mutated by ambient-key fill");
+        }
+
+        [Test]
+        public async Task TwoClients_WithDifferentKeys_DoNotCrossContaminate_WhenReusingRequest()
+        {
+            using var handler = new CapturingHandler(OkGeocodingJson);
+            using var http = new HttpClient(handler);
+            var clientA = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "key-a" });
+            var clientB = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "key-b" });
+
+            var request = new GeocodingRequest { Address = "anywhere" };
+
+            await clientA.Geocode.QueryAsync(request);
+            var uriA = handler.LastRequestUri!;
+
+            await clientB.Geocode.QueryAsync(request);
+            var uriB = handler.LastRequestUri!;
+
+            Assert.That(uriA.Query, Does.Contain("key=key-a"));
+            Assert.That(uriB.Query, Does.Contain("key=key-b"));
+            Assert.That(request.ApiKey, Is.Null);
+        }
+
+        [Test]
         public void QueryAsync_CancelledToken_Throws()
         {
             using var handler = new CapturingHandler(OkGeocodingJson);

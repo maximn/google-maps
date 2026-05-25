@@ -120,6 +120,39 @@ string url = staticMapGenerator.GenerateStaticMapURL(new StaticMapRequest(new Lo
 Console.WriteLine("Map with path: " + url);
 ```
 
+### Instance-based client (`IHttpClientFactory`-friendly)
+
+In addition to the static `GoogleMaps` facade, you can use the instance-based `GoogleMapsClient` that accepts an injected `HttpClient`. This is the recommended pattern for ASP.NET Core, minimal APIs, and worker services — it plays nicely with `IHttpClientFactory`, per-instance event handlers, and an ambient API key that is auto-filled into requests when not set explicitly.
+
+``` C#
+// Register once at startup
+services.AddHttpClient<IGoogleMapsClient, GoogleMapsClient>();
+services.AddSingleton(new GoogleMapsClientOptions { ApiKey = "your-google-maps-api-key" });
+
+// Inject and use
+public class GeocodingService(IGoogleMapsClient maps)
+{
+    public Task<GeocodingResponse> LookupAsync(string address)
+        => maps.Geocode.QueryAsync(new GeocodingRequest { Address = address });
+}
+```
+
+Without DI:
+
+``` C#
+using var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "your-key" });
+
+var result = await maps.Directions.QueryAsync(new DirectionsRequest { Origin = "NYC", Destination = "DC" });
+```
+
+Per-instance events (no global state):
+
+``` C#
+maps.Geocode.OnUriCreated += uri => uri;          // inspect/rewrite outgoing URI
+maps.Geocode.OnRawResponseReceived += bytes => { }; // tap raw JSON
+```
+
 ### Synchronous Usage
 
 Synchronous calls are also supported via `Query` (use `QueryAsync` whenever possible):
