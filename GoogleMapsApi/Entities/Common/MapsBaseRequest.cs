@@ -93,5 +93,7 @@ namespace GoogleMapsApi.Entities.Common
             var queryString = GetQueryStringParameters().GetQueryStringPostfix();
             return new Uri(scheme + BaseUrl + "json?" + queryString);
         }
+
+        internal MapsBaseRequest CloneShallow() => (MapsBaseRequest)MemberwiseClone();
     }
 }
