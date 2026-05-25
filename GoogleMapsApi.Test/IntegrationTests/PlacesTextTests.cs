@@ -20,7 +20,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Types = "address"
             };
 
-            PlacesTextResponse result = await GoogleMaps.PlacesText.QueryAsync(request);
+            PlacesTextResponse result = await Client.PlacesText.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -38,7 +38,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Types = "address"
             };
 
-            PlacesTextResponse result = await GoogleMaps.PlacesText.QueryAsync(request);
+            PlacesTextResponse result = await Client.PlacesText.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -54,7 +54,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Query = "restaurants in New York City"
             };
 
-            PlacesTextResponse firstResponse = await GoogleMaps.PlacesText.QueryAsync(request);
+            PlacesTextResponse firstResponse = await Client.PlacesText.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(firstResponse);
             Assert.That(firstResponse.Status, Is.EqualTo(Status.OK));
@@ -75,7 +75,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PageToken = firstResponse.NextPage
             };
 
-            PlacesTextResponse secondResponse = await GoogleMaps.PlacesText.QueryAsync(secondRequest);
+            PlacesTextResponse secondResponse = await Client.PlacesText.QueryAsync(secondRequest);
 
             AssertInconclusive.NotExceedQuota(secondResponse);
             Assert.That(secondResponse.Status, Is.EqualTo(Status.OK));

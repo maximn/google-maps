@@ -1,6 +1,5 @@
-// Example uses the [Obsolete] static GoogleMaps facade; will be rewritten in 2.1 to use AddGoogleMaps().
-#pragma warning disable CS0618
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using GoogleMapsApi.Entities.PlacesDetails.Request;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
@@ -8,29 +7,44 @@ using GoogleMapsApi.Entities.PlacesDetails.Response;
 namespace GoogleMapsApi.Examples
 {
     /// <summary>
-    /// Example demonstrating how to extract street address, state, and postal code from Places Details API results
-    /// This addresses GitHub issue #147: "How do i get the street address, state, and postal code from the place results?"
+    /// Example demonstrating how to extract street address, state, and postal code from Places Details API results.
+    /// This addresses GitHub issue #147: "How do I get the street address, state, and postal code from the place results?".
     /// </summary>
+    /// <remarks>
+    /// Construct one <see cref="GoogleMapsClient"/> per process (typically via DI / <c>IHttpClientFactory</c>)
+    /// and reuse it across calls. The bare-<see cref="HttpClient"/> form shown here keeps the example self-contained.
+    /// </remarks>
     public class PlacesDetailsAddressExtractionExample
     {
         private const string GoogleSydneyOfficePlaceId = "ChIJN1t_tDeuEmsRUsoyG83frY4";
 
-        /// <summary>
-        /// Example showing how to extract individual address components
-        /// </summary>
-        public static async Task ExtractIndividualAddressComponents()
-        {
-            var request = new PlacesDetailsRequest
-            {
-                ApiKey = "YOUR_API_KEY_HERE",
-                PlaceId = GoogleSydneyOfficePlaceId
-            };
+        private readonly IGoogleMapsClient _maps;
 
-            var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+        public PlacesDetailsAddressExtractionExample(IGoogleMapsClient maps)
+        {
+            _maps = maps ?? throw new ArgumentNullException(nameof(maps));
+        }
+
+        /// <summary>
+        /// Factory for quick demo use: builds a client with a bare <see cref="HttpClient"/> and the supplied API key.
+        /// In real code, inject <see cref="IGoogleMapsClient"/> via DI instead.
+        /// </summary>
+        public static PlacesDetailsAddressExtractionExample CreateForDemo(string apiKey)
+        {
+            var client = new GoogleMapsClient(new HttpClient(), new GoogleMapsClientOptions { ApiKey = apiKey });
+            return new PlacesDetailsAddressExtractionExample(client);
+        }
+
+        /// <summary>
+        /// Example showing how to extract individual address components.
+        /// </summary>
+        public async Task ExtractIndividualAddressComponents()
+        {
+            var request = new PlacesDetailsRequest { PlaceId = GoogleSydneyOfficePlaceId };
+            var result = await _maps.PlacesDetails.QueryAsync(request);
 
             if (result.Status == Status.OK && result.Result?.AddressComponent != null)
             {
-                // Extract individual address components using helper methods
                 var streetAddress = result.Result.GetStreetAddress();
                 var state = result.Result.GetState();
                 var stateShort = result.Result.GetState(useShortName: true);
@@ -47,21 +61,15 @@ namespace GoogleMapsApi.Examples
         }
 
         /// <summary>
-        /// Example showing how to extract complete address breakdown
+        /// Example showing how to extract a complete address breakdown.
         /// </summary>
-        public static async Task ExtractCompleteAddressBreakdown()
+        public async Task ExtractCompleteAddressBreakdown()
         {
-            var request = new PlacesDetailsRequest
-            {
-                ApiKey = "YOUR_API_KEY_HERE",
-                PlaceId = GoogleSydneyOfficePlaceId
-            };
-
-            var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            var request = new PlacesDetailsRequest { PlaceId = GoogleSydneyOfficePlaceId };
+            var result = await _maps.PlacesDetails.QueryAsync(request);
 
             if (result.Status == Status.OK && result.Result?.AddressComponent != null)
             {
-                // Extract complete address breakdown
                 var addressBreakdown = result.Result.GetAddressBreakdown();
 
                 Console.WriteLine($"Complete Address: {addressBreakdown}");
@@ -74,9 +82,9 @@ namespace GoogleMapsApi.Examples
         }
 
         /// <summary>
-        /// Example showing how to extract address components for multiple places
+        /// Example showing how to extract address components for multiple places.
         /// </summary>
-        public static async Task ExtractAddressComponentsForMultiplePlaces()
+        public async Task ExtractAddressComponentsForMultiplePlaces()
         {
             var placeIds = new[]
             {
@@ -87,13 +95,8 @@ namespace GoogleMapsApi.Examples
 
             foreach (var placeId in placeIds)
             {
-                var request = new PlacesDetailsRequest
-                {
-                    ApiKey = "YOUR_API_KEY_HERE",
-                    PlaceId = placeId
-                };
-
-                var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+                var request = new PlacesDetailsRequest { PlaceId = placeId };
+                var result = await _maps.PlacesDetails.QueryAsync(request);
 
                 if (result.Status == Status.OK && result.Result?.AddressComponent != null)
                 {

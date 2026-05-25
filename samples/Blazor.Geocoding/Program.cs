@@ -6,11 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddSingleton<GeocodingService>(_ =>
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<GeocodingService>(sp =>
 {
     string? apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY")
                      ?? builder.Configuration["GoogleApiKey"];
-    return new GeocodingService(apiKey);
+    var http = sp.GetRequiredService<IHttpClientFactory>().CreateClient(nameof(GeocodingService));
+    return new GeocodingService(apiKey, http);
 });
 
 var app = builder.Build();

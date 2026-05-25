@@ -6,8 +6,6 @@
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <!-- Tests legitimately exercise the [Obsolete] static GoogleMaps facade for regression coverage. -->
-    <NoWarn>$(NoWarn);CS0618</NoWarn>
   </PropertyGroup>
 	
   <ItemGroup>

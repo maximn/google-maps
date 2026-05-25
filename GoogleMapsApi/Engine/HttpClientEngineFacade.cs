@@ -56,5 +56,17 @@ namespace GoogleMapsApi.Engine
                 OnUriCreated,
                 OnRawResponseReceived);
         }
+
+        public TResponse Query(TRequest request)
+            => QueryAsync(request).GetAwaiter().GetResult();
+
+        public TResponse Query(TRequest request, TimeSpan timeout)
+            => QueryAsync(request, timeout).GetAwaiter().GetResult();
+
+        public TResponse Query(TRequest request, CancellationToken token)
+            => QueryAsync(request, token).GetAwaiter().GetResult();
+
+        public TResponse Query(TRequest request, TimeSpan timeout, CancellationToken token)
+            => QueryAsync(request, timeout, token).GetAwaiter().GetResult();
     }
 }

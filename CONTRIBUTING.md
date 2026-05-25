@@ -20,8 +20,8 @@ and the proposed API shape second. For open-ended questions or design discussion
 
 ## Local development quick start
 
-The library targets net8.0, net6.0, netstandard2.0, net481, and net462. You need a recent
-.NET SDK installed.
+The library targets net10.0, net8.0, and netstandard2.0. You need .NET SDK 8.0 or newer
+installed (10.0 SDK is required to build the net10.0 target).
 
 ```bash
 dotnet restore

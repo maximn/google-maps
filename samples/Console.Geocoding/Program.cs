@@ -19,13 +19,12 @@ if (string.IsNullOrWhiteSpace(apiKey))
     return 2;
 }
 
-var request = new GeocodingRequest
-{
-    Address = address,
-    ApiKey = apiKey,
-};
+using var httpClient = new HttpClient();
+IGoogleMapsClient maps = new GoogleMapsClient(httpClient, new GoogleMapsClientOptions { ApiKey = apiKey });
 
-GeocodingResponse response = await GoogleMaps.Geocode.QueryAsync(request);
+var request = new GeocodingRequest { Address = address };
+
+GeocodingResponse response = await maps.Geocode.QueryAsync(request);
 
 if (response.Status != Status.OK || response.Results is null)
 {

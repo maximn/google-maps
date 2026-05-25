@@ -6,20 +6,21 @@ namespace Samples.Blazor.Geocoding.Services;
 
 public sealed class GeocodingService
 {
-    private readonly string? _apiKey;
+    private readonly IGoogleMapsClient? _maps;
 
-    public GeocodingService(string? apiKey) => _apiKey = apiKey;
-
-    public bool HasApiKey => !string.IsNullOrWhiteSpace(_apiKey);
-
-    public async Task<GeocodingResponse> GeocodeAsync(string address, CancellationToken ct = default)
+    public GeocodingService(string? apiKey, HttpClient httpClient)
     {
-        var request = new GeocodingRequest
+        if (!string.IsNullOrWhiteSpace(apiKey))
         {
-            Address = address,
-            ApiKey = _apiKey,
-        };
+            _maps = new GoogleMapsClient(httpClient, new GoogleMapsClientOptions { ApiKey = apiKey });
+        }
+    }
 
-        return await GoogleMaps.Geocode.QueryAsync(request, ct);
+    public bool HasApiKey => _maps is not null;
+
+    public Task<GeocodingResponse> GeocodeAsync(string address, CancellationToken ct = default)
+    {
+        if (_maps is null) throw new InvalidOperationException("API key not configured.");
+        return _maps.Geocode.QueryAsync(new GeocodingRequest { Address = address }, ct);
     }
 }

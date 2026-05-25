@@ -21,7 +21,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Language = "en"
             };
 
-            TimeZoneResponse result = await GoogleMaps.TimeZone.QueryAsync(request);
+            TimeZoneResponse result = await Client.TimeZone.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));

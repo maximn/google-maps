@@ -23,5 +23,5 @@
 
 - [ ] `dotnet format` has been run.
 - [ ] `dotnet test` passes locally (with a valid `GOOGLE_API_KEY` for integration tests).
-- [ ] Multi-framework build passes (net8.0, net6.0, netstandard2.0, net481, net462).
+- [ ] Multi-framework build passes (net10.0, net8.0, netstandard2.0).
 - [ ] XML documentation updated if public API surface changed.

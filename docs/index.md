@@ -2,7 +2,7 @@
 
 A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Directions, Distance Matrix, Elevation, Time Zone, Places, and Static Maps.
 
-Multi-framework (`net10.0`, `net8.0`, `net6.0`, `netstandard2.0`, `net481`, `net462`), async-first, and battle-tested with **2M+ downloads** on NuGet.
+Multi-framework (`net10.0`, `net8.0`, `netstandard2.0`), async-first, and battle-tested with **2M+ downloads** on NuGet.
 
 ## Get started
 

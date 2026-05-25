@@ -67,5 +67,49 @@ namespace GoogleMapsApi
         /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of timeout is neither a positive value or infinite.</exception>
         Task<TResponse> QueryAsync(TRequest request, TimeSpan timeout, CancellationToken token);
+
+        /// <summary>
+        /// Synchronously query the Google Maps API using the provided request.
+        /// </summary>
+        /// <remarks>
+        /// Prefer <see cref="QueryAsync(TRequest)"/> whenever possible. The synchronous overloads block the
+        /// calling thread on the underlying async operation via <c>GetAwaiter().GetResult()</c>; this can
+        /// deadlock when invoked from a thread with a single-threaded SynchronizationContext (e.g. classic
+        /// ASP.NET, WinForms, WPF UI threads).
+        /// </remarks>
+        /// <param name="request">The request that will be sent.</param>
+        /// <returns>The strongly-typed response.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+        TResponse Query(TRequest request);
+
+        /// <summary>
+        /// Synchronously query the Google Maps API using the provided request.
+        /// </summary>
+        /// <param name="request">The request that will be sent.</param>
+        /// <param name="timeout">A TimeSpan specifying the amount of time to wait for a response before aborting the request.</param>
+        /// <returns>The strongly-typed response.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of timeout is neither a positive value or infinite.</exception>
+        TResponse Query(TRequest request, TimeSpan timeout);
+
+        /// <summary>
+        /// Synchronously query the Google Maps API using the provided request.
+        /// </summary>
+        /// <param name="request">The request that will be sent.</param>
+        /// <param name="token">A cancellation token that can be used to cancel the pending operation.</param>
+        /// <returns>The strongly-typed response.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+        TResponse Query(TRequest request, CancellationToken token);
+
+        /// <summary>
+        /// Synchronously query the Google Maps API using the provided request.
+        /// </summary>
+        /// <param name="request">The request that will be sent.</param>
+        /// <param name="timeout">A TimeSpan specifying the amount of time to wait for a response before aborting the request.</param>
+        /// <param name="token">A cancellation token that can be used to cancel the pending operation.</param>
+        /// <returns>The strongly-typed response.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a null value is passed to the request parameter.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of timeout is neither a positive value or infinite.</exception>
+        TResponse Query(TRequest request, TimeSpan timeout, CancellationToken token);
     }
 }

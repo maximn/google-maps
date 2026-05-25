@@ -16,37 +16,64 @@ Or via the .NET CLI:
 dotnet add package GoogleMapsApi
 ```
 
-## API key configuration
+## Your first request
 
-You can configure your Google Maps API key in several ways. The simplest is to set it directly on each request:
+Construct a single `GoogleMapsClient` per process (typically via `IHttpClientFactory`) and reuse it across calls:
 
 ```csharp
 using GoogleMapsApi;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
 
-GeocodingRequest geocodeRequest = new GeocodingRequest()
+using var http = new HttpClient();
+IGoogleMapsClient maps = new GoogleMapsClient(http, new GoogleMapsClientOptions
+{
+    ApiKey = "your-google-maps-api-key",
+});
+
+GeocodingResponse response = await maps.Geocode.QueryAsync(new GeocodingRequest
 {
     Address = "new york city",
-    ApiKey = "your-google-maps-api-key"
-};
+});
 
-GeocodingResponse geocode = await GoogleMaps.Geocode.QueryAsync(geocodeRequest);
-Console.WriteLine(geocode);
+Console.WriteLine(response);
 ```
 
-For more configuration options (including global configuration via `app.config` / `appsettings.json`), see the [wiki](https://github.com/maximn/google-maps/wiki).
+## API key — two ways to provide it
+
+```csharp
+// Option 1: ambient default on the client (auto-filled into every request
+// that doesn't set its own ApiKey)
+new GoogleMapsClientOptions { ApiKey = "..." };
+
+// Option 2: per-request override (wins over the ambient default)
+new GeocodingRequest { Address = "...", ApiKey = "another-key" };
+```
+
+## Dependency injection
+
+In ASP.NET Core, minimal APIs, and worker services, register `GoogleMapsClient` once at startup:
+
+```csharp
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<IGoogleMapsClient>(sp => new GoogleMapsClient(
+    sp.GetRequiredService<IHttpClientFactory>().CreateClient(nameof(GoogleMapsClient)),
+    new GoogleMapsClientOptions { ApiKey = builder.Configuration["GoogleMaps:ApiKey"] }));
+```
+
+Then inject `IGoogleMapsClient` wherever you need it.
+
+> Coming in 2.1: `services.AddGoogleMaps(o => o.ApiKey = ...)` collapses this to one call.
 
 ## Synchronous usage
 
-Synchronous calls are also supported via `Query` — prefer `QueryAsync` whenever possible:
+Sync overloads exist on `IEngineFacade<>` and block the calling thread via `GetAwaiter().GetResult()`. Prefer `QueryAsync` whenever possible — sync calls can deadlock on single-threaded SynchronizationContexts (classic ASP.NET, WinForms, WPF UI threads).
 
 ```csharp
-GeocodingResponse geocode = GoogleMaps.Geocode.Query(geocodeRequest);
-Console.WriteLine(geocode);
+GeocodingResponse response = maps.Geocode.Query(new GeocodingRequest { Address = "..." });
 ```
 
 ## Next steps
 
 - Browse the [API Reference](../api/GoogleMapsApi.yml) for the full surface area of every supported service.
-- See the project [README](https://github.com/maximn/google-maps#readme) for a broader code tour, including Directions and Static Maps examples.
+- See the project [README](https://github.com/maximn/google-maps#readme) for Directions, Distance Matrix, Places, and Static Maps examples.

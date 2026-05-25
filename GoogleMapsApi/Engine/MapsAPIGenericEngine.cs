@@ -14,20 +14,11 @@ namespace GoogleMapsApi.Engine
     public delegate Uri UriCreatedDelegate(Uri uri);
     public delegate void RawResponseReceivedDelegate(byte[] data);
 
-    public abstract class MapsAPIGenericEngine<TRequest, TResponse>
+    internal abstract class MapsAPIGenericEngine<TRequest, TResponse>
 		where TRequest : MapsBaseRequest, new()
 		where TResponse : IResponseFor<TRequest>
 	{
-        internal static event UriCreatedDelegate? OnUriCreated;
-        internal static event RawResponseReceivedDelegate? OnRawResponseReceived;
-
-		private static readonly HttpClient client = new HttpClient();
 		private static readonly JsonSerializerOptions jsonOptions = JsonSerializerConfiguration.CreateOptions();
-
-		protected internal static Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default)
-		{
-			return QueryGoogleAPIAsync(client, request, timeout, token, OnUriCreated, OnRawResponseReceived);
-		}
 
 		internal static async Task<TResponse> QueryGoogleAPIAsync(
 			HttpClient httpClient,

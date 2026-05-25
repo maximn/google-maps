@@ -22,7 +22,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = GoogleSydneyOfficePlaceId
             };
 
-            var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            var result = await Client.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -43,7 +43,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = GoogleSydneyOfficePlaceId
             };
 
-            var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            var result = await Client.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -65,7 +65,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = GoogleSydneyOfficePlaceId
             };
 
-            var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            var result = await Client.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -84,7 +84,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = GoogleSydneyOfficePlaceId
             };
 
-            var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            var result = await Client.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -114,7 +114,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = GoogleSydneyOfficePlaceId
             };
 
-            var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            var result = await Client.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -135,7 +135,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = GoogleSydneyOfficePlaceId
             };
 
-            var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            var result = await Client.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));

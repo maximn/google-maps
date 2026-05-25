@@ -10,32 +10,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Migration from 1.5.x to 2.0
 
 **Dropped target frameworks.** `net6.0`, `net462`, and `net481` are no longer explicit
-targets. A GitHub code search across 45 public consumer csprojs (43 unique repos)
-found **0 on net462/net481** and **0 on net6.0** — keeping them was paying CI minutes
-and dependency-graph cost with no observable benefit. Framework consumers still
-resolve via the `netstandard2.0` build; net6.0 reached EOL in November 2024 and
-its consumers also resolve via `netstandard2.0` or upgrade to `net8.0`. No source
-changes are required to consume the trimmed package.
+targets. The supported set is now `netstandard2.0`, `net8.0`, and `net10.0`. A GitHub
+code search across 45 public consumer csprojs (43 unique repos) found **0 on net462/net481**
+and **0 on net6.0** — keeping them was paying CI minutes and dependency-graph cost with no
+observable benefit. Framework consumers still resolve via the `netstandard2.0` build;
+net6.0 reached EOL in November 2024 and its consumers also resolve via `netstandard2.0`
+or upgrade to `net8.0`. No source changes are required to consume the trimmed package.
 
-**Static `GoogleMaps` facade is now `[Obsolete]` (warn-only, not error).** Existing
-code keeps compiling and running. To migrate, switch to the instance-based client
-shipped in 1.5.0:
+**Removed the static `GoogleMaps` facade.** Every API service now flows through the
+instance-based `IGoogleMapsClient` introduced in 1.5.0. The static `GoogleMaps` class,
+its singleton `EngineFacade<>`, and the static `HttpClient` + events in
+`MapsAPIGenericEngine` are gone.
 
 ```csharp
-// Before
+// Before (1.x — removed in 2.0)
 var response = await GoogleMaps.Geocode.QueryAsync(
-    new GeocodingRequest { Address = "..." });
+    new GeocodingRequest { Address = "...", ApiKey = "..." });
 
-// After (works on 1.5.0+)
+// After
 using var http = new HttpClient();
-var maps = new GoogleMapsClient(http,
+IGoogleMapsClient maps = new GoogleMapsClient(http,
     new GoogleMapsClientOptions { ApiKey = "..." });
+
 var response = await maps.Geocode.QueryAsync(
     new GeocodingRequest { Address = "..." });
 ```
 
-The DI-friendly `services.AddGoogleMaps(...)` extension ships in 2.1.0. The
-static facade is scheduled for removal in 3.0.
+**Synchronous `Query()` is now on `IEngineFacade<>`.** Sync overloads moved off the
+static facade and onto the per-API engine facades returned by `IGoogleMapsClient`,
+so `maps.Geocode.Query(request)` still works.
+
+**Static `OnUriCreated` / `OnRawResponseReceived` events are gone.** Use the
+per-instance events on each engine facade instead:
+`maps.Geocode.OnUriCreated += uri => ...`. They were always strict-mode-only state
+shared across all callers — the per-instance form was added in 1.5.0.
+
+**The DI-friendly `services.AddGoogleMaps(...)` extension ships in 2.1.0.**
 
 ## [1.5.0] - 2026-05-25
 

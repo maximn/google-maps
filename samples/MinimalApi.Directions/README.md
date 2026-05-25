@@ -18,7 +18,9 @@ The API key is sourced from the `GOOGLE_API_KEY` env var, falling back to the `G
 
 ## What this demonstrates
 
-- [`GoogleMaps.Directions`](../../GoogleMapsApi/GoogleMaps.cs) facade entry point
+- [`GoogleMapsClient`](../../GoogleMapsApi/GoogleMapsClient.cs) registered as a singleton, backed by `IHttpClientFactory`, and injected into the route handler
 - [`DirectionsRequest`](../../GoogleMapsApi/Entities/Directions/Request/DirectionsRequest.cs)
 - [`DirectionsResponse`](../../GoogleMapsApi/Entities/Directions/Response/DirectionsResponse.cs) (route summary, legs, distance, duration)
 - Async-first usage inside an ASP.NET Core minimal API handler
+
+In 2.1, this can be simplified to one call (`services.AddGoogleMaps(o => o.ApiKey = apiKey);`) once the `GoogleMapsApi.Extensions.DependencyInjection` extensions ship.

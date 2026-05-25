@@ -18,7 +18,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         {
             var request = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA" };
             request.ApiKey = ApiKey;
-            var result = await GoogleMaps.Directions.QueryAsync(request);
+            var result = await Client.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.OK), result.ErrorMessage);
@@ -39,7 +39,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 				Origin = "285 Bedford Ave, Brooklyn, NY, USA",
 				Destination = "185 Broadway Ave, Manhattan, NY, USA"
 			};
-			var result = await GoogleMaps.Directions.QueryAsync(request);
+			var result = await Client.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.REQUEST_DENIED));
@@ -50,7 +50,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         public async Task Directions_WithWayPoints()
         {
             var request = new DirectionsRequest { Origin = "NYC, USA", Destination = "Miami, USA", Waypoints = new string[] { "Philadelphia, USA" }, OptimizeWaypoints = true, ApiKey = ApiKey };
-            var result = await GoogleMaps.Directions.QueryAsync(request);
+            var result = await Client.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.OK), result.ErrorMessage);
@@ -85,7 +85,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 },
                 ApiKey = ApiKey
             };
-            var result = await GoogleMaps.Directions.QueryAsync(request);
+            var result = await Client.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED), result.ErrorMessage);
@@ -101,7 +101,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 ApiKey = ApiKey
             };
 
-            DirectionsResponse result = await GoogleMaps.Directions.QueryAsync(request);
+            DirectionsResponse result = await Client.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
 
@@ -124,7 +124,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         {
             var request = new DirectionsRequest { Origin = "285 Bedford Ave, Brooklyn, NY, USA", Destination = "185 Broadway Ave, Manhattan, NY, USA", ApiKey = ApiKey };
 
-            var result = GoogleMaps.Directions.QueryAsync(request).Result;
+            var result = Client.Directions.QueryAsync(request).Result;
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.OK));
@@ -148,7 +148,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 ApiKey = ApiKey
             };
 
-            DirectionsResponse result = await GoogleMaps.Directions.QueryAsync(request);
+            DirectionsResponse result = await Client.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
 
@@ -174,7 +174,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 ApiKey = ApiKey
             };
 
-            DirectionsResponse result = await GoogleMaps.Directions.QueryAsync(request);
+            DirectionsResponse result = await Client.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
 
@@ -214,7 +214,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             };
 
-            DirectionsResponse result = await GoogleMaps.Directions.QueryAsync(request);
+            DirectionsResponse result = await Client.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
 
@@ -250,7 +250,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 ApiKey = ApiKey
             };
 
-            DirectionsResponse result = await GoogleMaps.Directions.QueryAsync(request);
+            DirectionsResponse result = await Client.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Routes, Is.Not.Empty);
@@ -267,7 +267,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 DepartureTime = DateTime.Now.Date.AddDays(1).AddHours(8),
                 ApiKey = ApiKey //Duration in traffic requires an API key
             };
-            var result = await GoogleMaps.Directions.QueryAsync(request);
+            var result = await Client.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
 
@@ -295,7 +295,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 DepartureTime = new DateTime(2018, 08, 18, 15, 30, 00)
             };
 
-            Assert.DoesNotThrowAsync(async () => await GoogleMaps.Directions.QueryAsync(request));
+            Assert.DoesNotThrowAsync(async () => await Client.Directions.QueryAsync(request));
         }
     }
 }

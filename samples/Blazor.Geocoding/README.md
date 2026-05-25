@@ -14,7 +14,7 @@ The API key is sourced from the `GOOGLE_API_KEY` env var, falling back to the `G
 
 ## What this demonstrates
 
-- [`GoogleMaps.Geocode`](../../GoogleMapsApi/GoogleMaps.cs) facade entry point
+- [`GoogleMapsClient`](../../GoogleMapsApi/GoogleMapsClient.cs) constructed once per process via `IHttpClientFactory` and registered as a singleton
 - [`GeocodingRequest`](../../GoogleMapsApi/Entities/Geocoding/Request/GeocodingRequest.cs)
 - [`GeocodingResponse`](../../GoogleMapsApi/Entities/Geocoding/Response/GeocodingResponse.cs)
 - Wrapping the library in a DI-injected service consumed by a Blazor Server component

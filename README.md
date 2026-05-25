@@ -46,88 +46,65 @@ Looking for runnable examples? See [`samples/`](samples/) — console, ASP.NET C
 
 ## API Key Configuration
 
-You can configure your Google Maps API key in several ways:
+You can configure your Google Maps API key in two ways:
 
 ```csharp
-// Option 1: Set API key per request
-DirectionsRequest directionsRequest = new DirectionsRequest()
+// Option 1: ambient default on the client (auto-filled into every request
+// that doesn't set its own ApiKey)
+IGoogleMapsClient maps = new GoogleMapsClient(httpClient, new GoogleMapsClientOptions
+{
+    ApiKey = "your-google-maps-api-key",
+});
+
+// Option 2: per-request override (wins over the ambient default)
+var request = new DirectionsRequest
 {
     Origin = "NYC, 5th and 39",
     Destination = "Philadelphia, Chestnut and Walnut",
-    ApiKey = "your-google-maps-api-key"
+    ApiKey = "another-google-maps-api-key",
 };
-
-// Option 2: Set globally via app.config/appsettings.json (see wiki for details)
 ```
 
-For more configuration options and detailed guides, see the [wiki](https://github.com/maximn/google-maps/wiki). Full API reference is published at [maximn.github.io/google-maps](https://maximn.github.io/google-maps/).
+Full API reference is published at [maximn.github.io/google-maps](https://maximn.github.io/google-maps/).
 
 ## Code Examples
 
-### Basic Usage (async-first)
+### Basic usage
+
+Construct a single `GoogleMapsClient` per process (typically via `IHttpClientFactory`) and reuse it across calls:
 
 ``` C#
 using GoogleMapsApi;
-using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
-using GoogleMapsApi.StaticMaps;
-using GoogleMapsApi.StaticMaps.Entities;
 
-//Static class use (Directions) (Can be made from static/instance class)
-DirectionsRequest directionsRequest = new DirectionsRequest()
+using var http = new HttpClient();
+IGoogleMapsClient maps = new GoogleMapsClient(http, new GoogleMapsClientOptions
+{
+    ApiKey = "your-google-maps-api-key",
+});
+
+DirectionsResponse directions = await maps.Directions.QueryAsync(new DirectionsRequest
 {
     Origin = "NYC, 5th and 39",
     Destination = "Philadelphia, Chestnut and Walnut",
-};
+});
 
-// Async call (recommended)
-DirectionsResponse directions = await GoogleMaps.Directions.QueryAsync(directionsRequest);
-Console.WriteLine(directions);
-
-//Instance class use (Geocode)  (Can be made from static/instance class)
-GeocodingRequest geocodeRequest = new GeocodingRequest()
+GeocodingResponse geocode = await maps.Geocode.QueryAsync(new GeocodingRequest
 {
     Address = "new york city",
-};
-var geocodingEngine = GoogleMaps.Geocode;
-GeocodingResponse geocode = await geocodingEngine.QueryAsync(geocodeRequest);
-Console.WriteLine(geocode);
-
-// Static maps API - get static map of with the path of the directions request
-StaticMapsEngine staticMapGenerator = new StaticMapsEngine();
-
-//Path from previos directions request
-IEnumerable<Step> steps = directions.Routes.First().Legs.First().Steps;
-// All start locations
-IList<ILocationString> path = steps.Select(step => step.StartLocation).ToList<ILocationString>();
-// also the end location of the last step
-path.Add(steps.Last().EndLocation);
-
-string url = staticMapGenerator.GenerateStaticMapURL(new StaticMapRequest(new Location(40.38742, -74.55366), 9, new ImageSize(800, 400))
-{
-    Pathes = new List<GoogleMapsApi.StaticMaps.Entities.Path>(){ new GoogleMapsApi.StaticMaps.Entities.Path()
-    {
-            Style = new PathStyle()
-            {
-                    Color = "red"
-            },
-            Locations = path
-    }}
 });
-Console.WriteLine("Map with path: " + url);
 ```
 
-### Instance-based client (`IHttpClientFactory`-friendly)
-
-In addition to the static `GoogleMaps` facade, you can use the instance-based `GoogleMapsClient` that accepts an injected `HttpClient`. This is the recommended pattern for ASP.NET Core, minimal APIs, and worker services — it plays nicely with `IHttpClientFactory`, per-instance event handlers, and an ambient API key that is auto-filled into requests when not set explicitly.
+### Dependency injection (ASP.NET Core / minimal APIs / workers)
 
 ``` C#
-// Register once at startup
-services.AddHttpClient<IGoogleMapsClient, GoogleMapsClient>();
-services.AddSingleton(new GoogleMapsClientOptions { ApiKey = "your-google-maps-api-key" });
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<IGoogleMapsClient>(sp => new GoogleMapsClient(
+    sp.GetRequiredService<IHttpClientFactory>().CreateClient(nameof(GoogleMapsClient)),
+    new GoogleMapsClientOptions { ApiKey = builder.Configuration["GoogleMaps:ApiKey"] }));
 
 // Inject and use
 public class GeocodingService(IGoogleMapsClient maps)
@@ -137,29 +114,48 @@ public class GeocodingService(IGoogleMapsClient maps)
 }
 ```
 
-Without DI:
+> Coming in 2.1: `services.AddGoogleMaps(o => o.ApiKey = ...)` collapses the two lines above into one.
 
-``` C#
-using var http = new HttpClient();
-var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "your-key" });
-
-var result = await maps.Directions.QueryAsync(new DirectionsRequest { Origin = "NYC", Destination = "DC" });
-```
-
-Per-instance events (no global state):
+### Per-instance events
 
 ``` C#
 maps.Geocode.OnUriCreated += uri => uri;          // inspect/rewrite outgoing URI
 maps.Geocode.OnRawResponseReceived += bytes => { }; // tap raw JSON
 ```
 
-### Synchronous Usage
-
-Synchronous calls are also supported via `Query` (use `QueryAsync` whenever possible):
+### Static maps URL generation
 
 ``` C#
-DirectionsResponse directions = GoogleMaps.Directions.Query(directionsRequest);
-Console.WriteLine(directions);
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.StaticMaps;
+using GoogleMapsApi.StaticMaps.Entities;
+
+var staticMapGenerator = new StaticMapsEngine();
+
+IEnumerable<Step> steps = directions.Routes.First().Legs.First().Steps;
+IList<ILocationString> path = steps.Select(step => step.StartLocation).ToList<ILocationString>();
+path.Add(steps.Last().EndLocation);
+
+string url = staticMapGenerator.GenerateStaticMapURL(new StaticMapRequest(
+    new Location(40.38742, -74.55366), 9, new ImageSize(800, 400))
+{
+    Pathes = new List<GoogleMapsApi.StaticMaps.Entities.Path>
+    {
+        new GoogleMapsApi.StaticMaps.Entities.Path
+        {
+            Style = new PathStyle { Color = "red" },
+            Locations = path,
+        }
+    }
+});
+```
+
+### Synchronous calls
+
+Sync overloads exist on `IEngineFacade<>` and block the calling thread via `GetAwaiter().GetResult()`. Prefer `QueryAsync` whenever possible — sync calls can deadlock on single-threaded SynchronizationContexts (classic ASP.NET, WinForms, WPF UI threads).
+
+``` C#
+DirectionsResponse directions = maps.Directions.Query(directionsRequest);
 ```
 
 ---

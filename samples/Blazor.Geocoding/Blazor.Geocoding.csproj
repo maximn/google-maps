@@ -8,8 +8,6 @@
     <RootNamespace>Samples.Blazor.Geocoding</RootNamespace>
     <AssemblyName>Samples.Blazor.Geocoding</AssemblyName>
     <IsPackable>false</IsPackable>
-    <!-- Uses the [Obsolete] static GoogleMaps facade; sample will be rewritten in 2.1 to use AddGoogleMaps(). -->
-    <NoWarn>$(NoWarn);CS0618</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
