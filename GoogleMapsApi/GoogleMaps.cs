@@ -30,6 +30,16 @@ namespace GoogleMapsApi
     /// Static facade exposing strongly-typed accessors to every supported Google Maps Web Service.
     /// Each property returns a singleton engine that handles request execution for a specific API.
     /// </summary>
+    /// <remarks>
+    /// Deprecated since 2.0 in favour of the instance-based <see cref="IGoogleMapsClient"/>
+    /// (constructable as <c>new GoogleMapsClient(httpClient, options)</c>, or via the
+    /// <c>services.AddGoogleMaps()</c> DI extension shipping in 2.1). Retained for back-compat;
+    /// scheduled for removal in 3.0.
+    /// </remarks>
+    [Obsolete("Prefer the instance-based IGoogleMapsClient via 'new GoogleMapsClient(httpClient, options)' " +
+              "or services.AddGoogleMaps() (DI extension in 2.1). " +
+              "The static GoogleMaps facade is retained for back-compat and scheduled for removal in 3.0. " +
+              "See https://github.com/maximn/google-maps#instance-based-client.")]
     public class GoogleMaps
 	{
 		/// <summary>Perform geocoding operations.</summary>

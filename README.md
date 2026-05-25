@@ -4,13 +4,13 @@
 [![CodeQL](https://github.com/maximn/google-maps/actions/workflows/codeql.yml/badge.svg)](https://github.com/maximn/google-maps/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/maximn/google-maps/badge)](https://scorecard.dev/viewer/?uri=github.com/maximn/google-maps)
 [![License: BSD-2-Clause](https://img.shields.io/badge/License-BSD_2--Clause-blue.svg)](LICENSE.md)
-[![.NET](https://img.shields.io/badge/.NET-net10.0%20%7C%20net8.0%20%7C%20netstandard2.0%20%7C%20net481%20%7C%20net462-512BD4)](https://dotnet.microsoft.com/)
+[![.NET](https://img.shields.io/badge/.NET-net10.0%20%7C%20net8.0%20%7C%20netstandard2.0-512BD4)](https://dotnet.microsoft.com/)
 
 Release history: see [CHANGELOG.md](CHANGELOG.md).
 
 # GoogleMapsApi
 
-A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Directions, Distance Matrix, Elevation, Time Zone, Places, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0, net481, net462), async-first, and battle-tested with **2M+ downloads** on NuGet.
+A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Directions, Distance Matrix, Elevation, Time Zone, Places, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0), async-first, and battle-tested with **2M+ downloads** on NuGet.
 
 ## Supported APIs
 
@@ -26,7 +26,7 @@ A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs �
 
 ## Why this vs Google's official SDKs
 
-Google's official .NET packages (e.g. `Google.Maps.Routing.V2`, `Google.Maps.Places.V1`) are auto-generated from gRPC service definitions — they're verbose, split across many packages, and feel like protobuf instead of .NET. **GoogleMapsApi** is a single, idiomatic NuGet package: one install, async-first, multi-target (modern .NET through legacy .NET Framework), with hand-crafted request/response types that read like normal C#.
+Google's official .NET packages (e.g. `Google.Maps.Routing.V2`, `Google.Maps.Places.V1`) are auto-generated from gRPC service definitions — they're verbose, split across many packages, and feel like protobuf instead of .NET. **GoogleMapsApi** is a single, idiomatic NuGet package: one install, async-first, multi-target (net10.0, net8.0, plus netstandard2.0 for legacy .NET Framework consumers), with hand-crafted request/response types that read like normal C#.
 
 # Installation
 

@@ -1,3 +1,5 @@
+// Example uses the [Obsolete] static GoogleMaps facade; will be rewritten in 2.1 to use AddGoogleMaps().
+#pragma warning disable CS0618
 using System;
 using System.Threading.Tasks;
 using GoogleMapsApi.Entities.PlacesDetails.Request;

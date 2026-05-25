@@ -36,7 +36,7 @@ All API operations follow a consistent pattern:
 # Restore dependencies
 dotnet restore
 
-# Build (targets: net10.0, net8.0, net6.0, netstandard2.0, net481, net462)
+# Build (targets: net10.0, net8.0, netstandard2.0)
 dotnet build
 
 # Run tests with API key
@@ -74,8 +74,8 @@ dotnet test --filter "TestMethodName=Should_Get_Directions"
 5. Add integration tests in `GoogleMapsApi.Test/IntegrationTests/`
 
 ### Multi-Framework Compatibility
-- Main library targets: net10.0, net8.0, net6.0, netstandard2.0, net481, net462
-- Tests target: net10.0, net8.0, net481
+- Main library targets: net10.0, net8.0, netstandard2.0 (netstandard2.0 covers .NET Framework consumers)
+- Tests target: net10.0, net8.0
 - Use conditional compilation when framework-specific features needed
 
 ### HTTP Client Usage

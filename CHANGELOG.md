@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Migration from 1.5.x to 2.0
+
+**Dropped target frameworks.** `net6.0`, `net462`, and `net481` are no longer explicit
+targets. A GitHub code search across 45 public consumer csprojs (43 unique repos)
+found **0 on net462/net481** and **0 on net6.0** — keeping them was paying CI minutes
+and dependency-graph cost with no observable benefit. Framework consumers still
+resolve via the `netstandard2.0` build; net6.0 reached EOL in November 2024 and
+its consumers also resolve via `netstandard2.0` or upgrade to `net8.0`. No source
+changes are required to consume the trimmed package.
+
+**Static `GoogleMaps` facade is now `[Obsolete]` (warn-only, not error).** Existing
+code keeps compiling and running. To migrate, switch to the instance-based client
+shipped in 1.5.0:
+
+```csharp
+// Before
+var response = await GoogleMaps.Geocode.QueryAsync(
+    new GeocodingRequest { Address = "..." });
+
+// After (works on 1.5.0+)
+using var http = new HttpClient();
+var maps = new GoogleMapsClient(http,
+    new GoogleMapsClientOptions { ApiKey = "..." });
+var response = await maps.Geocode.QueryAsync(
+    new GeocodingRequest { Address = "..." });
+```
+
+The DI-friendly `services.AddGoogleMaps(...)` extension ships in 2.1.0. The
+static facade is scheduled for removal in 3.0.
+
 ## [1.5.0] - 2026-05-25
 
 ### Added
