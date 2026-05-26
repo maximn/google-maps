@@ -22,6 +22,7 @@ A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs â€
 | Elevation | Elevation data for individual locations or paths |
 | Time Zone | Time zone information for any coordinate |
 | Places | Find / Nearby / Text search, Place Details, Autocomplete |
+| Address Validation | Validate a postal address with component-level confirmation; USPS CASS for US/PR |
 | Static Maps | Generate URLs for static map images with markers, paths, and styles |
 
 ## Why this vs Google's official SDKs
