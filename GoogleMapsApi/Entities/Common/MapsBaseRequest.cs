@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
+using System.Net.Http;
 using System.Linq;
 
 namespace GoogleMapsApi.Entities.Common
@@ -93,6 +94,15 @@ namespace GoogleMapsApi.Entities.Common
             var queryString = GetQueryStringParameters().GetQueryStringPostfix();
             return new Uri(scheme + BaseUrl + "json?" + queryString);
         }
+
+        /// <summary>
+        /// Builds the body to send with this request, or <c>null</c> for endpoints that use GET with
+        /// query-string parameters only. Derived requests that target POST-based endpoints (for example,
+        /// Address Validation) override this to return a JSON <see cref="HttpContent"/>; when the engine
+        /// sees a non-null body it issues a POST instead of a GET.
+        /// </summary>
+        /// <returns>The HTTP content to send, or <c>null</c> for a GET request.</returns>
+        protected internal virtual HttpContent? GetRequestBody() => null;
 
         internal MapsBaseRequest CloneShallow() => (MapsBaseRequest)MemberwiseClone();
     }
