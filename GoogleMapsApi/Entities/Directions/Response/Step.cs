@@ -22,6 +22,7 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// Contains an object holding an array of encoded points that represent an approximate (smoothed) path of the resulting directions.
 		/// </summary>
 		[JsonPropertyName("polyline")]
+		[JsonConverter(typeof(OverviewPolylineJsonConverter))]
 		public OverviewPolyline? PolyLine { get; set; }
 
 		/// <summary>
@@ -34,7 +35,8 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// duration contains the typical time required to perform the step, until the next step (See the description in Directions Legs above.) This field may be undefined if the duration is unknown.
 		/// </summary>
 		[JsonPropertyName("duration")]
-		public Duration? Duration { get; set; }
+        [JsonConverter(typeof(DurationJsonConverter<Duration>))]
+        public Duration? Duration { get; set; }
 
 		/// <summary>
 		/// start_location contains the location of the starting point of this step, as a single set of lat and lng fields.

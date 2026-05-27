@@ -1,3 +1,4 @@
+using GoogleMapsApi.Engine.JsonConverters;
 using System.Text.Json.Serialization;
 
 namespace GoogleMapsApi.Entities.Directions.Response
@@ -20,13 +21,15 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// Contain the arrival times for this leg of the journey
 		/// </summary>
 		[JsonPropertyName("arrival_time")]
-		public Duration? ArrivalTime { get; set; }
+        [JsonConverter(typeof(DurationJsonConverter<Duration>))]
+        public Duration? ArrivalTime { get; set; }
 
 		/// <summary>
 		/// Contain the departure times for this leg of the journey
 		/// </summary>
 		[JsonPropertyName("departure_time")]
-		public Duration? DepartureTime { get; set; }
+        [JsonConverter(typeof(DurationJsonConverter<Duration>))]
+        public Duration? DepartureTime { get; set; }
 
 		/// <summary>
 		/// Specifies the direction in which to travel on this line, as it is marked on the vehicle or at the departure stop. This will often be the terminus station.

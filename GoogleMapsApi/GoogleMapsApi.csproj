@@ -1,67 +1,67 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-	<TargetFrameworks>netstandard2.0;net6.0;net8.0;net481;net462</TargetFrameworks>
-	<LangVersion>latest</LangVersion>
-	<Version>0.0.0</Version>
-	<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<AssemblyName>GoogleMapsApi</AssemblyName>
-	<Authors>Maxim Novak</Authors>
-	<PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
-	<Description>Google Maps Web Services API wrapper for .NET</Description>
-	<Copyright>Copyright © 2010-$([System.DateTime]::Now.Year)</Copyright>
-	<PackageTags>Google;Maps;API;Geo;Places;Elevation;Geocode;Directions</PackageTags>
-	<RepositoryType>git</RepositoryType>
-	<RepositoryUrl>https://github.com/maximn/google-maps</RepositoryUrl>
-	<PackageProjectUrl>https://github.com/maximn/google-maps</PackageProjectUrl>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<PublishRepositoryUrl>true</PublishRepositoryUrl>
-	<EmbedUntrackedSources>true</EmbedUntrackedSources>
-	<IncludeSymbols>true</IncludeSymbols>
-	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	<Nullable>enable</Nullable>
-	<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net6.0;net8.0;net481;net462</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+		<Version>0.0.0</Version>
+		<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<AssemblyName>GoogleMapsApi</AssemblyName>
+		<Authors>Maxim Novak</Authors>
+		<PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
+		<Description>Google Maps Web Services API wrapper for .NET</Description>
+		<Copyright>Copyright © 2010-$([System.DateTime]::Now.Year)</Copyright>
+		<PackageTags>Google;Maps;API;Geo;Places;Elevation;Geocode;Directions</PackageTags>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/maximn/google-maps</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/maximn/google-maps</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
-	<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
 
-  <!--
+	<!--
     Repro for issue #195: AOT/trim incompatibility.
     Enabling the AOT/trim analyzers and promoting IL2026/IL3050 to errors will fail
     the build on every reflection-based JsonSerializer call site and on the enum
     JsonConverterFactory. Once a source-generated JsonSerializerContext replaces
     them, this build should go green with no further changes here.
   -->
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
-    <IsAotCompatible>true</IsAotCompatible>
-    <WarningsAsErrors>IL2026;IL2104;IL3050;IL3053</WarningsAsErrors>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<IsAotCompatible>true</IsAotCompatible>
+		<WarningsAsErrors>IL2026;IL2104;IL3050;IL3053</WarningsAsErrors>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\README.md" Pack="true" PackagePath="\" />
-    <None Include="..\LICENSE.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+		<None Include="..\LICENSE.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="All"/>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="All"/>
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net481' OR '$(TargetFramework)' == 'net462'">
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net481' OR '$(TargetFramework)' == 'net462'">
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-  	<PackageReference Include="System.Text.Json" Version="10.0.8" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="System.Text.Json" Version="10.0.8" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-  	<PackageReference Include="System.Text.Json" Version="10.0.8" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="System.Text.Json" Version="10.0.8" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net481' OR '$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Text.Encodings.Web" Version="10.0.8" />
-    <PackageReference Include="System.Text.Json" Version="10.0.8" />  
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net481' OR '$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'netstandard2.0'">
+		<PackageReference Include="System.Text.Encodings.Web" Version="10.0.8" />
+		<PackageReference Include="System.Text.Json" Version="10.0.8" />
+	</ItemGroup>
 </Project>
