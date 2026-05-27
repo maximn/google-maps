@@ -23,7 +23,7 @@ namespace GoogleMapsApi.Test
             var uri = request.GetUri();
 
             Assert.That(uri.Host, Is.EqualTo("addressvalidation.googleapis.com"));
-            Assert.That(uri.AbsolutePath, Is.EqualTo("/v1/addresses:validate"));
+            Assert.That(uri.AbsolutePath, Is.EqualTo("/v1:validateAddress"));
             Assert.That(uri.Query, Is.EqualTo("?key=abc%20123"));
         }
 

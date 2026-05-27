@@ -9,7 +9,7 @@ namespace GoogleMapsApi.Entities.AddressValidation.Request
 {
     /// <summary>
     /// Request for the Google Address Validation API
-    /// (<c>POST https://addressvalidation.googleapis.com/v1/addresses:validate</c>).
+    /// (<c>POST https://addressvalidation.googleapis.com/v1:validateAddress</c>).
     /// Validates a postal address, returning a strongly-typed verdict, the address as Google
     /// understands it, geocoding data, and (for US addresses with <see cref="EnableUspsCass"/>)
     /// USPS CASS-processed data.
@@ -53,7 +53,7 @@ namespace GoogleMapsApi.Entities.AddressValidation.Request
             if (!IsSSL)
                 throw new ArgumentException("Address Validation API requires SSL [IsSSL = true].");
 
-            return new Uri($"https://addressvalidation.googleapis.com/v1/addresses:validate?key={Uri.EscapeDataString(ApiKey!)}");
+            return new Uri($"https://addressvalidation.googleapis.com/v1:validateAddress?key={Uri.EscapeDataString(ApiKey!)}");
         }
 
         /// <inheritdoc/>
