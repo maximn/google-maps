@@ -7,10 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Address Validation API support (`GoogleMaps.AddressValidation` and `IGoogleMapsClient.AddressValidation`) with strongly-typed verdict, standardized address, geocode, metadata, and USPS CASS data for US/PR
-- POST request support in the engine via a virtual `MapsBaseRequest.GetRequestBody()` hook (groundwork for upcoming POST-based APIs)
-
 ## [1.5.0] - 2026-05-25
 
 ### Added
