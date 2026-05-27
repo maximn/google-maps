@@ -33,40 +33,40 @@ namespace GoogleMapsApi
     /// Each property returns a singleton engine that handles request execution for a specific API.
     /// </summary>
     public class GoogleMaps
-    {
-        /// <summary>Perform geocoding operations.</summary>
-        public static IEngineFacade<GeocodingRequest, GeocodingResponse> Geocode
-        {
-            get
-            {
-                return EngineFacade<GeocodingRequest, GeocodingResponse>.Instance;
-            }
-        }
-        /// <summary>Perform directions operations.</summary>
-        public static IEngineFacade<DirectionsRequest, DirectionsResponse> Directions
-        {
-            get
-            {
-                return EngineFacade<DirectionsRequest, DirectionsResponse>.Instance;
-            }
-        }
-        /// <summary>Perform elevation operations.</summary>
-        public static IEngineFacade<ElevationRequest, ElevationResponse> Elevation
-        {
-            get
-            {
-                return EngineFacade<ElevationRequest, ElevationResponse>.Instance;
-            }
-        }
+	{
+		/// <summary>Perform geocoding operations.</summary>
+		public static IEngineFacade<GeocodingRequest, GeocodingResponse> Geocode
+		{
+			get
+			{
+				return EngineFacade<GeocodingRequest, GeocodingResponse>.Instance;
+			}
+		}
+		/// <summary>Perform directions operations.</summary>
+		public static IEngineFacade<DirectionsRequest, DirectionsResponse> Directions
+		{
+			get
+			{
+				return EngineFacade<DirectionsRequest, DirectionsResponse>.Instance;
+			}
+		}
+		/// <summary>Perform elevation operations.</summary>
+		public static IEngineFacade<ElevationRequest, ElevationResponse> Elevation
+		{
+			get
+			{
+				return EngineFacade<ElevationRequest, ElevationResponse>.Instance;
+			}
+		}
 
-        /// <summary>Perform places operations.</summary>
-        public static IEngineFacade<PlacesRequest, PlacesResponse> Places
-        {
-            get
-            {
-                return EngineFacade<PlacesRequest, PlacesResponse>.Instance;
-            }
-        }
+		/// <summary>Perform places operations.</summary>
+		public static IEngineFacade<PlacesRequest, PlacesResponse> Places
+		{
+			get
+			{
+				return EngineFacade<PlacesRequest, PlacesResponse>.Instance;
+			}
+		}
 
         /// <summary>Perform places text search operations.</summary>
         public static IEngineFacade<PlacesTextRequest, PlacesTextResponse> PlacesText
