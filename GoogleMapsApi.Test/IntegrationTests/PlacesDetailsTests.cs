@@ -70,9 +70,9 @@ namespace GoogleMapsApi.Test.IntegrationTests
             {
                 foreach (var period in result.Result.OpeningHours.Periods)
                 {
-                    Assert.That(period.OpenTime.Time, Is.InRange(0, 2359));
+                    Assert.That(int.Parse(period.OpenTime.Time), Is.InRange(0, 2359));
                     if (period.CloseTime != null)
-                        Assert.That(period.CloseTime.Time, Is.InRange(0, 2359));
+                        Assert.That(int.Parse(period.CloseTime.Time), Is.InRange(0, 2359));
                 }
             }
         }
