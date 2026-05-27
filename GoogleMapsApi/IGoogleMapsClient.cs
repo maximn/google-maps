@@ -1,3 +1,5 @@
+using GoogleMapsApi.Entities.AddressValidation.Request;
+using GoogleMapsApi.Entities.AddressValidation.Response;
 using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Request;
@@ -62,5 +64,8 @@ namespace GoogleMapsApi
 
         /// <summary>Retrieve duration and distance values based on the recommended route between start and end points.</summary>
         IEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse> DistanceMatrix { get; }
+
+        /// <summary>Validate a postal address (Address Validation API). Supports USPS CASS for US/PR addresses.</summary>
+        IEngineFacade<AddressValidationRequest, AddressValidationResponse> AddressValidation { get; }
     }
 }

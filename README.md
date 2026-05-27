@@ -16,13 +16,14 @@ A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs â€
 
 | API | Description |
 | --- | --- |
-| Geocoding | Convert between addresses and geographic coordinates |
-| Directions | Route planning between two points with multiple travel modes |
-| Distance Matrix | Travel time and distance between multiple origins/destinations |
-| Elevation | Elevation data for individual locations or paths |
-| Time Zone | Time zone information for any coordinate |
-| Places | Find / Nearby / Text search, Place Details, Autocomplete |
-| Static Maps | Generate URLs for static map images with markers, paths, and styles |
+| [Geocoding](https://developers.google.com/maps/documentation/geocoding) | Convert between addresses and geographic coordinates |
+| [Directions](https://developers.google.com/maps/documentation/directions) | Route planning between two points with multiple travel modes |
+| [Distance Matrix](https://developers.google.com/maps/documentation/distance-matrix) | Travel time and distance between multiple origins/destinations |
+| [Elevation](https://developers.google.com/maps/documentation/elevation) | Elevation data for individual locations or paths |
+| [Time Zone](https://developers.google.com/maps/documentation/timezone) | Time zone information for any coordinate |
+| [Places](https://developers.google.com/maps/documentation/places/web-service) | Find / Nearby / Text search, Place Details, Autocomplete |
+| [Address Validation](https://developers.google.com/maps/documentation/address-validation) | Validate a postal address with component-level confirmation; USPS CASS for US/PR |
+| [Static Maps](https://developers.google.com/maps/documentation/maps-static) | Generate URLs for static map images with markers, paths, and styles |
 
 ## Why this vs Google's official SDKs
 

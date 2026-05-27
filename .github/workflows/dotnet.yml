@@ -4,6 +4,17 @@ on:
   push:
     branches: [ master ]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      frameworks:
+        description: 'TFMs to run integration tests against'
+        type: choice
+        required: true
+        default: 'both'
+        options:
+          - 'net10.0'
+          - 'net8.0'
+          - 'both'
 
 permissions:
   contents: read
@@ -13,6 +24,7 @@ jobs:
   build:
     if: >
       github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
 
@@ -31,11 +43,16 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    # Integration tests hit the live Google Maps APIs and count against quota.
+    # Default push/PR runs target net10.0 only. Use workflow_dispatch to pick a
+    # different TFM (or both) — useful pre-release or when investigating TFM-specific regressions.
     - name: Test (net8.0)
+      if: github.event_name == 'workflow_dispatch' && (inputs.frameworks == 'net8.0' || inputs.frameworks == 'both')
       run: dotnet test --no-build --verbosity normal --framework net8.0 --logger "junit;LogFilePath=test-results/{assembly}.net8.0.xml"
       env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
     - name: Test (net10.0)
+      if: github.event_name != 'workflow_dispatch' || inputs.frameworks == 'net10.0' || inputs.frameworks == 'both'
       run: dotnet test --no-build --verbosity normal --framework net10.0 --logger "junit;LogFilePath=test-results/{assembly}.net10.0.xml"
       env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
