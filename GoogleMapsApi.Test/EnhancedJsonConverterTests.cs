@@ -1,27 +1,18 @@
-using System;
-using System.Text.Json;
-using GoogleMapsApi.Engine.JsonConverters;
-using GoogleMapsApi.Engine;
-using GoogleMapsApi.Entities.Directions.Response;
-using GoogleMapsApi.Entities.DistanceMatrix.Response;
-using GoogleMapsApi.Entities.PlacesDetails.Response;
 using GoogleMapsApi.Entities.Directions.Request;
+using GoogleMapsApi.Entities.Directions.Response;
+using GoogleMapsApi.Entities.PlacesDetails.Response;
+using GoogleMapsApi.Test.Utils;
 using NUnit.Framework;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace GoogleMapsApi.Test
 {
     [TestFixture]
     public class EnhancedJsonConverterTests
     {
-        private JsonSerializerOptions _options;
-
         [SetUp]
         public void Setup()
         {
-            // Use centralized configuration for consistency with production code
-            _options = JsonSerializerConfiguration.CreateOptions();
-            
         }
 
         #region Enhanced DurationJsonConverter Tests - Vulnerability Testing
@@ -31,9 +22,9 @@ namespace GoogleMapsApi.Test
         {
             // Test null value in duration object
             var json = """{"value": null, "text": null}""";
-            
-            var duration = JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json, _options);
-            
+
+            var duration = JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json);
+
             Assert.That(duration, Is.Not.Null);
             Assert.That(duration.Text, Is.Null);
         }
@@ -43,15 +34,15 @@ namespace GoogleMapsApi.Test
         {
             // Test missing value property
             var json1 = """{"text": "1 hour"}""";
-            Assert.DoesNotThrow(() => JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json1, _options));
+            Assert.DoesNotThrow(() => JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json1));
 
             // Test missing text property  
             var json2 = """{"value": 3600}""";
-            Assert.DoesNotThrow(() => JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json2, _options));
+            Assert.DoesNotThrow(() => JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json2));
 
             // Test completely empty object
             var json3 = """{}""";
-            Assert.DoesNotThrow(() => JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json3, _options));
+            Assert.DoesNotThrow(() => JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json3));
         }
 
         [Test]
@@ -59,11 +50,11 @@ namespace GoogleMapsApi.Test
         {
             // Test string where number expected
             var json1 = """{"value": "invalid", "text": "1 hour"}""";
-            Assert.DoesNotThrow(() => JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json1, _options));
+            Assert.DoesNotThrow(() => JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json1));
 
             // Test number where string expected
             var json2 = """{"value": 3600, "text": 123}""";
-            Assert.DoesNotThrow(() => JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json2, _options));
+            Assert.DoesNotThrow(() => JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json2));
         }
 
         [Test]
@@ -71,13 +62,13 @@ namespace GoogleMapsApi.Test
         {
             // Test very large duration
             var json1 = """{"value": 2147483647, "text": "Very long time"}""";
-            var duration1 = JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json1, _options);
+            var duration1 = JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json1);
             Assert.That(duration1, Is.Not.Null);
             Assert.That(duration1!.Value, Is.EqualTo(TimeSpan.FromSeconds(2147483647)));
 
             // Test negative duration (should this be allowed?)
             var json2 = """{"value": -1000, "text": "Negative time"}""";
-            Assert.DoesNotThrow(() => JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json2, _options));
+            Assert.DoesNotThrow(() => JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json2));
         }
 
         [Test]
@@ -89,8 +80,8 @@ namespace GoogleMapsApi.Test
                 Text = "2 hours 30 minutes"
             };
 
-            var json = JsonSerializer.Serialize(original, _options);
-            var deserialized = JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json, _options);
+            var json = JsonMultitargets.Serialize(original);
+            var deserialized = JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json);
 
             Assert.That(deserialized, Is.Not.Null);
             Assert.That(deserialized!.Value, Is.EqualTo(original.Value));
@@ -108,12 +99,12 @@ namespace GoogleMapsApi.Test
             var json = "\"DRIVING\"";
 
             // First conversion - populates cache
-            var result1 = JsonSerializer.Deserialize<TravelMode>(json, _options);
-            
+            var result1 = JsonMultitargets.Deserialize<TravelMode>(json);
+
             // Multiple subsequent conversions - should use cache
             for (int i = 0; i < 100; i++)
             {
-                var result = JsonSerializer.Deserialize<TravelMode>(json, _options);
+                var result = JsonMultitargets.Deserialize<TravelMode>(json);
                 Assert.That(result, Is.EqualTo(TravelMode.Driving));
                 Assert.That(result, Is.EqualTo(result1));
             }
@@ -124,12 +115,12 @@ namespace GoogleMapsApi.Test
         {
             // Test that the converter handles exact case matches (Google APIs are case sensitive)
             var validJson = "\"DRIVING\"";
-            var result = JsonSerializer.Deserialize<TravelMode>(validJson, _options);
+            var result = JsonMultitargets.Deserialize<TravelMode>(validJson);
             Assert.That(result, Is.EqualTo(TravelMode.Driving));
 
             // Test lowercase (should fail with Google API format)
             var lowercaseJson = "\"driving\"";
-            var desrialized = JsonSerializer.Deserialize<TravelMode>(lowercaseJson, _options);
+            var desrialized = JsonMultitargets.Deserialize<TravelMode>(lowercaseJson);
             Assert.That(desrialized, Is.EqualTo(TravelMode.Driving));
         }
 
@@ -138,11 +129,11 @@ namespace GoogleMapsApi.Test
         {
             // Test all TravelMode values
             var modes = new[] { TravelMode.Driving, TravelMode.Walking, TravelMode.Bicycling, TravelMode.Transit };
-            
+
             foreach (var mode in modes)
             {
-                var json = JsonSerializer.Serialize(mode, _options);
-                var deserialized = JsonSerializer.Deserialize<TravelMode>(json, _options);
+                var json = JsonSerializer.Serialize(mode);
+                var deserialized = JsonMultitargets.Deserialize<TravelMode>(json);
                 Assert.That(deserialized, Is.EqualTo(mode));
             }
         }
@@ -152,19 +143,19 @@ namespace GoogleMapsApi.Test
         {
             // Test behavior with numeric values outside enum range
             var json = "999";
-            Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<TravelMode>(json, _options));
+            Assert.Throws<JsonException>(() => JsonMultitargets.Deserialize<TravelMode>(json));
 
             // Test negative values
             var negativeJson = "-1";
-            Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<TravelMode>(negativeJson, _options));
+            Assert.Throws<JsonException>(() => JsonMultitargets.Deserialize<TravelMode>(negativeJson));
         }
 
         [Test]
         public void EnumMemberJsonConverter_EmptyAndWhitespace_Strings()
         {
-            Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<TravelMode>("\"\"", _options));
-            Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<TravelMode>("\" \"", _options));
-            Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<TravelMode>("\"\\t\"", _options));
+            Assert.Throws<JsonException>(() => JsonMultitargets.Deserialize<TravelMode>("\"\""));
+            Assert.Throws<JsonException>(() => JsonMultitargets.Deserialize<TravelMode>("\" \""));
+            Assert.Throws<JsonException>(() => JsonMultitargets.Deserialize<TravelMode>("\"\\t\""));
         }
 
         #endregion
@@ -176,12 +167,12 @@ namespace GoogleMapsApi.Test
         {
             // Test minimum valid value
             var json0 = "0";
-            var result0 = JsonSerializer.Deserialize<PriceLevel?>(json0, _options);
+            var result0 = JsonMultitargets.Deserialize<PriceLevel?>(json0);
             Assert.That(result0, Is.EqualTo(PriceLevel.Free));
 
             // Test maximum valid value
             var json4 = "4";
-            var result4 = JsonSerializer.Deserialize<PriceLevel?>(json4, _options);
+            var result4 = JsonMultitargets.Deserialize<PriceLevel?>(json4);
             Assert.That(result4, Is.EqualTo(PriceLevel.VeryExpensive));
         }
 
@@ -190,16 +181,16 @@ namespace GoogleMapsApi.Test
         {
             // Test out-of-range values
             var json5 = "5";
-            var result5 = JsonSerializer.Deserialize<PriceLevel?>(json5, _options);
+            var result5 = JsonMultitargets.Deserialize<PriceLevel?>(json5);
             Assert.That(result5, Is.Null);
 
             var jsonNeg = "-1";
-            var resultNeg = JsonSerializer.Deserialize<PriceLevel?>(jsonNeg, _options);
+            var resultNeg = JsonMultitargets.Deserialize<PriceLevel?>(jsonNeg);
             Assert.That(resultNeg, Is.Null);
 
             // Test invalid string
             var jsonInvalid = "\"invalid\"";
-            var resultInvalid = JsonSerializer.Deserialize<PriceLevel?>(jsonInvalid, _options);
+            var resultInvalid = JsonMultitargets.Deserialize<PriceLevel?>(jsonInvalid);
             Assert.That(resultInvalid, Is.Null);
         }
 
@@ -210,8 +201,8 @@ namespace GoogleMapsApi.Test
             var numericJson = "2";
             var stringJson = "\"2\"";
 
-            var numericResult = JsonSerializer.Deserialize<PriceLevel?>(numericJson, _options);
-            var stringResult = JsonSerializer.Deserialize<PriceLevel?>(stringJson, _options);
+            var numericResult = JsonMultitargets.Deserialize<PriceLevel?>(numericJson);
+            var stringResult = JsonMultitargets.Deserialize<PriceLevel?>(stringJson);
 
             Assert.That(numericResult, Is.EqualTo(stringResult));
             Assert.That(numericResult, Is.EqualTo(PriceLevel.Moderate));
@@ -222,7 +213,7 @@ namespace GoogleMapsApi.Test
         {
             // Test that floating point numbers are handled (Google might send 2.0)
             var jsonFloat = "2.0";
-            var result = JsonSerializer.Deserialize<PriceLevel?>(jsonFloat, _options);
+            var result = JsonMultitargets.Deserialize<PriceLevel?>(jsonFloat);
             Assert.That(result, Is.EqualTo(PriceLevel.Moderate));
         }
 
@@ -235,12 +226,12 @@ namespace GoogleMapsApi.Test
         {
             // Test empty points string
             var emptyJson = """{"points": ""}""";
-            var emptyResult = JsonSerializer.Deserialize<OverviewPolyline>(emptyJson, _options);
+            var emptyResult = JsonMultitargets.Deserialize<OverviewPolyline>(emptyJson);
             Assert.That(emptyResult, Is.Not.Null);
 
             // Test missing points property
             var missingJson = """{}""";
-            var missingResult = JsonSerializer.Deserialize<OverviewPolyline>(missingJson, _options);
+            var missingResult = JsonMultitargets.Deserialize<OverviewPolyline>(missingJson);
             Assert.That(missingResult, Is.Not.Null);
         }
 
@@ -250,10 +241,10 @@ namespace GoogleMapsApi.Test
             // Test with a large polyline string (realistic Google Maps data can be quite large)
             var largePoints = new string('a', 10000); // 10KB polyline
             var largeJson = $$"""{"points": "{{largePoints}}"}""";
-            
-            Assert.DoesNotThrow(() => 
+
+            Assert.DoesNotThrow(() =>
             {
-                var result = JsonSerializer.Deserialize<OverviewPolyline>(largeJson, _options);
+                var result = JsonMultitargets.Deserialize<OverviewPolyline>(largeJson);
                 Assert.That(result, Is.Not.Null);
             });
         }
@@ -263,10 +254,10 @@ namespace GoogleMapsApi.Test
         {
             // Test invalid polyline encoding (should not crash OnDeserialized)
             var invalidJson = """{"points": "invalid_polyline_data_!@#$%"}""";
-            
+
             Assert.DoesNotThrow(() =>
             {
-                var result = JsonSerializer.Deserialize<OverviewPolyline>(invalidJson, _options);
+                var result = JsonMultitargets.Deserialize<OverviewPolyline>(invalidJson);
                 Assert.That(result, Is.Not.Null);
             });
         }
@@ -290,13 +281,13 @@ namespace GoogleMapsApi.Test
                         for (int j = 0; j < 100; j++)
                         {
                             // Test all converters concurrently
-                            JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(
-                                """{"value": 3600, "text": "1 hour"}""", _options);
-                            
-                            JsonSerializer.Deserialize<TravelMode>("\"DRIVING\"", _options);
-                            JsonSerializer.Deserialize<PriceLevel?>("2", _options);
-                            JsonSerializer.Deserialize<OverviewPolyline>(
-                                """{"points": "_p~iF~ps|U"}""", _options);
+                            JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(
+                                """{"value": 3600, "text": "1 hour"}""");
+
+                            JsonMultitargets.Deserialize<TravelMode>("\"DRIVING\"");
+                            JsonMultitargets.Deserialize<PriceLevel?>("2");
+                            JsonMultitargets.Deserialize<OverviewPolyline>(
+                                """{"points": "_p~iF~ps|U"}""");
                         }
                     }
                     catch (Exception ex)
@@ -307,7 +298,7 @@ namespace GoogleMapsApi.Test
             }
 
             Task.WaitAll(tasks);
-            Assert.That(exceptions.Count, Is.EqualTo(0), 
+            Assert.That(exceptions.Count, Is.EqualTo(0),
                 $"Concurrent access caused {exceptions.Count} exceptions: {string.Join(", ", exceptions)}");
         }
 
@@ -339,7 +330,7 @@ namespace GoogleMapsApi.Test
                 {
                     try
                     {
-                        JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(malformed, _options);
+                        JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(malformed);
                     }
                     catch (JsonException)
                     {

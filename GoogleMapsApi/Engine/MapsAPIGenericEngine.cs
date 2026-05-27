@@ -2,14 +2,11 @@ using GoogleMapsApi.Entities.Common;
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Text;
-
-#if NET5_0_OR_GREATER
-using System.Text.Json.Serialization.Metadata;
-#endif
 
 namespace GoogleMapsApi.Engine
 {
@@ -25,10 +22,6 @@ namespace GoogleMapsApi.Engine
 
 		private static readonly HttpClient client = new HttpClient();
 
-#if !NET5_0_OR_GREATER
-		private static readonly JsonSerializerOptions jsonOptions = JsonSerializerConfiguration.CreateOptions();
-#endif
-
 		protected internal static async Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default)
 		{
 			if (request == null)
@@ -41,8 +34,9 @@ namespace GoogleMapsApi.Engine
 
             OnRawResponseReceived?.Invoke(Encoding.UTF8.GetBytes(responseContent));
 
-            return DeserializeResponse(responseContent);
-		}
+            var typeInfo = (JsonTypeInfo<TResponse>)GoogleMapsJsonSerializerContext.Default.GetTypeInfo(typeof(TResponse))!;
+            return JsonSerializer.Deserialize(responseContent, typeInfo)!;
+        }
 
 		private static async Task<string> GetHttpResponseAsync(Uri uri, TimeSpan timeout, CancellationToken cancellationToken)
 		{
@@ -95,15 +89,5 @@ namespace GoogleMapsApi.Engine
 				throw new HttpRequestException($"Failed with HttpResponse: {response.StatusCode} and message: {response.ReasonPhrase}");
 			}
 		}
-
-		private static TResponse DeserializeResponse(string json)
-        {
-#if NET5_0_OR_GREATER
-			var typeInfo = (JsonTypeInfo<TResponse>)GoogleMapsJsonSerializerContext.Default.GetTypeInfo(typeof(TResponse))!;
-            return JsonSerializer.Deserialize(json, typeInfo)!;
-#else
-            return JsonSerializer.Deserialize<TResponse>(json, jsonOptions)!;
-#endif
-        }
     }
 }
