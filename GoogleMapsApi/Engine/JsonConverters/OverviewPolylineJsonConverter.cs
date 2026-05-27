@@ -16,7 +16,7 @@ namespace GoogleMapsApi.Engine.JsonConverters
                 throw new JsonException($"Expected StartObject, got {reader.TokenType}");
 
             var polyline = new OverviewPolyline();
-            var encodedPointsProperty = typeToConvert.GetProperty("EncodedPoints", 
+            var encodedPointsProperty = typeof(OverviewPolyline).GetProperty("EncodedPoints",
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             while (reader.Read())
@@ -37,7 +37,6 @@ namespace GoogleMapsApi.Engine.JsonConverters
                 }
             }
 
-            // Initialize lazy points after deserialization
             polyline.OnDeserialized();
             return polyline;
         }

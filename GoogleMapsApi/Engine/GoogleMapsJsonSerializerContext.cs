@@ -1,4 +1,4 @@
-﻿#if NET6_0_OR_GREATER
+﻿using GoogleMapsApi.Engine.JsonConverters;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Response;
 using GoogleMapsApi.Entities.Elevation.Response;
@@ -66,8 +66,19 @@ namespace GoogleMapsApi.Engine
     [JsonSerializable(typeof(IEnumerable<GoogleMapsApi.Entities.PlacesDetails.Response.Result>), TypeInfoPropertyName = "IEnumerablePlacesDetailsResult")]
     [JsonSerializable(typeof(IEnumerable<GoogleMapsApi.Entities.PlacesNearBy.Response.Result>), TypeInfoPropertyName = "IEnumerablePlacesNearByResult")]
     [JsonSerializable(typeof(IEnumerable<GoogleMapsApi.Entities.PlacesText.Response.Result>), TypeInfoPropertyName = "IEnumerablePlacesTextResult")]
+
+    [JsonSerializable(typeof(object))]
+
+    [JsonSourceGenerationOptions(
+        PropertyNameCaseInsensitive = true,
+        Converters = new[] {
+            typeof(EnumMemberJsonConverterFactory),
+            typeof(PriceLevelJsonConverter),
+            typeof(OverviewPolylineJsonConverter),
+            typeof(DurationJsonConverter<GoogleMapsApi.Entities.DistanceMatrix.Response.Duration>),
+            typeof(DurationJsonConverter<GoogleMapsApi.Entities.Directions.Response.Duration>),
+    })]
     public partial class GoogleMapsJsonSerializerContext : JsonSerializerContext
     {
     }
 }
-#endif

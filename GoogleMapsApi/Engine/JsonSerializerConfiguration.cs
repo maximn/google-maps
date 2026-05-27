@@ -20,17 +20,16 @@ namespace GoogleMapsApi.Engine
             {
                 PropertyNameCaseInsensitive = true
             };
-
-            // Add EnumMemberJsonConverter for all enums with proper EnumMember attribute support
-            options.Converters.Add(new EnumMemberJsonConverterFactory());
             
             // Add custom converters
             options.Converters.Add(new PriceLevelJsonConverter());
             options.Converters.Add(new OverviewPolylineJsonConverter());
-            
+
             // Add Duration converters for specific types
             options.Converters.Add(new DurationJsonConverter<GoogleMapsApi.Entities.DistanceMatrix.Response.Duration>());
             options.Converters.Add(new DurationJsonConverter<GoogleMapsApi.Entities.Directions.Response.Duration>());
+
+            options.Converters.Add(new EnumMemberJsonConverterFactory());
 
             return options;
         }
