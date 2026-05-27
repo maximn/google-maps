@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.PlacesDetails.Request;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
@@ -43,10 +43,12 @@ namespace GoogleMapsApi.Test.IntegrationTests
             Assert.That(result.Status, Is.EqualTo(Status.NOT_FOUND));
         }
 
-        readonly PriceLevel[] anyPriceLevel = new PriceLevel[] { PriceLevel.Free, PriceLevel.Inexpensive, PriceLevel.Moderate, PriceLevel.Expensive, PriceLevel.VeryExpensive };
+        static readonly PriceLevel[] anyPriceLevel = { PriceLevel.Free, PriceLevel.Inexpensive, PriceLevel.Moderate, PriceLevel.Expensive, PriceLevel.VeryExpensive };
 
+        // Single Details fetch covers what used to be two separate tests (price level + opening hours)
+        // to keep Places API call volume within free-tier limits.
         [Test]
-        public async Task ReturnsStronglyTypedPriceLevel()
+        public async Task ReturnsStronglyTypedPriceLevelAndOpeningHours()
         {
             var request = new PlacesDetailsRequest
             {
@@ -58,34 +60,21 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
+
             Assert.That(result.Result.PriceLevel, Is.Not.Null);
-            Assert.That(new PriceLevel[] { result.Result.PriceLevel.Value }, Is.SubsetOf(anyPriceLevel));
-        }
+            Assert.That(new[] { result.Result.PriceLevel!.Value }, Is.SubsetOf(anyPriceLevel));
 
-        [Test]
-        public async Task ReturnsOpeningTimes()
-        {
-            var request = new PlacesDetailsRequest
+            // Opening-hours shape: Google sometimes omits hours for this place, so only assert
+            // structural validity when present.
+            if (result.Result.OpeningHours?.Periods != null)
             {
-                ApiKey = ApiKey,
-                PlaceId = await GetMyPlaceId(),
-            };
-
-            PlacesDetailsResponse result = await GoogleMaps.PlacesDetails.QueryAsync(request);
-
-            AssertInconclusive.NotExceedQuota(result);
-            Assert.That(result.Status, Is.EqualTo(Status.OK));
-            
-            // commented out because seems like google doesn't have opening hours for this place anymore
-            /*
-            Assert.AreEqual(7, result.Result.OpeningHours.Periods.Count());
-            var sundayPeriod = result.Result.OpeningHours.Periods.First();
-            Assert.That(sundayPeriod.OpenTime.Day, Is.EqualTo(DayOfWeek.Sunday));
-            Assert.That(sundayPeriod.OpenTime.Time, Is.GreaterThanOrEqualTo(0));
-            Assert.That(sundayPeriod.OpenTime.Time, Is.LessThanOrEqualTo(2359));
-            Assert.That(sundayPeriod.CloseTime.Time, Is.GreaterThanOrEqualTo(0));
-            Assert.That(sundayPeriod.CloseTime.Time, Is.LessThanOrEqualTo(2359));
-             */
+                foreach (var period in result.Result.OpeningHours.Periods)
+                {
+                    Assert.That(period.OpenTime.Time, Is.InRange(0, 2359));
+                    if (period.CloseTime != null)
+                        Assert.That(period.CloseTime.Time, Is.InRange(0, 2359));
+                }
+            }
         }
 
         private string? cachedMyPlaceId;
