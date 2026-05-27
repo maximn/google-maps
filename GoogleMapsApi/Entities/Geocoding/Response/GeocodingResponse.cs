@@ -8,6 +8,9 @@ using GoogleMapsApi.Engine.JsonConverters;
 
 namespace GoogleMapsApi.Entities.Geocoding.Response
 {
+	/// <summary>
+	/// Response from the Google Geocoding API containing geocoded results matching the input address or coordinates.
+	/// </summary>
 	public class GeocodingResponse : IResponseFor<GeocodingRequest>
 	{
 		[JsonPropertyName("status")]

@@ -7,6 +7,9 @@ using GoogleMapsApi.Engine.JsonConverters;
 
 namespace GoogleMapsApi.Entities.PlaceAutocomplete.Response
 {
+    /// <summary>
+    /// Response from the Google Place Autocomplete API containing predicted place matches for the input text.
+    /// </summary>
     public class PlaceAutocompleteResponse : IResponseFor<PlaceAutocompleteRequest>
 	{
 		/// <summary>

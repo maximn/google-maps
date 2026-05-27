@@ -1,0 +1,69 @@
+@page "/"
+@using GoogleMapsApi.Entities.Geocoding.Response
+@using Samples.Blazor.Geocoding.Services
+@inject GeocodingService Geocoder
+
+<PageTitle>Geocoding sample</PageTitle>
+
+<h1>Geocoding sample</h1>
+
+@if (!Geocoder.HasApiKey)
+{
+    <p style="color:red">
+        Set the <code>GOOGLE_API_KEY</code> environment variable (or <code>GoogleApiKey</code> in configuration) and restart.
+    </p>
+}
+
+<form @onsubmit="OnSubmitAsync" @onsubmit:preventDefault>
+    <input @bind="address" placeholder="Address" style="width: 24rem" />
+    <button type="submit" disabled="@(_busy || !Geocoder.HasApiKey)">Geocode</button>
+</form>
+
+@if (_busy)
+{
+    <p>Loading...</p>
+}
+else if (_error is not null)
+{
+    <p style="color:red">@_error</p>
+}
+else if (_result is not null)
+{
+    <h2>@_result.FormattedAddress</h2>
+    <p>Lat: @_result.Geometry.Location.Latitude.ToString("F6")</p>
+    <p>Lng: @_result.Geometry.Location.Longitude.ToString("F6")</p>
+}
+
+@code {
+    private string address = "1600 Amphitheatre Parkway, Mountain View, CA";
+    private bool _busy;
+    private string? _error;
+    private Result? _result;
+
+    private async Task OnSubmitAsync()
+    {
+        _busy = true;
+        _error = null;
+        _result = null;
+        try
+        {
+            var response = await Geocoder.GeocodeAsync(address);
+            if (response.Status != Status.OK || response.Results is null)
+            {
+                _error = $"Geocoding failed: {response.Status}";
+            }
+            else
+            {
+                _result = response.Results.FirstOrDefault();
+            }
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+}

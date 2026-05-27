@@ -1,4 +1,6 @@
-﻿using GoogleMapsApi.Entities.Directions.Request;
+﻿using GoogleMapsApi.Entities.AddressValidation.Request;
+using GoogleMapsApi.Entities.AddressValidation.Response;
+using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.Elevation.Request;
 using GoogleMapsApi.Entities.Elevation.Response;
@@ -26,6 +28,10 @@ using System;
 
 namespace GoogleMapsApi
 {
+    /// <summary>
+    /// Static facade exposing strongly-typed accessors to every supported Google Maps Web Service.
+    /// Each property returns a singleton engine that handles request execution for a specific API.
+    /// </summary>
     public class GoogleMaps
     {
         /// <summary>Perform geocoding operations.</summary>
@@ -132,6 +138,15 @@ namespace GoogleMapsApi
             get
             {
                 return EngineFacade<DistanceMatrixRequest, DistanceMatrixResponse>.Instance;
+            }
+        }
+
+        /// <summary>Validate a postal address (Address Validation API). Supports USPS CASS for US/PR addresses.</summary>
+        public static IEngineFacade<AddressValidationRequest, AddressValidationResponse> AddressValidation
+        {
+            get
+            {
+                return EngineFacade<AddressValidationRequest, AddressValidationResponse>.Instance;
             }
         }
 

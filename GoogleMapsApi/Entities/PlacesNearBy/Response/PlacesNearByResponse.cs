@@ -7,6 +7,9 @@ using GoogleMapsApi.Engine.JsonConverters;
 
 namespace GoogleMapsApi.Entities.PlacesNearBy.Response
 {
+	/// <summary>
+	/// Response from the Google Places Nearby Search API containing places near the requested location.
+	/// </summary>
 	public class PlacesNearByResponse : IResponseFor<PlacesNearByRequest>
 	{
 		/// <summary>

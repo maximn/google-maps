@@ -1,19 +1,33 @@
+[![NuGet Downloads](https://img.shields.io/nuget/dt/GoogleMapsApi.svg)](https://www.nuget.org/packages/GoogleMapsApi/)
+[![NuGet Version](https://img.shields.io/nuget/v/GoogleMapsApi.svg)](https://www.nuget.org/packages/GoogleMapsApi/)
 [![Build Status](https://github.com/maximn/google-maps/actions/workflows/dotnet.yml/badge.svg)](https://github.com/maximn/google-maps/actions/workflows/dotnet.yml)
-[![NuGet Status](https://img.shields.io/nuget/v/GoogleMapsApi.svg)](https://www.nuget.org/packages/GoogleMapsApi/)
+[![CodeQL](https://github.com/maximn/google-maps/actions/workflows/codeql.yml/badge.svg)](https://github.com/maximn/google-maps/actions/workflows/codeql.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/maximn/google-maps/badge)](https://scorecard.dev/viewer/?uri=github.com/maximn/google-maps)
+[![License: BSD-2-Clause](https://img.shields.io/badge/License-BSD_2--Clause-blue.svg)](LICENSE.md)
+[![.NET](https://img.shields.io/badge/.NET-net10.0%20%7C%20net8.0%20%7C%20netstandard2.0%20%7C%20net481%20%7C%20net462-512BD4)](https://dotnet.microsoft.com/)
 
-google-maps
-===========
+Release history: see [CHANGELOG.md](CHANGELOG.md).
 
-Google Maps Web Services API wrapper for .NET
+# GoogleMapsApi
 
-For Quickstart and more info read the wiki pages (https://github.com/maximn/google-maps/wiki)
+A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Directions, Distance Matrix, Elevation, Time Zone, Places, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0, net481, net462), async-first, and battle-tested with **2M+ downloads** on NuGet.
 
-The web page - http://maximn.github.com/google-maps
+## Supported APIs
 
-NuGet page - https://www.nuget.org/packages/GoogleMapsApi/
+| API | Description |
+| --- | --- |
+| [Geocoding](https://developers.google.com/maps/documentation/geocoding) | Convert between addresses and geographic coordinates |
+| [Directions](https://developers.google.com/maps/documentation/directions) | Route planning between two points with multiple travel modes |
+| [Distance Matrix](https://developers.google.com/maps/documentation/distance-matrix) | Travel time and distance between multiple origins/destinations |
+| [Elevation](https://developers.google.com/maps/documentation/elevation) | Elevation data for individual locations or paths |
+| [Time Zone](https://developers.google.com/maps/documentation/timezone) | Time zone information for any coordinate |
+| [Places](https://developers.google.com/maps/documentation/places/web-service) | Find / Nearby / Text search, Place Details, Autocomplete |
+| [Address Validation](https://developers.google.com/maps/documentation/address-validation) | Validate a postal address with component-level confirmation; USPS CASS for US/PR |
+| [Static Maps](https://developers.google.com/maps/documentation/maps-static) | Generate URLs for static map images with markers, paths, and styles |
 
+## Why this vs Google's official SDKs
 
-**Check out my blog at http://maxondev.com**
+Google's official .NET packages (e.g. `Google.Maps.Routing.V2`, `Google.Maps.Places.V1`) are auto-generated from gRPC service definitions — they're verbose, split across many packages, and feel like protobuf instead of .NET. **GoogleMapsApi** is a single, idiomatic NuGet package: one install, async-first, multi-target (modern .NET through legacy .NET Framework), with hand-crafted request/response types that read like normal C#.
 
 # Installation
 
@@ -27,15 +41,9 @@ Or via .NET CLI:
 dotnet add package GoogleMapsApi
 ```
 
+Looking for runnable examples? See [`samples/`](samples/) — console, ASP.NET Core minimal API, and Blazor Server.
+
 # Quickstart
-
-This library wraps Google maps API.
-
-You can easily query Google maps for Geocoding, Directions, Elevation, Distance Matrix, and Places.
-
-NEW! Now you can easily show the results on a Static Google Map!
-
-This Library is well documented and easy to use.
 
 ## API Key Configuration
 
@@ -53,9 +61,12 @@ DirectionsRequest directionsRequest = new DirectionsRequest()
 // Option 2: Set globally via app.config/appsettings.json (see wiki for details)
 ```
 
+For more configuration options and detailed guides, see the [wiki](https://github.com/maximn/google-maps/wiki). Full API reference is published at [maximn.github.io/google-maps](https://maximn.github.io/google-maps/).
+
 ## Code Examples
 
-### Basic Usage
+### Basic Usage (async-first)
+
 ``` C#
 using GoogleMapsApi;
 using GoogleMapsApi.Entities.Common;
@@ -72,10 +83,6 @@ DirectionsRequest directionsRequest = new DirectionsRequest()
     Origin = "NYC, 5th and 39",
     Destination = "Philadelphia, Chestnut and Walnut",
 };
-
-// Synchronous call
-DirectionsResponse directions = GoogleMaps.Directions.Query(directionsRequest);
-Console.WriteLine(directions);
 
 // Async call (recommended)
 DirectionsResponse directions = await GoogleMaps.Directions.QueryAsync(directionsRequest);
@@ -113,3 +120,49 @@ string url = staticMapGenerator.GenerateStaticMapURL(new StaticMapRequest(new Lo
 });
 Console.WriteLine("Map with path: " + url);
 ```
+
+### Instance-based client (`IHttpClientFactory`-friendly)
+
+In addition to the static `GoogleMaps` facade, you can use the instance-based `GoogleMapsClient` that accepts an injected `HttpClient`. This is the recommended pattern for ASP.NET Core, minimal APIs, and worker services — it plays nicely with `IHttpClientFactory`, per-instance event handlers, and an ambient API key that is auto-filled into requests when not set explicitly.
+
+``` C#
+// Register once at startup
+services.AddHttpClient<IGoogleMapsClient, GoogleMapsClient>();
+services.AddSingleton(new GoogleMapsClientOptions { ApiKey = "your-google-maps-api-key" });
+
+// Inject and use
+public class GeocodingService(IGoogleMapsClient maps)
+{
+    public Task<GeocodingResponse> LookupAsync(string address)
+        => maps.Geocode.QueryAsync(new GeocodingRequest { Address = address });
+}
+```
+
+Without DI:
+
+``` C#
+using var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "your-key" });
+
+var result = await maps.Directions.QueryAsync(new DirectionsRequest { Origin = "NYC", Destination = "DC" });
+```
+
+Per-instance events (no global state):
+
+``` C#
+maps.Geocode.OnUriCreated += uri => uri;          // inspect/rewrite outgoing URI
+maps.Geocode.OnRawResponseReceived += bytes => { }; // tap raw JSON
+```
+
+### Synchronous Usage
+
+Synchronous calls are also supported via `Query` (use `QueryAsync` whenever possible):
+
+``` C#
+DirectionsResponse directions = GoogleMaps.Directions.Query(directionsRequest);
+Console.WriteLine(directions);
+```
+
+---
+
+*If this library saved you time, please ⭐ the repo — it helps others find it.*

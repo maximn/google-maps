@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 namespace GoogleMapsApi
 {
     /// <summary>
-    /// A public-surface API that exposes the Google Maps API functionality.
+    /// Default engine that executes a Google Maps API request and returns its strongly-typed response.
+    /// Use the singleton accessors on <see cref="GoogleMaps"/> to obtain an instance per API.
     /// </summary>
-    /// <typeparam name="TRequest"></typeparam>
-    /// <typeparam name="TResponse"></typeparam>
+    /// <typeparam name="TRequest">The request type, deriving from <see cref="MapsBaseRequest"/>.</typeparam>
+    /// <typeparam name="TResponse">The response type returned for <typeparamref name="TRequest"/>.</typeparam>
     public class EngineFacade<TRequest, TResponse> : IEngineFacade<TRequest, TResponse>
         where TRequest : MapsBaseRequest, new()
         where TResponse : IResponseFor<TRequest>

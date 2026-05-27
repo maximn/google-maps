@@ -1,59 +1,43 @@
-# Documentation
+# Documentation site
 
-This directory contains all project documentation organized by category.
+This directory contains the [DocFX](https://dotnet.github.io/docfx/) project that builds the public documentation site for **GoogleMapsApi**, published to <https://maximn.github.io/google-maps>.
 
-## 📁 Directory Structure
+## What's here
 
-### `/architecture/`
-High-level architectural decisions, roadmaps, and design documents.
-- `MODERNIZATION_ROADMAP.md` - Comprehensive modernization strategy and implementation plan
+- `docfx.json` — DocFX configuration. API metadata is extracted from `../GoogleMapsApi/GoogleMapsApi.csproj` (TFM: `net8.0`).
+- `index.md`, `toc.yml` — site landing page and root navigation.
+- `articles/` — hand-written guides (Getting Started, etc.).
+- `api/` — *generated*, do not edit by hand.
+- `_site/` — *generated* output, do not commit.
 
-### `/analysis/`
-Technical analysis documents, gap analysis, and feature comparisons.
-- `google-maps-api-gaps-analysis.md` - Analysis of missing Google Maps API features
+## Regenerate locally
 
-### `/reports/`
-Generated reports, analysis outputs, and build artifacts.
-- `nullable_analysis_report.md` - Nullable reference types analysis
-- `nullable_warnings_*.txt` - Compiler warning reports
+You need the .NET SDK (8.0 or newer) and the `docfx` global tool:
 
-### `/guides/`
-User guides, tutorials, and how-to documentation.
-- *Currently empty - add user guides here*
+```bash
+dotnet tool install -g docfx
+# or, if already installed:
+dotnet tool update -g docfx
+```
 
-### `/api/`
-API documentation, specifications, and reference materials.
-- *Future: OpenAPI specs, endpoint documentation*
+From the repository root:
 
-## 📋 Documentation Standards
+```bash
+# Generate metadata + build static site
+docfx docs/docfx.json
 
-### File Naming Conventions
-- Use kebab-case for file names: `modernization-roadmap.md`
-- Use descriptive names that indicate content type
-- Include version numbers for major documents: `api-v2-specification.md`
+# Build and serve at http://localhost:8080
+docfx docs/docfx.json --serve
+```
 
-### Document Structure
-- Start with a clear title and executive summary
-- Use consistent heading hierarchy (H1 for title, H2 for main sections)
-- Include table of contents for long documents
-- Add last updated date in document footer
+The built site lands in `docs/_site/`.
 
-### Content Guidelines
-- Write for your target audience (developers, architects, users)
-- Include code examples where relevant
-- Use emojis sparingly for visual hierarchy
-- Keep documents up-to-date with code changes
+## Deployment
 
-## 🔄 Maintenance
+Deployment is automated by `.github/workflows/docs.yml`:
 
-- Review and update documentation with each major release
-- Archive outdated documents in `/archive/` subdirectory
-- Use version control to track documentation changes
-- Link related documents with cross-references
+- Triggers on push to `master` and via `workflow_dispatch`.
+- Builds with the official `docfx` global tool.
+- Publishes to GitHub Pages via `actions/deploy-pages`.
 
-## 📚 Related Documentation
-
-- [Main README](../README.md) - Project overview and quick start
-- [Release Notes](../GoogleMapsApi/ReleaseNotes.md) - Version history
-- [Security Policy](../SECURITY.md) - Security guidelines
-- [CLAUDE.md](../CLAUDE.md) - AI assistant interaction guidelines
+> **One-time setup (maintainer):** in the repository settings, navigate to **Settings → Pages** and set **Source** to **GitHub Actions** before the first deploy.

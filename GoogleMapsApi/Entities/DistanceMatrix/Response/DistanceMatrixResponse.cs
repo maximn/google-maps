@@ -9,6 +9,9 @@
     using GoogleMapsApi.Entities.DistanceMatrix.Request;
     using GoogleMapsApi.Engine.JsonConverters;
 
+    /// <summary>
+    /// Response from the Google Distance Matrix API containing travel distance and duration between each origin and destination.
+    /// </summary>
     public class DistanceMatrixResponse: IResponseFor<DistanceMatrixRequest>
     {
         /// <summary>

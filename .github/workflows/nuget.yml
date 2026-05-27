@@ -21,12 +21,16 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write       # create GitHub Release
+      id-token: write       # Sigstore OIDC
+      attestations: write   # GitHub attestations API
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5.2.0
         with:
           dotnet-version: |
             6.0.x
@@ -54,9 +58,16 @@ jobs:
       - name: Pack
         run: dotnet pack --configuration Release --no-build --output . -p:Version=${{ steps.get_version.outputs.VERSION }}
 
+      - name: Attest build provenance
+        if: github.event_name == 'push' || inputs.dry_run == false
+        id: attest
+        uses: actions/attest-build-provenance@a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32  # v4.1.0
+        with:
+          subject-path: '*.nupkg'
+
       - name: Upload nupkg artifact
         if: github.event_name == 'workflow_dispatch'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
           name: nupkg-${{ steps.get_version.outputs.VERSION }}
           path: '*.nupkg'
@@ -64,3 +75,19 @@ jobs:
       - name: Publish NuGet
         if: github.event_name == 'push' || inputs.dry_run == false
         run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Create or update GitHub Release
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.dry_run == false)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+          ATTESTATION_BUNDLE: ${{ steps.attest.outputs.bundle-path }}
+        run: |
+          if gh release view "v${VERSION}" >/dev/null 2>&1; then
+            gh release upload "v${VERSION}" ./*.nupkg "${ATTESTATION_BUNDLE}" --clobber
+          else
+            gh release create "v${VERSION}" \
+              --title "v${VERSION}" \
+              --generate-notes \
+              ./*.nupkg "${ATTESTATION_BUNDLE}"
+          fi
