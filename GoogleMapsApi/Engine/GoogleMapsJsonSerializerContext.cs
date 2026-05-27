@@ -15,6 +15,9 @@ using System.Text.Json.Serialization;
 
 namespace GoogleMapsApi.Engine
 {
+    /// <summary>
+    /// Source-generated JSON serializer context for Google Maps API entities, configured with custom converters
+    /// </summary>
     [JsonSerializable(typeof(DirectionsResponse), TypeInfoPropertyName = "DirectionsResponse")]
     [JsonSerializable(typeof(DistanceMatrixResponse), TypeInfoPropertyName = "DistanceMatrixResponse")]
     [JsonSerializable(typeof(ElevationResponse), TypeInfoPropertyName = "ElevationResponse")]

@@ -11,6 +11,7 @@ namespace GoogleMapsApi.Engine.JsonConverters
     public class EnumMemberJsonConverterFactory : JsonConverterFactory
     {
 #if NET5_0_OR_GREATER
+        // Dictionary to hold converters for each enum type, necessary for AOT compatibility
         private static readonly Dictionary<Type, Func<JsonConverter>> Converters = new()
         {
             { typeof(GoogleMapsApi.Entities.Common.LocationType), static () => new EnumMemberJsonConverter<GoogleMapsApi.Entities.Common.LocationType>() },

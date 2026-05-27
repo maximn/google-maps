@@ -13,8 +13,10 @@ namespace GoogleMapsApi.Engine.JsonConverters
     /// JSON converter for enums that respects EnumMember attributes with custom values
     /// </summary>
 #if NET5_0_OR_GREATER
+    // Generic converter for specific enum types, necessary for AOT compatibility
     public class EnumMemberJsonConverter<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicFields)] TEnum> : JsonConverter<TEnum> where TEnum : struct, Enum
 #else
+    // Non-generic converter that uses reflection to handle all enum types, not AOT compatible
     public partial class EnumMemberJsonConverter<TEnum> : JsonConverter<TEnum> where TEnum : struct, Enum
 #endif
     {

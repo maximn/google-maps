@@ -10,6 +10,10 @@ namespace GoogleMapsApi.Test
     public class AotCompatibleTests
     {
         [Test]
+        /// <summary>
+        /// Tests that all JsonConverter attributes on the GoogleMapsApi assembly are AOT compatible.
+        /// If a converter is not AOT compatible, it will throw an exception when the assembly is loaded in an AOT environment.
+        /// </summary>
         public void EnumMemberJsonConverterFactory_Covers_AllEnumsInAssembly()
         {
             var convertersField = typeof(EnumMemberJsonConverterFactory)

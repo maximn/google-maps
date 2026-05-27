@@ -8,8 +8,10 @@ namespace GoogleMapsApi.Engine.JsonConverters
     /// JSON converter for Duration entities that handles TimeSpan to seconds conversion
     /// </summary>
 #if NET5_0_OR_GREATER
+    // Generic converter for specific enum types, necessary for AOT compatibility
     public class DurationJsonConverter<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicProperties | System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicProperties)] T> : JsonConverter<T> where T : class, new()
 #else
+    // Non-generic converter that uses reflection to handle all types, not AOT compatible
     public class DurationJsonConverter<T> : JsonConverter<T> where T : class, new()
 #endif
     {
