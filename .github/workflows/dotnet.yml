@@ -58,6 +58,6 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
     - name: TestGlance
       if: always()
-      uses: testglance/action@109de3f8fc37c4f61a5ace0ee765aa8d8c795eff  # v1
+      uses: testglance/action@baa8ffd26ec3fa3d61c3b0ef4b09be4b54351ac6  # v1
       with:
         github-token: ${{ github.token }}
