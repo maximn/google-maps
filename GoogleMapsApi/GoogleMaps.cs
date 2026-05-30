@@ -26,7 +26,11 @@ using GoogleMapsApi.Entities.PlacesFind.Response;
 using GoogleMapsApi.Entities.PlacesFind.Request;
 using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
+using GoogleMapsApi.Entities.PlacesNew.Request;
+using GoogleMapsApi.Entities.PlacesNew.Response;
 using System;
+
+#pragma warning disable CS0618 // legacy Places facade members are intentionally obsolete; their bodies still resolve the engine.
 
 namespace GoogleMapsApi
 {
@@ -62,6 +66,7 @@ namespace GoogleMapsApi
 		}
 
 		/// <summary>Perform places operations.</summary>
+		[Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. GoogleMaps.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
 		public static IEngineFacade<PlacesRequest, PlacesResponse> Places
 		{
 			get
@@ -71,6 +76,7 @@ namespace GoogleMapsApi
 		}
 
         /// <summary>Perform places text search operations.</summary>
+        [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. GoogleMaps.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
         public static IEngineFacade<PlacesTextRequest, PlacesTextResponse> PlacesText
         {
             get
@@ -99,6 +105,7 @@ namespace GoogleMapsApi
         }
 
         /// <summary>Perform places details  operations.</summary>
+        [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. GoogleMaps.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
         public static IEngineFacade<PlacesDetailsRequest, PlacesDetailsResponse> PlacesDetails
         {
             get
@@ -108,6 +115,7 @@ namespace GoogleMapsApi
         }
 
         /// <summary>Perform place autocomplete operations.</summary>
+        [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. GoogleMaps.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
         public static IEngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse> PlaceAutocomplete
         {
             get
@@ -117,6 +125,7 @@ namespace GoogleMapsApi
         }
 
         /// <summary>Perform near by places operations.</summary>
+        [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. GoogleMaps.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
         public static IEngineFacade<PlacesNearByRequest, PlacesNearByResponse> PlacesNearBy
         {
             get
@@ -126,6 +135,7 @@ namespace GoogleMapsApi
         }
 
         /// <summary>Perform Find Place searches </summary>
+        [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. GoogleMaps.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
         public static IEngineFacade<PlacesFindRequest, PlacesFindResponse> PlacesFind
         {
             get
@@ -165,5 +175,52 @@ namespace GoogleMapsApi
             }
         }
 
+        /// <summary>Search for places by free-text query via the Places API (New).</summary>
+        public static IEngineFacade<SearchTextRequest, SearchTextResponse> PlacesSearchText
+        {
+            get
+            {
+                return EngineFacade<SearchTextRequest, SearchTextResponse>.Instance;
+            }
+        }
+
+        /// <summary>Search for places near a location via the Places API (New).</summary>
+        public static IEngineFacade<SearchNearbyRequest, SearchNearbyResponse> PlacesSearchNearby
+        {
+            get
+            {
+                return EngineFacade<SearchNearbyRequest, SearchNearbyResponse>.Instance;
+            }
+        }
+
+        /// <summary>Fetch rich details about a single place via the Places API (New).</summary>
+        public static IEngineFacade<PlaceDetailsRequest, Place> PlaceDetailsNew
+        {
+            get
+            {
+                return EngineFacade<PlaceDetailsRequest, Place>.Instance;
+            }
+        }
+
+        /// <summary>Get place/query predictions for typed input via the Places API (New).</summary>
+        public static IEngineFacade<AutocompleteRequest, AutocompleteResponse> PlacesAutocompleteNew
+        {
+            get
+            {
+                return EngineFacade<AutocompleteRequest, AutocompleteResponse>.Instance;
+            }
+        }
+
+        /// <summary>Resolve a place photo reference to an image URI via the Places API (New).</summary>
+        public static IEngineFacade<PlacePhotoRequest, PlacePhotoResponse> PlacePhoto
+        {
+            get
+            {
+                return EngineFacade<PlacePhotoRequest, PlacePhotoResponse>.Instance;
+            }
+        }
+
     }
 }
+
+#pragma warning restore CS0618

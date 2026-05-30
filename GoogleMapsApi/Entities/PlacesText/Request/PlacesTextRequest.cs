@@ -8,6 +8,7 @@ namespace GoogleMapsApi.Entities.PlacesText.Request
     /// Request for the Google Places Text Search API, which returns places matching a free-form text query,
     /// optionally biased by location and radius.
     /// </summary>
+    [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. GoogleMaps.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
     public class PlacesTextRequest : MapsBaseRequest
     {
         protected internal override string BaseUrl
