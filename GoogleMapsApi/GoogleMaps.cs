@@ -24,6 +24,8 @@ using GoogleMapsApi.Entities.PlacesNearBy.Request;
 using GoogleMapsApi.Entities.PlacesNearBy.Response;
 using GoogleMapsApi.Entities.PlacesFind.Response;
 using GoogleMapsApi.Entities.PlacesFind.Request;
+using GoogleMapsApi.Entities.Routes.Request;
+using GoogleMapsApi.Entities.Routes.Response;
 using System;
 
 namespace GoogleMapsApi
@@ -147,6 +149,19 @@ namespace GoogleMapsApi
             get
             {
                 return EngineFacade<AddressValidationRequest, AddressValidationResponse>.Instance;
+            }
+        }
+
+        /// <summary>
+        /// Compute routes via the Routes API — the modern replacement for the Directions API.
+        /// Supports real-time traffic, eco-routing, toll calculation, two-wheeled vehicles, and
+        /// route alternatives.
+        /// </summary>
+        public static IEngineFacade<RoutesRequest, RoutesResponse> Routes
+        {
+            get
+            {
+                return EngineFacade<RoutesRequest, RoutesResponse>.Instance;
             }
         }
 

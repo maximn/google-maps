@@ -21,6 +21,8 @@ using GoogleMapsApi.Entities.PlacesNearBy.Request;
 using GoogleMapsApi.Entities.PlacesNearBy.Response;
 using GoogleMapsApi.Entities.PlacesText.Request;
 using GoogleMapsApi.Entities.PlacesText.Response;
+using GoogleMapsApi.Entities.Routes.Request;
+using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
 using System;
@@ -70,6 +72,7 @@ namespace GoogleMapsApi
             PlacesFind = new HttpClientEngineFacade<PlacesFindRequest, PlacesFindResponse>(httpClient, options);
             DistanceMatrix = new HttpClientEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse>(httpClient, options);
             AddressValidation = new HttpClientEngineFacade<AddressValidationRequest, AddressValidationResponse>(httpClient, options);
+            Routes = new HttpClientEngineFacade<RoutesRequest, RoutesResponse>(httpClient, options);
         }
 
         /// <inheritdoc/>
@@ -107,5 +110,8 @@ namespace GoogleMapsApi
 
         /// <inheritdoc/>
         public IEngineFacade<AddressValidationRequest, AddressValidationResponse> AddressValidation { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<RoutesRequest, RoutesResponse> Routes { get; }
     }
 }
