@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using GoogleMapsApi.Entities.Common;
 
+
 namespace GoogleMapsApi.Entities.Directions.Response
 {
 	/// <summary>
@@ -41,64 +42,8 @@ namespace GoogleMapsApi.Entities.Directions.Response
 			InitLazyPoints();
 		}
 
-		// Adapted from http://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
-		// The algorithm explained here - https://developers.google.com/maps/documentation/utilities/polylinealgorithm
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
 		/// <exception cref="PointsDecodingException">Unexpectedly couldn't decode points</exception>
-		private IEnumerable<Location> DecodePoints()
-		{
-			IEnumerable<Location> points;
-
-			try
-			{
-				if (string.IsNullOrEmpty(EncodedPoints))
-				{
-					return new List<Location>();
-				}
-
-				var poly = new List<Location>();
-				int index = 0;
-				int lat = 0;
-				int lng = 0;
-
-				while (index < EncodedPoints!.Length)
-				{
-					int b, shift = 0, result = 0;
-					do
-					{
-						b = EncodedPoints[index++] - 63;
-						result |= (b & 0x1f) << shift;
-						shift += 5;
-					} while (b >= 0x20);
-					int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-					lat += dlat;
-
-					shift = 0;
-					result = 0;
-					do
-					{
-						b = EncodedPoints[index++] - 63;
-						result |= (b & 0x1f) << shift;
-						shift += 5;
-					} while (b >= 0x20);
-					int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-					lng += dlng;
-
-					poly.Add(new Location(lat / 1E5, lng / 1E5));
-				}
-
-				points = poly.ToArray();
-			}
-			catch (Exception ex)
-			{
-				throw new PointsDecodingException("Couldn't decode points", EncodedPoints!, ex);
-			}
-
-			return points;
-		}
+		private IEnumerable<Location> DecodePoints() => EncodedPolylineDecoder.Decode(EncodedPoints);
 
 		/// <summary>
 		/// The RAW data of points from Google

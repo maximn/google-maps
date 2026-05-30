@@ -10,14 +10,15 @@ Release history: see [CHANGELOG.md](CHANGELOG.md).
 
 # GoogleMapsApi
 
-A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Directions, Distance Matrix, Elevation, Time Zone, Places, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0, net481, net462), async-first, and battle-tested with **2M+ downloads** on NuGet.
+A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0, net481, net462), async-first, and battle-tested with **2M+ downloads** on NuGet.
 
 ## Supported APIs
 
 | API | Description |
 | --- | --- |
 | [Geocoding](https://developers.google.com/maps/documentation/geocoding) | Convert between addresses and geographic coordinates |
-| [Directions](https://developers.google.com/maps/documentation/directions) | Route planning between two points with multiple travel modes |
+| [Routes](https://developers.google.com/maps/documentation/routes) | Modern route planning — real-time traffic, eco-routing, toll calc, two-wheeled vehicles (replaces Directions) |
+| [Directions](https://developers.google.com/maps/documentation/directions) | Legacy route planning between two points with multiple travel modes |
 | [Distance Matrix](https://developers.google.com/maps/documentation/distance-matrix) | Travel time and distance between multiple origins/destinations |
 | [Elevation](https://developers.google.com/maps/documentation/elevation) | Elevation data for individual locations or paths |
 | [Time Zone](https://developers.google.com/maps/documentation/timezone) | Time zone information for any coordinate |
@@ -119,6 +120,29 @@ string url = staticMapGenerator.GenerateStaticMapURL(new StaticMapRequest(new Lo
     }}
 });
 Console.WriteLine("Map with path: " + url);
+```
+
+### Routes API (modern replacement for Directions)
+
+The Routes API is Google's modern replacement for the Directions API — it supports real-time traffic, eco-routing, toll calculation, two-wheeled vehicles, and route alternatives. Unlike Directions, it requires a [field mask](https://developers.google.com/maps/documentation/routes/choose_fields) to constrain the response. A sensible default is pre-populated; tighten it to reduce response size and cost.
+
+``` C#
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Routes.Request;
+
+var request = new RoutesRequest
+{
+    ApiKey = "your-google-maps-api-key",
+    Origin = Waypoint.FromAddress("San Francisco, CA"),
+    Destination = Waypoint.FromAddress("Mountain View, CA"),
+    TravelMode = RoutesTravelMode.Drive,
+    RoutingPreference = RoutingPreference.TrafficAware,
+    // FieldMask defaults to a Directions-equivalent shape; override to slim the response.
+};
+
+var response = await GoogleMaps.Routes.QueryAsync(request);
+var route = response.Routes![0];
+Console.WriteLine($"{route.DistanceMeters} m, {route.DurationSeconds} s");
 ```
 
 ### Instance-based client (`IHttpClientFactory`-friendly)

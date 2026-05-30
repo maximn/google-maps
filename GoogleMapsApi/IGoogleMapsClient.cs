@@ -20,6 +20,8 @@ using GoogleMapsApi.Entities.PlacesNearBy.Request;
 using GoogleMapsApi.Entities.PlacesNearBy.Response;
 using GoogleMapsApi.Entities.PlacesText.Request;
 using GoogleMapsApi.Entities.PlacesText.Response;
+using GoogleMapsApi.Entities.Routes.Request;
+using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
 
@@ -67,5 +69,10 @@ namespace GoogleMapsApi
 
         /// <summary>Validate a postal address (Address Validation API). Supports USPS CASS for US/PR addresses.</summary>
         IEngineFacade<AddressValidationRequest, AddressValidationResponse> AddressValidation { get; }
+
+        /// <summary>
+        /// Compute routes via the Routes API — the modern replacement for the Directions API.
+        /// </summary>
+        IEngineFacade<RoutesRequest, RoutesResponse> Routes { get; }
     }
 }
