@@ -6,6 +6,8 @@
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Integration tests intentionally exercise the now-[Obsolete] static GoogleMaps facade and legacy Places API. -->
+    <NoWarn>$(NoWarn);CS0618</NoWarn>
   </PropertyGroup>
 	
   <ItemGroup>

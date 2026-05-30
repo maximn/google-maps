@@ -25,7 +25,12 @@ var request = new GeocodingRequest
     ApiKey = apiKey,
 };
 
-GeocodingResponse response = await GoogleMaps.Geocode.QueryAsync(request);
+// Instance-based client (preferred). In a real app, resolve IGoogleMapsClient from
+// dependency injection via AddHttpClient<IGoogleMapsClient, GoogleMapsClient>().
+using var httpClient = new HttpClient();
+IGoogleMapsClient maps = new GoogleMapsClient(httpClient);
+
+GeocodingResponse response = await maps.Geocode.QueryAsync(request);
 
 if (response.Status != Status.OK || response.Results is null)
 {

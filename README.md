@@ -67,6 +67,9 @@ For more configuration options and detailed guides, see the [wiki](https://githu
 
 ## Code Examples
 
+> [!IMPORTANT]
+> The static `GoogleMaps` facade shown in *Basic Usage* below is **deprecated** and will be removed in **2.0.0**. For new code prefer the instance-based `IGoogleMapsClient` / `GoogleMapsClient` — see [Instance-based client](#instance-based-client-ihttpclientfactory-friendly) below.
+
 ### Basic Usage (async-first)
 
 ``` C#
