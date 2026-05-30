@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-05-30
+
+### Added
+- Routes API support — the modern replacement for the Directions API (#251)
+- Address Validation API support (#244)
+- POST request support via a new virtual `GetRequestBody` hook on the engine (#243)
+
+### Changed
+- Bump Microsoft.NET.Test.Sdk to 18.6.0 (#250)
+- Update testglance/action digest (#248, #249)
+
 ## [1.5.0] - 2026-05-25
 
 ### Added
@@ -422,7 +433,8 @@ _Re-release of 1.4.1; no functional changes._
 - Fixed issue #4
 - "jpg-baselin" → "jpg-baseline" in `StaticMapsEngine`
 
-[Unreleased]: https://github.com/maximn/google-maps/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/maximn/google-maps/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/maximn/google-maps/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/maximn/google-maps/compare/v1.4.8...v1.5.0
 [1.4.8]: https://github.com/maximn/google-maps/compare/v1.4.7...v1.4.8
 [1.4.7]: https://github.com/maximn/google-maps/compare/v1.4.6...v1.4.7
