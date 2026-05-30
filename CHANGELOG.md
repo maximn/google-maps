@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-05-30
+
+### Added
+- Places API (New) support — a v1, modern replacement for the legacy Places API (#252)
+
 ## [1.6.0] - 2026-05-30
 
 ### Added
@@ -433,7 +438,8 @@ _Re-release of 1.4.1; no functional changes._
 - Fixed issue #4
 - "jpg-baselin" → "jpg-baseline" in `StaticMapsEngine`
 
-[Unreleased]: https://github.com/maximn/google-maps/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/maximn/google-maps/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/maximn/google-maps/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/maximn/google-maps/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/maximn/google-maps/compare/v1.4.8...v1.5.0
 [1.4.8]: https://github.com/maximn/google-maps/compare/v1.4.7...v1.4.8
