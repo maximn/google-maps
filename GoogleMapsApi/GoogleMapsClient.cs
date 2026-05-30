@@ -23,6 +23,8 @@ using GoogleMapsApi.Entities.PlacesText.Request;
 using GoogleMapsApi.Entities.PlacesText.Response;
 using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
+using GoogleMapsApi.Entities.PlacesNew.Request;
+using GoogleMapsApi.Entities.PlacesNew.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
 using System;
@@ -63,16 +65,25 @@ namespace GoogleMapsApi
             Geocode = new HttpClientEngineFacade<GeocodingRequest, GeocodingResponse>(httpClient, options);
             Directions = new HttpClientEngineFacade<DirectionsRequest, DirectionsResponse>(httpClient, options);
             Elevation = new HttpClientEngineFacade<ElevationRequest, ElevationResponse>(httpClient, options);
+#pragma warning disable CS0618 // legacy Places members are obsolete but still wired for backward compatibility.
             Places = new HttpClientEngineFacade<PlacesRequest, PlacesResponse>(httpClient, options);
             PlacesText = new HttpClientEngineFacade<PlacesTextRequest, PlacesTextResponse>(httpClient, options);
+#pragma warning restore CS0618
             TimeZone = new HttpClientEngineFacade<TimeZoneRequest, TimeZoneResponse>(httpClient, options);
+#pragma warning disable CS0618
             PlacesDetails = new HttpClientEngineFacade<PlacesDetailsRequest, PlacesDetailsResponse>(httpClient, options);
             PlaceAutocomplete = new HttpClientEngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse>(httpClient, options);
             PlacesNearBy = new HttpClientEngineFacade<PlacesNearByRequest, PlacesNearByResponse>(httpClient, options);
             PlacesFind = new HttpClientEngineFacade<PlacesFindRequest, PlacesFindResponse>(httpClient, options);
+#pragma warning restore CS0618
             DistanceMatrix = new HttpClientEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse>(httpClient, options);
             AddressValidation = new HttpClientEngineFacade<AddressValidationRequest, AddressValidationResponse>(httpClient, options);
             Routes = new HttpClientEngineFacade<RoutesRequest, RoutesResponse>(httpClient, options);
+            PlacesSearchText = new HttpClientEngineFacade<SearchTextRequest, SearchTextResponse>(httpClient, options);
+            PlacesSearchNearby = new HttpClientEngineFacade<SearchNearbyRequest, SearchNearbyResponse>(httpClient, options);
+            PlaceDetailsNew = new HttpClientEngineFacade<PlaceDetailsRequest, Place>(httpClient, options);
+            PlacesAutocompleteNew = new HttpClientEngineFacade<AutocompleteRequest, AutocompleteResponse>(httpClient, options);
+            PlacePhoto = new HttpClientEngineFacade<PlacePhotoRequest, PlacePhotoResponse>(httpClient, options);
         }
 
         /// <inheritdoc/>
@@ -84,15 +95,18 @@ namespace GoogleMapsApi
         /// <inheritdoc/>
         public IEngineFacade<ElevationRequest, ElevationResponse> Elevation { get; }
 
+#pragma warning disable CS0618 // legacy Places members are obsolete but still exposed for backward compatibility.
         /// <inheritdoc/>
         public IEngineFacade<PlacesRequest, PlacesResponse> Places { get; }
 
         /// <inheritdoc/>
         public IEngineFacade<PlacesTextRequest, PlacesTextResponse> PlacesText { get; }
+#pragma warning restore CS0618
 
         /// <inheritdoc/>
         public IEngineFacade<TimeZoneRequest, TimeZoneResponse> TimeZone { get; }
 
+#pragma warning disable CS0618
         /// <inheritdoc/>
         public IEngineFacade<PlacesDetailsRequest, PlacesDetailsResponse> PlacesDetails { get; }
 
@@ -104,6 +118,7 @@ namespace GoogleMapsApi
 
         /// <inheritdoc/>
         public IEngineFacade<PlacesFindRequest, PlacesFindResponse> PlacesFind { get; }
+#pragma warning restore CS0618
 
         /// <inheritdoc/>
         public IEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse> DistanceMatrix { get; }
@@ -113,5 +128,20 @@ namespace GoogleMapsApi
 
         /// <inheritdoc/>
         public IEngineFacade<RoutesRequest, RoutesResponse> Routes { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<SearchTextRequest, SearchTextResponse> PlacesSearchText { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<SearchNearbyRequest, SearchNearbyResponse> PlacesSearchNearby { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<PlaceDetailsRequest, Place> PlaceDetailsNew { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<AutocompleteRequest, AutocompleteResponse> PlacesAutocompleteNew { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<PlacePhotoRequest, PlacePhotoResponse> PlacePhoto { get; }
     }
 }

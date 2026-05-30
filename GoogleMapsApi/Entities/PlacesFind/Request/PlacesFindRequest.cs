@@ -7,6 +7,7 @@ namespace GoogleMapsApi.Entities.PlacesFind.Request
     /// <summary>
     /// A Find Place request takes a text input, and returns a place. The text input can be any kind of Places data, for example, a name, address, or phone number.
     /// </summary>
+    [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. GoogleMaps.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
     public class PlacesFindRequest : MapsBaseRequest
     {
         protected internal override string BaseUrl

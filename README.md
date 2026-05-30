@@ -22,7 +22,8 @@ A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs �
 | [Distance Matrix](https://developers.google.com/maps/documentation/distance-matrix) | Travel time and distance between multiple origins/destinations |
 | [Elevation](https://developers.google.com/maps/documentation/elevation) | Elevation data for individual locations or paths |
 | [Time Zone](https://developers.google.com/maps/documentation/timezone) | Time zone information for any coordinate |
-| [Places](https://developers.google.com/maps/documentation/places/web-service) | Find / Nearby / Text search, Place Details, Autocomplete |
+| [Places (New)](https://developers.google.com/maps/documentation/places/web-service/op-overview) | Modern Places API — Text Search, Nearby Search, Place Details, Autocomplete, Place Photos (replaces legacy Places) |
+| [Places](https://developers.google.com/maps/documentation/places/web-service) | _Deprecated (frozen by Google)_ — legacy Find / Nearby / Text search, Place Details, Autocomplete. Use Places (New) instead |
 | [Address Validation](https://developers.google.com/maps/documentation/address-validation) | Validate a postal address with component-level confirmation; USPS CASS for US/PR |
 | [Static Maps](https://developers.google.com/maps/documentation/maps-static) | Generate URLs for static map images with markers, paths, and styles |
 
