@@ -1,11 +1,11 @@
-﻿namespace GoogleMapsApi.Entities.DistanceMatrix.Response
+﻿using System;
+using System.Text.Json.Serialization;
+
+using GoogleMapsApi.Entities.Directions.Response;
+using GoogleMapsApi.Engine.JsonConverters;
+
+namespace GoogleMapsApi.Entities.DistanceMatrix.Response
 {
-    using System;
-    using System.Text.Json.Serialization;
-
-    using GoogleMapsApi.Entities.Directions.Response;
-    using GoogleMapsApi.Engine.JsonConverters;
-
     public class Element
     {
         /// <summary>
@@ -25,6 +25,7 @@
         /// duration: The length of time it takes to travel this route
         /// </summary>
         [JsonPropertyName("duration")]
+        [JsonConverter(typeof(DurationJsonConverter<Duration>))]
         public Duration Duration { get; set; } = null!;
 
         /// <summary>
@@ -32,6 +33,7 @@
 		/// See the traffic_model request parameter for the options you can use to request that the returned value is optimistic, pessimistic, or a best-guess estimate.
 		/// </summary>
 		[JsonPropertyName("duration_in_traffic")]
+        [JsonConverter(typeof(DurationJsonConverter<Duration>))]
         public Duration? DurationInTraffic { get; set; }
 
 

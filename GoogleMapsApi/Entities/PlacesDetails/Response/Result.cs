@@ -122,7 +122,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Response
         public IEnumerable<Photo> Photos { get; set; } = null!;
 
         [JsonPropertyName("price_level")]
-        [JsonConverter(typeof(GoogleMapsApi.Engine.JsonConverters.PriceLevelJsonConverter))]
+        [JsonConverter(typeof(PriceLevelJsonConverter))]
         public PriceLevel? PriceLevel { get; set; }
 
         [JsonPropertyName("rating")]

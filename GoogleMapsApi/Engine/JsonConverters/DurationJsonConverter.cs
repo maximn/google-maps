@@ -7,7 +7,13 @@ namespace GoogleMapsApi.Engine.JsonConverters
     /// <summary>
     /// JSON converter for Duration entities that handles TimeSpan to seconds conversion
     /// </summary>
+#if NET5_0_OR_GREATER
+    // Generic converter for specific enum types, necessary for AOT compatibility
+    public class DurationJsonConverter<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicProperties | System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicProperties)] T> : JsonConverter<T> where T : class, new()
+#else
+    // Non-generic converter that uses reflection to handle all types, not AOT compatible
     public class DurationJsonConverter<T> : JsonConverter<T> where T : class, new()
+#endif
     {
         public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
@@ -15,8 +21,9 @@ namespace GoogleMapsApi.Engine.JsonConverters
                 throw new JsonException($"Expected StartObject, got {reader.TokenType}");
 
             var duration = new T();
-            var valueProperty = typeToConvert.GetProperty("Value");
-            var textProperty = typeToConvert.GetProperty("Text");
+            var valueProperty = typeof(T).GetProperty("Value");
+            var textProperty = typeof(T).GetProperty("Text");
+
 
             while (reader.Read())
             {

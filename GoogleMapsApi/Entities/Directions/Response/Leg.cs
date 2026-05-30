@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using GoogleMapsApi.Engine.JsonConverters;
 using GoogleMapsApi.Entities.Common;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace GoogleMapsApi.Entities.Directions.Response
 {
@@ -25,12 +26,14 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// duration indicates the total duration of this leg,
 		/// </summary>
 		[JsonPropertyName("duration")]
-		public Duration? Duration { get; set; }
+        [JsonConverter(typeof(DurationJsonConverter<Duration>))]
+        public Duration? Duration { get; set; }
 
         /// <summary>
         /// duration_in_traffic indicates the total duration of this leg. This value is an estimate of the time in traffic based on current and historical traffic conditions.
         /// </summary>
         [JsonPropertyName("duration_in_traffic")]
+        [JsonConverter(typeof(DurationJsonConverter<Duration>))]
         public Duration? DurationInTraffic { get; set; }
 
         /// <summary>
@@ -61,12 +64,14 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// The time of arrival. Only avaliable when using TravelMode = Transit
 		/// </summary>
 		[JsonPropertyName("arrival_time")]
-		public Duration? ArrivalTime { get; set; }
+        [JsonConverter(typeof(DurationJsonConverter<Duration>))]
+        public Duration? ArrivalTime { get; set; }
 
 		/// <summary>
 		/// The time of departure. Only avaliable when using TravelMode = Transit
 		/// </summary>
 		[JsonPropertyName("departure_time")]
-		public Duration? DepartureTime { get; set; }
+        [JsonConverter(typeof(DurationJsonConverter<Duration>))]
+        public Duration? DepartureTime { get; set; }
 	}
 }

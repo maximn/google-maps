@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using GoogleMapsApi.Engine.JsonConverters;
 using GoogleMapsApi.Entities.Geocoding.Response;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace GoogleMapsApi.Entities.Directions.Response
 {
@@ -38,7 +39,8 @@ namespace GoogleMapsApi.Entities.Directions.Response
 		/// overview_path contains an object holding an array of encoded points and levels that represent an approximate (smoothed) path of the resulting directions.
 		/// </summary>
 		[JsonPropertyName("overview_polyline")]
-		public OverviewPolyline? OverviewPath { get; set; }
+        [JsonConverter(typeof(OverviewPolylineJsonConverter))]
+        public OverviewPolyline? OverviewPath { get; set; }
 
 		/// <summary>
 		/// copyrights contains the copyrights text to be displayed for this route. You must handle and display this information yourself.

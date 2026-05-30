@@ -1,33 +1,24 @@
-using System;
-using System.Text.Json;
+using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
-using GoogleMapsApi.Entities.PlacesDetails.Request;
-using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
-using GoogleMapsApi.Engine.JsonConverters;
+using GoogleMapsApi.Test.Utils;
 using NUnit.Framework;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Net;
-using System.Linq;
+using System.Text.Json;
+
+#if NET5_0_OR_GREATER
+using System.Text.Json.Serialization.Metadata;
+#endif
 
 namespace GoogleMapsApi.Test
 {
     [TestFixture]
     public class EdgeCaseAndErrorHandlingTests
     {
-        private JsonSerializerOptions _options;
-
         [SetUp]
         public void Setup()
         {
-            // Use the exact same JSON configuration as production code
-            _options = GoogleMapsApi.Engine.JsonSerializerConfiguration.CreateOptions();
-            
-            // Add specific converters needed for edge case testing
-            _options.Converters.Add(new EnumMemberJsonConverter<TravelMode>());
         }
 
         #region Extreme Input Validation Tests
@@ -149,11 +140,11 @@ namespace GoogleMapsApi.Test
 
             Assert.DoesNotThrow(() =>
             {
-                var response = JsonSerializer.Deserialize<DirectionsResponse>(unicodeJson, _options);
+                var response = JsonMultitargets.Deserialize<DirectionsResponse>(unicodeJson);
                 Assert.That(response, Is.Not.Null);
                 Assert.That(response.Routes, Is.Not.Null);
                 Assert.That(response.Routes.Count(), Is.EqualTo(1));
-                
+
                 var leg = response.Routes.First().Legs?.FirstOrDefault();
                 Assert.That(leg, Is.Not.Null);
                 Assert.That(leg.StartAddress, Does.Contain("Москва"));
@@ -174,7 +165,7 @@ namespace GoogleMapsApi.Test
 
             Assert.DoesNotThrow(() =>
             {
-                var duration = JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(largeNumbersJson, _options);
+                var duration = JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(largeNumbersJson);
                 Assert.That(duration, Is.Not.Null);
                 Assert.That(duration.Value, Is.EqualTo(TimeSpan.FromSeconds(2147483647)));
             });
@@ -192,7 +183,7 @@ namespace GoogleMapsApi.Test
             {
                 try
                 {
-                    var duration = JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(beyondInt32Json, _options);
+                    var duration = JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(beyondInt32Json);
                 }
                 catch (JsonException)
                 {
@@ -235,19 +226,19 @@ namespace GoogleMapsApi.Test
 
             Assert.DoesNotThrow(() =>
             {
-                var response = JsonSerializer.Deserialize<DirectionsResponse>(deeplyNestedJson, _options);
+                var response = JsonMultitargets.Deserialize<DirectionsResponse>(deeplyNestedJson);
                 Assert.That(response, Is.Not.Null);
                 Assert.That(response.Routes, Is.Not.Null);
                 Assert.That(response.Routes.Count(), Is.EqualTo(1));
-                
+
                 var route = response.Routes.First();
                 Assert.That(route.Legs, Is.Not.Null);
                 Assert.That(route.Legs.Count(), Is.EqualTo(1));
-                
+
                 var leg = route.Legs.First();
                 Assert.That(leg.Steps, Is.Not.Null);
                 Assert.That(leg.Steps.Count(), Is.EqualTo(1));
-                
+
                 var step = leg.Steps.First();
                 Assert.That(step.HtmlInstructions, Does.Contain("north"));
                 Assert.That(step.Distance, Is.Not.Null);
@@ -287,11 +278,11 @@ namespace GoogleMapsApi.Test
                 ApiKey = "test_key_with_special_chars_!@#$%"
             };
 
-   
+
             var uri = request.GetUri();
             Assert.That(uri, Is.Not.Null);
             var uriString = uri.AbsoluteUri;
-            
+
             // URI should be properly encoded
             Assert.That(uriString, Does.Not.Contain(" "));
             Assert.That(uriString, Contains.Substring("Address"));
@@ -343,7 +334,7 @@ namespace GoogleMapsApi.Test
             var request = new DirectionsRequest
             {
                 Origin = "San Francisco, CA",
-                Destination = "Sacramento, CA", 
+                Destination = "Sacramento, CA",
                 Waypoints = waypoints.Select(w => w.LocationString).ToArray(),
                 ApiKey = "test_key"
             };
@@ -353,7 +344,7 @@ namespace GoogleMapsApi.Test
                 var uri = request.GetUri();
                 Assert.That(uri, Is.Not.Null);
                 Assert.That(uri.ToString(), Contains.Substring("waypoints="));
-                
+
                 // URI should be quite long with all waypoints
                 Assert.That(uri.ToString().Length, Is.GreaterThan(1000));
             });
@@ -390,7 +381,7 @@ namespace GoogleMapsApi.Test
                 {
                     try
                     {
-                        var response = JsonSerializer.Deserialize<DirectionsResponse>(errorJson, _options);
+                        var response = JsonMultitargets.Deserialize<DirectionsResponse>(errorJson);
                         Assert.That(response, Is.Not.Null);
                         // Status should be parsed or default to appropriate value
                     }
@@ -424,7 +415,7 @@ namespace GoogleMapsApi.Test
             {
                 Assert.DoesNotThrow(() =>
                 {
-                    var response = JsonSerializer.Deserialize<DirectionsResponse>(partialJson, _options);
+                    var response = JsonMultitargets.Deserialize<DirectionsResponse>(partialJson);
                     Assert.That(response, Is.Not.Null);
                     Assert.That(response.Status, Is.EqualTo(DirectionsStatusCodes.OK));
                 }, $"Partial response caused crash: {partialJson}");
@@ -461,7 +452,7 @@ namespace GoogleMapsApi.Test
                     {
                         for (int j = 0; j < 100; j++)
                         {
-                            var response = JsonSerializer.Deserialize<DirectionsResponse>(json, _options);
+                            var response = JsonMultitargets.Deserialize<DirectionsResponse>(json);
                             Assert.That(response, Is.Not.Null);
                             Assert.That(response!.Routes, Is.Not.Null);
                             Assert.That(response.Routes.Count(), Is.EqualTo(1));
@@ -475,8 +466,8 @@ namespace GoogleMapsApi.Test
             }
 
             Task.WaitAll(tasks);
-            
-            Assert.That(exceptions.Count, Is.EqualTo(0), 
+
+            Assert.That(exceptions.Count, Is.EqualTo(0),
                 $"Concurrent deserialization caused {exceptions.Count} exceptions");
         }
 
@@ -499,10 +490,12 @@ namespace GoogleMapsApi.Test
             foreach (var (seconds, expectedTimeSpan) in testCases)
             {
                 var json = $$"""{"value": {{seconds}}, "text": "{{seconds}} seconds"}""";
-                
+
+
                 Assert.DoesNotThrow(() =>
                 {
-                    var duration = JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json, _options);
+                    var duration = JsonMultitargets.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json);
+
                     Assert.That(duration, Is.Not.Null);
                     Assert.That(duration.Value, Is.EqualTo(expectedTimeSpan));
                 }, $"Duration conversion failed for {seconds} seconds");
@@ -513,18 +506,18 @@ namespace GoogleMapsApi.Test
         public void EnumConverter_AllPossibleEnumValues_Handled()
         {
             var allTravelModes = (TravelMode[])Enum.GetValues(typeof(TravelMode));
-            
+
             foreach (var mode in allTravelModes)
             {
                 Assert.DoesNotThrow(() =>
                 {
                     // Test serialization
-                    var json = JsonSerializer.Serialize(mode, _options);
+                    var json = JsonSerializer.Serialize(mode);
                     Assert.That(json, Is.Not.Null);
                     Assert.That(json.Length, Is.GreaterThan(0));
-                    
+
                     // Test deserialization
-                    var deserialized = JsonSerializer.Deserialize<TravelMode>(json, _options);
+                    var deserialized = JsonMultitargets.Deserialize<TravelMode>(json);
                     Assert.That(deserialized, Is.EqualTo(mode));
                 }, $"Enum conversion failed for TravelMode.{mode}");
             }
@@ -536,7 +529,7 @@ namespace GoogleMapsApi.Test
             var validPriceLevels = new[]
             {
                 (0, PriceLevel.Free),
-                (1, PriceLevel.Inexpensive), 
+                (1, PriceLevel.Inexpensive),
                 (2, PriceLevel.Moderate),
                 (3, PriceLevel.Expensive),
                 (4, PriceLevel.VeryExpensive)
@@ -548,12 +541,12 @@ namespace GoogleMapsApi.Test
                 {
                     // Test numeric input
                     var numericJson = value.ToString();
-                    var numericResult = JsonSerializer.Deserialize<PriceLevel?>(numericJson, _options);
+                    var numericResult = JsonMultitargets.Deserialize<PriceLevel?>(numericJson);
                     Assert.That(numericResult, Is.EqualTo(expectedLevel));
-                    
+
                     // Test string input
                     var stringJson = $"\"{value}\"";
-                    var stringResult = JsonSerializer.Deserialize<PriceLevel?>(stringJson, _options);
+                    var stringResult = JsonMultitargets.Deserialize<PriceLevel?>(stringJson);
                     Assert.That(stringResult, Is.EqualTo(expectedLevel));
                 }, $"Price level conversion failed for value {value}");
             }

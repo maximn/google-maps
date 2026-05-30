@@ -1,17 +1,14 @@
-using System;
-using System.Text.Json;
+using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
+using GoogleMapsApi.Entities.DistanceMatrix.Request;
+using GoogleMapsApi.Entities.DistanceMatrix.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
 using GoogleMapsApi.Entities.PlacesDetails.Request;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
-using GoogleMapsApi.Entities.DistanceMatrix.Request;
-using GoogleMapsApi.Entities.DistanceMatrix.Response;
-using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Test.Utils;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace GoogleMapsApi.Test
@@ -19,13 +16,9 @@ namespace GoogleMapsApi.Test
     [TestFixture]
     public class NullableReferenceTypesCompatibilityTests
     {
-        private JsonSerializerOptions _options;
-
         [SetUp]
         public void Setup()
         {
-            // Use the exact same JSON configuration as production code
-            _options = GoogleMapsApi.Engine.JsonSerializerConfiguration.CreateOptions();
         }
 
         #region Request Entity Null Safety Tests
@@ -36,7 +29,7 @@ namespace GoogleMapsApi.Test
             var request = new DirectionsRequest
             {
                 Origin = "San Francisco, CA",
-                Destination = "Los Angeles, CA", 
+                Destination = "Los Angeles, CA",
                 ApiKey = "test_key"
             };
 
@@ -71,7 +64,7 @@ namespace GoogleMapsApi.Test
                 Address = "1600 Amphitheatre Parkway, Mountain View, CA",
                 ApiKey = "test_key"
             };
-            
+
             Assert.DoesNotThrow(() =>
             {
                 var uri = request1.GetUri();
@@ -156,7 +149,7 @@ namespace GoogleMapsApi.Test
 
             Assert.DoesNotThrow(() =>
             {
-                var response = JsonSerializer.Deserialize<DirectionsResponse>(minimalJson, _options);
+                var response = JsonMultitargets.Deserialize<DirectionsResponse>(minimalJson);
                 Assert.That(response, Is.Not.Null);
                 Assert.That(response.Status, Is.EqualTo(DirectionsStatusCodes.OK));
                 Assert.That(response.Routes, Is.Not.Null);
@@ -174,7 +167,7 @@ namespace GoogleMapsApi.Test
 
             Assert.DoesNotThrow(() =>
             {
-                var response = JsonSerializer.Deserialize<DirectionsResponse>(nullPropertiesJson, _options);
+                var response = JsonMultitargets.Deserialize<DirectionsResponse>(nullPropertiesJson);
                 Assert.That(response, Is.Not.Null);
                 Assert.That(response.Status, Is.EqualTo(DirectionsStatusCodes.OK));
             });
@@ -206,11 +199,11 @@ namespace GoogleMapsApi.Test
 
             Assert.DoesNotThrow(() =>
             {
-                var response = JsonSerializer.Deserialize<GeocodingResponse>(partialResultJson, _options);
+                var response = JsonMultitargets.Deserialize<GeocodingResponse>(partialResultJson);
                 Assert.That(response, Is.Not.Null);
                 Assert.That(response.Results, Is.Not.Null);
                 Assert.That(response.Results.Count(), Is.EqualTo(1));
-                
+
                 var result = response.Results.First();
                 Assert.That(result.FormattedAddress, Is.EqualTo("Test Address"));
                 Assert.That(result.Geometry, Is.Not.Null);
@@ -235,13 +228,13 @@ namespace GoogleMapsApi.Test
 
             Assert.DoesNotThrow(() =>
             {
-                var response = JsonSerializer.Deserialize<PlacesDetailsResponse>(minimalPlaceJson, _options);
+                var response = JsonMultitargets.Deserialize<PlacesDetailsResponse>(minimalPlaceJson);
                 Assert.That(response, Is.Not.Null);
                 Assert.That(response.Status, Is.EqualTo(GoogleMapsApi.Entities.PlacesDetails.Response.Status.OK));
                 Assert.That(response.Result, Is.Not.Null);
                 Assert.That(response.Result.PlaceId, Is.EqualTo("test_place_id"));
                 Assert.That(response.Result.Name, Is.EqualTo("Test Place"));
-                
+
                 // These should be null/default and not cause issues
                 Assert.DoesNotThrow(() =>
                 {
@@ -284,11 +277,11 @@ namespace GoogleMapsApi.Test
 
             Assert.DoesNotThrow(() =>
             {
-                var response = JsonSerializer.Deserialize<DistanceMatrixResponse>(partialResultsJson, _options);
+                var response = JsonMultitargets.Deserialize<DistanceMatrixResponse>(partialResultsJson);
                 Assert.That(response, Is.Not.Null);
                 Assert.That(response.Rows, Is.Not.Null);
                 Assert.That(response.Rows.Count(), Is.EqualTo(1));
-                
+
                 var row = response.Rows.First();
                 Assert.That(row.Elements, Is.Not.Null);
                 Assert.That(row.Elements.Count(), Is.EqualTo(2));
@@ -389,11 +382,11 @@ namespace GoogleMapsApi.Test
 
             Assert.DoesNotThrow(() =>
             {
-                var photo = JsonSerializer.Deserialize<Photo>(photoJson, _options);
+                var photo = JsonMultitargets.Deserialize<Photo>(photoJson);
                 Assert.That(photo, Is.Not.Null);
                 Assert.That(photo.Width, Is.EqualTo(100));
                 Assert.That(photo.Height, Is.EqualTo(100));
-                
+
                 // These properties might be null and should be handled safely
                 Assert.DoesNotThrow(() =>
                 {
@@ -422,7 +415,7 @@ namespace GoogleMapsApi.Test
             {
                 // Get all public properties
                 var properties = responseType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                
+
                 foreach (var property in properties)
                 {
                     Assert.DoesNotThrow(() =>
@@ -458,7 +451,7 @@ namespace GoogleMapsApi.Test
                     {
                         // Set minimum required properties to make GetUri() work
                         SetMinimumRequiredProperties(instance);
-                        
+
                         Assert.DoesNotThrow(() =>
                         {
                             var uri = instance.GetUri();
@@ -476,7 +469,7 @@ namespace GoogleMapsApi.Test
         private static void SetMinimumRequiredProperties(MapsBaseRequest request)
         {
             request.ApiKey = "test_key";
-            
+
             switch (request)
             {
                 case DirectionsRequest dir:
