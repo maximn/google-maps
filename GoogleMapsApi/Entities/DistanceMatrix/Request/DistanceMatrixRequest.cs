@@ -13,6 +13,11 @@
     /// <summary>
     /// Request for the Google Distance Matrix API, which returns travel distance and duration
     /// for a matrix of origins and destinations across a chosen travel mode.
+    /// <para>
+    /// <b>Legacy</b> as of 2025-03-01 — feature-frozen and closed to new Google Cloud projects
+    /// (existing projects keep working; no shutdown date announced). For new integrations prefer the
+    /// Routes API (Compute Route Matrix).
+    /// </para>
     /// </summary>
     public class DistanceMatrixRequest : SignableRequest
     {

@@ -249,13 +249,7 @@ namespace GoogleMapsApi.Test
             Assert.That(client.Geocode, Is.Not.Null);
             Assert.That(client.Directions, Is.Not.Null);
             Assert.That(client.Elevation, Is.Not.Null);
-            Assert.That(client.Places, Is.Not.Null);
-            Assert.That(client.PlacesText, Is.Not.Null);
             Assert.That(client.TimeZone, Is.Not.Null);
-            Assert.That(client.PlacesDetails, Is.Not.Null);
-            Assert.That(client.PlaceAutocomplete, Is.Not.Null);
-            Assert.That(client.PlacesNearBy, Is.Not.Null);
-            Assert.That(client.PlacesFind, Is.Not.Null);
             Assert.That(client.DistanceMatrix, Is.Not.Null);
         }
 

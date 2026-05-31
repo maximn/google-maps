@@ -9,18 +9,6 @@ using GoogleMapsApi.Entities.Elevation.Request;
 using GoogleMapsApi.Entities.Elevation.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
-using GoogleMapsApi.Entities.PlaceAutocomplete.Request;
-using GoogleMapsApi.Entities.PlaceAutocomplete.Response;
-using GoogleMapsApi.Entities.Places.Request;
-using GoogleMapsApi.Entities.Places.Response;
-using GoogleMapsApi.Entities.PlacesDetails.Request;
-using GoogleMapsApi.Entities.PlacesDetails.Response;
-using GoogleMapsApi.Entities.PlacesFind.Request;
-using GoogleMapsApi.Entities.PlacesFind.Response;
-using GoogleMapsApi.Entities.PlacesNearBy.Request;
-using GoogleMapsApi.Entities.PlacesNearBy.Response;
-using GoogleMapsApi.Entities.PlacesText.Request;
-using GoogleMapsApi.Entities.PlacesText.Response;
 using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.PlacesNew.Request;
@@ -34,13 +22,9 @@ namespace GoogleMapsApi
 {
     /// <summary>
     /// Instance-based Google Maps client driven by an injected <see cref="HttpClient"/>.
-    /// Prefer this over the static <see cref="GoogleMaps"/> facade in modern .NET projects —
-    /// it is friendly to <c>IHttpClientFactory</c>, supports per-instance event handlers, and
+    /// It is friendly to <c>IHttpClientFactory</c>, supports per-instance event handlers, and
     /// avoids the testability problems of static state.
     /// </summary>
-    /// <remarks>
-    /// The static <see cref="GoogleMaps"/> facade continues to work unchanged for backward compatibility.
-    /// </remarks>
     public sealed class GoogleMapsClient : IGoogleMapsClient
     {
         /// <summary>
@@ -65,17 +49,7 @@ namespace GoogleMapsApi
             Geocode = new HttpClientEngineFacade<GeocodingRequest, GeocodingResponse>(httpClient, options);
             Directions = new HttpClientEngineFacade<DirectionsRequest, DirectionsResponse>(httpClient, options);
             Elevation = new HttpClientEngineFacade<ElevationRequest, ElevationResponse>(httpClient, options);
-#pragma warning disable CS0618 // legacy Places members are obsolete but still wired for backward compatibility.
-            Places = new HttpClientEngineFacade<PlacesRequest, PlacesResponse>(httpClient, options);
-            PlacesText = new HttpClientEngineFacade<PlacesTextRequest, PlacesTextResponse>(httpClient, options);
-#pragma warning restore CS0618
             TimeZone = new HttpClientEngineFacade<TimeZoneRequest, TimeZoneResponse>(httpClient, options);
-#pragma warning disable CS0618
-            PlacesDetails = new HttpClientEngineFacade<PlacesDetailsRequest, PlacesDetailsResponse>(httpClient, options);
-            PlaceAutocomplete = new HttpClientEngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse>(httpClient, options);
-            PlacesNearBy = new HttpClientEngineFacade<PlacesNearByRequest, PlacesNearByResponse>(httpClient, options);
-            PlacesFind = new HttpClientEngineFacade<PlacesFindRequest, PlacesFindResponse>(httpClient, options);
-#pragma warning restore CS0618
             DistanceMatrix = new HttpClientEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse>(httpClient, options);
             AddressValidation = new HttpClientEngineFacade<AddressValidationRequest, AddressValidationResponse>(httpClient, options);
             Routes = new HttpClientEngineFacade<RoutesRequest, RoutesResponse>(httpClient, options);
@@ -95,30 +69,8 @@ namespace GoogleMapsApi
         /// <inheritdoc/>
         public IEngineFacade<ElevationRequest, ElevationResponse> Elevation { get; }
 
-#pragma warning disable CS0618 // legacy Places members are obsolete but still exposed for backward compatibility.
-        /// <inheritdoc/>
-        public IEngineFacade<PlacesRequest, PlacesResponse> Places { get; }
-
-        /// <inheritdoc/>
-        public IEngineFacade<PlacesTextRequest, PlacesTextResponse> PlacesText { get; }
-#pragma warning restore CS0618
-
         /// <inheritdoc/>
         public IEngineFacade<TimeZoneRequest, TimeZoneResponse> TimeZone { get; }
-
-#pragma warning disable CS0618
-        /// <inheritdoc/>
-        public IEngineFacade<PlacesDetailsRequest, PlacesDetailsResponse> PlacesDetails { get; }
-
-        /// <inheritdoc/>
-        public IEngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse> PlaceAutocomplete { get; }
-
-        /// <inheritdoc/>
-        public IEngineFacade<PlacesNearByRequest, PlacesNearByResponse> PlacesNearBy { get; }
-
-        /// <inheritdoc/>
-        public IEngineFacade<PlacesFindRequest, PlacesFindResponse> PlacesFind { get; }
-#pragma warning restore CS0618
 
         /// <inheritdoc/>
         public IEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse> DistanceMatrix { get; }

@@ -4,7 +4,6 @@ using GoogleMapsApi.Engine.JsonConverters;
 using GoogleMapsApi.Engine;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Response;
-using GoogleMapsApi.Entities.PlacesDetails.Response;
 using GoogleMapsApi.Entities.Directions.Request;
 using NUnit.Framework;
 using System.Threading.Tasks;
@@ -169,65 +168,6 @@ namespace GoogleMapsApi.Test
 
         #endregion
 
-        #region Enhanced PriceLevelJsonConverter Tests - Dual Input Handling
-
-        [Test]
-        public void PriceLevelJsonConverter_BoundaryValues_Handled()
-        {
-            // Test minimum valid value
-            var json0 = "0";
-            var result0 = JsonSerializer.Deserialize<PriceLevel?>(json0, _options);
-            Assert.That(result0, Is.EqualTo(PriceLevel.Free));
-
-            // Test maximum valid value
-            var json4 = "4";
-            var result4 = JsonSerializer.Deserialize<PriceLevel?>(json4, _options);
-            Assert.That(result4, Is.EqualTo(PriceLevel.VeryExpensive));
-        }
-
-        [Test]
-        public void PriceLevelJsonConverter_InvalidValues_ReturnNull()
-        {
-            // Test out-of-range values
-            var json5 = "5";
-            var result5 = JsonSerializer.Deserialize<PriceLevel?>(json5, _options);
-            Assert.That(result5, Is.Null);
-
-            var jsonNeg = "-1";
-            var resultNeg = JsonSerializer.Deserialize<PriceLevel?>(jsonNeg, _options);
-            Assert.That(resultNeg, Is.Null);
-
-            // Test invalid string
-            var jsonInvalid = "\"invalid\"";
-            var resultInvalid = JsonSerializer.Deserialize<PriceLevel?>(jsonInvalid, _options);
-            Assert.That(resultInvalid, Is.Null);
-        }
-
-        [Test]
-        public void PriceLevelJsonConverter_StringAndNumericEquivalence()
-        {
-            // Test that string and numeric representations give same result
-            var numericJson = "2";
-            var stringJson = "\"2\"";
-
-            var numericResult = JsonSerializer.Deserialize<PriceLevel?>(numericJson, _options);
-            var stringResult = JsonSerializer.Deserialize<PriceLevel?>(stringJson, _options);
-
-            Assert.That(numericResult, Is.EqualTo(stringResult));
-            Assert.That(numericResult, Is.EqualTo(PriceLevel.Moderate));
-        }
-
-        [Test]
-        public void PriceLevelJsonConverter_FloatingPointNumbers_Handled()
-        {
-            // Test that floating point numbers are handled (Google might send 2.0)
-            var jsonFloat = "2.0";
-            var result = JsonSerializer.Deserialize<PriceLevel?>(jsonFloat, _options);
-            Assert.That(result, Is.EqualTo(PriceLevel.Moderate));
-        }
-
-        #endregion
-
         #region Enhanced OverviewPolylineJsonConverter Tests - Reflection Vulnerabilities
 
         [Test]
@@ -294,7 +234,6 @@ namespace GoogleMapsApi.Test
                                 """{"value": 3600, "text": "1 hour"}""", _options);
                             
                             JsonSerializer.Deserialize<TravelMode>("\"DRIVING\"", _options);
-                            JsonSerializer.Deserialize<PriceLevel?>("2", _options);
                             JsonSerializer.Deserialize<OverviewPolyline>(
                                 """{"points": "_p~iF~ps|U"}""", _options);
                         }

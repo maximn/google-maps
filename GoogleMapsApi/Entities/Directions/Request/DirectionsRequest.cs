@@ -10,6 +10,11 @@ namespace GoogleMapsApi.Entities.Directions.Request
 	/// <summary>
 	/// Request for the Google Directions API, which computes a route between an origin and a destination
 	/// for a chosen travel mode, with optional waypoints and routing preferences.
+	/// <para>
+	/// <b>Legacy</b> as of 2025-03-01 — feature-frozen and closed to new Google Cloud projects
+	/// (existing projects keep working; no shutdown date announced). For new integrations prefer the
+	/// Routes API via <see cref="IGoogleMapsClient.Routes"/>.
+	/// </para>
 	/// </summary>
 	public class DirectionsRequest : SignableRequest
 	{

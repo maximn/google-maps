@@ -19,7 +19,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Destination = Waypoint.FromAddress("185 Broadway Ave, Manhattan, NY, USA"),
             };
 
-            var response = await GoogleMaps.Routes.QueryAsync(request);
+            var response = await Maps.Routes.QueryAsync(request);
 
             Assert.That(response.Routes, Is.Not.Null.And.Not.Empty);
             var route = response.Routes![0];
@@ -40,7 +40,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Intermediates = new List<Waypoint> { Waypoint.FromAddress("Philadelphia, PA, USA") },
             };
 
-            var response = await GoogleMaps.Routes.QueryAsync(request);
+            var response = await Maps.Routes.QueryAsync(request);
 
             Assert.That(response.Routes, Is.Not.Null.And.Not.Empty);
             Assert.That(response.Routes![0].Legs, Has.Count.EqualTo(2),
@@ -58,7 +58,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 RoutingPreference = RoutingPreference.TrafficAware,
             };
 
-            var response = await GoogleMaps.Routes.QueryAsync(request);
+            var response = await Maps.Routes.QueryAsync(request);
 
             Assert.That(response.Routes, Is.Not.Null.And.Not.Empty);
             Assert.That(response.Routes![0].DurationSeconds, Is.Not.Null.And.GreaterThan(0));
@@ -75,7 +75,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 ComputeAlternativeRoutes = true,
             };
 
-            var response = await GoogleMaps.Routes.QueryAsync(request);
+            var response = await Maps.Routes.QueryAsync(request);
 
             Assert.That(response.Routes, Is.Not.Null.And.Not.Empty);
             // Routes API returns 1-3 routes when alternatives are enabled; can't strictly require >1
@@ -94,7 +94,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 RouteModifiers = new RouteModifiers { AvoidTolls = true },
             };
 
-            var response = await GoogleMaps.Routes.QueryAsync(request);
+            var response = await Maps.Routes.QueryAsync(request);
 
             Assert.That(response.Routes, Is.Not.Null.And.Not.Empty);
             Assert.That(response.Routes![0].DistanceMeters, Is.Not.Null.And.GreaterThan(0));

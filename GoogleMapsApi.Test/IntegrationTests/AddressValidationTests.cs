@@ -26,7 +26,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 },
             };
 
-            var response = await GoogleMaps.AddressValidation.QueryAsync(request);
+            var response = await Maps.AddressValidation.QueryAsync(request);
 
             Assert.That(response.Result, Is.Not.Null);
             Assert.That(response.ResponseId, Is.Not.Null.And.Not.Empty);
@@ -49,7 +49,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 },
             };
 
-            var response = await GoogleMaps.AddressValidation.QueryAsync(request);
+            var response = await Maps.AddressValidation.QueryAsync(request);
 
             Assert.That(response.Result, Is.Not.Null);
             Assert.That(
@@ -74,7 +74,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 },
             };
 
-            var response = await GoogleMaps.AddressValidation.QueryAsync(request);
+            var response = await Maps.AddressValidation.QueryAsync(request);
 
             Assert.That(response.Result!.UspsData, Is.Not.Null, "USPS CASS data should be populated for a US address with EnableUspsCass=true.");
             Assert.That(response.Result.UspsData!.StandardizedAddress, Is.Not.Null);
@@ -84,7 +84,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public async Task Validate_RoundTrip_PreviousResponseId_GroupsCallsIntoSession()
         {
-            var first = await GoogleMaps.AddressValidation.QueryAsync(new AddressValidationRequest
+            var first = await Maps.AddressValidation.QueryAsync(new AddressValidationRequest
             {
                 ApiKey = ApiKey,
                 Address = new PostalAddress
@@ -99,7 +99,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             Assert.That(first.ResponseId, Is.Not.Null.And.Not.Empty);
 
-            var corrected = await GoogleMaps.AddressValidation.QueryAsync(new AddressValidationRequest
+            var corrected = await Maps.AddressValidation.QueryAsync(new AddressValidationRequest
             {
                 ApiKey = ApiKey,
                 PreviousResponseId = first.ResponseId,

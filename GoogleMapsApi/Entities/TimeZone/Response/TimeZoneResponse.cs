@@ -22,16 +22,13 @@ namespace GoogleMapsApi.Entities.TimeZone.Response
         /// DstOffset: the offset for daylight-savings time in seconds. This will be zero if the time zone is not in Daylight Savings Time during the specified timestamp.
         /// </summary>
         [JsonPropertyName("dstOffset")]
-        public double DstOffSet { get; set; }
-
-        [Obsolete("Use DstOffSet instead.")]
-        public double OffSet { get { return DstOffSet; }  }
+        public double DstOffset { get; set; }
 
         /// <summary>
         /// RawOffset: the offset from UTC (in seconds) for the given location. This does not take into effect daylight savings.
         /// </summary>
         [JsonPropertyName("rawOffset")]
-        public double RawOffSet { get; set; }
+        public double RawOffset { get; set; }
         
         /// <summary>
         /// TimeZoneId: a string containing the ID of the time zone, such as "America/Los_Angeles" or "Australia/Sydney".

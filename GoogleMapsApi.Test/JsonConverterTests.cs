@@ -4,7 +4,6 @@ using GoogleMapsApi.Engine.JsonConverters;
 using GoogleMapsApi.Engine;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Response;
-using GoogleMapsApi.Entities.PlacesDetails.Response;
 using GoogleMapsApi.Entities.Directions.Request;
 using NUnit.Framework;
 
@@ -83,70 +82,6 @@ namespace GoogleMapsApi.Test
             
             Assert.Throws<JsonException>(() => 
                 JsonSerializer.Deserialize<GoogleMapsApi.Entities.Directions.Response.Duration>(json, _options));
-        }
-
-        #endregion
-
-        #region PriceLevelJsonConverter Tests
-
-        [Test]
-        public void PriceLevelJsonConverter_DeserializesNumericValue()
-        {
-            var json = "2";
-            
-            var priceLevel = JsonSerializer.Deserialize<PriceLevel?>(json, _options);
-            
-            Assert.That(priceLevel, Is.EqualTo(PriceLevel.Moderate));
-        }
-
-        [Test]
-        public void PriceLevelJsonConverter_DeserializesStringValue()
-        {
-            var json = "\"3\"";
-            
-            var priceLevel = JsonSerializer.Deserialize<PriceLevel?>(json, _options);
-            
-            Assert.That(priceLevel, Is.EqualTo(PriceLevel.Expensive));
-        }
-
-        [Test]
-        public void PriceLevelJsonConverter_DeserializesNullValue()
-        {
-            var json = "null";
-            
-            var priceLevel = JsonSerializer.Deserialize<PriceLevel?>(json, _options);
-            
-            Assert.That(priceLevel, Is.Null);
-        }
-
-        [Test]
-        public void PriceLevelJsonConverter_DeserializesEmptyString()
-        {
-            var json = "\"\"";
-            
-            var priceLevel = JsonSerializer.Deserialize<PriceLevel?>(json, _options);
-            
-            Assert.That(priceLevel, Is.Null);
-        }
-
-        [Test]
-        public void PriceLevelJsonConverter_SerializesToString()
-        {
-            PriceLevel? priceLevel = PriceLevel.VeryExpensive;
-            
-            var json = JsonSerializer.Serialize(priceLevel, _options);
-            
-            Assert.That(json, Is.EqualTo("\"4\""));
-        }
-
-        [Test]
-        public void PriceLevelJsonConverter_SerializesNullToNull()
-        {
-            PriceLevel? priceLevel = null;
-            
-            var json = JsonSerializer.Serialize(priceLevel, _options);
-            
-            Assert.That(json, Is.EqualTo("null"));
         }
 
         #endregion

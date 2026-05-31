@@ -104,17 +104,6 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// </summary>
 		public IList<MapStyleRule>? Styles { get; set; }
 
-		/// <summary>
-		/// (obsolete) sensor specifies whether the application requesting the static map is using a sensor to determine the user's
-		/// location.
-		/// </summary>
-		/// <remarks>
-		/// The Google Static Maps API previously required that you include the sensor parameter to indicate whether your application used a sensor to determine the user's location.
-		/// This parameter is no longer required.
-		/// </remarks>
-		[Obsolete]
-		public bool Sensor { get; set; }
-
 		public bool IsSSL { get; set; }
 
         /// <summary>

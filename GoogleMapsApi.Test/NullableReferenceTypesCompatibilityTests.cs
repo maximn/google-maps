@@ -4,8 +4,6 @@ using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
-using GoogleMapsApi.Entities.PlacesDetails.Request;
-using GoogleMapsApi.Entities.PlacesDetails.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Request;
 using GoogleMapsApi.Entities.DistanceMatrix.Response;
 using GoogleMapsApi.Entities.Common;
@@ -86,35 +84,6 @@ namespace GoogleMapsApi.Test
             };
 
             Assert.DoesNotThrow(() => request2.GetUri());
-        }
-
-        [Test]
-        public void PlacesDetailsRequest_RequiredAndOptionalProperties_HandleCorrectly()
-        {
-            // Test with minimum required properties
-            var request = new PlacesDetailsRequest
-            {
-                PlaceId = "ChIJN1t_tDeuEmsRUsoyG83frY4", // Google Sydney office
-                ApiKey = "test_key"
-            };
-
-            Assert.DoesNotThrow(() =>
-            {
-                var uri = request.GetUri();
-                Assert.That(uri.ToString(), Contains.Substring("placeid="));
-            });
-
-            // Test with optional nullable properties
-            request.Language = null;
-            request.SessionToken = null;
-
-            Assert.DoesNotThrow(() => request.GetUri());
-
-            // Test with populated optional properties
-            request.Language = "en";
-            request.SessionToken = "test_session_token";
-
-            Assert.DoesNotThrow(() => request.GetUri());
         }
 
         [Test]
@@ -215,40 +184,6 @@ namespace GoogleMapsApi.Test
                 Assert.That(result.FormattedAddress, Is.EqualTo("Test Address"));
                 Assert.That(result.Geometry, Is.Not.Null);
                 Assert.That(result.PlaceId, Is.EqualTo("test_place_id"));
-            });
-        }
-
-        [Test]
-        public void PlacesDetailsResponse_OptionalProperties_HandleNulls()
-        {
-            // Test response with many optional null properties
-            var minimalPlaceJson = """
-            {
-                "status": "OK",
-                "result": {
-                    "place_id": "test_place_id",
-                    "name": "Test Place",
-                    "formatted_address": "Test Address"
-                }
-            }
-            """;
-
-            Assert.DoesNotThrow(() =>
-            {
-                var response = JsonSerializer.Deserialize<PlacesDetailsResponse>(minimalPlaceJson, _options);
-                Assert.That(response, Is.Not.Null);
-                Assert.That(response.Status, Is.EqualTo(GoogleMapsApi.Entities.PlacesDetails.Response.Status.OK));
-                Assert.That(response.Result, Is.Not.Null);
-                Assert.That(response.Result.PlaceId, Is.EqualTo("test_place_id"));
-                Assert.That(response.Result.Name, Is.EqualTo("Test Place"));
-                
-                // These should be null/default and not cause issues
-                Assert.DoesNotThrow(() =>
-                {
-                    var photos = response.Result.Photos;
-                    var openingHours = response.Result.OpeningHours;
-                    var geometry = response.Result.Geometry;
-                });
             });
         }
 
@@ -414,7 +349,6 @@ namespace GoogleMapsApi.Test
             {
                 typeof(DirectionsResponse),
                 typeof(GeocodingResponse),
-                typeof(PlacesDetailsResponse),
                 typeof(DistanceMatrixResponse)
             };
 
@@ -445,7 +379,6 @@ namespace GoogleMapsApi.Test
             {
                 typeof(DirectionsRequest),
                 typeof(GeocodingRequest),
-                typeof(PlacesDetailsRequest),
                 typeof(DistanceMatrixRequest)
             };
 
@@ -485,9 +418,6 @@ namespace GoogleMapsApi.Test
                     break;
                 case GeocodingRequest geo:
                     geo.Address = "test_address";
-                    break;
-                case PlacesDetailsRequest places:
-                    places.PlaceId = "test_place_id";
                     break;
                 case DistanceMatrixRequest dist:
                     dist.Origins = new[] { "Test Origin" };
