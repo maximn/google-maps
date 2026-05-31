@@ -172,7 +172,16 @@ These were obsolete and are deleted in 2.0:
 | --- | --- |
 | `MapsBaseRequest.Sensor` | None — Google dropped the `sensor` parameter years ago; it was never sent. Delete the assignment. |
 | `StaticMapRequest.Sensor` | None — same as above. |
-| `TimeZoneResponse.OffSet` | Use `TimeZoneResponse.DstOffSet` (same value; `OffSet` was an alias). |
+| `TimeZoneResponse.OffSet` | Use `TimeZoneResponse.DstOffset` (same value; `OffSet` was an alias). |
+
+### Renamed members
+
+These were renamed to fix casing (`...OffSet` → `...Offset`). The JSON wire mapping is unchanged; only the C# property name changed:
+
+| Before (1.x) | After (2.0) |
+| --- | --- |
+| `TimeZoneResponse.DstOffSet` | `TimeZoneResponse.DstOffset` |
+| `TimeZoneResponse.RawOffSet` | `TimeZoneResponse.RawOffset` |
 
 ---
 
@@ -193,8 +202,8 @@ These were obsolete and are deleted in 2.0:
 - await GoogleMaps.PlaceAutocomplete.QueryAsync(new PlaceAutocompleteRequest { Input = i })
 + await maps.PlacesAutocompleteNew.QueryAsync(new AutocompleteRequest         { Input = i })
 
-- response.DstOffSet  // via TimeZoneResponse.OffSet (removed)
-+ response.DstOffSet  // unchanged property, use directly
+- response.DstOffSet  // removed: TimeZoneResponse.OffSet alias + old DstOffSet casing
++ response.DstOffset  // renamed: ...OffSet -> ...Offset
 ```
 
 Still stuck? Open an issue at <https://github.com/maximn/google-maps/issues>.

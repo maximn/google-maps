@@ -18,16 +18,7 @@ namespace GoogleMapsApi.Engine
 		where TRequest : MapsBaseRequest, new()
 		where TResponse : IResponseFor<TRequest>
 	{
-        internal static event UriCreatedDelegate? OnUriCreated;
-        internal static event RawResponseReceivedDelegate? OnRawResponseReceived;
-
-		private static readonly HttpClient client = new HttpClient();
 		private static readonly JsonSerializerOptions jsonOptions = JsonSerializerConfiguration.CreateOptions();
-
-		protected internal static Task<TResponse> QueryGoogleAPIAsync(TRequest request, TimeSpan timeout, CancellationToken token = default)
-		{
-			return QueryGoogleAPIAsync(client, request, timeout, token, OnUriCreated, OnRawResponseReceived);
-		}
 
 		internal static async Task<TResponse> QueryGoogleAPIAsync(
 			HttpClient httpClient,
