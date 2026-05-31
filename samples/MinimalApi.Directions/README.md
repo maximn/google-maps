@@ -18,7 +18,7 @@ The API key is sourced from the `GOOGLE_API_KEY` env var, falling back to the `G
 
 ## What this demonstrates
 
-- [`GoogleMaps.Directions`](../../GoogleMapsApi/GoogleMaps.cs) facade entry point
+- [`IGoogleMapsClient`](../../GoogleMapsApi/IGoogleMapsClient.cs) instance client (`.Directions`) registered via `AddHttpClient<IGoogleMapsClient, GoogleMapsClient>()` and injected into the endpoint
 - [`DirectionsRequest`](../../GoogleMapsApi/Entities/Directions/Request/DirectionsRequest.cs)
 - [`DirectionsResponse`](../../GoogleMapsApi/Entities/Directions/Response/DirectionsResponse.cs) (route summary, legs, distance, duration)
 - Async-first usage inside an ASP.NET Core minimal API handler

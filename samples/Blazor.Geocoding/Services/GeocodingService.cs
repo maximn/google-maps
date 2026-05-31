@@ -6,9 +6,14 @@ namespace Samples.Blazor.Geocoding.Services;
 
 public sealed class GeocodingService
 {
+    private readonly IGoogleMapsClient _maps;
     private readonly string? _apiKey;
 
-    public GeocodingService(string? apiKey) => _apiKey = apiKey;
+    public GeocodingService(IGoogleMapsClient maps, string? apiKey)
+    {
+        _maps = maps;
+        _apiKey = apiKey;
+    }
 
     public bool HasApiKey => !string.IsNullOrWhiteSpace(_apiKey);
 
@@ -20,6 +25,6 @@ public sealed class GeocodingService
             ApiKey = _apiKey,
         };
 
-        return await GoogleMaps.Geocode.QueryAsync(request, ct);
+        return await _maps.Geocode.QueryAsync(request, ct);
     }
 }

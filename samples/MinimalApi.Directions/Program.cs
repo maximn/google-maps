@@ -3,9 +3,13 @@ using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Register the instance-based client with IHttpClientFactory (the recommended pattern).
+builder.Services.AddHttpClient<IGoogleMapsClient, GoogleMapsClient>();
+
 var app = builder.Build();
 
-app.MapGet("/directions", async (string origin, string destination, IConfiguration config) =>
+app.MapGet("/directions", async (string origin, string destination, IGoogleMapsClient maps, IConfiguration config) =>
 {
     string? apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY")
                      ?? config["GoogleApiKey"];
@@ -29,7 +33,7 @@ app.MapGet("/directions", async (string origin, string destination, IConfigurati
         ApiKey = apiKey,
     };
 
-    DirectionsResponse response = await GoogleMaps.Directions.QueryAsync(request);
+    DirectionsResponse response = await maps.Directions.QueryAsync(request);
 
     if (response.Status != DirectionsStatusCodes.OK || response.Routes is null)
     {

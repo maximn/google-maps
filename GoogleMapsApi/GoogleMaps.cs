@@ -38,6 +38,7 @@ namespace GoogleMapsApi
     /// Static facade exposing strongly-typed accessors to every supported Google Maps Web Service.
     /// Each property returns a singleton engine that handles request execution for a specific API.
     /// </summary>
+    [Obsolete("The static GoogleMaps facade is deprecated and will be removed in 2.0.0. Use the instance-based IGoogleMapsClient / GoogleMapsClient instead — construct it with an HttpClient, or resolve it via IHttpClientFactory / dependency injection. See https://github.com/maximn/google-maps#readme")]
     public class GoogleMaps
 	{
 		/// <summary>Perform geocoding operations.</summary>

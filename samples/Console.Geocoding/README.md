@@ -16,7 +16,7 @@ GOOGLE_API_KEY=your_api_key dotnet run --project samples/Console.Geocoding
 
 ## What this demonstrates
 
-- [`GoogleMaps.Geocode`](../../GoogleMapsApi/GoogleMaps.cs) facade entry point
+- [`IGoogleMapsClient`](../../GoogleMapsApi/IGoogleMapsClient.cs) instance client (`.Geocode`) — the recommended entry point
 - [`GeocodingRequest`](../../GoogleMapsApi/Entities/Geocoding/Request/GeocodingRequest.cs)
 - [`GeocodingResponse`](../../GoogleMapsApi/Entities/Geocoding/Response/GeocodingResponse.cs)
 - Async-first usage via `QueryAsync`
