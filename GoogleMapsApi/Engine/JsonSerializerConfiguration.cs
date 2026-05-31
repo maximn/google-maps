@@ -7,7 +7,7 @@ namespace GoogleMapsApi.Engine
     /// Provides consistent JsonSerializerOptions configuration for Google Maps API serialization.
     /// This ensures both production and test code use the same JSON serialization settings.
     /// </summary>
-    public static class JsonSerializerConfiguration
+    internal static class JsonSerializerConfiguration
     {
         /// <summary>
         /// Creates a configured JsonSerializerOptions instance with all necessary converters

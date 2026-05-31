@@ -7,7 +7,7 @@ namespace GoogleMapsApi.Engine.JsonConverters
     /// <summary>
     /// JSON converter for Duration entities that handles TimeSpan to seconds conversion
     /// </summary>
-    public class DurationJsonConverter<T> : JsonConverter<T> where T : class, new()
+    internal class DurationJsonConverter<T> : JsonConverter<T> where T : class, new()
     {
         public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

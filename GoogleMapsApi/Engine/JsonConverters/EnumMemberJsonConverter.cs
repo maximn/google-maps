@@ -12,7 +12,7 @@ namespace GoogleMapsApi.Engine.JsonConverters
     /// <summary>
     /// JSON converter for enums that respects EnumMember attributes with custom values
     /// </summary>
-    public class EnumMemberJsonConverter<TEnum> : JsonConverter<TEnum> where TEnum : struct, Enum
+    internal class EnumMemberJsonConverter<TEnum> : JsonConverter<TEnum> where TEnum : struct, Enum
     {
         private static readonly ConcurrentDictionary<Type, Dictionary<TEnum, string>> EnumToStringCache 
             = new ConcurrentDictionary<Type, Dictionary<TEnum, string>>();
@@ -111,7 +111,7 @@ namespace GoogleMapsApi.Engine.JsonConverters
     /// <summary>
     /// Factory for creating EnumMember JSON converters
     /// </summary>
-    public class EnumMemberJsonConverterFactory : JsonConverterFactory
+    internal class EnumMemberJsonConverterFactory : JsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
         {

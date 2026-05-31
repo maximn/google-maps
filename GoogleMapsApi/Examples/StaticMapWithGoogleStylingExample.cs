@@ -11,7 +11,7 @@ namespace GoogleMapsApi.Examples
     /// Example demonstrating how to use Google Styling Wizard JSON with StaticMapRequest
     /// This addresses GitHub issue #141: StaticMapRequest: how to add "style"?
     /// </summary>
-    public class StaticMapWithGoogleStylingExample
+    internal class StaticMapWithGoogleStylingExample
     {
         public static void Main()
         {
