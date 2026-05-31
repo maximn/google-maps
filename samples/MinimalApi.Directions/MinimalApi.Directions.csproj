@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\GoogleMapsApi\GoogleMapsApi.csproj" />
+    <ProjectReference Include="..\..\GoogleMapsApi.Extensions.DependencyInjection\GoogleMapsApi.Extensions.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>

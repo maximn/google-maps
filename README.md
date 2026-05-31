@@ -157,10 +157,18 @@ Console.WriteLine($"{route.DistanceMeters} m, {route.DurationSeconds} s");
 
 `GoogleMapsClient` is the instance-based entry point that accepts an injected `HttpClient`. This is the standard pattern for ASP.NET Core, minimal APIs, and worker services — it plays nicely with `IHttpClientFactory`, per-instance event handlers, and an ambient API key that is auto-filled into requests when not set explicitly.
 
+The companion package `GoogleMapsApi.Extensions.DependencyInjection` provides an `AddGoogleMaps`
+extension that registers the client through `IHttpClientFactory` and binds options in one call:
+
+``` bash
+dotnet add package GoogleMapsApi.Extensions.DependencyInjection
+```
+
 ``` C#
 // Register once at startup
-services.AddHttpClient<IGoogleMapsClient, GoogleMapsClient>();
-services.AddSingleton(new GoogleMapsClientOptions { ApiKey = "your-google-maps-api-key" });
+services.AddGoogleMaps(options => options.ApiKey = "your-google-maps-api-key");
+// …or bind from configuration (e.g. a "GoogleMaps" section in appsettings.json):
+services.AddGoogleMaps(builder.Configuration.GetSection("GoogleMaps"));
 
 // Inject and use
 public class GeocodingService(IGoogleMapsClient maps)
@@ -168,6 +176,17 @@ public class GeocodingService(IGoogleMapsClient maps)
     public Task<GeocodingResponse> LookupAsync(string address)
         => maps.Geocode.QueryAsync(new GeocodingRequest { Address = address });
 }
+```
+
+`AddGoogleMaps` returns an `IHttpClientBuilder`, so you can chain resilience and other
+`HttpClient` configuration — e.g. `.AddStandardResilienceHandler()` from
+`Microsoft.Extensions.Http.Resilience`.
+
+Prefer not to take the extra package? The core library still works with hand-wired DI:
+
+``` C#
+services.AddHttpClient<IGoogleMapsClient, GoogleMapsClient>();
+services.AddSingleton(new GoogleMapsClientOptions { ApiKey = "your-google-maps-api-key" });
 ```
 
 Without DI:

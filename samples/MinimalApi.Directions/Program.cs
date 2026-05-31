@@ -4,16 +4,16 @@ using GoogleMapsApi.Entities.Directions.Response;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register the instance-based client with IHttpClientFactory (the recommended pattern).
-builder.Services.AddHttpClient<IGoogleMapsClient, GoogleMapsClient>();
+string? apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY")
+                 ?? builder.Configuration["GoogleApiKey"];
+
+// Register IGoogleMapsClient (IHttpClientFactory-backed) and the ambient API key in one call.
+builder.Services.AddGoogleMaps(options => options.ApiKey = apiKey);
 
 var app = builder.Build();
 
-app.MapGet("/directions", async (string origin, string destination, IGoogleMapsClient maps, IConfiguration config) =>
+app.MapGet("/directions", async (string origin, string destination, IGoogleMapsClient maps) =>
 {
-    string? apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY")
-                     ?? config["GoogleApiKey"];
-
     if (string.IsNullOrWhiteSpace(apiKey))
     {
         return Results.Problem(
@@ -26,11 +26,11 @@ app.MapGet("/directions", async (string origin, string destination, IGoogleMapsC
         return Results.BadRequest(new { error = "origin and destination are required" });
     }
 
+    // No per-request ApiKey needed — it's auto-filled from the ambient options above.
     var request = new DirectionsRequest
     {
         Origin = origin,
         Destination = destination,
-        ApiKey = apiKey,
     };
 
     DirectionsResponse response = await maps.Directions.QueryAsync(request);
