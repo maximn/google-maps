@@ -8,18 +8,6 @@ using GoogleMapsApi.Entities.Elevation.Request;
 using GoogleMapsApi.Entities.Elevation.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
-using GoogleMapsApi.Entities.PlaceAutocomplete.Request;
-using GoogleMapsApi.Entities.PlaceAutocomplete.Response;
-using GoogleMapsApi.Entities.Places.Request;
-using GoogleMapsApi.Entities.Places.Response;
-using GoogleMapsApi.Entities.PlacesDetails.Request;
-using GoogleMapsApi.Entities.PlacesDetails.Response;
-using GoogleMapsApi.Entities.PlacesFind.Request;
-using GoogleMapsApi.Entities.PlacesFind.Response;
-using GoogleMapsApi.Entities.PlacesNearBy.Request;
-using GoogleMapsApi.Entities.PlacesNearBy.Response;
-using GoogleMapsApi.Entities.PlacesText.Request;
-using GoogleMapsApi.Entities.PlacesText.Response;
 using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.PlacesNew.Request;
@@ -46,32 +34,8 @@ namespace GoogleMapsApi
         /// <summary>Perform elevation operations.</summary>
         IEngineFacade<ElevationRequest, ElevationResponse> Elevation { get; }
 
-        /// <summary>Perform places operations.</summary>
-        [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. IGoogleMapsClient.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
-        IEngineFacade<PlacesRequest, PlacesResponse> Places { get; }
-
-        /// <summary>Perform places text search operations.</summary>
-        [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. IGoogleMapsClient.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
-        IEngineFacade<PlacesTextRequest, PlacesTextResponse> PlacesText { get; }
-
         /// <summary>Retrieve time zone data for a coordinate.</summary>
         IEngineFacade<TimeZoneRequest, TimeZoneResponse> TimeZone { get; }
-
-        /// <summary>Perform places details operations.</summary>
-        [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. IGoogleMapsClient.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
-        IEngineFacade<PlacesDetailsRequest, PlacesDetailsResponse> PlacesDetails { get; }
-
-        /// <summary>Perform place autocomplete operations.</summary>
-        [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. IGoogleMapsClient.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
-        IEngineFacade<PlaceAutocompleteRequest, PlaceAutocompleteResponse> PlaceAutocomplete { get; }
-
-        /// <summary>Perform near-by places operations.</summary>
-        [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. IGoogleMapsClient.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
-        IEngineFacade<PlacesNearByRequest, PlacesNearByResponse> PlacesNearBy { get; }
-
-        /// <summary>Perform find-place searches.</summary>
-        [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. IGoogleMapsClient.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
-        IEngineFacade<PlacesFindRequest, PlacesFindResponse> PlacesFind { get; }
 
         /// <summary>Retrieve duration and distance values based on the recommended route between start and end points.</summary>
         IEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse> DistanceMatrix { get; }

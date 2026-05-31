@@ -24,9 +24,6 @@ namespace GoogleMapsApi.Entities.TimeZone.Response
         [JsonPropertyName("dstOffset")]
         public double DstOffSet { get; set; }
 
-        [Obsolete("Use DstOffSet instead.")]
-        public double OffSet { get { return DstOffSet; }  }
-
         /// <summary>
         /// RawOffset: the offset from UTC (in seconds) for the given location. This does not take into effect daylight savings.
         /// </summary>

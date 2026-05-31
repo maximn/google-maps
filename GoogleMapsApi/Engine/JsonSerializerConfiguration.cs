@@ -25,7 +25,6 @@ namespace GoogleMapsApi.Engine
             options.Converters.Add(new EnumMemberJsonConverterFactory());
             
             // Add custom converters
-            options.Converters.Add(new PriceLevelJsonConverter());
             options.Converters.Add(new OverviewPolylineJsonConverter());
             
             // Add Duration converters for specific types

@@ -2,7 +2,7 @@
 [![NuGet Version](https://img.shields.io/nuget/v/GoogleMapsApi.svg)](https://www.nuget.org/packages/GoogleMapsApi/)
 [![Build Status](https://github.com/maximn/google-maps/actions/workflows/dotnet.yml/badge.svg)](https://github.com/maximn/google-maps/actions/workflows/dotnet.yml)
 [![CodeQL](https://github.com/maximn/google-maps/actions/workflows/codeql.yml/badge.svg)](https://github.com/maximn/google-maps/actions/workflows/codeql.yml)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/maximn/google-maps/badge)](https://scorecard.dev/viewer/?uri=github.com/maximn/google-maps)
+[![OpenSSF Scorecard](https://img.shields.io/ossf-scorecard/github.com/maximn/google-maps?label=openssf%20scorecard)](https://scorecard.dev/viewer/?uri=github.com/maximn/google-maps)
 [![License: BSD-2-Clause](https://img.shields.io/badge/License-BSD_2--Clause-blue.svg)](LICENSE.md)
 [![.NET](https://img.shields.io/badge/.NET-net10.0%20%7C%20net8.0%20%7C%20netstandard2.0-512BD4)](https://dotnet.microsoft.com/)
 
@@ -22,8 +22,7 @@ A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs �
 | [Distance Matrix](https://developers.google.com/maps/documentation/distance-matrix) | Travel time and distance between multiple origins/destinations |
 | [Elevation](https://developers.google.com/maps/documentation/elevation) | Elevation data for individual locations or paths |
 | [Time Zone](https://developers.google.com/maps/documentation/timezone) | Time zone information for any coordinate |
-| [Places (New)](https://developers.google.com/maps/documentation/places/web-service/op-overview) | Modern Places API — Text Search, Nearby Search, Place Details, Autocomplete, Place Photos (replaces legacy Places) |
-| [Places](https://developers.google.com/maps/documentation/places/web-service) | _Deprecated (frozen by Google)_ — legacy Find / Nearby / Text search, Place Details, Autocomplete. Use Places (New) instead |
+| [Places (New)](https://developers.google.com/maps/documentation/places/web-service/op-overview) | Modern Places API — Text Search, Nearby Search, Place Details, Autocomplete, Place Photos |
 | [Address Validation](https://developers.google.com/maps/documentation/address-validation) | Validate a postal address with component-level confirmation; USPS CASS for US/PR |
 | [Static Maps](https://developers.google.com/maps/documentation/maps-static) | Generate URLs for static map images with markers, paths, and styles |
 
@@ -68,7 +67,7 @@ For more configuration options and detailed guides, see the [wiki](https://githu
 ## Code Examples
 
 > [!IMPORTANT]
-> The static `GoogleMaps` facade was **removed in 2.0.0**. Use the instance-based `IGoogleMapsClient` / `GoogleMapsClient` instead — construct it with an `HttpClient` (directly or via `IHttpClientFactory` / dependency injection). See [Instance-based client](#instance-based-client-ihttpclientfactory-friendly) below. Migration is mechanical: replace `GoogleMaps.Xxx.QueryAsync(...)` with `client.Xxx.QueryAsync(...)` on a `GoogleMapsClient` instance.
+> The static `GoogleMaps` facade was **removed in 2.0.0**, along with the legacy Places API (use Places (New)). Use the instance-based `IGoogleMapsClient` / `GoogleMapsClient` instead — construct it with an `HttpClient` (directly or via `IHttpClientFactory` / dependency injection). See [Instance-based client](#instance-based-client-ihttpclientfactory-friendly) below. Upgrading from 1.x? See the **[2.0 migration guide](MIGRATION.md)**.
 
 ### Basic Usage (async-first)
 

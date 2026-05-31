@@ -23,17 +23,6 @@ namespace GoogleMapsApi.Entities.Common
 
 
         /// <summary>
-        /// True to indicate that request comes from a device with a location sensor, otherwise false. 
-        /// </summary>
-        /// <remarks>
-        /// The Google Maps API previously required that you include the sensor parameter to indicate whether your application used a sensor to determine the user's location.
-        /// This parameter is no longer required.
-        /// See the geocoding API reference at https://developers.google.com/maps/documentation/geocoding/.
-        /// </remarks>
-        [Obsolete]
-        public bool Sensor { get; set; }
-
-        /// <summary>
         /// True to use use the https protocol; false to use http. The default is false.
         /// </summary>
         public virtual bool IsSSL

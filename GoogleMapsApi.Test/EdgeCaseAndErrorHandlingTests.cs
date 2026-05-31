@@ -3,9 +3,7 @@ using System.Text.Json;
 using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
-using GoogleMapsApi.Entities.PlacesDetails.Request;
 using GoogleMapsApi.Entities.Common;
-using GoogleMapsApi.Entities.PlacesDetails.Response;
 using GoogleMapsApi.Engine.JsonConverters;
 using NUnit.Framework;
 using System.Threading.Tasks;
@@ -527,35 +525,6 @@ namespace GoogleMapsApi.Test
                     var deserialized = JsonSerializer.Deserialize<TravelMode>(json, _options);
                     Assert.That(deserialized, Is.EqualTo(mode));
                 }, $"Enum conversion failed for TravelMode.{mode}");
-            }
-        }
-
-        [Test]
-        public void PriceLevelConverter_AllValidValues_HandledCorrectly()
-        {
-            var validPriceLevels = new[]
-            {
-                (0, PriceLevel.Free),
-                (1, PriceLevel.Inexpensive), 
-                (2, PriceLevel.Moderate),
-                (3, PriceLevel.Expensive),
-                (4, PriceLevel.VeryExpensive)
-            };
-
-            foreach (var (value, expectedLevel) in validPriceLevels)
-            {
-                Assert.DoesNotThrow(() =>
-                {
-                    // Test numeric input
-                    var numericJson = value.ToString();
-                    var numericResult = JsonSerializer.Deserialize<PriceLevel?>(numericJson, _options);
-                    Assert.That(numericResult, Is.EqualTo(expectedLevel));
-                    
-                    // Test string input
-                    var stringJson = $"\"{value}\"";
-                    var stringResult = JsonSerializer.Deserialize<PriceLevel?>(stringJson, _options);
-                    Assert.That(stringResult, Is.EqualTo(expectedLevel));
-                }, $"Price level conversion failed for value {value}");
             }
         }
 
