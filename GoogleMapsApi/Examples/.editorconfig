@@ -1,6 +1,0 @@
-# The bundled example snippets intentionally demonstrate the legacy static GoogleMaps
-# facade, which is now [Obsolete]. Suppress CS0618 for this folder so the examples keep
-# compiling cleanly without warning noise.
-# TODO(2.0): migrate these examples to the instance-based IGoogleMapsClient and delete this file.
-[*.cs]
-dotnet_diagnostic.CS0618.severity = none
