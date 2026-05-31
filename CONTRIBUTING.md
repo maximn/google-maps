@@ -34,6 +34,39 @@ via the `GOOGLE_API_KEY` environment variable, or copy
 `GoogleMapsApi.Test/appsettings.template.json` to `appsettings.json` and fill in the value.
 Note that running the test suite consumes your Google API quota.
 
+### Billable tests (Places API)
+
+Some Google APIs — currently **Places** — exceed the free quota and incur charges. Their
+integration fixtures are tagged `[BillableTest]` (category `Billable`, see
+`GoogleMapsApi.Test/Utils/BillableTestAttribute.cs`) and are **skipped by default** so a plain
+`dotnet test` never runs up the bill. Everything else runs as usual.
+
+Opt in only when you specifically need them, by setting the `RUN_BILLABLE_TESTS` environment
+variable to a truthy value (`1`, `true`, or `yes`):
+
+```bash
+# Run the full suite, including billable tests
+RUN_BILLABLE_TESTS=true dotnet test
+
+# Run only the billable tests
+RUN_BILLABLE_TESTS=true dotnet test --filter "TestCategory=Billable"
+```
+
+When adding a fixture that calls a billable API, annotate it with `[BillableTest]` so it stays
+off by default.
+
+#### Running billable tests in CI
+
+The same opt-in is wired into the `.NET` GitHub Actions workflow (`.github/workflows/dotnet.yml`),
+which keeps billable tests skipped on ordinary push/PR runs. Two ways to run them on demand:
+
+- **PR label** — add the `run-billable-tests` label to a pull request. Applying the label starts a
+  run, and it stays in effect while the label is present. (Labels can only be applied by
+  collaborators, and the workflow only runs for same-repo branches, so external PRs can't trigger
+  paid tests.)
+- **Manual run** — from the **Actions** tab, open the **.NET** workflow, click **Run workflow**, and
+  check **Run billable API tests (Places)**.
+
 ## Style
 
 Run `dotnet format` before pushing. It applies the repo's .editorconfig rules and keeps

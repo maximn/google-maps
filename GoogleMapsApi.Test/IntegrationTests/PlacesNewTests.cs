@@ -2,11 +2,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using GoogleMapsApi.Entities.PlacesNew.Common;
 using GoogleMapsApi.Entities.PlacesNew.Request;
+using GoogleMapsApi.Test.Utils;
 using NUnit.Framework;
 
 namespace GoogleMapsApi.Test.IntegrationTests
 {
     [TestFixture]
+    [BillableTest]
     public class PlacesNewTests : BaseTestIntegration
     {
         [Test]

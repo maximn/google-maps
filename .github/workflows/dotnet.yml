@@ -4,6 +4,8 @@ on:
   push:
     branches: [ master ]
   pull_request:
+    # 'labeled' lets applying the run-billable-tests label start a run on demand.
+    types: [opened, synchronize, reopened, labeled]
   workflow_dispatch:
     inputs:
       frameworks:
@@ -15,6 +17,11 @@ on:
           - 'net10.0'
           - 'net8.0'
           - 'both'
+      run_billable:
+        description: 'Run billable API tests (Places) — counts against paid quota'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -51,11 +58,15 @@ jobs:
       run: dotnet test --no-build --verbosity normal --framework net8.0 --logger "junit;LogFilePath=test-results/{assembly}.net8.0.xml"
       env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          # Enabled by the manual Run-workflow checkbox OR a run-billable-tests label on the PR.
+          RUN_BILLABLE_TESTS: ${{ inputs.run_billable || contains(github.event.pull_request.labels.*.name, 'run-billable-tests') }}
     - name: Test (net10.0)
       if: github.event_name != 'workflow_dispatch' || inputs.frameworks == 'net10.0' || inputs.frameworks == 'both'
       run: dotnet test --no-build --verbosity normal --framework net10.0 --logger "junit;LogFilePath=test-results/{assembly}.net10.0.xml"
       env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          # Enabled by the manual Run-workflow checkbox OR a run-billable-tests label on the PR.
+          RUN_BILLABLE_TESTS: ${{ inputs.run_billable || contains(github.event.pull_request.labels.*.name, 'run-billable-tests') }}
     - name: TestGlance
       if: always()
       uses: testglance/action@84cc24dfdf51e14f1b250bea788cdf2fc182d871  # v1
