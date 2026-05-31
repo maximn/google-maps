@@ -1,0 +1,1827 @@
+#nullable enable
+GoogleMapsApi.Engine.RawResponseReceivedDelegate
+GoogleMapsApi.Engine.UriCreatedDelegate
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.Address.get -> GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress!
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.Address.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.AddressValidationRequest() -> void
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.EnableUspsCass.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.EnableUspsCass.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.LanguageOptions.get -> GoogleMapsApi.Entities.AddressValidation.Request.LanguageOptions?
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.LanguageOptions.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.PreviousResponseId.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.PreviousResponseId.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.SessionToken.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.SessionToken.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.LanguageOptions
+GoogleMapsApi.Entities.AddressValidation.Request.LanguageOptions.LanguageOptions() -> void
+GoogleMapsApi.Entities.AddressValidation.Request.LanguageOptions.ReturnEnglishLatinAddress.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Request.LanguageOptions.ReturnEnglishLatinAddress.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.AddressLines.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.AddressLines.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.AdministrativeArea.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.AdministrativeArea.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.LanguageCode.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.LanguageCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.Locality.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.Locality.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.Organization.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.Organization.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.PostalAddress() -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.PostalCode.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.PostalCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.Recipients.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.Recipients.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.RegionCode.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.RegionCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.Revision.get -> int?
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.Revision.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.SortingCode.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.SortingCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.Sublocality.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress.Sublocality.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.AddressComponent() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.ComponentName.get -> GoogleMapsApi.Entities.AddressValidation.Response.ComponentName?
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.ComponentName.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.ComponentType.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.ComponentType.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.ConfirmationLevel.get -> GoogleMapsApi.Entities.AddressValidation.Response.ConfirmationLevel
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.ConfirmationLevel.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.Inferred.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.Inferred.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.Replaced.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.Replaced.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.SpellCorrected.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.SpellCorrected.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.Unexpected.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent.Unexpected.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressMetadata
+GoogleMapsApi.Entities.AddressValidation.Response.AddressMetadata.AddressMetadata() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressMetadata.Business.get -> bool?
+GoogleMapsApi.Entities.AddressValidation.Response.AddressMetadata.Business.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressMetadata.PoBox.get -> bool?
+GoogleMapsApi.Entities.AddressValidation.Response.AddressMetadata.PoBox.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressMetadata.Residential.get -> bool?
+GoogleMapsApi.Entities.AddressValidation.Response.AddressMetadata.Residential.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressValidationResponse
+GoogleMapsApi.Entities.AddressValidation.Response.AddressValidationResponse.AddressValidationResponse() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressValidationResponse.ResponseId.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.AddressValidationResponse.ResponseId.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.AddressValidationResponse.Result.get -> GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult?
+GoogleMapsApi.Entities.AddressValidation.Response.AddressValidationResponse.Result.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ComponentName
+GoogleMapsApi.Entities.AddressValidation.Response.ComponentName.ComponentName() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ComponentName.LanguageCode.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.ComponentName.LanguageCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ComponentName.Text.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.ComponentName.Text.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ConfirmationLevel
+GoogleMapsApi.Entities.AddressValidation.Response.ConfirmationLevel.Confirmed = 1 -> GoogleMapsApi.Entities.AddressValidation.Response.ConfirmationLevel
+GoogleMapsApi.Entities.AddressValidation.Response.ConfirmationLevel.UnconfirmedAndSuspicious = 3 -> GoogleMapsApi.Entities.AddressValidation.Response.ConfirmationLevel
+GoogleMapsApi.Entities.AddressValidation.Response.ConfirmationLevel.UnconfirmedButPlausible = 2 -> GoogleMapsApi.Entities.AddressValidation.Response.ConfirmationLevel
+GoogleMapsApi.Entities.AddressValidation.Response.ConfirmationLevel.Unspecified = 0 -> GoogleMapsApi.Entities.AddressValidation.Response.ConfirmationLevel
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.Bounds.get -> GoogleMapsApi.Entities.AddressValidation.Response.Viewport?
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.Bounds.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.FeatureSizeMeters.get -> double?
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.FeatureSizeMeters.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.Geocode() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.Location.get -> GoogleMapsApi.Entities.AddressValidation.Response.LatLng?
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.Location.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.PlaceId.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.PlaceId.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.PlaceTypes.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.PlaceTypes.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.PlusCode.get -> GoogleMapsApi.Entities.AddressValidation.Response.PlusCode?
+GoogleMapsApi.Entities.AddressValidation.Response.Geocode.PlusCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Granularity
+GoogleMapsApi.Entities.AddressValidation.Response.Granularity.Block = 4 -> GoogleMapsApi.Entities.AddressValidation.Response.Granularity
+GoogleMapsApi.Entities.AddressValidation.Response.Granularity.Other = 6 -> GoogleMapsApi.Entities.AddressValidation.Response.Granularity
+GoogleMapsApi.Entities.AddressValidation.Response.Granularity.Premise = 2 -> GoogleMapsApi.Entities.AddressValidation.Response.Granularity
+GoogleMapsApi.Entities.AddressValidation.Response.Granularity.PremiseProximity = 3 -> GoogleMapsApi.Entities.AddressValidation.Response.Granularity
+GoogleMapsApi.Entities.AddressValidation.Response.Granularity.Route = 5 -> GoogleMapsApi.Entities.AddressValidation.Response.Granularity
+GoogleMapsApi.Entities.AddressValidation.Response.Granularity.SubPremise = 1 -> GoogleMapsApi.Entities.AddressValidation.Response.Granularity
+GoogleMapsApi.Entities.AddressValidation.Response.Granularity.Unspecified = 0 -> GoogleMapsApi.Entities.AddressValidation.Response.Granularity
+GoogleMapsApi.Entities.AddressValidation.Response.LatLng
+GoogleMapsApi.Entities.AddressValidation.Response.LatLng.LatLng() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.LatLng.Latitude.get -> double
+GoogleMapsApi.Entities.AddressValidation.Response.LatLng.Latitude.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.LatLng.Longitude.get -> double
+GoogleMapsApi.Entities.AddressValidation.Response.LatLng.Longitude.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.PlusCode
+GoogleMapsApi.Entities.AddressValidation.Response.PlusCode.CompoundCode.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.PlusCode.CompoundCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.PlusCode.GlobalCode.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.PlusCode.GlobalCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.PlusCode.PlusCode() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.City.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.City.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.CityStateZipAddressLine.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.CityStateZipAddressLine.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.Firm.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.Firm.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.FirstAddressLine.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.FirstAddressLine.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.SecondAddressLine.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.SecondAddressLine.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.State.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.State.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.Urbanization.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.Urbanization.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.UspsAddress() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.ZipCode.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.ZipCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.ZipCodeExtension.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress.ZipCodeExtension.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.AbbreviatedCity.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.AbbreviatedCity.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.AddressRecordType.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.AddressRecordType.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.CarrierRoute.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.CarrierRoute.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.CarrierRouteIndicator.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.CarrierRouteIndicator.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.CassProcessed.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.CassProcessed.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.County.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.County.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DefaultAddress.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DefaultAddress.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DeliveryPointCheckDigit.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DeliveryPointCheckDigit.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DeliveryPointCode.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DeliveryPointCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DpvCmra.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DpvCmra.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DpvConfirmation.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DpvConfirmation.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DpvFootnote.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DpvFootnote.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DpvNoStat.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DpvNoStat.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DpvVacant.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.DpvVacant.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.ElotFlag.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.ElotFlag.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.ElotNumber.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.ElotNumber.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.ErrorMessage.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.ErrorMessage.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.EwsNoMatch.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.EwsNoMatch.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.FipsCountyCode.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.FipsCountyCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.LacsLinkIndicator.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.LacsLinkIndicator.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.LacsLinkReturnCode.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.LacsLinkReturnCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.PmbDesignator.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.PmbDesignator.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.PmbNumber.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.PmbNumber.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.PoBoxOnlyPostalCode.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.PoBoxOnlyPostalCode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.PostOfficeCity.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.PostOfficeCity.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.PostOfficeState.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.PostOfficeState.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.StandardizedAddress.get -> GoogleMapsApi.Entities.AddressValidation.Response.UspsAddress?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.StandardizedAddress.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.SuitelinkFootnote.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.SuitelinkFootnote.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.UspsData.UspsData() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.AddressComponents.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AddressValidation.Response.AddressComponent!>?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.AddressComponents.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.FormattedAddress.get -> string?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.FormattedAddress.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.MissingComponentTypes.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.MissingComponentTypes.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.PostalAddress.get -> GoogleMapsApi.Entities.AddressValidation.Request.PostalAddress?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.PostalAddress.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.UnconfirmedComponentTypes.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.UnconfirmedComponentTypes.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.UnresolvedTokens.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.UnresolvedTokens.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress.ValidatedAddress() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.Address.get -> GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.Address.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.EnglishLatinAddress.get -> GoogleMapsApi.Entities.AddressValidation.Response.ValidatedAddress?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.EnglishLatinAddress.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.Geocode.get -> GoogleMapsApi.Entities.AddressValidation.Response.Geocode?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.Geocode.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.Metadata.get -> GoogleMapsApi.Entities.AddressValidation.Response.AddressMetadata?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.Metadata.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.UspsData.get -> GoogleMapsApi.Entities.AddressValidation.Response.UspsData?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.UspsData.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.ValidationResult() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.Verdict.get -> GoogleMapsApi.Entities.AddressValidation.Response.Verdict?
+GoogleMapsApi.Entities.AddressValidation.Response.ValidationResult.Verdict.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.AddressComplete.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.AddressComplete.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.GeocodeGranularity.get -> GoogleMapsApi.Entities.AddressValidation.Response.Granularity
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.GeocodeGranularity.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.HasInferredComponents.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.HasInferredComponents.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.HasReplacedComponents.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.HasReplacedComponents.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.HasUnconfirmedComponents.get -> bool
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.HasUnconfirmedComponents.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.InputGranularity.get -> GoogleMapsApi.Entities.AddressValidation.Response.Granularity
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.InputGranularity.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.ValidationGranularity.get -> GoogleMapsApi.Entities.AddressValidation.Response.Granularity
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.ValidationGranularity.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Verdict.Verdict() -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Viewport
+GoogleMapsApi.Entities.AddressValidation.Response.Viewport.High.get -> GoogleMapsApi.Entities.AddressValidation.Response.LatLng?
+GoogleMapsApi.Entities.AddressValidation.Response.Viewport.High.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Viewport.Low.get -> GoogleMapsApi.Entities.AddressValidation.Response.LatLng?
+GoogleMapsApi.Entities.AddressValidation.Response.Viewport.Low.set -> void
+GoogleMapsApi.Entities.AddressValidation.Response.Viewport.Viewport() -> void
+GoogleMapsApi.Entities.Common.AddressLocation
+GoogleMapsApi.Entities.Common.AddressLocation.Address.get -> string!
+GoogleMapsApi.Entities.Common.AddressLocation.AddressLocation(string! address) -> void
+GoogleMapsApi.Entities.Common.AddressLocation.LocationString.get -> string!
+GoogleMapsApi.Entities.Common.ILocationString
+GoogleMapsApi.Entities.Common.ILocationString.LocationString.get -> string!
+GoogleMapsApi.Entities.Common.IResponseFor<T>
+GoogleMapsApi.Entities.Common.Location
+GoogleMapsApi.Entities.Common.Location.Latitude.get -> double
+GoogleMapsApi.Entities.Common.Location.Latitude.set -> void
+GoogleMapsApi.Entities.Common.Location.Location() -> void
+GoogleMapsApi.Entities.Common.Location.Location(double lat, double lng) -> void
+GoogleMapsApi.Entities.Common.Location.LocationString.get -> string!
+GoogleMapsApi.Entities.Common.Location.Longitude.get -> double
+GoogleMapsApi.Entities.Common.Location.Longitude.set -> void
+GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.AdministrativeAreaLevel1 = 5 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.AdministrativeAreaLevel2 = 6 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.AdministrativeAreaLevel3 = 7 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Airport = 16 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.ColloquialArea = 8 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Country = 4 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Floor = 21 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Intersection = 2 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Locality = 9 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.NaturalFeature = 15 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Neighborhood = 11 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Park = 17 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.PointOfInterest = 18 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Political = 3 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.PostBox = 19 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.PostalCode = 14 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Premise = 12 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Room = 22 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Route = 1 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.StreetAddress = 0 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.StreetNumber = 20 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Sublocality = 10 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.LocationType.Subpremise = 13 -> GoogleMapsApi.Entities.Common.LocationType
+GoogleMapsApi.Entities.Common.MapsBaseRequest
+GoogleMapsApi.Entities.Common.MapsBaseRequest.ApiKey.get -> string?
+GoogleMapsApi.Entities.Common.MapsBaseRequest.ApiKey.set -> void
+GoogleMapsApi.Entities.Common.MapsBaseRequest.MapsBaseRequest() -> void
+GoogleMapsApi.Entities.Common.Photo
+GoogleMapsApi.Entities.Common.Photo.Photo() -> void
+GoogleMapsApi.Entities.Common.PlusCode
+GoogleMapsApi.Entities.Common.PlusCode.CompoundCode.get -> string!
+GoogleMapsApi.Entities.Common.PlusCode.CompoundCode.set -> void
+GoogleMapsApi.Entities.Common.PlusCode.GlobalCode.get -> string!
+GoogleMapsApi.Entities.Common.PlusCode.GlobalCode.set -> void
+GoogleMapsApi.Entities.Common.PlusCode.PlusCode() -> void
+GoogleMapsApi.Entities.Common.SignableRequest
+GoogleMapsApi.Entities.Common.SignableRequest.Channel.get -> string?
+GoogleMapsApi.Entities.Common.SignableRequest.Channel.set -> void
+GoogleMapsApi.Entities.Common.SignableRequest.ClientID.get -> string!
+GoogleMapsApi.Entities.Common.SignableRequest.ClientID.set -> void
+GoogleMapsApi.Entities.Common.SignableRequest.SignableRequest() -> void
+GoogleMapsApi.Entities.Common.SignableRequest.SigningKey.get -> string!
+GoogleMapsApi.Entities.Common.SignableRequest.SigningKey.set -> void
+GoogleMapsApi.Entities.Directions.Request.AvoidWay
+GoogleMapsApi.Entities.Directions.Request.AvoidWay.Ferries = GoogleMapsApi.Entities.Directions.Request.AvoidWay.Tolls | GoogleMapsApi.Entities.Directions.Request.AvoidWay.Highways -> GoogleMapsApi.Entities.Directions.Request.AvoidWay
+GoogleMapsApi.Entities.Directions.Request.AvoidWay.Highways = 2 -> GoogleMapsApi.Entities.Directions.Request.AvoidWay
+GoogleMapsApi.Entities.Directions.Request.AvoidWay.Indoor = 4 -> GoogleMapsApi.Entities.Directions.Request.AvoidWay
+GoogleMapsApi.Entities.Directions.Request.AvoidWay.Nothing = 0 -> GoogleMapsApi.Entities.Directions.Request.AvoidWay
+GoogleMapsApi.Entities.Directions.Request.AvoidWay.Tolls = 1 -> GoogleMapsApi.Entities.Directions.Request.AvoidWay
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Alternatives.get -> bool
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Alternatives.set -> void
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.ArrivalTime.get -> System.DateTime
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.ArrivalTime.set -> void
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Avoid.get -> GoogleMapsApi.Entities.Directions.Request.AvoidWay
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Avoid.set -> void
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.DepartureTime.get -> System.DateTime
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.DepartureTime.set -> void
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Destination.get -> string!
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Destination.set -> void
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.DirectionsRequest() -> void
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Language.get -> string?
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Language.set -> void
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.OptimizeWaypoints.get -> bool
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.OptimizeWaypoints.set -> void
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Origin.get -> string!
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Origin.set -> void
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Region.get -> string?
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Region.set -> void
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.TravelMode.get -> GoogleMapsApi.Entities.Directions.Request.TravelMode
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.TravelMode.set -> void
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Waypoints.get -> string![]?
+GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.Waypoints.set -> void
+GoogleMapsApi.Entities.Directions.Request.TravelMode
+GoogleMapsApi.Entities.Directions.Request.TravelMode.Bicycling = 2 -> GoogleMapsApi.Entities.Directions.Request.TravelMode
+GoogleMapsApi.Entities.Directions.Request.TravelMode.Driving = 0 -> GoogleMapsApi.Entities.Directions.Request.TravelMode
+GoogleMapsApi.Entities.Directions.Request.TravelMode.Transit = 3 -> GoogleMapsApi.Entities.Directions.Request.TravelMode
+GoogleMapsApi.Entities.Directions.Request.TravelMode.Walking = 1 -> GoogleMapsApi.Entities.Directions.Request.TravelMode
+GoogleMapsApi.Entities.Directions.Response.DirectionsResponse
+GoogleMapsApi.Entities.Directions.Response.DirectionsResponse.DirectionsResponse() -> void
+GoogleMapsApi.Entities.Directions.Response.DirectionsResponse.ErrorMessage.get -> string!
+GoogleMapsApi.Entities.Directions.Response.DirectionsResponse.ErrorMessage.set -> void
+GoogleMapsApi.Entities.Directions.Response.DirectionsResponse.Routes.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Directions.Response.Route!>?
+GoogleMapsApi.Entities.Directions.Response.DirectionsResponse.Routes.set -> void
+GoogleMapsApi.Entities.Directions.Response.DirectionsResponse.Status.get -> GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes
+GoogleMapsApi.Entities.Directions.Response.DirectionsResponse.Status.set -> void
+GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes
+GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes.INVALID_REQUEST = 5 -> GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes
+GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED = 4 -> GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes
+GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes.MAX_WAYPOINTS_EXCEEDED = 3 -> GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes
+GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes.NOT_FOUND = 1 -> GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes
+GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes.OK = 0 -> GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes
+GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes.OVER_QUERY_LIMIT = 6 -> GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes
+GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes.REQUEST_DENIED = 7 -> GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes
+GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes.UNKNOWN_ERROR = 8 -> GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes
+GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes.ZERO_RESULTS = 2 -> GoogleMapsApi.Entities.Directions.Response.DirectionsStatusCodes
+GoogleMapsApi.Entities.Directions.Response.Distance
+GoogleMapsApi.Entities.Directions.Response.Distance.Distance() -> void
+GoogleMapsApi.Entities.Directions.Response.Distance.Text.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Distance.Text.set -> void
+GoogleMapsApi.Entities.Directions.Response.Distance.Value.get -> int
+GoogleMapsApi.Entities.Directions.Response.Distance.Value.set -> void
+GoogleMapsApi.Entities.Directions.Response.Duration
+GoogleMapsApi.Entities.Directions.Response.Duration.Duration() -> void
+GoogleMapsApi.Entities.Directions.Response.Duration.Text.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Duration.Text.set -> void
+GoogleMapsApi.Entities.Directions.Response.Duration.TimeZone.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Duration.TimeZone.set -> void
+GoogleMapsApi.Entities.Directions.Response.Duration.Value.get -> System.TimeSpan
+GoogleMapsApi.Entities.Directions.Response.Duration.Value.set -> void
+GoogleMapsApi.Entities.Directions.Response.Leg
+GoogleMapsApi.Entities.Directions.Response.Leg.ArrivalTime.get -> GoogleMapsApi.Entities.Directions.Response.Duration?
+GoogleMapsApi.Entities.Directions.Response.Leg.ArrivalTime.set -> void
+GoogleMapsApi.Entities.Directions.Response.Leg.DepartureTime.get -> GoogleMapsApi.Entities.Directions.Response.Duration?
+GoogleMapsApi.Entities.Directions.Response.Leg.DepartureTime.set -> void
+GoogleMapsApi.Entities.Directions.Response.Leg.Distance.get -> GoogleMapsApi.Entities.Directions.Response.Distance?
+GoogleMapsApi.Entities.Directions.Response.Leg.Distance.set -> void
+GoogleMapsApi.Entities.Directions.Response.Leg.Duration.get -> GoogleMapsApi.Entities.Directions.Response.Duration?
+GoogleMapsApi.Entities.Directions.Response.Leg.Duration.set -> void
+GoogleMapsApi.Entities.Directions.Response.Leg.DurationInTraffic.get -> GoogleMapsApi.Entities.Directions.Response.Duration?
+GoogleMapsApi.Entities.Directions.Response.Leg.DurationInTraffic.set -> void
+GoogleMapsApi.Entities.Directions.Response.Leg.EndAddress.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Leg.EndAddress.set -> void
+GoogleMapsApi.Entities.Directions.Response.Leg.EndLocation.get -> GoogleMapsApi.Entities.Common.Location?
+GoogleMapsApi.Entities.Directions.Response.Leg.EndLocation.set -> void
+GoogleMapsApi.Entities.Directions.Response.Leg.Leg() -> void
+GoogleMapsApi.Entities.Directions.Response.Leg.StartAddress.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Leg.StartAddress.set -> void
+GoogleMapsApi.Entities.Directions.Response.Leg.StartLocation.get -> GoogleMapsApi.Entities.Common.Location?
+GoogleMapsApi.Entities.Directions.Response.Leg.StartLocation.set -> void
+GoogleMapsApi.Entities.Directions.Response.Leg.Steps.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Directions.Response.Step!>?
+GoogleMapsApi.Entities.Directions.Response.Leg.Steps.set -> void
+GoogleMapsApi.Entities.Directions.Response.Line
+GoogleMapsApi.Entities.Directions.Response.Line.Agencies.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Directions.Response.TransitAgency!>?
+GoogleMapsApi.Entities.Directions.Response.Line.Agencies.set -> void
+GoogleMapsApi.Entities.Directions.Response.Line.Color.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Line.Color.set -> void
+GoogleMapsApi.Entities.Directions.Response.Line.Icon.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Line.Icon.set -> void
+GoogleMapsApi.Entities.Directions.Response.Line.Line() -> void
+GoogleMapsApi.Entities.Directions.Response.Line.Name.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Line.Name.set -> void
+GoogleMapsApi.Entities.Directions.Response.Line.ShortName.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Line.ShortName.set -> void
+GoogleMapsApi.Entities.Directions.Response.Line.TextColor.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Line.TextColor.set -> void
+GoogleMapsApi.Entities.Directions.Response.Line.Url.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Line.Url.set -> void
+GoogleMapsApi.Entities.Directions.Response.Line.Vehicle.get -> GoogleMapsApi.Entities.Directions.Response.Vehicle?
+GoogleMapsApi.Entities.Directions.Response.Line.Vehicle.set -> void
+GoogleMapsApi.Entities.Directions.Response.OverviewPolyline
+GoogleMapsApi.Entities.Directions.Response.OverviewPolyline.GetRawPointsData() -> string?
+GoogleMapsApi.Entities.Directions.Response.OverviewPolyline.OverviewPolyline() -> void
+GoogleMapsApi.Entities.Directions.Response.OverviewPolyline.Points.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Common.Location!>!
+GoogleMapsApi.Entities.Directions.Response.PointsDecodingException
+GoogleMapsApi.Entities.Directions.Response.PointsDecodingException.EncodedString.get -> string?
+GoogleMapsApi.Entities.Directions.Response.PointsDecodingException.EncodedString.set -> void
+GoogleMapsApi.Entities.Directions.Response.PointsDecodingException.PointsDecodingException() -> void
+GoogleMapsApi.Entities.Directions.Response.PointsDecodingException.PointsDecodingException(string! message) -> void
+GoogleMapsApi.Entities.Directions.Response.PointsDecodingException.PointsDecodingException(string! message, string! encodedString, System.Exception! inner) -> void
+GoogleMapsApi.Entities.Directions.Response.Route
+GoogleMapsApi.Entities.Directions.Response.Route.Bounds.get -> GoogleMapsApi.Entities.Geocoding.Response.FramedLocation?
+GoogleMapsApi.Entities.Directions.Response.Route.Bounds.set -> void
+GoogleMapsApi.Entities.Directions.Response.Route.Copyrights.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Route.Copyrights.set -> void
+GoogleMapsApi.Entities.Directions.Response.Route.Legs.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Directions.Response.Leg!>?
+GoogleMapsApi.Entities.Directions.Response.Route.Legs.set -> void
+GoogleMapsApi.Entities.Directions.Response.Route.OverviewPath.get -> GoogleMapsApi.Entities.Directions.Response.OverviewPolyline?
+GoogleMapsApi.Entities.Directions.Response.Route.OverviewPath.set -> void
+GoogleMapsApi.Entities.Directions.Response.Route.Route() -> void
+GoogleMapsApi.Entities.Directions.Response.Route.Summary.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Route.Summary.set -> void
+GoogleMapsApi.Entities.Directions.Response.Route.Warnings.get -> string![]?
+GoogleMapsApi.Entities.Directions.Response.Route.Warnings.set -> void
+GoogleMapsApi.Entities.Directions.Response.Route.WaypointOrder.get -> int[]?
+GoogleMapsApi.Entities.Directions.Response.Route.WaypointOrder.set -> void
+GoogleMapsApi.Entities.Directions.Response.Step
+GoogleMapsApi.Entities.Directions.Response.Step.Distance.get -> GoogleMapsApi.Entities.Directions.Response.Distance?
+GoogleMapsApi.Entities.Directions.Response.Step.Distance.set -> void
+GoogleMapsApi.Entities.Directions.Response.Step.Duration.get -> GoogleMapsApi.Entities.Directions.Response.Duration?
+GoogleMapsApi.Entities.Directions.Response.Step.Duration.set -> void
+GoogleMapsApi.Entities.Directions.Response.Step.EndLocation.get -> GoogleMapsApi.Entities.Common.Location?
+GoogleMapsApi.Entities.Directions.Response.Step.EndLocation.set -> void
+GoogleMapsApi.Entities.Directions.Response.Step.HtmlInstructions.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Step.HtmlInstructions.set -> void
+GoogleMapsApi.Entities.Directions.Response.Step.Maneuver.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Step.Maneuver.set -> void
+GoogleMapsApi.Entities.Directions.Response.Step.PolyLine.get -> GoogleMapsApi.Entities.Directions.Response.OverviewPolyline?
+GoogleMapsApi.Entities.Directions.Response.Step.PolyLine.set -> void
+GoogleMapsApi.Entities.Directions.Response.Step.StartLocation.get -> GoogleMapsApi.Entities.Common.Location?
+GoogleMapsApi.Entities.Directions.Response.Step.StartLocation.set -> void
+GoogleMapsApi.Entities.Directions.Response.Step.Step() -> void
+GoogleMapsApi.Entities.Directions.Response.Step.SubSteps.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Directions.Response.Step!>?
+GoogleMapsApi.Entities.Directions.Response.Step.SubSteps.set -> void
+GoogleMapsApi.Entities.Directions.Response.Step.TransitDetails.get -> GoogleMapsApi.Entities.Directions.Response.TransitDetails?
+GoogleMapsApi.Entities.Directions.Response.Step.TransitDetails.set -> void
+GoogleMapsApi.Entities.Directions.Response.Step.TravelMode.get -> GoogleMapsApi.Entities.Directions.Request.TravelMode
+GoogleMapsApi.Entities.Directions.Response.Step.TravelMode.set -> void
+GoogleMapsApi.Entities.Directions.Response.Stop
+GoogleMapsApi.Entities.Directions.Response.Stop.Location.get -> GoogleMapsApi.Entities.Common.Location?
+GoogleMapsApi.Entities.Directions.Response.Stop.Location.set -> void
+GoogleMapsApi.Entities.Directions.Response.Stop.Name.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Stop.Name.set -> void
+GoogleMapsApi.Entities.Directions.Response.Stop.Stop() -> void
+GoogleMapsApi.Entities.Directions.Response.TransitAgency
+GoogleMapsApi.Entities.Directions.Response.TransitAgency.Name.get -> string?
+GoogleMapsApi.Entities.Directions.Response.TransitAgency.Name.set -> void
+GoogleMapsApi.Entities.Directions.Response.TransitAgency.Phone.get -> string?
+GoogleMapsApi.Entities.Directions.Response.TransitAgency.Phone.set -> void
+GoogleMapsApi.Entities.Directions.Response.TransitAgency.TransitAgency() -> void
+GoogleMapsApi.Entities.Directions.Response.TransitAgency.Url.get -> string?
+GoogleMapsApi.Entities.Directions.Response.TransitAgency.Url.set -> void
+GoogleMapsApi.Entities.Directions.Response.TransitDetails
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.ArrivalStop.get -> GoogleMapsApi.Entities.Directions.Response.Stop?
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.ArrivalStop.set -> void
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.ArrivalTime.get -> GoogleMapsApi.Entities.Directions.Response.Duration?
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.ArrivalTime.set -> void
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.DepartureStop.get -> GoogleMapsApi.Entities.Directions.Response.Stop?
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.DepartureStop.set -> void
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.DepartureTime.get -> GoogleMapsApi.Entities.Directions.Response.Duration?
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.DepartureTime.set -> void
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.Headsign.get -> string?
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.Headsign.set -> void
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.Headway.get -> int
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.Headway.set -> void
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.Lines.get -> GoogleMapsApi.Entities.Directions.Response.Line?
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.Lines.set -> void
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.NumberOfStops.get -> int
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.NumberOfStops.set -> void
+GoogleMapsApi.Entities.Directions.Response.TransitDetails.TransitDetails() -> void
+GoogleMapsApi.Entities.Directions.Response.Vehicle
+GoogleMapsApi.Entities.Directions.Response.Vehicle.Icon.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Vehicle.Icon.set -> void
+GoogleMapsApi.Entities.Directions.Response.Vehicle.LocalIcon.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Vehicle.LocalIcon.set -> void
+GoogleMapsApi.Entities.Directions.Response.Vehicle.Name.get -> string?
+GoogleMapsApi.Entities.Directions.Response.Vehicle.Name.set -> void
+GoogleMapsApi.Entities.Directions.Response.Vehicle.Vehicle() -> void
+GoogleMapsApi.Entities.Directions.Response.Vehicle.VehicleType.get -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.Vehicle.VehicleType.set -> void
+GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.BUS = 9 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.CABLE_CAR = 14 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.COMMUTER_TRAIN = 7 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.FERRY = 13 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.FUNICULAR = 16 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.GONDOLA_LIFT = 15 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.HEAVY_RAIL = 6 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.HIGH_SPEED_TRAIN = 8 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.INTERCITY_BUS = 10 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.LONG_DISTANCE_TRAIN = 17 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.METRO_RAIL = 2 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.MONORAIL = 5 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.OTHER = 0 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.RAIL = 1 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.SHARE_TAXI = 12 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.SUBWAY = 3 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.TRAM = 4 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.Directions.Response.VehicleType.TROLLEYBUS = 11 -> GoogleMapsApi.Entities.Directions.Response.VehicleType
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Alternatives.get -> bool
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Alternatives.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.ArrivalTime.get -> GoogleMapsApi.Entities.DistanceMatrix.Request.Time?
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.ArrivalTime.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Avoid.get -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRestrictions?
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Avoid.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.DepartureTime.get -> GoogleMapsApi.Entities.DistanceMatrix.Request.Time?
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.DepartureTime.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Destinations.get -> string![]!
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Destinations.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.DistanceMatrixRequest() -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Language.get -> string?
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Language.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Mode.get -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTravelModes?
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Mode.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Origins.get -> string![]!
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Origins.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.TrafficModel.get -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTrafficModels?
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.TrafficModel.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.TransitModes.get -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes[]?
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.TransitModes.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.TransitRoutingPreference.get -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitRoutingPreferences?
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.TransitRoutingPreference.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Units.get -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixUnitSystems?
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.Units.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRestrictions
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRestrictions.ferries = 2 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRestrictions
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRestrictions.highways = 1 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRestrictions
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRestrictions.indoor = 3 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRestrictions
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRestrictions.tolls = 0 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRestrictions
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTrafficModels
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTrafficModels.best_guess = 0 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTrafficModels
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTrafficModels.optimistic = 2 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTrafficModels
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTrafficModels.pessimistic = 1 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTrafficModels
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes.bus = 0 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes.rail = 4 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes.subway = 1 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes.train = 2 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes.tram = 3 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitModes
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitRoutingPreferences
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitRoutingPreferences.fewer_transfers = 1 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitRoutingPreferences
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitRoutingPreferences.less_walking = 0 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTransitRoutingPreferences
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTravelModes
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTravelModes.bicycling = 2 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTravelModes
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTravelModes.driving = 0 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTravelModes
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTravelModes.transit = 3 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTravelModes
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTravelModes.walking = 1 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixTravelModes
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixUnitSystems
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixUnitSystems.imperial = 1 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixUnitSystems
+GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixUnitSystems.metric = 0 -> GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixUnitSystems
+GoogleMapsApi.Entities.DistanceMatrix.Request.Time
+GoogleMapsApi.Entities.DistanceMatrix.Request.Time.IsNow.get -> bool
+GoogleMapsApi.Entities.DistanceMatrix.Request.Time.IsNow.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.Time.Time() -> void
+GoogleMapsApi.Entities.DistanceMatrix.Request.Time.Value.get -> System.DateTime
+GoogleMapsApi.Entities.DistanceMatrix.Request.Time.Value.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Distance
+GoogleMapsApi.Entities.DistanceMatrix.Response.Distance.Distance() -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Distance.Text.get -> string!
+GoogleMapsApi.Entities.DistanceMatrix.Response.Distance.Text.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Distance.Value.get -> int
+GoogleMapsApi.Entities.DistanceMatrix.Response.Distance.Value.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixElementStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixElementStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED = 3 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixElementStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixElementStatusCodes.NOT_FOUND = 1 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixElementStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixElementStatusCodes.OK = 0 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixElementStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixElementStatusCodes.ZERO_RESULTS = 2 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixElementStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse.DestinationAddresses.get -> System.Collections.Generic.IEnumerable<string!>!
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse.DestinationAddresses.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse.DistanceMatrixResponse() -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse.ErrorMessage.get -> string!
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse.ErrorMessage.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse.OriginAddresses.get -> System.Collections.Generic.IEnumerable<string!>!
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse.OriginAddresses.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse.Rows.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.DistanceMatrix.Response.Row!>!
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse.Rows.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse.Status.get -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse.Status.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes.INVALID_REQUEST = 5 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes.MAX_ELEMENTS_EXCEEDED = 6 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED = 4 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes.MAX_WAYPOINTS_EXCEEDED = 3 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes.NOT_FOUND = 1 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes.OK = 0 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes.OVER_QUERY_LIMIT = 7 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes.REQUEST_DENIED = 8 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes.UNKNOWN_ERROR = 9 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes.ZERO_RESULTS = 2 -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.Duration
+GoogleMapsApi.Entities.DistanceMatrix.Response.Duration.Duration() -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Duration.Text.get -> string!
+GoogleMapsApi.Entities.DistanceMatrix.Response.Duration.Text.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Duration.Value.get -> System.TimeSpan
+GoogleMapsApi.Entities.DistanceMatrix.Response.Duration.Value.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Element
+GoogleMapsApi.Entities.DistanceMatrix.Response.Element.Distance.get -> GoogleMapsApi.Entities.DistanceMatrix.Response.Distance!
+GoogleMapsApi.Entities.DistanceMatrix.Response.Element.Distance.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Element.Duration.get -> GoogleMapsApi.Entities.DistanceMatrix.Response.Duration!
+GoogleMapsApi.Entities.DistanceMatrix.Response.Element.Duration.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Element.DurationInTraffic.get -> GoogleMapsApi.Entities.DistanceMatrix.Response.Duration?
+GoogleMapsApi.Entities.DistanceMatrix.Response.Element.DurationInTraffic.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Element.Element() -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Element.Status.get -> GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixElementStatusCodes
+GoogleMapsApi.Entities.DistanceMatrix.Response.Element.Status.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Row
+GoogleMapsApi.Entities.DistanceMatrix.Response.Row.Elements.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.DistanceMatrix.Response.Element!>!
+GoogleMapsApi.Entities.DistanceMatrix.Response.Row.Elements.set -> void
+GoogleMapsApi.Entities.DistanceMatrix.Response.Row.Row() -> void
+GoogleMapsApi.Entities.Elevation.Request.ElevationRequest
+GoogleMapsApi.Entities.Elevation.Request.ElevationRequest.ElevationRequest() -> void
+GoogleMapsApi.Entities.Elevation.Request.ElevationRequest.Locations.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Common.Location!>?
+GoogleMapsApi.Entities.Elevation.Request.ElevationRequest.Locations.set -> void
+GoogleMapsApi.Entities.Elevation.Request.ElevationRequest.Path.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Common.Location!>?
+GoogleMapsApi.Entities.Elevation.Request.ElevationRequest.Path.set -> void
+GoogleMapsApi.Entities.Elevation.Response.ElevationResponse
+GoogleMapsApi.Entities.Elevation.Response.ElevationResponse.ElevationResponse() -> void
+GoogleMapsApi.Entities.Elevation.Response.ElevationResponse.Results.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Elevation.Response.Result!>?
+GoogleMapsApi.Entities.Elevation.Response.ElevationResponse.Results.set -> void
+GoogleMapsApi.Entities.Elevation.Response.ElevationResponse.Status.get -> GoogleMapsApi.Entities.Elevation.Response.Status
+GoogleMapsApi.Entities.Elevation.Response.ElevationResponse.Status.set -> void
+GoogleMapsApi.Entities.Elevation.Response.Result
+GoogleMapsApi.Entities.Elevation.Response.Result.Elevation.get -> double
+GoogleMapsApi.Entities.Elevation.Response.Result.Elevation.set -> void
+GoogleMapsApi.Entities.Elevation.Response.Result.Location.get -> GoogleMapsApi.Entities.Common.Location!
+GoogleMapsApi.Entities.Elevation.Response.Result.Location.set -> void
+GoogleMapsApi.Entities.Elevation.Response.Result.Resolution.get -> double
+GoogleMapsApi.Entities.Elevation.Response.Result.Resolution.set -> void
+GoogleMapsApi.Entities.Elevation.Response.Result.Result() -> void
+GoogleMapsApi.Entities.Elevation.Response.Status
+GoogleMapsApi.Entities.Elevation.Response.Status.INVALID_REQUEST = 1 -> GoogleMapsApi.Entities.Elevation.Response.Status
+GoogleMapsApi.Entities.Elevation.Response.Status.OK = 0 -> GoogleMapsApi.Entities.Elevation.Response.Status
+GoogleMapsApi.Entities.Elevation.Response.Status.OVER_QUERY_LIMIT = 2 -> GoogleMapsApi.Entities.Elevation.Response.Status
+GoogleMapsApi.Entities.Elevation.Response.Status.REQUEST_DENIED = 3 -> GoogleMapsApi.Entities.Elevation.Response.Status
+GoogleMapsApi.Entities.Elevation.Response.Status.UNKNOWN_ERROR = 4 -> GoogleMapsApi.Entities.Elevation.Response.Status
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.AdministrativeArea.get -> string!
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.AdministrativeArea.set -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.Build() -> string!
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.Country.get -> string!
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.Country.set -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.Exists.get -> bool
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.GeocodingComponents() -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.Locality.get -> string!
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.Locality.set -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.PostalCode.get -> string!
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.PostalCode.set -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.Route.get -> string!
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.Route.set -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Address.get -> string?
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Address.set -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Bounds.get -> GoogleMapsApi.Entities.Common.Location![]?
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Bounds.set -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Components.get -> GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents!
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Components.set -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.GeocodingRequest() -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Language.get -> string?
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Language.set -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Location.get -> GoogleMapsApi.Entities.Common.Location?
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Location.set -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.PlaceId.get -> string?
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.PlaceId.set -> void
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Region.get -> string?
+GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.Region.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.AddressComponent
+GoogleMapsApi.Entities.Geocoding.Response.AddressComponent.AddressComponent() -> void
+GoogleMapsApi.Entities.Geocoding.Response.AddressComponent.LongName.get -> string!
+GoogleMapsApi.Entities.Geocoding.Response.AddressComponent.LongName.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.AddressComponent.ShortName.get -> string!
+GoogleMapsApi.Entities.Geocoding.Response.AddressComponent.ShortName.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.AddressComponent.Types.get -> System.Collections.Generic.IEnumerable<string!>!
+GoogleMapsApi.Entities.Geocoding.Response.AddressComponent.Types.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.FramedLocation
+GoogleMapsApi.Entities.Geocoding.Response.FramedLocation.Center.get -> GoogleMapsApi.Entities.Common.Location!
+GoogleMapsApi.Entities.Geocoding.Response.FramedLocation.FramedLocation() -> void
+GoogleMapsApi.Entities.Geocoding.Response.FramedLocation.NorthEast.get -> GoogleMapsApi.Entities.Common.Location?
+GoogleMapsApi.Entities.Geocoding.Response.FramedLocation.NorthEast.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.FramedLocation.SouthWest.get -> GoogleMapsApi.Entities.Common.Location?
+GoogleMapsApi.Entities.Geocoding.Response.FramedLocation.SouthWest.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.GeocodeLocationType
+GoogleMapsApi.Entities.Geocoding.Response.GeocodeLocationType.APPROXIMATE = 3 -> GoogleMapsApi.Entities.Geocoding.Response.GeocodeLocationType
+GoogleMapsApi.Entities.Geocoding.Response.GeocodeLocationType.GEOMETRIC_CENTER = 2 -> GoogleMapsApi.Entities.Geocoding.Response.GeocodeLocationType
+GoogleMapsApi.Entities.Geocoding.Response.GeocodeLocationType.RANGE_INTERPOLATED = 1 -> GoogleMapsApi.Entities.Geocoding.Response.GeocodeLocationType
+GoogleMapsApi.Entities.Geocoding.Response.GeocodeLocationType.ROOFTOP = 0 -> GoogleMapsApi.Entities.Geocoding.Response.GeocodeLocationType
+GoogleMapsApi.Entities.Geocoding.Response.GeocodingResponse
+GoogleMapsApi.Entities.Geocoding.Response.GeocodingResponse.GeocodingResponse() -> void
+GoogleMapsApi.Entities.Geocoding.Response.GeocodingResponse.Results.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Geocoding.Response.Result!>?
+GoogleMapsApi.Entities.Geocoding.Response.GeocodingResponse.Results.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.GeocodingResponse.Status.get -> GoogleMapsApi.Entities.Geocoding.Response.Status
+GoogleMapsApi.Entities.Geocoding.Response.GeocodingResponse.Status.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.Geometry
+GoogleMapsApi.Entities.Geocoding.Response.Geometry.Bounds.get -> GoogleMapsApi.Entities.Geocoding.Response.FramedLocation!
+GoogleMapsApi.Entities.Geocoding.Response.Geometry.Bounds.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.Geometry.Geometry() -> void
+GoogleMapsApi.Entities.Geocoding.Response.Geometry.Location.get -> GoogleMapsApi.Entities.Common.Location!
+GoogleMapsApi.Entities.Geocoding.Response.Geometry.Location.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.Geometry.LocationType.get -> GoogleMapsApi.Entities.Geocoding.Response.GeocodeLocationType
+GoogleMapsApi.Entities.Geocoding.Response.Geometry.LocationType.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.Geometry.ViewPort.get -> GoogleMapsApi.Entities.Geocoding.Response.FramedLocation!
+GoogleMapsApi.Entities.Geocoding.Response.Geometry.ViewPort.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.Result
+GoogleMapsApi.Entities.Geocoding.Response.Result.AddressComponents.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Geocoding.Response.AddressComponent!>!
+GoogleMapsApi.Entities.Geocoding.Response.Result.AddressComponents.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.Result.FormattedAddress.get -> string!
+GoogleMapsApi.Entities.Geocoding.Response.Result.FormattedAddress.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.Result.Geometry.get -> GoogleMapsApi.Entities.Geocoding.Response.Geometry!
+GoogleMapsApi.Entities.Geocoding.Response.Result.Geometry.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.Result.PartialMatch.get -> bool
+GoogleMapsApi.Entities.Geocoding.Response.Result.PartialMatch.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.Result.PlaceId.get -> string!
+GoogleMapsApi.Entities.Geocoding.Response.Result.PlaceId.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.Result.Result() -> void
+GoogleMapsApi.Entities.Geocoding.Response.Result.Types.get -> System.Collections.Generic.IEnumerable<string!>!
+GoogleMapsApi.Entities.Geocoding.Response.Result.Types.set -> void
+GoogleMapsApi.Entities.Geocoding.Response.Status
+GoogleMapsApi.Entities.Geocoding.Response.Status.INVALID_REQUEST = 4 -> GoogleMapsApi.Entities.Geocoding.Response.Status
+GoogleMapsApi.Entities.Geocoding.Response.Status.OK = 0 -> GoogleMapsApi.Entities.Geocoding.Response.Status
+GoogleMapsApi.Entities.Geocoding.Response.Status.OVER_QUERY_LIMIT = 2 -> GoogleMapsApi.Entities.Geocoding.Response.Status
+GoogleMapsApi.Entities.Geocoding.Response.Status.REQUEST_DENIED = 3 -> GoogleMapsApi.Entities.Geocoding.Response.Status
+GoogleMapsApi.Entities.Geocoding.Response.Status.ZERO_RESULTS = 1 -> GoogleMapsApi.Entities.Geocoding.Response.Status
+GoogleMapsApi.Entities.PlacesNew.Common.BusinessStatus
+GoogleMapsApi.Entities.PlacesNew.Common.BusinessStatus.ClosedPermanently = 3 -> GoogleMapsApi.Entities.PlacesNew.Common.BusinessStatus
+GoogleMapsApi.Entities.PlacesNew.Common.BusinessStatus.ClosedTemporarily = 2 -> GoogleMapsApi.Entities.PlacesNew.Common.BusinessStatus
+GoogleMapsApi.Entities.PlacesNew.Common.BusinessStatus.Operational = 1 -> GoogleMapsApi.Entities.PlacesNew.Common.BusinessStatus
+GoogleMapsApi.Entities.PlacesNew.Common.BusinessStatus.Unspecified = 0 -> GoogleMapsApi.Entities.PlacesNew.Common.BusinessStatus
+GoogleMapsApi.Entities.PlacesNew.Common.Circle
+GoogleMapsApi.Entities.PlacesNew.Common.Circle.Center.get -> GoogleMapsApi.Entities.PlacesNew.Common.LatLng?
+GoogleMapsApi.Entities.PlacesNew.Common.Circle.Center.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.Circle.Circle() -> void
+GoogleMapsApi.Entities.PlacesNew.Common.Circle.Radius.get -> double
+GoogleMapsApi.Entities.PlacesNew.Common.Circle.Radius.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LatLng
+GoogleMapsApi.Entities.PlacesNew.Common.LatLng.LatLng() -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LatLng.Latitude.get -> double
+GoogleMapsApi.Entities.PlacesNew.Common.LatLng.Latitude.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LatLng.Longitude.get -> double
+GoogleMapsApi.Entities.PlacesNew.Common.LatLng.Longitude.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LocalizedText
+GoogleMapsApi.Entities.PlacesNew.Common.LocalizedText.LanguageCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Common.LocalizedText.LanguageCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LocalizedText.LocalizedText() -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LocalizedText.Text.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Common.LocalizedText.Text.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LocationBias
+GoogleMapsApi.Entities.PlacesNew.Common.LocationBias.Circle.get -> GoogleMapsApi.Entities.PlacesNew.Common.Circle?
+GoogleMapsApi.Entities.PlacesNew.Common.LocationBias.Circle.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LocationBias.LocationBias() -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LocationBias.Rectangle.get -> GoogleMapsApi.Entities.PlacesNew.Common.Viewport?
+GoogleMapsApi.Entities.PlacesNew.Common.LocationBias.Rectangle.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LocationRestriction
+GoogleMapsApi.Entities.PlacesNew.Common.LocationRestriction.Circle.get -> GoogleMapsApi.Entities.PlacesNew.Common.Circle?
+GoogleMapsApi.Entities.PlacesNew.Common.LocationRestriction.Circle.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LocationRestriction.LocationRestriction() -> void
+GoogleMapsApi.Entities.PlacesNew.Common.LocationRestriction.Rectangle.get -> GoogleMapsApi.Entities.PlacesNew.Common.Viewport?
+GoogleMapsApi.Entities.PlacesNew.Common.LocationRestriction.Rectangle.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel
+GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel.Expensive = 4 -> GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel
+GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel.Free = 1 -> GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel
+GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel.Inexpensive = 2 -> GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel
+GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel.Moderate = 3 -> GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel
+GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel.Unspecified = 0 -> GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel
+GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel.VeryExpensive = 5 -> GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel
+GoogleMapsApi.Entities.PlacesNew.Common.RankPreference
+GoogleMapsApi.Entities.PlacesNew.Common.RankPreference.Distance = 1 -> GoogleMapsApi.Entities.PlacesNew.Common.RankPreference
+GoogleMapsApi.Entities.PlacesNew.Common.RankPreference.Relevance = 2 -> GoogleMapsApi.Entities.PlacesNew.Common.RankPreference
+GoogleMapsApi.Entities.PlacesNew.Common.RankPreference.Unspecified = 0 -> GoogleMapsApi.Entities.PlacesNew.Common.RankPreference
+GoogleMapsApi.Entities.PlacesNew.Common.Viewport
+GoogleMapsApi.Entities.PlacesNew.Common.Viewport.High.get -> GoogleMapsApi.Entities.PlacesNew.Common.LatLng?
+GoogleMapsApi.Entities.PlacesNew.Common.Viewport.High.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.Viewport.Low.get -> GoogleMapsApi.Entities.PlacesNew.Common.LatLng?
+GoogleMapsApi.Entities.PlacesNew.Common.Viewport.Low.set -> void
+GoogleMapsApi.Entities.PlacesNew.Common.Viewport.Viewport() -> void
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.AutocompleteRequest() -> void
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.IncludedPrimaryTypes.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.IncludedPrimaryTypes.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.IncludedRegionCodes.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.IncludedRegionCodes.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.Input.get -> string!
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.Input.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.LanguageCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.LanguageCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.LocationBias.get -> GoogleMapsApi.Entities.PlacesNew.Common.LocationBias?
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.LocationBias.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.LocationRestriction.get -> GoogleMapsApi.Entities.PlacesNew.Common.LocationRestriction?
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.LocationRestriction.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.RegionCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.RegionCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.SessionToken.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.SessionToken.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.FieldMask.get -> string!
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.FieldMask.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.LanguageCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.LanguageCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.PlaceDetailsRequest() -> void
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.PlaceId.get -> string!
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.PlaceId.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.RegionCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.RegionCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.SessionToken.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.SessionToken.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.PlacePhotoRequest
+GoogleMapsApi.Entities.PlacesNew.Request.PlacePhotoRequest.MaxHeightPx.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Request.PlacePhotoRequest.MaxHeightPx.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.PlacePhotoRequest.MaxWidthPx.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Request.PlacePhotoRequest.MaxWidthPx.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.PlacePhotoRequest.PhotoName.get -> string!
+GoogleMapsApi.Entities.PlacesNew.Request.PlacePhotoRequest.PhotoName.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.PlacePhotoRequest.PlacePhotoRequest() -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.ExcludedTypes.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.ExcludedTypes.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.FieldMask.get -> string!
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.FieldMask.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.IncludedTypes.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.IncludedTypes.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.LocationRestriction.get -> GoogleMapsApi.Entities.PlacesNew.Common.LocationRestriction!
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.LocationRestriction.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.MaxResultCount.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.MaxResultCount.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.RankPreference.get -> GoogleMapsApi.Entities.PlacesNew.Common.RankPreference?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.RankPreference.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.SearchNearbyRequest() -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.FieldMask.get -> string!
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.FieldMask.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.IncludedType.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.IncludedType.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.LanguageCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.LanguageCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.LocationBias.get -> GoogleMapsApi.Entities.PlacesNew.Common.LocationBias?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.LocationBias.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.LocationRestriction.get -> GoogleMapsApi.Entities.PlacesNew.Common.LocationRestriction?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.LocationRestriction.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.MinRating.get -> double?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.MinRating.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.OpenNow.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.OpenNow.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.PageSize.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.PageSize.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.PageToken.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.PageToken.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.PriceLevels.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel>?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.PriceLevels.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.RankPreference.get -> GoogleMapsApi.Entities.PlacesNew.Common.RankPreference?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.RankPreference.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.RegionCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.RegionCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.SearchTextRequest() -> void
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.TextQuery.get -> string!
+GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.TextQuery.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AccessibilityOptions
+GoogleMapsApi.Entities.PlacesNew.Response.AccessibilityOptions.AccessibilityOptions() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AccessibilityOptions.WheelchairAccessibleEntrance.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.AccessibilityOptions.WheelchairAccessibleEntrance.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AccessibilityOptions.WheelchairAccessibleParking.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.AccessibilityOptions.WheelchairAccessibleParking.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AccessibilityOptions.WheelchairAccessibleRestroom.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.AccessibilityOptions.WheelchairAccessibleRestroom.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AccessibilityOptions.WheelchairAccessibleSeating.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.AccessibilityOptions.WheelchairAccessibleSeating.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AddressComponent
+GoogleMapsApi.Entities.PlacesNew.Response.AddressComponent.AddressComponent() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AddressComponent.LanguageCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.AddressComponent.LanguageCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AddressComponent.LongText.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.AddressComponent.LongText.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AddressComponent.ShortText.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.AddressComponent.ShortText.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AddressComponent.Types.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.PlacesNew.Response.AddressComponent.Types.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AuthorAttribution
+GoogleMapsApi.Entities.PlacesNew.Response.AuthorAttribution.AuthorAttribution() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AuthorAttribution.DisplayName.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.AuthorAttribution.DisplayName.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AuthorAttribution.PhotoUri.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.AuthorAttribution.PhotoUri.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AuthorAttribution.Uri.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.AuthorAttribution.Uri.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AutocompleteResponse
+GoogleMapsApi.Entities.PlacesNew.Response.AutocompleteResponse.AutocompleteResponse() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.AutocompleteResponse.Suggestions.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Response.Suggestion!>?
+GoogleMapsApi.Entities.PlacesNew.Response.AutocompleteResponse.Suggestions.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation.AvailableCount.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation.AvailableCount.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation.ConnectorAggregation() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation.Count.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation.Count.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation.MaxChargeRateKw.get -> double?
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation.MaxChargeRateKw.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation.OutOfServiceCount.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation.OutOfServiceCount.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation.Type.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation.Type.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.EditorialSummary
+GoogleMapsApi.Entities.PlacesNew.Response.EditorialSummary.EditorialSummary() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.EditorialSummary.LanguageCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.EditorialSummary.LanguageCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.EditorialSummary.Text.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.EditorialSummary.Text.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.EvChargeOptions
+GoogleMapsApi.Entities.PlacesNew.Response.EvChargeOptions.ConnectorAggregation.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Response.ConnectorAggregation!>?
+GoogleMapsApi.Entities.PlacesNew.Response.EvChargeOptions.ConnectorAggregation.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.EvChargeOptions.ConnectorCount.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.EvChargeOptions.ConnectorCount.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.EvChargeOptions.EvChargeOptions() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.FormattableText
+GoogleMapsApi.Entities.PlacesNew.Response.FormattableText.FormattableText() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.FormattableText.Matches.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Response.StringRange!>?
+GoogleMapsApi.Entities.PlacesNew.Response.FormattableText.Matches.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.FormattableText.Text.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.FormattableText.Text.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.FuelOptions
+GoogleMapsApi.Entities.PlacesNew.Response.FuelOptions.FuelOptions() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.FuelOptions.FuelPrices.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Response.FuelPrice!>?
+GoogleMapsApi.Entities.PlacesNew.Response.FuelOptions.FuelPrices.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.FuelPrice
+GoogleMapsApi.Entities.PlacesNew.Response.FuelPrice.FuelPrice() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.FuelPrice.Price.get -> GoogleMapsApi.Entities.PlacesNew.Response.Money?
+GoogleMapsApi.Entities.PlacesNew.Response.FuelPrice.Price.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.FuelPrice.Type.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.FuelPrice.Type.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.FuelPrice.UpdateTime.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.FuelPrice.UpdateTime.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Money
+GoogleMapsApi.Entities.PlacesNew.Response.Money.CurrencyCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Money.CurrencyCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Money.Money() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Money.Nanos.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.Money.Nanos.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Money.Units.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Money.Units.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHours
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHours.OpenNow.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHours.OpenNow.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHours.OpeningHours() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHours.Periods.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPeriod!>?
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHours.Periods.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHours.WeekdayDescriptions.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHours.WeekdayDescriptions.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPeriod
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPeriod.Close.get -> GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPoint?
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPeriod.Close.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPeriod.Open.get -> GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPoint?
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPeriod.Open.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPeriod.OpeningHoursPeriod() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPoint
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPoint.Day.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPoint.Day.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPoint.Hour.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPoint.Hour.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPoint.Minute.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPoint.Minute.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.OpeningHoursPoint.OpeningHoursPoint() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.FreeGarageParking.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.FreeGarageParking.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.FreeParkingLot.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.FreeParkingLot.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.FreeStreetParking.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.FreeStreetParking.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.PaidGarageParking.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.PaidGarageParking.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.PaidParkingLot.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.PaidParkingLot.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.PaidStreetParking.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.PaidStreetParking.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.ParkingOptions() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.ValetParking.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions.ValetParking.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PaymentOptions
+GoogleMapsApi.Entities.PlacesNew.Response.PaymentOptions.AcceptsCashOnly.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.PaymentOptions.AcceptsCashOnly.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PaymentOptions.AcceptsCreditCards.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.PaymentOptions.AcceptsCreditCards.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PaymentOptions.AcceptsDebitCards.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.PaymentOptions.AcceptsDebitCards.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PaymentOptions.AcceptsNfc.get -> bool?
+GoogleMapsApi.Entities.PlacesNew.Response.PaymentOptions.AcceptsNfc.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PaymentOptions.PaymentOptions() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Photo
+GoogleMapsApi.Entities.PlacesNew.Response.Photo.AuthorAttributions.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Response.AuthorAttribution!>?
+GoogleMapsApi.Entities.PlacesNew.Response.Photo.AuthorAttributions.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Photo.HeightPx.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.Photo.HeightPx.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Photo.Name.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Photo.Name.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Photo.Photo() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Photo.WidthPx.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.Photo.WidthPx.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place
+GoogleMapsApi.Entities.PlacesNew.Response.Place.AccessibilityOptions.get -> GoogleMapsApi.Entities.PlacesNew.Response.AccessibilityOptions?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.AccessibilityOptions.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.AddressComponents.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Response.AddressComponent!>?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.AddressComponents.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.BusinessStatus.get -> GoogleMapsApi.Entities.PlacesNew.Common.BusinessStatus?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.BusinessStatus.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.CurrentOpeningHours.get -> GoogleMapsApi.Entities.PlacesNew.Response.OpeningHours?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.CurrentOpeningHours.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.DisplayName.get -> GoogleMapsApi.Entities.PlacesNew.Common.LocalizedText?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.DisplayName.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.EditorialSummary.get -> GoogleMapsApi.Entities.PlacesNew.Response.EditorialSummary?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.EditorialSummary.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.EvChargeOptions.get -> GoogleMapsApi.Entities.PlacesNew.Response.EvChargeOptions?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.EvChargeOptions.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.FormattedAddress.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.FormattedAddress.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.FuelOptions.get -> GoogleMapsApi.Entities.PlacesNew.Response.FuelOptions?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.FuelOptions.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.GoogleMapsUri.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.GoogleMapsUri.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Id.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Id.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.InternationalPhoneNumber.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.InternationalPhoneNumber.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Location.get -> GoogleMapsApi.Entities.PlacesNew.Common.LatLng?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Location.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Name.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Name.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.NationalPhoneNumber.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.NationalPhoneNumber.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.ParkingOptions.get -> GoogleMapsApi.Entities.PlacesNew.Response.ParkingOptions?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.ParkingOptions.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.PaymentOptions.get -> GoogleMapsApi.Entities.PlacesNew.Response.PaymentOptions?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.PaymentOptions.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Photos.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Response.Photo!>?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Photos.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Place() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.PlusCode.get -> GoogleMapsApi.Entities.PlacesNew.Response.PlusCode?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.PlusCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.PriceLevel.get -> GoogleMapsApi.Entities.PlacesNew.Common.PriceLevel?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.PriceLevel.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.PrimaryType.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.PrimaryType.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.PrimaryTypeDisplayName.get -> GoogleMapsApi.Entities.PlacesNew.Common.LocalizedText?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.PrimaryTypeDisplayName.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Rating.get -> double?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Rating.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.RegularOpeningHours.get -> GoogleMapsApi.Entities.PlacesNew.Response.OpeningHours?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.RegularOpeningHours.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Reviews.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Response.Review!>?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Reviews.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.ShortFormattedAddress.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.ShortFormattedAddress.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Types.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Types.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.UserRatingCount.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.UserRatingCount.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.UtcOffsetMinutes.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.UtcOffsetMinutes.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Viewport.get -> GoogleMapsApi.Entities.PlacesNew.Common.Viewport?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.Viewport.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Place.WebsiteUri.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Place.WebsiteUri.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePhotoResponse
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePhotoResponse.Name.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePhotoResponse.Name.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePhotoResponse.PhotoUri.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePhotoResponse.PhotoUri.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePhotoResponse.PlacePhotoResponse() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction.Place.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction.Place.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction.PlaceId.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction.PlaceId.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction.PlacePrediction() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction.StructuredFormat.get -> GoogleMapsApi.Entities.PlacesNew.Response.StructuredFormat?
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction.StructuredFormat.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction.Text.get -> GoogleMapsApi.Entities.PlacesNew.Response.FormattableText?
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction.Text.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction.Types.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction.Types.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlusCode
+GoogleMapsApi.Entities.PlacesNew.Response.PlusCode.CompoundCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.PlusCode.CompoundCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlusCode.GlobalCode.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.PlusCode.GlobalCode.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.PlusCode.PlusCode() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.QueryPrediction
+GoogleMapsApi.Entities.PlacesNew.Response.QueryPrediction.QueryPrediction() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.QueryPrediction.StructuredFormat.get -> GoogleMapsApi.Entities.PlacesNew.Response.StructuredFormat?
+GoogleMapsApi.Entities.PlacesNew.Response.QueryPrediction.StructuredFormat.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.QueryPrediction.Text.get -> GoogleMapsApi.Entities.PlacesNew.Response.FormattableText?
+GoogleMapsApi.Entities.PlacesNew.Response.QueryPrediction.Text.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Review
+GoogleMapsApi.Entities.PlacesNew.Response.Review.AuthorAttribution.get -> GoogleMapsApi.Entities.PlacesNew.Response.AuthorAttribution?
+GoogleMapsApi.Entities.PlacesNew.Response.Review.AuthorAttribution.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Review.Name.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Review.Name.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Review.OriginalText.get -> GoogleMapsApi.Entities.PlacesNew.Common.LocalizedText?
+GoogleMapsApi.Entities.PlacesNew.Response.Review.OriginalText.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Review.PublishTime.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Review.PublishTime.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Review.Rating.get -> double?
+GoogleMapsApi.Entities.PlacesNew.Response.Review.Rating.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Review.RelativePublishTimeDescription.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.Review.RelativePublishTimeDescription.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Review.Review() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Review.Text.get -> GoogleMapsApi.Entities.PlacesNew.Common.LocalizedText?
+GoogleMapsApi.Entities.PlacesNew.Response.Review.Text.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.SearchNearbyResponse
+GoogleMapsApi.Entities.PlacesNew.Response.SearchNearbyResponse.Places.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Response.Place!>?
+GoogleMapsApi.Entities.PlacesNew.Response.SearchNearbyResponse.Places.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.SearchNearbyResponse.SearchNearbyResponse() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.SearchTextResponse
+GoogleMapsApi.Entities.PlacesNew.Response.SearchTextResponse.NextPageToken.get -> string?
+GoogleMapsApi.Entities.PlacesNew.Response.SearchTextResponse.NextPageToken.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.SearchTextResponse.Places.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.PlacesNew.Response.Place!>?
+GoogleMapsApi.Entities.PlacesNew.Response.SearchTextResponse.Places.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.SearchTextResponse.RoutingSummaries.get -> System.Collections.Generic.List<object!>?
+GoogleMapsApi.Entities.PlacesNew.Response.SearchTextResponse.RoutingSummaries.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.SearchTextResponse.SearchTextResponse() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.StringRange
+GoogleMapsApi.Entities.PlacesNew.Response.StringRange.EndOffset.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.StringRange.EndOffset.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.StringRange.StartOffset.get -> int?
+GoogleMapsApi.Entities.PlacesNew.Response.StringRange.StartOffset.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.StringRange.StringRange() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.StructuredFormat
+GoogleMapsApi.Entities.PlacesNew.Response.StructuredFormat.MainText.get -> GoogleMapsApi.Entities.PlacesNew.Response.FormattableText?
+GoogleMapsApi.Entities.PlacesNew.Response.StructuredFormat.MainText.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.StructuredFormat.SecondaryText.get -> GoogleMapsApi.Entities.PlacesNew.Response.FormattableText?
+GoogleMapsApi.Entities.PlacesNew.Response.StructuredFormat.SecondaryText.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.StructuredFormat.StructuredFormat() -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Suggestion
+GoogleMapsApi.Entities.PlacesNew.Response.Suggestion.PlacePrediction.get -> GoogleMapsApi.Entities.PlacesNew.Response.PlacePrediction?
+GoogleMapsApi.Entities.PlacesNew.Response.Suggestion.PlacePrediction.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Suggestion.QueryPrediction.get -> GoogleMapsApi.Entities.PlacesNew.Response.QueryPrediction?
+GoogleMapsApi.Entities.PlacesNew.Response.Suggestion.QueryPrediction.set -> void
+GoogleMapsApi.Entities.PlacesNew.Response.Suggestion.Suggestion() -> void
+GoogleMapsApi.Entities.Routes.Request.ExtraComputation
+GoogleMapsApi.Entities.Routes.Request.ExtraComputation.FuelConsumption = 2 -> GoogleMapsApi.Entities.Routes.Request.ExtraComputation
+GoogleMapsApi.Entities.Routes.Request.ExtraComputation.HtmlFormattedNavigationInstructions = 4 -> GoogleMapsApi.Entities.Routes.Request.ExtraComputation
+GoogleMapsApi.Entities.Routes.Request.ExtraComputation.Tolls = 1 -> GoogleMapsApi.Entities.Routes.Request.ExtraComputation
+GoogleMapsApi.Entities.Routes.Request.ExtraComputation.TrafficOnPolyline = 3 -> GoogleMapsApi.Entities.Routes.Request.ExtraComputation
+GoogleMapsApi.Entities.Routes.Request.ExtraComputation.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Request.ExtraComputation
+GoogleMapsApi.Entities.Routes.Request.LatLng
+GoogleMapsApi.Entities.Routes.Request.LatLng.LatLng() -> void
+GoogleMapsApi.Entities.Routes.Request.LatLng.Latitude.get -> double
+GoogleMapsApi.Entities.Routes.Request.LatLng.Latitude.set -> void
+GoogleMapsApi.Entities.Routes.Request.LatLng.Longitude.get -> double
+GoogleMapsApi.Entities.Routes.Request.LatLng.Longitude.set -> void
+GoogleMapsApi.Entities.Routes.Request.PolylineEncoding
+GoogleMapsApi.Entities.Routes.Request.PolylineEncoding.EncodedPolyline = 1 -> GoogleMapsApi.Entities.Routes.Request.PolylineEncoding
+GoogleMapsApi.Entities.Routes.Request.PolylineEncoding.GeoJsonLineString = 2 -> GoogleMapsApi.Entities.Routes.Request.PolylineEncoding
+GoogleMapsApi.Entities.Routes.Request.PolylineEncoding.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Request.PolylineEncoding
+GoogleMapsApi.Entities.Routes.Request.PolylineQuality
+GoogleMapsApi.Entities.Routes.Request.PolylineQuality.HighQuality = 1 -> GoogleMapsApi.Entities.Routes.Request.PolylineQuality
+GoogleMapsApi.Entities.Routes.Request.PolylineQuality.Overview = 2 -> GoogleMapsApi.Entities.Routes.Request.PolylineQuality
+GoogleMapsApi.Entities.Routes.Request.PolylineQuality.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Request.PolylineQuality
+GoogleMapsApi.Entities.Routes.Request.ReferenceRoute
+GoogleMapsApi.Entities.Routes.Request.ReferenceRoute.FuelEfficient = 1 -> GoogleMapsApi.Entities.Routes.Request.ReferenceRoute
+GoogleMapsApi.Entities.Routes.Request.ReferenceRoute.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Request.ReferenceRoute
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.AvoidFerries.get -> bool?
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.AvoidFerries.set -> void
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.AvoidHighways.get -> bool?
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.AvoidHighways.set -> void
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.AvoidIndoor.get -> bool?
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.AvoidIndoor.set -> void
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.AvoidTolls.get -> bool?
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.AvoidTolls.set -> void
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.RouteModifiers() -> void
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.TollPasses.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.TollPasses.set -> void
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.VehicleInfo.get -> GoogleMapsApi.Entities.Routes.Request.VehicleInfo?
+GoogleMapsApi.Entities.Routes.Request.RouteModifiers.VehicleInfo.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.ArrivalTime.get -> System.DateTimeOffset?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.ArrivalTime.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.ComputeAlternativeRoutes.get -> bool
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.ComputeAlternativeRoutes.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.DepartureTime.get -> System.DateTimeOffset?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.DepartureTime.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.Destination.get -> GoogleMapsApi.Entities.Routes.Request.Waypoint!
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.Destination.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.ExtraComputations.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Request.ExtraComputation>?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.ExtraComputations.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.FieldMask.get -> string!
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.FieldMask.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.Intermediates.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Request.Waypoint!>?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.Intermediates.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.LanguageCode.get -> string?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.LanguageCode.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.OptimizeWaypointOrder.get -> bool
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.OptimizeWaypointOrder.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.Origin.get -> GoogleMapsApi.Entities.Routes.Request.Waypoint!
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.Origin.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.PolylineEncoding.get -> GoogleMapsApi.Entities.Routes.Request.PolylineEncoding?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.PolylineEncoding.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.PolylineQuality.get -> GoogleMapsApi.Entities.Routes.Request.PolylineQuality?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.PolylineQuality.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.RegionCode.get -> string?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.RegionCode.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.RequestedReferenceRoutes.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Request.ReferenceRoute>?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.RequestedReferenceRoutes.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.RouteModifiers.get -> GoogleMapsApi.Entities.Routes.Request.RouteModifiers?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.RouteModifiers.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.RoutesRequest() -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.RoutingPreference.get -> GoogleMapsApi.Entities.Routes.Request.RoutingPreference?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.RoutingPreference.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.TrafficModel.get -> GoogleMapsApi.Entities.Routes.Request.TrafficModel?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.TrafficModel.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.TransitPreferences.get -> GoogleMapsApi.Entities.Routes.Request.TransitPreferences?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.TransitPreferences.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.TravelMode.get -> GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.TravelMode.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.Units.get -> GoogleMapsApi.Entities.Routes.Request.Units?
+GoogleMapsApi.Entities.Routes.Request.RoutesRequest.Units.set -> void
+GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode
+GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode.Bicycle = 2 -> GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode
+GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode.Drive = 1 -> GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode
+GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode.Transit = 5 -> GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode
+GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode.TwoWheeler = 4 -> GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode
+GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode
+GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode.Walk = 3 -> GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode
+GoogleMapsApi.Entities.Routes.Request.RoutingPreference
+GoogleMapsApi.Entities.Routes.Request.RoutingPreference.TrafficAware = 2 -> GoogleMapsApi.Entities.Routes.Request.RoutingPreference
+GoogleMapsApi.Entities.Routes.Request.RoutingPreference.TrafficAwareOptimal = 3 -> GoogleMapsApi.Entities.Routes.Request.RoutingPreference
+GoogleMapsApi.Entities.Routes.Request.RoutingPreference.TrafficUnaware = 1 -> GoogleMapsApi.Entities.Routes.Request.RoutingPreference
+GoogleMapsApi.Entities.Routes.Request.RoutingPreference.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Request.RoutingPreference
+GoogleMapsApi.Entities.Routes.Request.TrafficModel
+GoogleMapsApi.Entities.Routes.Request.TrafficModel.BestGuess = 1 -> GoogleMapsApi.Entities.Routes.Request.TrafficModel
+GoogleMapsApi.Entities.Routes.Request.TrafficModel.Optimistic = 3 -> GoogleMapsApi.Entities.Routes.Request.TrafficModel
+GoogleMapsApi.Entities.Routes.Request.TrafficModel.Pessimistic = 2 -> GoogleMapsApi.Entities.Routes.Request.TrafficModel
+GoogleMapsApi.Entities.Routes.Request.TrafficModel.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Request.TrafficModel
+GoogleMapsApi.Entities.Routes.Request.TransitPreferences
+GoogleMapsApi.Entities.Routes.Request.TransitPreferences.AllowedTravelModes.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Request.TransitTravelMode>?
+GoogleMapsApi.Entities.Routes.Request.TransitPreferences.AllowedTravelModes.set -> void
+GoogleMapsApi.Entities.Routes.Request.TransitPreferences.RoutingPreference.get -> GoogleMapsApi.Entities.Routes.Request.TransitRoutingPreference?
+GoogleMapsApi.Entities.Routes.Request.TransitPreferences.RoutingPreference.set -> void
+GoogleMapsApi.Entities.Routes.Request.TransitPreferences.TransitPreferences() -> void
+GoogleMapsApi.Entities.Routes.Request.TransitRoutingPreference
+GoogleMapsApi.Entities.Routes.Request.TransitRoutingPreference.FewerTransfers = 2 -> GoogleMapsApi.Entities.Routes.Request.TransitRoutingPreference
+GoogleMapsApi.Entities.Routes.Request.TransitRoutingPreference.LessWalking = 1 -> GoogleMapsApi.Entities.Routes.Request.TransitRoutingPreference
+GoogleMapsApi.Entities.Routes.Request.TransitRoutingPreference.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Request.TransitRoutingPreference
+GoogleMapsApi.Entities.Routes.Request.TransitTravelMode
+GoogleMapsApi.Entities.Routes.Request.TransitTravelMode.Bus = 1 -> GoogleMapsApi.Entities.Routes.Request.TransitTravelMode
+GoogleMapsApi.Entities.Routes.Request.TransitTravelMode.LightRail = 4 -> GoogleMapsApi.Entities.Routes.Request.TransitTravelMode
+GoogleMapsApi.Entities.Routes.Request.TransitTravelMode.Rail = 5 -> GoogleMapsApi.Entities.Routes.Request.TransitTravelMode
+GoogleMapsApi.Entities.Routes.Request.TransitTravelMode.Subway = 2 -> GoogleMapsApi.Entities.Routes.Request.TransitTravelMode
+GoogleMapsApi.Entities.Routes.Request.TransitTravelMode.Train = 3 -> GoogleMapsApi.Entities.Routes.Request.TransitTravelMode
+GoogleMapsApi.Entities.Routes.Request.TransitTravelMode.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Request.TransitTravelMode
+GoogleMapsApi.Entities.Routes.Request.Units
+GoogleMapsApi.Entities.Routes.Request.Units.Imperial = 2 -> GoogleMapsApi.Entities.Routes.Request.Units
+GoogleMapsApi.Entities.Routes.Request.Units.Metric = 1 -> GoogleMapsApi.Entities.Routes.Request.Units
+GoogleMapsApi.Entities.Routes.Request.Units.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Request.Units
+GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType
+GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType.Diesel = 4 -> GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType
+GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType.Electric = 2 -> GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType
+GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType.Gasoline = 1 -> GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType
+GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType.Hybrid = 3 -> GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType
+GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType
+GoogleMapsApi.Entities.Routes.Request.VehicleInfo
+GoogleMapsApi.Entities.Routes.Request.VehicleInfo.EmissionType.get -> GoogleMapsApi.Entities.Routes.Request.VehicleEmissionType?
+GoogleMapsApi.Entities.Routes.Request.VehicleInfo.EmissionType.set -> void
+GoogleMapsApi.Entities.Routes.Request.VehicleInfo.VehicleInfo() -> void
+GoogleMapsApi.Entities.Routes.Request.Waypoint
+GoogleMapsApi.Entities.Routes.Request.Waypoint.Address.get -> string?
+GoogleMapsApi.Entities.Routes.Request.Waypoint.Address.set -> void
+GoogleMapsApi.Entities.Routes.Request.Waypoint.Location.get -> GoogleMapsApi.Entities.Routes.Request.WaypointLocation?
+GoogleMapsApi.Entities.Routes.Request.Waypoint.Location.set -> void
+GoogleMapsApi.Entities.Routes.Request.Waypoint.PlaceId.get -> string?
+GoogleMapsApi.Entities.Routes.Request.Waypoint.PlaceId.set -> void
+GoogleMapsApi.Entities.Routes.Request.Waypoint.SideOfRoad.get -> bool?
+GoogleMapsApi.Entities.Routes.Request.Waypoint.SideOfRoad.set -> void
+GoogleMapsApi.Entities.Routes.Request.Waypoint.VehicleStopover.get -> bool?
+GoogleMapsApi.Entities.Routes.Request.Waypoint.VehicleStopover.set -> void
+GoogleMapsApi.Entities.Routes.Request.Waypoint.Via.get -> bool?
+GoogleMapsApi.Entities.Routes.Request.Waypoint.Via.set -> void
+GoogleMapsApi.Entities.Routes.Request.Waypoint.Waypoint() -> void
+GoogleMapsApi.Entities.Routes.Request.WaypointLocation
+GoogleMapsApi.Entities.Routes.Request.WaypointLocation.Heading.get -> int?
+GoogleMapsApi.Entities.Routes.Request.WaypointLocation.Heading.set -> void
+GoogleMapsApi.Entities.Routes.Request.WaypointLocation.LatLng.get -> GoogleMapsApi.Entities.Routes.Request.LatLng?
+GoogleMapsApi.Entities.Routes.Request.WaypointLocation.LatLng.set -> void
+GoogleMapsApi.Entities.Routes.Request.WaypointLocation.WaypointLocation() -> void
+GoogleMapsApi.Entities.Routes.Response.FallbackInfo
+GoogleMapsApi.Entities.Routes.Response.FallbackInfo.FallbackInfo() -> void
+GoogleMapsApi.Entities.Routes.Response.FallbackInfo.Reason.get -> GoogleMapsApi.Entities.Routes.Response.FallbackReason?
+GoogleMapsApi.Entities.Routes.Response.FallbackInfo.Reason.set -> void
+GoogleMapsApi.Entities.Routes.Response.FallbackInfo.RoutingMode.get -> GoogleMapsApi.Entities.Routes.Response.FallbackRoutingMode?
+GoogleMapsApi.Entities.Routes.Response.FallbackInfo.RoutingMode.set -> void
+GoogleMapsApi.Entities.Routes.Response.FallbackReason
+GoogleMapsApi.Entities.Routes.Response.FallbackReason.LatencyExceeded = 2 -> GoogleMapsApi.Entities.Routes.Response.FallbackReason
+GoogleMapsApi.Entities.Routes.Response.FallbackReason.ServerError = 1 -> GoogleMapsApi.Entities.Routes.Response.FallbackReason
+GoogleMapsApi.Entities.Routes.Response.FallbackReason.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Response.FallbackReason
+GoogleMapsApi.Entities.Routes.Response.FallbackRoutingMode
+GoogleMapsApi.Entities.Routes.Response.FallbackRoutingMode.TrafficAware = 2 -> GoogleMapsApi.Entities.Routes.Response.FallbackRoutingMode
+GoogleMapsApi.Entities.Routes.Response.FallbackRoutingMode.TrafficUnaware = 1 -> GoogleMapsApi.Entities.Routes.Response.FallbackRoutingMode
+GoogleMapsApi.Entities.Routes.Response.FallbackRoutingMode.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Response.FallbackRoutingMode
+GoogleMapsApi.Entities.Routes.Response.GeocodedIntermediate
+GoogleMapsApi.Entities.Routes.Response.GeocodedIntermediate.GeocodedIntermediate() -> void
+GoogleMapsApi.Entities.Routes.Response.GeocodedIntermediate.IntermediateWaypointRequestIndex.get -> int?
+GoogleMapsApi.Entities.Routes.Response.GeocodedIntermediate.IntermediateWaypointRequestIndex.set -> void
+GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint
+GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint.GeocodedWaypoint() -> void
+GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint.GeocoderStatus.get -> GoogleMapsApi.Entities.Routes.Response.GeocoderStatus?
+GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint.GeocoderStatus.set -> void
+GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint.PartialMatch.get -> bool?
+GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint.PartialMatch.set -> void
+GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint.PlaceId.get -> string?
+GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint.PlaceId.set -> void
+GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint.Type.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint.Type.set -> void
+GoogleMapsApi.Entities.Routes.Response.GeocoderStatus
+GoogleMapsApi.Entities.Routes.Response.GeocoderStatus.Code.get -> int?
+GoogleMapsApi.Entities.Routes.Response.GeocoderStatus.Code.set -> void
+GoogleMapsApi.Entities.Routes.Response.GeocoderStatus.GeocoderStatus() -> void
+GoogleMapsApi.Entities.Routes.Response.GeocoderStatus.Message.get -> string?
+GoogleMapsApi.Entities.Routes.Response.GeocoderStatus.Message.set -> void
+GoogleMapsApi.Entities.Routes.Response.GeocodingResults
+GoogleMapsApi.Entities.Routes.Response.GeocodingResults.Destination.get -> GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint?
+GoogleMapsApi.Entities.Routes.Response.GeocodingResults.Destination.set -> void
+GoogleMapsApi.Entities.Routes.Response.GeocodingResults.GeocodingResults() -> void
+GoogleMapsApi.Entities.Routes.Response.GeocodingResults.Intermediates.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Response.GeocodedIntermediate!>?
+GoogleMapsApi.Entities.Routes.Response.GeocodingResults.Intermediates.set -> void
+GoogleMapsApi.Entities.Routes.Response.GeocodingResults.Origin.get -> GoogleMapsApi.Entities.Routes.Response.GeocodedWaypoint?
+GoogleMapsApi.Entities.Routes.Response.GeocodingResults.Origin.set -> void
+GoogleMapsApi.Entities.Routes.Response.LegLocation
+GoogleMapsApi.Entities.Routes.Response.LegLocation.LatLng.get -> GoogleMapsApi.Entities.Routes.Request.LatLng?
+GoogleMapsApi.Entities.Routes.Response.LegLocation.LatLng.set -> void
+GoogleMapsApi.Entities.Routes.Response.LegLocation.LegLocation() -> void
+GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.Depart = 19 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.Ferry = 15 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.FerryTrain = 16 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.ForkLeft = 13 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.ForkRight = 14 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.Merge = 12 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.NameChange = 20 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.RampLeft = 10 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.RampRight = 11 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.RoundaboutLeft = 17 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.RoundaboutRight = 18 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.Straight = 9 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.TurnLeft = 4 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.TurnRight = 8 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.TurnSharpLeft = 2 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.TurnSharpRight = 6 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.TurnSlightLeft = 1 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.TurnSlightRight = 5 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.UTurnLeft = 3 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.UTurnRight = 7 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Maneuver.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Response.Maneuver
+GoogleMapsApi.Entities.Routes.Response.Money
+GoogleMapsApi.Entities.Routes.Response.Money.CurrencyCode.get -> string?
+GoogleMapsApi.Entities.Routes.Response.Money.CurrencyCode.set -> void
+GoogleMapsApi.Entities.Routes.Response.Money.Money() -> void
+GoogleMapsApi.Entities.Routes.Response.Money.Nanos.get -> int?
+GoogleMapsApi.Entities.Routes.Response.Money.Nanos.set -> void
+GoogleMapsApi.Entities.Routes.Response.Money.Units.get -> string?
+GoogleMapsApi.Entities.Routes.Response.Money.Units.set -> void
+GoogleMapsApi.Entities.Routes.Response.NavigationInstruction
+GoogleMapsApi.Entities.Routes.Response.NavigationInstruction.Instructions.get -> string?
+GoogleMapsApi.Entities.Routes.Response.NavigationInstruction.Instructions.set -> void
+GoogleMapsApi.Entities.Routes.Response.NavigationInstruction.Maneuver.get -> GoogleMapsApi.Entities.Routes.Response.Maneuver?
+GoogleMapsApi.Entities.Routes.Response.NavigationInstruction.Maneuver.set -> void
+GoogleMapsApi.Entities.Routes.Response.NavigationInstruction.NavigationInstruction() -> void
+GoogleMapsApi.Entities.Routes.Response.Polyline
+GoogleMapsApi.Entities.Routes.Response.Polyline.DecodedPoints.get -> System.Collections.Generic.IReadOnlyList<GoogleMapsApi.Entities.Common.Location!>!
+GoogleMapsApi.Entities.Routes.Response.Polyline.EncodedPolyline.get -> string?
+GoogleMapsApi.Entities.Routes.Response.Polyline.EncodedPolyline.set -> void
+GoogleMapsApi.Entities.Routes.Response.Polyline.GeoJsonLinestring.get -> object?
+GoogleMapsApi.Entities.Routes.Response.Polyline.GeoJsonLinestring.set -> void
+GoogleMapsApi.Entities.Routes.Response.Polyline.Polyline() -> void
+GoogleMapsApi.Entities.Routes.Response.Route
+GoogleMapsApi.Entities.Routes.Response.Route.DistanceMeters.get -> int?
+GoogleMapsApi.Entities.Routes.Response.Route.DistanceMeters.set -> void
+GoogleMapsApi.Entities.Routes.Response.Route.Duration.get -> string?
+GoogleMapsApi.Entities.Routes.Response.Route.Duration.set -> void
+GoogleMapsApi.Entities.Routes.Response.Route.DurationSeconds.get -> double?
+GoogleMapsApi.Entities.Routes.Response.Route.Legs.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Response.RouteLeg!>?
+GoogleMapsApi.Entities.Routes.Response.Route.Legs.set -> void
+GoogleMapsApi.Entities.Routes.Response.Route.OptimizedIntermediateWaypointIndex.get -> System.Collections.Generic.List<int>?
+GoogleMapsApi.Entities.Routes.Response.Route.OptimizedIntermediateWaypointIndex.set -> void
+GoogleMapsApi.Entities.Routes.Response.Route.Polyline.get -> GoogleMapsApi.Entities.Routes.Response.Polyline?
+GoogleMapsApi.Entities.Routes.Response.Route.Polyline.set -> void
+GoogleMapsApi.Entities.Routes.Response.Route.Route() -> void
+GoogleMapsApi.Entities.Routes.Response.Route.RouteLabels.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Response.RouteLabel>?
+GoogleMapsApi.Entities.Routes.Response.Route.RouteLabels.set -> void
+GoogleMapsApi.Entities.Routes.Response.Route.RouteToken.get -> string?
+GoogleMapsApi.Entities.Routes.Response.Route.RouteToken.set -> void
+GoogleMapsApi.Entities.Routes.Response.Route.StaticDuration.get -> string?
+GoogleMapsApi.Entities.Routes.Response.Route.StaticDuration.set -> void
+GoogleMapsApi.Entities.Routes.Response.Route.StaticDurationSeconds.get -> double?
+GoogleMapsApi.Entities.Routes.Response.Route.TravelAdvisory.get -> GoogleMapsApi.Entities.Routes.Response.RouteTravelAdvisory?
+GoogleMapsApi.Entities.Routes.Response.Route.TravelAdvisory.set -> void
+GoogleMapsApi.Entities.Routes.Response.Route.Viewport.get -> GoogleMapsApi.Entities.Routes.Response.Viewport?
+GoogleMapsApi.Entities.Routes.Response.Route.Viewport.set -> void
+GoogleMapsApi.Entities.Routes.Response.Route.Warnings.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.Routes.Response.Route.Warnings.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLabel
+GoogleMapsApi.Entities.Routes.Response.RouteLabel.DefaultRoute = 1 -> GoogleMapsApi.Entities.Routes.Response.RouteLabel
+GoogleMapsApi.Entities.Routes.Response.RouteLabel.DefaultRouteAlternate = 2 -> GoogleMapsApi.Entities.Routes.Response.RouteLabel
+GoogleMapsApi.Entities.Routes.Response.RouteLabel.FuelEfficient = 3 -> GoogleMapsApi.Entities.Routes.Response.RouteLabel
+GoogleMapsApi.Entities.Routes.Response.RouteLabel.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Response.RouteLabel
+GoogleMapsApi.Entities.Routes.Response.RouteLeg
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.DistanceMeters.get -> int?
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.DistanceMeters.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.Duration.get -> string?
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.Duration.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.DurationSeconds.get -> double?
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.EndLocation.get -> GoogleMapsApi.Entities.Routes.Response.LegLocation?
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.EndLocation.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.Polyline.get -> GoogleMapsApi.Entities.Routes.Response.Polyline?
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.Polyline.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.RouteLeg() -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.StartLocation.get -> GoogleMapsApi.Entities.Routes.Response.LegLocation?
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.StartLocation.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.StaticDuration.get -> string?
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.StaticDuration.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.StaticDurationSeconds.get -> double?
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.Steps.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Response.RouteLegStep!>?
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.Steps.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.TravelAdvisory.get -> GoogleMapsApi.Entities.Routes.Response.RouteLegTravelAdvisory?
+GoogleMapsApi.Entities.Routes.Response.RouteLeg.TravelAdvisory.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.DistanceMeters.get -> int?
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.DistanceMeters.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.EndLocation.get -> GoogleMapsApi.Entities.Routes.Response.LegLocation?
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.EndLocation.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.NavigationInstruction.get -> GoogleMapsApi.Entities.Routes.Response.NavigationInstruction?
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.NavigationInstruction.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.Polyline.get -> GoogleMapsApi.Entities.Routes.Response.Polyline?
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.Polyline.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.RouteLegStep() -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.StartLocation.get -> GoogleMapsApi.Entities.Routes.Response.LegLocation?
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.StartLocation.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.StaticDuration.get -> string?
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.StaticDuration.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.StaticDurationSeconds.get -> double?
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.TravelMode.get -> GoogleMapsApi.Entities.Routes.Request.RoutesTravelMode?
+GoogleMapsApi.Entities.Routes.Response.RouteLegStep.TravelMode.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLegTravelAdvisory
+GoogleMapsApi.Entities.Routes.Response.RouteLegTravelAdvisory.RouteLegTravelAdvisory() -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLegTravelAdvisory.SpeedReadingIntervals.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Response.SpeedReadingInterval!>?
+GoogleMapsApi.Entities.Routes.Response.RouteLegTravelAdvisory.SpeedReadingIntervals.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteLegTravelAdvisory.TollInfo.get -> GoogleMapsApi.Entities.Routes.Response.TollInfo?
+GoogleMapsApi.Entities.Routes.Response.RouteLegTravelAdvisory.TollInfo.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteTravelAdvisory
+GoogleMapsApi.Entities.Routes.Response.RouteTravelAdvisory.FuelConsumptionMicroliters.get -> string?
+GoogleMapsApi.Entities.Routes.Response.RouteTravelAdvisory.FuelConsumptionMicroliters.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteTravelAdvisory.RouteTravelAdvisory() -> void
+GoogleMapsApi.Entities.Routes.Response.RouteTravelAdvisory.SpeedReadingIntervals.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Response.SpeedReadingInterval!>?
+GoogleMapsApi.Entities.Routes.Response.RouteTravelAdvisory.SpeedReadingIntervals.set -> void
+GoogleMapsApi.Entities.Routes.Response.RouteTravelAdvisory.TollInfo.get -> GoogleMapsApi.Entities.Routes.Response.TollInfo?
+GoogleMapsApi.Entities.Routes.Response.RouteTravelAdvisory.TollInfo.set -> void
+GoogleMapsApi.Entities.Routes.Response.RoutesResponse
+GoogleMapsApi.Entities.Routes.Response.RoutesResponse.FallbackInfo.get -> GoogleMapsApi.Entities.Routes.Response.FallbackInfo?
+GoogleMapsApi.Entities.Routes.Response.RoutesResponse.FallbackInfo.set -> void
+GoogleMapsApi.Entities.Routes.Response.RoutesResponse.GeocodingResults.get -> GoogleMapsApi.Entities.Routes.Response.GeocodingResults?
+GoogleMapsApi.Entities.Routes.Response.RoutesResponse.GeocodingResults.set -> void
+GoogleMapsApi.Entities.Routes.Response.RoutesResponse.Routes.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Response.Route!>?
+GoogleMapsApi.Entities.Routes.Response.RoutesResponse.Routes.set -> void
+GoogleMapsApi.Entities.Routes.Response.RoutesResponse.RoutesResponse() -> void
+GoogleMapsApi.Entities.Routes.Response.Speed
+GoogleMapsApi.Entities.Routes.Response.Speed.Normal = 1 -> GoogleMapsApi.Entities.Routes.Response.Speed
+GoogleMapsApi.Entities.Routes.Response.Speed.Slow = 2 -> GoogleMapsApi.Entities.Routes.Response.Speed
+GoogleMapsApi.Entities.Routes.Response.Speed.TrafficJam = 3 -> GoogleMapsApi.Entities.Routes.Response.Speed
+GoogleMapsApi.Entities.Routes.Response.Speed.Unspecified = 0 -> GoogleMapsApi.Entities.Routes.Response.Speed
+GoogleMapsApi.Entities.Routes.Response.SpeedReadingInterval
+GoogleMapsApi.Entities.Routes.Response.SpeedReadingInterval.EndPolylinePointIndex.get -> int?
+GoogleMapsApi.Entities.Routes.Response.SpeedReadingInterval.EndPolylinePointIndex.set -> void
+GoogleMapsApi.Entities.Routes.Response.SpeedReadingInterval.Speed.get -> GoogleMapsApi.Entities.Routes.Response.Speed?
+GoogleMapsApi.Entities.Routes.Response.SpeedReadingInterval.Speed.set -> void
+GoogleMapsApi.Entities.Routes.Response.SpeedReadingInterval.SpeedReadingInterval() -> void
+GoogleMapsApi.Entities.Routes.Response.SpeedReadingInterval.StartPolylinePointIndex.get -> int?
+GoogleMapsApi.Entities.Routes.Response.SpeedReadingInterval.StartPolylinePointIndex.set -> void
+GoogleMapsApi.Entities.Routes.Response.TollInfo
+GoogleMapsApi.Entities.Routes.Response.TollInfo.EstimatedPrice.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Routes.Response.Money!>?
+GoogleMapsApi.Entities.Routes.Response.TollInfo.EstimatedPrice.set -> void
+GoogleMapsApi.Entities.Routes.Response.TollInfo.TollInfo() -> void
+GoogleMapsApi.Entities.Routes.Response.Viewport
+GoogleMapsApi.Entities.Routes.Response.Viewport.High.get -> GoogleMapsApi.Entities.Routes.Request.LatLng?
+GoogleMapsApi.Entities.Routes.Response.Viewport.High.set -> void
+GoogleMapsApi.Entities.Routes.Response.Viewport.Low.get -> GoogleMapsApi.Entities.Routes.Request.LatLng?
+GoogleMapsApi.Entities.Routes.Response.Viewport.Low.set -> void
+GoogleMapsApi.Entities.Routes.Response.Viewport.Viewport() -> void
+GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest
+GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest.Language.get -> string?
+GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest.Language.set -> void
+GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest.Location.get -> GoogleMapsApi.Entities.Common.Location!
+GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest.Location.set -> void
+GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest.TimeStamp.get -> System.DateTime
+GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest.TimeStamp.set -> void
+GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest.TimeZoneRequest() -> void
+GoogleMapsApi.Entities.TimeZone.Response.Status
+GoogleMapsApi.Entities.TimeZone.Response.Status.INVALID_REQUEST = 4 -> GoogleMapsApi.Entities.TimeZone.Response.Status
+GoogleMapsApi.Entities.TimeZone.Response.Status.OK = 0 -> GoogleMapsApi.Entities.TimeZone.Response.Status
+GoogleMapsApi.Entities.TimeZone.Response.Status.OVER_QUERY_LIMIT = 2 -> GoogleMapsApi.Entities.TimeZone.Response.Status
+GoogleMapsApi.Entities.TimeZone.Response.Status.REQUEST_DENIED = 3 -> GoogleMapsApi.Entities.TimeZone.Response.Status
+GoogleMapsApi.Entities.TimeZone.Response.Status.UNKNOWN_ERROR = 5 -> GoogleMapsApi.Entities.TimeZone.Response.Status
+GoogleMapsApi.Entities.TimeZone.Response.Status.ZERO_RESULTS = 1 -> GoogleMapsApi.Entities.TimeZone.Response.Status
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse.DstOffset.get -> double
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse.DstOffset.set -> void
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse.RawOffset.get -> double
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse.RawOffset.set -> void
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse.Status.get -> GoogleMapsApi.Entities.TimeZone.Response.Status
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse.Status.set -> void
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse.TimeZoneId.get -> string!
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse.TimeZoneId.set -> void
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse.TimeZoneName.get -> string!
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse.TimeZoneName.set -> void
+GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse.TimeZoneResponse() -> void
+GoogleMapsApi.GoogleMapsClient
+GoogleMapsApi.GoogleMapsClient.AddressValidation.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest!, GoogleMapsApi.Entities.AddressValidation.Response.AddressValidationResponse!>!
+GoogleMapsApi.GoogleMapsClient.Directions.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Directions.Request.DirectionsRequest!, GoogleMapsApi.Entities.Directions.Response.DirectionsResponse!>!
+GoogleMapsApi.GoogleMapsClient.DistanceMatrix.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest!, GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse!>!
+GoogleMapsApi.GoogleMapsClient.Elevation.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Elevation.Request.ElevationRequest!, GoogleMapsApi.Entities.Elevation.Response.ElevationResponse!>!
+GoogleMapsApi.GoogleMapsClient.Geocode.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest!, GoogleMapsApi.Entities.Geocoding.Response.GeocodingResponse!>!
+GoogleMapsApi.GoogleMapsClient.GoogleMapsClient(System.Net.Http.HttpClient! httpClient) -> void
+GoogleMapsApi.GoogleMapsClient.GoogleMapsClient(System.Net.Http.HttpClient! httpClient, GoogleMapsApi.GoogleMapsClientOptions! options) -> void
+GoogleMapsApi.GoogleMapsClient.PlaceDetailsNew.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest!, GoogleMapsApi.Entities.PlacesNew.Response.Place!>!
+GoogleMapsApi.GoogleMapsClient.PlacePhoto.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.PlacesNew.Request.PlacePhotoRequest!, GoogleMapsApi.Entities.PlacesNew.Response.PlacePhotoResponse!>!
+GoogleMapsApi.GoogleMapsClient.PlacesAutocompleteNew.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest!, GoogleMapsApi.Entities.PlacesNew.Response.AutocompleteResponse!>!
+GoogleMapsApi.GoogleMapsClient.PlacesSearchNearby.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest!, GoogleMapsApi.Entities.PlacesNew.Response.SearchNearbyResponse!>!
+GoogleMapsApi.GoogleMapsClient.PlacesSearchText.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest!, GoogleMapsApi.Entities.PlacesNew.Response.SearchTextResponse!>!
+GoogleMapsApi.GoogleMapsClient.Routes.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Routes.Request.RoutesRequest!, GoogleMapsApi.Entities.Routes.Response.RoutesResponse!>!
+GoogleMapsApi.GoogleMapsClient.TimeZone.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest!, GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse!>!
+GoogleMapsApi.GoogleMapsClientOptions
+GoogleMapsApi.GoogleMapsClientOptions.ApiKey.get -> string?
+GoogleMapsApi.GoogleMapsClientOptions.ApiKey.set -> void
+GoogleMapsApi.GoogleMapsClientOptions.GoogleMapsClientOptions() -> void
+GoogleMapsApi.IEngineFacade<TRequest, TResponse>
+GoogleMapsApi.IEngineFacade<TRequest, TResponse>.OnRawResponseReceived -> GoogleMapsApi.Engine.RawResponseReceivedDelegate!
+GoogleMapsApi.IEngineFacade<TRequest, TResponse>.OnUriCreated -> GoogleMapsApi.Engine.UriCreatedDelegate!
+GoogleMapsApi.IEngineFacade<TRequest, TResponse>.QueryAsync(TRequest! request) -> System.Threading.Tasks.Task<TResponse>!
+GoogleMapsApi.IEngineFacade<TRequest, TResponse>.QueryAsync(TRequest! request, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task<TResponse>!
+GoogleMapsApi.IEngineFacade<TRequest, TResponse>.QueryAsync(TRequest! request, System.TimeSpan timeout) -> System.Threading.Tasks.Task<TResponse>!
+GoogleMapsApi.IEngineFacade<TRequest, TResponse>.QueryAsync(TRequest! request, System.TimeSpan timeout, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task<TResponse>!
+GoogleMapsApi.IGoogleMapsClient
+GoogleMapsApi.IGoogleMapsClient.AddressValidation.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest!, GoogleMapsApi.Entities.AddressValidation.Response.AddressValidationResponse!>!
+GoogleMapsApi.IGoogleMapsClient.Directions.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Directions.Request.DirectionsRequest!, GoogleMapsApi.Entities.Directions.Response.DirectionsResponse!>!
+GoogleMapsApi.IGoogleMapsClient.DistanceMatrix.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest!, GoogleMapsApi.Entities.DistanceMatrix.Response.DistanceMatrixResponse!>!
+GoogleMapsApi.IGoogleMapsClient.Elevation.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Elevation.Request.ElevationRequest!, GoogleMapsApi.Entities.Elevation.Response.ElevationResponse!>!
+GoogleMapsApi.IGoogleMapsClient.Geocode.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest!, GoogleMapsApi.Entities.Geocoding.Response.GeocodingResponse!>!
+GoogleMapsApi.IGoogleMapsClient.PlaceDetailsNew.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest!, GoogleMapsApi.Entities.PlacesNew.Response.Place!>!
+GoogleMapsApi.IGoogleMapsClient.PlacePhoto.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.PlacesNew.Request.PlacePhotoRequest!, GoogleMapsApi.Entities.PlacesNew.Response.PlacePhotoResponse!>!
+GoogleMapsApi.IGoogleMapsClient.PlacesAutocompleteNew.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest!, GoogleMapsApi.Entities.PlacesNew.Response.AutocompleteResponse!>!
+GoogleMapsApi.IGoogleMapsClient.PlacesSearchNearby.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest!, GoogleMapsApi.Entities.PlacesNew.Response.SearchNearbyResponse!>!
+GoogleMapsApi.IGoogleMapsClient.PlacesSearchText.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest!, GoogleMapsApi.Entities.PlacesNew.Response.SearchTextResponse!>!
+GoogleMapsApi.IGoogleMapsClient.Routes.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Routes.Request.RoutesRequest!, GoogleMapsApi.Entities.Routes.Response.RoutesResponse!>!
+GoogleMapsApi.IGoogleMapsClient.TimeZone.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest!, GoogleMapsApi.Entities.TimeZone.Response.TimeZoneResponse!>!
+GoogleMapsApi.QueryStringParametersList
+GoogleMapsApi.QueryStringParametersList.Add(string! key, string? value) -> void
+GoogleMapsApi.QueryStringParametersList.GetQueryStringPostfix() -> string!
+GoogleMapsApi.QueryStringParametersList.QueryStringParametersList() -> void
+GoogleMapsApi.StaticMaps.Entities.ImageSize
+GoogleMapsApi.StaticMaps.Entities.ImageSize.ImageSize() -> void
+GoogleMapsApi.StaticMaps.Entities.ImageSize.ImageSize(int width, int height) -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyle
+GoogleMapsApi.StaticMaps.Entities.MapStyle.Gamma.get -> float?
+GoogleMapsApi.StaticMaps.Entities.MapStyle.Gamma.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyle.HUE.get -> string?
+GoogleMapsApi.StaticMaps.Entities.MapStyle.HUE.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyle.InverseLightness.get -> bool
+GoogleMapsApi.StaticMaps.Entities.MapStyle.InverseLightness.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyle.Lightness.get -> float?
+GoogleMapsApi.StaticMaps.Entities.MapStyle.Lightness.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyle.MapElement.get -> GoogleMapsApi.StaticMaps.Enums.MapElement
+GoogleMapsApi.StaticMaps.Entities.MapStyle.MapElement.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyle.MapFeature.get -> GoogleMapsApi.StaticMaps.Enums.MapFeature
+GoogleMapsApi.StaticMaps.Entities.MapStyle.MapFeature.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyle.MapStyle() -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyle.MapVisibility.get -> GoogleMapsApi.StaticMaps.Enums.MapVisibility
+GoogleMapsApi.StaticMaps.Entities.MapStyle.MapVisibility.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyle.Saturation.get -> float?
+GoogleMapsApi.StaticMaps.Entities.MapStyle.Saturation.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleBuilder
+GoogleMapsApi.StaticMaps.Entities.MapStyleBuilder.AddElementStyle(GoogleMapsApi.StaticMaps.Enums.MapElementType elementType) -> GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleBuilder.AddFeatureStyle(GoogleMapsApi.StaticMaps.Enums.MapFeatureType featureType) -> GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleBuilder.AddStyle(GoogleMapsApi.StaticMaps.Enums.MapFeatureType featureType = GoogleMapsApi.StaticMaps.Enums.MapFeatureType.All, GoogleMapsApi.StaticMaps.Enums.MapElementType elementType = GoogleMapsApi.StaticMaps.Enums.MapElementType.All) -> GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleBuilder.Build() -> System.Collections.Generic.List<GoogleMapsApi.StaticMaps.Entities.MapStyleRule!>!
+GoogleMapsApi.StaticMaps.Entities.MapStyleBuilder.MapStyleBuilder() -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleHelper
+GoogleMapsApi.StaticMaps.Entities.MapStyleRule
+GoogleMapsApi.StaticMaps.Entities.MapStyleRule.ElementType.get -> string?
+GoogleMapsApi.StaticMaps.Entities.MapStyleRule.ElementType.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleRule.FeatureType.get -> string?
+GoogleMapsApi.StaticMaps.Entities.MapStyleRule.FeatureType.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleRule.MapStyleRule() -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleRule.Stylers.get -> System.Collections.Generic.List<GoogleMapsApi.StaticMaps.Entities.MapStyleStyler!>!
+GoogleMapsApi.StaticMaps.Entities.MapStyleRule.Stylers.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder
+GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder.And() -> GoogleMapsApi.StaticMaps.Entities.MapStyleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder.Build() -> System.Collections.Generic.List<GoogleMapsApi.StaticMaps.Entities.MapStyleRule!>!
+GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder.WithColor(string! color) -> GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder.WithGamma(float gamma) -> GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder.WithHue(string! hue) -> GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder.WithLightness(float lightness) -> GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder.WithSaturation(float saturation) -> GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder.WithStylers(params System.Action<GoogleMapsApi.StaticMaps.Entities.MapStyleStyler!>![]! stylers) -> GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder.WithVisibility(GoogleMapsApi.StaticMaps.Enums.MapVisibility visibility) -> GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder.WithWeight(int weight) -> GoogleMapsApi.StaticMaps.Entities.MapStyleRuleBuilder!
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Color.get -> string?
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Color.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Gamma.get -> float?
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Gamma.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Hue.get -> string?
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Hue.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Lightness.get -> float?
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Lightness.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.MapStyleStyler() -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Saturation.get -> float?
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Saturation.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Visibility.get -> string?
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Visibility.set -> void
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Weight.get -> int?
+GoogleMapsApi.StaticMaps.Entities.MapStyleStyler.Weight.set -> void
+GoogleMapsApi.StaticMaps.Entities.Marker
+GoogleMapsApi.StaticMaps.Entities.Marker.Locations.get -> System.Collections.Generic.IList<GoogleMapsApi.Entities.Common.ILocationString!>!
+GoogleMapsApi.StaticMaps.Entities.Marker.Locations.set -> void
+GoogleMapsApi.StaticMaps.Entities.Marker.Marker() -> void
+GoogleMapsApi.StaticMaps.Entities.Marker.Style.get -> GoogleMapsApi.StaticMaps.Entities.MarkerStyle?
+GoogleMapsApi.StaticMaps.Entities.Marker.Style.set -> void
+GoogleMapsApi.StaticMaps.Entities.MarkerStyle
+GoogleMapsApi.StaticMaps.Entities.MarkerStyle.Color.get -> string?
+GoogleMapsApi.StaticMaps.Entities.MarkerStyle.Color.set -> void
+GoogleMapsApi.StaticMaps.Entities.MarkerStyle.Label.get -> string?
+GoogleMapsApi.StaticMaps.Entities.MarkerStyle.Label.set -> void
+GoogleMapsApi.StaticMaps.Entities.MarkerStyle.MarkerStyle() -> void
+GoogleMapsApi.StaticMaps.Entities.MarkerStyle.Size.get -> GoogleMapsApi.StaticMaps.Enums.MarkerSize?
+GoogleMapsApi.StaticMaps.Entities.MarkerStyle.Size.set -> void
+GoogleMapsApi.StaticMaps.Entities.Path
+GoogleMapsApi.StaticMaps.Entities.Path.Locations.get -> System.Collections.Generic.IList<GoogleMapsApi.Entities.Common.ILocationString!>!
+GoogleMapsApi.StaticMaps.Entities.Path.Locations.set -> void
+GoogleMapsApi.StaticMaps.Entities.Path.Path() -> void
+GoogleMapsApi.StaticMaps.Entities.Path.Style.get -> GoogleMapsApi.StaticMaps.Entities.PathStyle?
+GoogleMapsApi.StaticMaps.Entities.Path.Style.set -> void
+GoogleMapsApi.StaticMaps.Entities.PathStyle
+GoogleMapsApi.StaticMaps.Entities.PathStyle.Color.get -> string?
+GoogleMapsApi.StaticMaps.Entities.PathStyle.Color.set -> void
+GoogleMapsApi.StaticMaps.Entities.PathStyle.FillColor.get -> string?
+GoogleMapsApi.StaticMaps.Entities.PathStyle.FillColor.set -> void
+GoogleMapsApi.StaticMaps.Entities.PathStyle.PathStyle() -> void
+GoogleMapsApi.StaticMaps.Entities.PathStyle.Weight.get -> int?
+GoogleMapsApi.StaticMaps.Entities.PathStyle.Weight.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.ApiKey.get -> string!
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.ApiKey.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Center.get -> GoogleMapsApi.Entities.Common.ILocationString?
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Center.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.ImageFormat.get -> GoogleMapsApi.StaticMaps.Enums.ImageFormat
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.ImageFormat.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.IsSSL.get -> bool
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.IsSSL.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Language.get -> string?
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Language.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.MapType.get -> GoogleMapsApi.StaticMaps.Enums.MapType?
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.MapType.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Markers.get -> System.Collections.Generic.IList<GoogleMapsApi.StaticMaps.Entities.Marker!>?
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Markers.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Pathes.get -> System.Collections.Generic.IList<GoogleMapsApi.StaticMaps.Entities.Path!>?
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Pathes.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Scale.get -> int
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Scale.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Size.get -> GoogleMapsApi.StaticMaps.Entities.ImageSize
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Size.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.StaticMapRequest(GoogleMapsApi.Entities.Common.ILocationString! center, int zoom, GoogleMapsApi.StaticMaps.Entities.ImageSize imageSize) -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.StaticMapRequest(System.Collections.Generic.IList<GoogleMapsApi.StaticMaps.Entities.Marker!>! markers, GoogleMapsApi.StaticMaps.Entities.ImageSize imageSize) -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Style.get -> GoogleMapsApi.StaticMaps.Entities.MapStyle?
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Style.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Styles.get -> System.Collections.Generic.IList<GoogleMapsApi.StaticMaps.Entities.MapStyleRule!>?
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Styles.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Visible.get -> GoogleMapsApi.Entities.Common.ILocationString?
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Visible.set -> void
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Zoom.get -> int
+GoogleMapsApi.StaticMaps.Entities.StaticMapRequest.Zoom.set -> void
+GoogleMapsApi.StaticMaps.Enums.ImageFormat
+GoogleMapsApi.StaticMaps.Enums.ImageFormat.GIF = 2 -> GoogleMapsApi.StaticMaps.Enums.ImageFormat
+GoogleMapsApi.StaticMaps.Enums.ImageFormat.JPG = 3 -> GoogleMapsApi.StaticMaps.Enums.ImageFormat
+GoogleMapsApi.StaticMaps.Enums.ImageFormat.JPG_baseline = 4 -> GoogleMapsApi.StaticMaps.Enums.ImageFormat
+GoogleMapsApi.StaticMaps.Enums.ImageFormat.PNG32 = 1 -> GoogleMapsApi.StaticMaps.Enums.ImageFormat
+GoogleMapsApi.StaticMaps.Enums.ImageFormat.PNG8 = 0 -> GoogleMapsApi.StaticMaps.Enums.ImageFormat
+GoogleMapsApi.StaticMaps.Enums.MapElement
+GoogleMapsApi.StaticMaps.Enums.MapElement.All = 0 -> GoogleMapsApi.StaticMaps.Enums.MapElement
+GoogleMapsApi.StaticMaps.Enums.MapElement.Geometry = 1 -> GoogleMapsApi.StaticMaps.Enums.MapElement
+GoogleMapsApi.StaticMaps.Enums.MapElement.Labels = 2 -> GoogleMapsApi.StaticMaps.Enums.MapElement
+GoogleMapsApi.StaticMaps.Enums.MapElementType
+GoogleMapsApi.StaticMaps.Enums.MapElementType.All = 0 -> GoogleMapsApi.StaticMaps.Enums.MapElementType
+GoogleMapsApi.StaticMaps.Enums.MapElementType.Geometry = 1 -> GoogleMapsApi.StaticMaps.Enums.MapElementType
+GoogleMapsApi.StaticMaps.Enums.MapElementType.GeometryFill = 2 -> GoogleMapsApi.StaticMaps.Enums.MapElementType
+GoogleMapsApi.StaticMaps.Enums.MapElementType.GeometryStroke = 3 -> GoogleMapsApi.StaticMaps.Enums.MapElementType
+GoogleMapsApi.StaticMaps.Enums.MapElementType.Labels = 4 -> GoogleMapsApi.StaticMaps.Enums.MapElementType
+GoogleMapsApi.StaticMaps.Enums.MapElementType.LabelsIcon = 5 -> GoogleMapsApi.StaticMaps.Enums.MapElementType
+GoogleMapsApi.StaticMaps.Enums.MapElementType.LabelsText = 6 -> GoogleMapsApi.StaticMaps.Enums.MapElementType
+GoogleMapsApi.StaticMaps.Enums.MapElementType.LabelsTextFill = 7 -> GoogleMapsApi.StaticMaps.Enums.MapElementType
+GoogleMapsApi.StaticMaps.Enums.MapElementType.LabelsTextStroke = 8 -> GoogleMapsApi.StaticMaps.Enums.MapElementType
+GoogleMapsApi.StaticMaps.Enums.MapFeature
+GoogleMapsApi.StaticMaps.Enums.MapFeature.All = 0 -> GoogleMapsApi.StaticMaps.Enums.MapFeature
+GoogleMapsApi.StaticMaps.Enums.MapFeature.Landscape = 2 -> GoogleMapsApi.StaticMaps.Enums.MapFeature
+GoogleMapsApi.StaticMaps.Enums.MapFeature.Road = 1 -> GoogleMapsApi.StaticMaps.Enums.MapFeature
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.Administrative = 1 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.AdministrativeCountry = 2 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.AdministrativeLandParcel = 3 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.AdministrativeLocality = 4 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.AdministrativeNeighborhood = 5 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.AdministrativeProvince = 6 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.All = 0 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.Landscape = 7 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.LandscapeManMade = 8 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.LandscapeNatural = 9 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.LandscapeNaturalLandcover = 10 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.LandscapeNaturalTerrain = 11 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.Poi = 12 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.PoiAttraction = 13 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.PoiBusiness = 14 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.PoiGovernment = 15 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.PoiMedical = 16 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.PoiPark = 17 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.PoiPlaceOfWorship = 18 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.PoiSchool = 19 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.PoiSportsComplex = 20 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.Road = 21 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.RoadArterial = 22 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.RoadHighway = 23 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.RoadHighwayControlledAccess = 24 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.RoadLocal = 25 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.Transit = 26 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.TransitLine = 27 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.TransitStation = 28 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.TransitStationAirport = 29 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.TransitStationBus = 30 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.TransitStationRail = 31 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapFeatureType.Water = 32 -> GoogleMapsApi.StaticMaps.Enums.MapFeatureType
+GoogleMapsApi.StaticMaps.Enums.MapType
+GoogleMapsApi.StaticMaps.Enums.MapType.Hybrid = 3 -> GoogleMapsApi.StaticMaps.Enums.MapType
+GoogleMapsApi.StaticMaps.Enums.MapType.Roadmap = 0 -> GoogleMapsApi.StaticMaps.Enums.MapType
+GoogleMapsApi.StaticMaps.Enums.MapType.Satellite = 1 -> GoogleMapsApi.StaticMaps.Enums.MapType
+GoogleMapsApi.StaticMaps.Enums.MapType.Terrain = 2 -> GoogleMapsApi.StaticMaps.Enums.MapType
+GoogleMapsApi.StaticMaps.Enums.MapVisibility
+GoogleMapsApi.StaticMaps.Enums.MapVisibility.Off = 1 -> GoogleMapsApi.StaticMaps.Enums.MapVisibility
+GoogleMapsApi.StaticMaps.Enums.MapVisibility.On = 0 -> GoogleMapsApi.StaticMaps.Enums.MapVisibility
+GoogleMapsApi.StaticMaps.Enums.MapVisibility.Simplified = 2 -> GoogleMapsApi.StaticMaps.Enums.MapVisibility
+GoogleMapsApi.StaticMaps.Enums.MarkerSize
+GoogleMapsApi.StaticMaps.Enums.MarkerSize.Mid = 0 -> GoogleMapsApi.StaticMaps.Enums.MarkerSize
+GoogleMapsApi.StaticMaps.Enums.MarkerSize.Small = 2 -> GoogleMapsApi.StaticMaps.Enums.MarkerSize
+GoogleMapsApi.StaticMaps.Enums.MarkerSize.Tiny = 1 -> GoogleMapsApi.StaticMaps.Enums.MarkerSize
+GoogleMapsApi.StaticMaps.StaticMapsEngine
+GoogleMapsApi.StaticMaps.StaticMapsEngine.GenerateStaticMapURL(GoogleMapsApi.StaticMaps.Entities.StaticMapRequest! request) -> string!
+GoogleMapsApi.StaticMaps.StaticMapsEngine.StaticMapsEngine() -> void
+const GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.DefaultFieldMask = "id,displayName,formattedAddress,location,rating,types,googleMapsUri" -> string!
+const GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.DefaultFieldMask = "places.id,places.displayName,places.formattedAddress,places.location,places.rating,places.types,places.googleMapsUri" -> string!
+const GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.DefaultFieldMask = "places.id,places.displayName,places.formattedAddress,places.location,places.rating,places.types,places.googleMapsUri" -> string!
+const GoogleMapsApi.Entities.Routes.Request.RoutesRequest.DefaultFieldMask = "routes.duration,routes.distanceMeters,routes.polyline.encodedPolyline,routes.legs.steps,routes.legs.distanceMeters,routes.legs.duration,routes.warnings" -> string!
+override GoogleMapsApi.Entities.AddressValidation.Request.AddressValidationRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.Common.Location.ToString() -> string!
+override GoogleMapsApi.Entities.Common.SignableRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.BaseUrl.get -> string!
+override GoogleMapsApi.Entities.Directions.Request.DirectionsRequest.GetQueryStringParameters() -> GoogleMapsApi.QueryStringParametersList!
+override GoogleMapsApi.Entities.Directions.Response.DirectionsResponse.ToString() -> string!
+override GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.BaseUrl.get -> string!
+override GoogleMapsApi.Entities.DistanceMatrix.Request.DistanceMatrixRequest.GetQueryStringParameters() -> GoogleMapsApi.QueryStringParametersList!
+override GoogleMapsApi.Entities.DistanceMatrix.Request.Time.ToString() -> string!
+override GoogleMapsApi.Entities.Elevation.Request.ElevationRequest.BaseUrl.get -> string!
+override GoogleMapsApi.Entities.Elevation.Request.ElevationRequest.GetQueryStringParameters() -> GoogleMapsApi.QueryStringParametersList!
+override GoogleMapsApi.Entities.Elevation.Response.ElevationResponse.ToString() -> string!
+override GoogleMapsApi.Entities.Geocoding.Request.GeocodingComponents.ToString() -> string!
+override GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.BaseUrl.get -> string!
+override GoogleMapsApi.Entities.Geocoding.Request.GeocodingRequest.GetQueryStringParameters() -> GoogleMapsApi.QueryStringParametersList!
+override GoogleMapsApi.Entities.Geocoding.Response.GeocodingResponse.ToString() -> string!
+override GoogleMapsApi.Entities.PlacesNew.Request.AutocompleteRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.PlacesNew.Request.PlaceDetailsRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.PlacesNew.Request.PlacePhotoRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.PlacesNew.Request.SearchNearbyRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.PlacesNew.Request.SearchTextRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.Routes.Request.RoutesRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest.BaseUrl.get -> string!
+override GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest.GetQueryStringParameters() -> GoogleMapsApi.QueryStringParametersList!
+override GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest.IsSSL.get -> bool
+override GoogleMapsApi.Entities.TimeZone.Request.TimeZoneRequest.IsSSL.set -> void
+readonly GoogleMapsApi.StaticMaps.Entities.ImageSize.Height -> int
+readonly GoogleMapsApi.StaticMaps.Entities.ImageSize.Width -> int
+static GoogleMapsApi.Entities.Routes.Request.Waypoint.FromAddress(string! address) -> GoogleMapsApi.Entities.Routes.Request.Waypoint!
+static GoogleMapsApi.Entities.Routes.Request.Waypoint.FromCoordinates(double latitude, double longitude) -> GoogleMapsApi.Entities.Routes.Request.Waypoint!
+static GoogleMapsApi.Entities.Routes.Request.Waypoint.FromPlaceId(string! placeId) -> GoogleMapsApi.Entities.Routes.Request.Waypoint!
+static GoogleMapsApi.StaticMaps.Entities.MapStyleBuilder.Create() -> GoogleMapsApi.StaticMaps.Entities.MapStyleBuilder!
+static GoogleMapsApi.StaticMaps.Entities.MapStyleHelper.FromJson(string! json) -> System.Collections.Generic.List<GoogleMapsApi.StaticMaps.Entities.MapStyleRule!>!
+static GoogleMapsApi.StaticMaps.Entities.MapStyleHelper.FromJsonArray(System.Text.Json.JsonElement jsonArray) -> System.Collections.Generic.List<GoogleMapsApi.StaticMaps.Entities.MapStyleRule!>!
+static readonly GoogleMapsApi.StaticMaps.StaticMapsEngine.BaseUrl -> string!
+virtual GoogleMapsApi.Engine.RawResponseReceivedDelegate.Invoke(byte[]! data) -> void
+virtual GoogleMapsApi.Engine.UriCreatedDelegate.Invoke(System.Uri! uri) -> System.Uri!
+virtual GoogleMapsApi.Entities.Common.MapsBaseRequest.BaseUrl.get -> string!
+virtual GoogleMapsApi.Entities.Common.MapsBaseRequest.GetQueryStringParameters() -> GoogleMapsApi.QueryStringParametersList!
+virtual GoogleMapsApi.Entities.Common.MapsBaseRequest.GetRequestBody() -> System.Net.Http.HttpContent?
+virtual GoogleMapsApi.Entities.Common.MapsBaseRequest.GetUri() -> System.Uri!
+virtual GoogleMapsApi.Entities.Common.MapsBaseRequest.IsSSL.get -> bool
+virtual GoogleMapsApi.Entities.Common.MapsBaseRequest.IsSSL.set -> void
+virtual GoogleMapsApi.Entities.Common.Photo.Height.get -> int
+virtual GoogleMapsApi.Entities.Common.Photo.Height.set -> void
+virtual GoogleMapsApi.Entities.Common.Photo.HtmlAttributions.get -> System.Collections.Generic.IEnumerable<string!>?
+virtual GoogleMapsApi.Entities.Common.Photo.HtmlAttributions.set -> void
+virtual GoogleMapsApi.Entities.Common.Photo.PhotoReference.get -> string?
+virtual GoogleMapsApi.Entities.Common.Photo.PhotoReference.set -> void
+virtual GoogleMapsApi.Entities.Common.Photo.Width.get -> int
+virtual GoogleMapsApi.Entities.Common.Photo.Width.set -> void

@@ -14,7 +14,7 @@ namespace GoogleMapsApi.Engine
     public delegate Uri UriCreatedDelegate(Uri uri);
     public delegate void RawResponseReceivedDelegate(byte[] data);
 
-    public abstract class MapsAPIGenericEngine<TRequest, TResponse>
+    internal abstract class MapsAPIGenericEngine<TRequest, TResponse>
 		where TRequest : MapsBaseRequest, new()
 		where TResponse : IResponseFor<TRequest>
 	{

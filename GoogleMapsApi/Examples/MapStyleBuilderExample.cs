@@ -11,7 +11,7 @@ namespace GoogleMapsApi.Examples
     /// Example demonstrating how to use the MapStyleBuilder fluent API
     /// This provides a type-safe, class-based approach to creating Google Maps styles
     /// </summary>
-    public class MapStyleBuilderExample
+    internal class MapStyleBuilderExample
     {
         public static void Main()
         {

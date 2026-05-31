@@ -8,7 +8,7 @@ namespace GoogleMapsApi.Engine.JsonConverters
     /// <summary>
     /// JSON converter for OverviewPolyline that handles encoded points and lazy initialization
     /// </summary>
-    public class OverviewPolylineJsonConverter : JsonConverter<OverviewPolyline>
+    internal class OverviewPolylineJsonConverter : JsonConverter<OverviewPolyline>
     {
         public override OverviewPolyline Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
