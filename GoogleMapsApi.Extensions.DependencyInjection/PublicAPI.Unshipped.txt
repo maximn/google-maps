@@ -1,0 +1,5 @@
+#nullable enable
+Microsoft.Extensions.DependencyInjection.GoogleMapsServiceCollectionExtensions
+static Microsoft.Extensions.DependencyInjection.GoogleMapsServiceCollectionExtensions.AddGoogleMaps(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services) -> Microsoft.Extensions.DependencyInjection.IHttpClientBuilder!
+static Microsoft.Extensions.DependencyInjection.GoogleMapsServiceCollectionExtensions.AddGoogleMaps(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, Microsoft.Extensions.Configuration.IConfiguration! configuration) -> Microsoft.Extensions.DependencyInjection.IHttpClientBuilder!
+static Microsoft.Extensions.DependencyInjection.GoogleMapsServiceCollectionExtensions.AddGoogleMaps(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<GoogleMapsApi.GoogleMapsClientOptions!>! configureOptions) -> Microsoft.Extensions.DependencyInjection.IHttpClientBuilder!
