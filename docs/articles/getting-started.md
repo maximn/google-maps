@@ -25,24 +25,30 @@ using GoogleMapsApi;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
 
+using var http = new HttpClient();
+var maps = new GoogleMapsClient(http);
+
 GeocodingRequest geocodeRequest = new GeocodingRequest()
 {
     Address = "new york city",
     ApiKey = "your-google-maps-api-key"
 };
 
-GeocodingResponse geocode = await GoogleMaps.Geocode.QueryAsync(geocodeRequest);
+GeocodingResponse geocode = await maps.Geocode.QueryAsync(geocodeRequest);
 Console.WriteLine(geocode);
 ```
+
+> [!NOTE]
+> The static `GoogleMaps` facade was removed in 2.0.0. Use the instance-based `GoogleMapsClient` / `IGoogleMapsClient` shown above.
 
 For more configuration options (including global configuration via `app.config` / `appsettings.json`), see the [wiki](https://github.com/maximn/google-maps/wiki).
 
 ## Synchronous usage
 
-Synchronous calls are also supported via `Query` — prefer `QueryAsync` whenever possible:
+The API is async-first. When you must call from a synchronous context, block on the task — prefer `QueryAsync` whenever possible:
 
 ```csharp
-GeocodingResponse geocode = GoogleMaps.Geocode.Query(geocodeRequest);
+GeocodingResponse geocode = maps.Geocode.QueryAsync(geocodeRequest).GetAwaiter().GetResult();
 Console.WriteLine(geocode);
 ```
 

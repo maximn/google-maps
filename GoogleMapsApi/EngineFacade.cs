@@ -8,7 +8,7 @@ namespace GoogleMapsApi
 {
     /// <summary>
     /// Default engine that executes a Google Maps API request and returns its strongly-typed response.
-    /// Use the singleton accessors on <see cref="GoogleMaps"/> to obtain an instance per API.
+    /// Use the per-API accessors on <see cref="GoogleMapsClient"/> to obtain an instance per API.
     /// </summary>
     /// <typeparam name="TRequest">The request type, deriving from <see cref="MapsBaseRequest"/>.</typeparam>
     /// <typeparam name="TResponse">The response type returned for <typeparamref name="TRequest"/>.</typeparam>

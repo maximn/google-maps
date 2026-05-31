@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+#pragma warning disable CS0618 // These tests intentionally exercise the legacy (frozen) Places API.
 namespace GoogleMapsApi.Test.IntegrationTests
 {
     [TestFixture]
@@ -23,7 +24,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
+            PlaceAutocompleteResponse result = await Maps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.ZERO_RESULTS));
@@ -40,7 +41,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
+            PlaceAutocompleteResponse result = await Maps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.ZERO_RESULTS), "results for jibberish");
@@ -53,7 +54,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Entities.Common.Location(53.4635332, -2.2419169)
             };
 
-            PlaceAutocompleteResponse offsetResult = await GoogleMaps.PlaceAutocomplete.QueryAsync(offsetRequest);
+            PlaceAutocompleteResponse offsetResult = await Maps.PlaceAutocomplete.QueryAsync(offsetRequest);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(offsetResult.Status, Is.EqualTo(Status.OK), "results using offset");
@@ -71,7 +72,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
+            PlaceAutocompleteResponse result = await Maps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -95,7 +96,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Radius = 30000
             };
 
-            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
+            PlaceAutocompleteResponse result = await Maps.PlaceAutocomplete.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.Not.EqualTo(Status.ZERO_RESULTS));
@@ -107,7 +108,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         public async Task CheckZeroRadius() 
         {
             var request = CreatePlaceAutocompleteRequest("RIX", 0);
-            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
+            PlaceAutocompleteResponse result = await Maps.PlaceAutocomplete.QueryAsync(request);
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.Not.EqualTo(Status.ZERO_RESULTS));
         }
@@ -115,7 +116,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         public async Task CheckNegativeRadius() 
         {
             var request = CreatePlaceAutocompleteRequest("RIX", -1);
-            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
+            PlaceAutocompleteResponse result = await Maps.PlaceAutocomplete.QueryAsync(request);
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.Not.EqualTo(Status.ZERO_RESULTS));
         }
@@ -124,7 +125,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         public async Task CheckLargerThenEarthRadius() 
         {
             var request = CreatePlaceAutocompleteRequest("RIX", 30000000);
-            PlaceAutocompleteResponse result = await GoogleMaps.PlaceAutocomplete.QueryAsync(request);
+            PlaceAutocompleteResponse result = await Maps.PlaceAutocomplete.QueryAsync(request);
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.Not.EqualTo(Status.ZERO_RESULTS));
         }

@@ -6,6 +6,7 @@ using NUnit.Framework;
 using GoogleMapsApi.Test.Utils;
 using System.Threading.Tasks;
 
+#pragma warning disable CS0618 // These tests intentionally exercise the legacy (frozen) Places API.
 namespace GoogleMapsApi.Test.IntegrationTests
 {
     [TestFixture]
@@ -21,7 +22,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = "ChIJZ3VuVMQdLz4REP9PWpQ4SIY"
             };
 
-            PlacesDetailsResponse result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            PlacesDetailsResponse result = await Maps.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -38,7 +39,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = "ChIJbWWgrQAVkFQReAwrXXWzlYs"
             };
 
-            PlacesDetailsResponse result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            PlacesDetailsResponse result = await Maps.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.NOT_FOUND));
@@ -57,7 +58,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 PlaceId = await GetMyPlaceId(),
             };
 
-            PlacesDetailsResponse result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            PlacesDetailsResponse result = await Maps.PlacesDetails.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -90,7 +91,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                     Location = new Location(-31.954453, 115.862717),
                     RankBy = Entities.Places.Request.RankBy.Distance,
                 };
-                var result = await GoogleMaps.Places.QueryAsync(request);
+                var result = await Maps.Places.QueryAsync(request);
                 AssertInconclusive.NotExceedQuota(result);
                 Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");
                 cachedMyPlaceId = result.Results!.First().PlaceId;

@@ -20,7 +20,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 TextQuery = "pizza in New York",
             };
 
-            var response = await GoogleMaps.PlacesSearchText.QueryAsync(request);
+            var response = await Maps.PlacesSearchText.QueryAsync(request);
 
             Assert.That(response.Places, Is.Not.Null.And.Not.Empty);
             Assert.That(response.Places![0].DisplayName!.Text, Is.Not.Null.And.Not.Empty);
@@ -44,7 +44,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 },
             };
 
-            var response = await GoogleMaps.PlacesSearchNearby.QueryAsync(request);
+            var response = await Maps.PlacesSearchNearby.QueryAsync(request);
 
             Assert.That(response.Places, Is.Not.Null.And.Not.Empty);
         }
@@ -52,14 +52,14 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public async Task Details_ByPlaceId_ReturnsPlace()
         {
-            var search = await GoogleMaps.PlacesSearchText.QueryAsync(new SearchTextRequest
+            var search = await Maps.PlacesSearchText.QueryAsync(new SearchTextRequest
             {
                 ApiKey = ApiKey,
                 TextQuery = "Empire State Building",
             });
             var placeId = search.Places![0].Id!;
 
-            var place = await GoogleMaps.PlaceDetailsNew.QueryAsync(new PlaceDetailsRequest
+            var place = await Maps.PlaceDetailsNew.QueryAsync(new PlaceDetailsRequest
             {
                 ApiKey = ApiKey,
                 PlaceId = placeId,
@@ -78,7 +78,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Input = "Eiffel Tow",
             };
 
-            var response = await GoogleMaps.PlacesAutocompleteNew.QueryAsync(request);
+            var response = await Maps.PlacesAutocompleteNew.QueryAsync(request);
 
             Assert.That(response.Suggestions, Is.Not.Null.And.Not.Empty);
         }
@@ -86,10 +86,10 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public async Task Photo_ResolvesToUri()
         {
-            var details = await GoogleMaps.PlaceDetailsNew.QueryAsync(new PlaceDetailsRequest
+            var details = await Maps.PlaceDetailsNew.QueryAsync(new PlaceDetailsRequest
             {
                 ApiKey = ApiKey,
-                PlaceId = (await GoogleMaps.PlacesSearchText.QueryAsync(new SearchTextRequest
+                PlaceId = (await Maps.PlacesSearchText.QueryAsync(new SearchTextRequest
                 {
                     ApiKey = ApiKey,
                     TextQuery = "Statue of Liberty",
@@ -99,7 +99,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
 
             var photoName = details.Photos!.First().Name!;
 
-            var photo = await GoogleMaps.PlacePhoto.QueryAsync(new PlacePhotoRequest
+            var photo = await Maps.PlacePhoto.QueryAsync(new PlacePhotoRequest
             {
                 ApiKey = ApiKey,
                 PhotoName = photoName,

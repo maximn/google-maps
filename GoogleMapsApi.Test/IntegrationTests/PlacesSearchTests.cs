@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+#pragma warning disable CS0618 // These tests intentionally exercise the legacy (frozen) Places API.
 namespace GoogleMapsApi.Test.IntegrationTests
 {
     [TestFixture]
@@ -25,7 +26,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
             };
 
-            PlacesResponse result = await GoogleMaps.Places.QueryAsync(request);
+            PlacesResponse result = await Maps.Places.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -44,7 +45,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Type = "airport"
             };
 
-            PlacesResponse result = await GoogleMaps.Places.QueryAsync(request);
+            PlacesResponse result = await Maps.Places.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -64,7 +65,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
             };
 
-            PlacesResponse result = await GoogleMaps.Places.QueryAsync(request);
+            PlacesResponse result = await Maps.Places.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -87,7 +88,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
                 PageToken = result.NextPage
             };
-            result = await GoogleMaps.Places.QueryAsync(request);
+            result = await Maps.Places.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));

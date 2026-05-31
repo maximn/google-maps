@@ -4,13 +4,13 @@
 [![CodeQL](https://github.com/maximn/google-maps/actions/workflows/codeql.yml/badge.svg)](https://github.com/maximn/google-maps/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/maximn/google-maps/badge)](https://scorecard.dev/viewer/?uri=github.com/maximn/google-maps)
 [![License: BSD-2-Clause](https://img.shields.io/badge/License-BSD_2--Clause-blue.svg)](LICENSE.md)
-[![.NET](https://img.shields.io/badge/.NET-net10.0%20%7C%20net8.0%20%7C%20netstandard2.0%20%7C%20net481%20%7C%20net462-512BD4)](https://dotnet.microsoft.com/)
+[![.NET](https://img.shields.io/badge/.NET-net10.0%20%7C%20net8.0%20%7C%20netstandard2.0-512BD4)](https://dotnet.microsoft.com/)
 
 Release history: see [CHANGELOG.md](CHANGELOG.md).
 
 # GoogleMapsApi
 
-A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0, net481, net462), async-first, and battle-tested with **2M+ downloads** on NuGet.
+A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0 — the latter still covers .NET Framework 4.6.1+), async-first, and battle-tested with **2M+ downloads** on NuGet.
 
 ## Supported APIs
 
@@ -68,7 +68,7 @@ For more configuration options and detailed guides, see the [wiki](https://githu
 ## Code Examples
 
 > [!IMPORTANT]
-> The static `GoogleMaps` facade shown in *Basic Usage* below is **deprecated** and will be removed in **2.0.0**. For new code prefer the instance-based `IGoogleMapsClient` / `GoogleMapsClient` — see [Instance-based client](#instance-based-client-ihttpclientfactory-friendly) below.
+> The static `GoogleMaps` facade was **removed in 2.0.0**. Use the instance-based `IGoogleMapsClient` / `GoogleMapsClient` instead — construct it with an `HttpClient` (directly or via `IHttpClientFactory` / dependency injection). See [Instance-based client](#instance-based-client-ihttpclientfactory-friendly) below. Migration is mechanical: replace `GoogleMaps.Xxx.QueryAsync(...)` with `client.Xxx.QueryAsync(...)` on a `GoogleMapsClient` instance.
 
 ### Basic Usage (async-first)
 
@@ -82,7 +82,11 @@ using GoogleMapsApi.Entities.Geocoding.Response;
 using GoogleMapsApi.StaticMaps;
 using GoogleMapsApi.StaticMaps.Entities;
 
-//Static class use (Directions) (Can be made from static/instance class)
+// Create a client backed by an HttpClient (reuse a single instance; IHttpClientFactory friendly)
+using var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "your-google-maps-api-key" });
+
+// Directions
 DirectionsRequest directionsRequest = new DirectionsRequest()
 {
     Origin = "NYC, 5th and 39",
@@ -90,16 +94,15 @@ DirectionsRequest directionsRequest = new DirectionsRequest()
 };
 
 // Async call (recommended)
-DirectionsResponse directions = await GoogleMaps.Directions.QueryAsync(directionsRequest);
+DirectionsResponse directions = await maps.Directions.QueryAsync(directionsRequest);
 Console.WriteLine(directions);
 
-//Instance class use (Geocode)  (Can be made from static/instance class)
+// Geocode
 GeocodingRequest geocodeRequest = new GeocodingRequest()
 {
     Address = "new york city",
 };
-var geocodingEngine = GoogleMaps.Geocode;
-GeocodingResponse geocode = await geocodingEngine.QueryAsync(geocodeRequest);
+GeocodingResponse geocode = await maps.Geocode.QueryAsync(geocodeRequest);
 Console.WriteLine(geocode);
 
 // Static maps API - get static map of with the path of the directions request
@@ -134,9 +137,11 @@ The Routes API is Google's modern replacement for the Directions API — it supp
 using GoogleMapsApi;
 using GoogleMapsApi.Entities.Routes.Request;
 
+using var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "your-google-maps-api-key" });
+
 var request = new RoutesRequest
 {
-    ApiKey = "your-google-maps-api-key",
     Origin = Waypoint.FromAddress("San Francisco, CA"),
     Destination = Waypoint.FromAddress("Mountain View, CA"),
     TravelMode = RoutesTravelMode.Drive,
@@ -144,14 +149,14 @@ var request = new RoutesRequest
     // FieldMask defaults to a Directions-equivalent shape; override to slim the response.
 };
 
-var response = await GoogleMaps.Routes.QueryAsync(request);
+var response = await maps.Routes.QueryAsync(request);
 var route = response.Routes![0];
 Console.WriteLine($"{route.DistanceMeters} m, {route.DurationSeconds} s");
 ```
 
 ### Instance-based client (`IHttpClientFactory`-friendly)
 
-In addition to the static `GoogleMaps` facade, you can use the instance-based `GoogleMapsClient` that accepts an injected `HttpClient`. This is the recommended pattern for ASP.NET Core, minimal APIs, and worker services — it plays nicely with `IHttpClientFactory`, per-instance event handlers, and an ambient API key that is auto-filled into requests when not set explicitly.
+`GoogleMapsClient` is the instance-based entry point that accepts an injected `HttpClient`. This is the standard pattern for ASP.NET Core, minimal APIs, and worker services — it plays nicely with `IHttpClientFactory`, per-instance event handlers, and an ambient API key that is auto-filled into requests when not set explicitly.
 
 ``` C#
 // Register once at startup
@@ -184,10 +189,10 @@ maps.Geocode.OnRawResponseReceived += bytes => { }; // tap raw JSON
 
 ### Synchronous Usage
 
-Synchronous calls are also supported via `Query` (use `QueryAsync` whenever possible):
+The API is async-first. When you must call from a synchronous context, block on the task (prefer `QueryAsync` whenever possible):
 
 ``` C#
-DirectionsResponse directions = GoogleMaps.Directions.Query(directionsRequest);
+DirectionsResponse directions = maps.Directions.QueryAsync(directionsRequest).GetAwaiter().GetResult();
 Console.WriteLine(directions);
 ```
 

@@ -16,6 +16,12 @@ namespace GoogleMapsApi.Test
     {
         private const string TestApiKey = "test_api_key_for_unit_tests";
 
+        private static readonly HttpClient HttpClient = new HttpClient();
+        private static readonly IGoogleMapsClient Maps = new GoogleMapsClient(HttpClient);
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown() => HttpClient.Dispose();
+
         #region Timeout Handling Tests
 
         [Test]
@@ -37,7 +43,7 @@ namespace GoogleMapsApi.Test
             {
                 try
                 {
-                    await GoogleMaps.Geocode.QueryAsync(request, timeout);
+                    await Maps.Geocode.QueryAsync(request, timeout);
                 }
                 catch (HttpRequestException)
                 {
@@ -62,7 +68,7 @@ namespace GoogleMapsApi.Test
 
             Assert.ThrowsAsync<TaskCanceledException>(async () =>
             {
-                await GoogleMaps.Geocode.QueryAsync(request, TimeSpan.FromSeconds(30), cts.Token);
+                await Maps.Geocode.QueryAsync(request, TimeSpan.FromSeconds(30), cts.Token);
             });
         }
 
@@ -80,7 +86,7 @@ namespace GoogleMapsApi.Test
             {
                 try
                 {
-                    await GoogleMaps.Geocode.QueryAsync(request, TimeSpan.FromMilliseconds(-1));
+                    await Maps.Geocode.QueryAsync(request, TimeSpan.FromMilliseconds(-1));
                 }
                 catch (HttpRequestException)
                 {
@@ -97,7 +103,7 @@ namespace GoogleMapsApi.Test
             {
                 try
                 {
-                    await GoogleMaps.Geocode.QueryAsync(request, TimeSpan.Zero);
+                    await Maps.Geocode.QueryAsync(request, TimeSpan.Zero);
                 }
                 catch (TimeoutException)
                 {
@@ -133,7 +139,7 @@ namespace GoogleMapsApi.Test
 
             try
             {
-                await GoogleMaps.Geocode.QueryAsync(request, TimeSpan.FromMilliseconds(1));
+                await Maps.Geocode.QueryAsync(request, TimeSpan.FromMilliseconds(1));
             }
             catch (TimeoutException)
             {
@@ -179,7 +185,7 @@ namespace GoogleMapsApi.Test
                 {
                     try
                     {
-                        await GoogleMaps.Geocode.QueryAsync(request, TimeSpan.FromSeconds(5));
+                        await Maps.Geocode.QueryAsync(request, TimeSpan.FromSeconds(5));
                     }
                     catch (Exception ex) when (ex is HttpRequestException || ex is AuthenticationException || ex is TimeoutException)
                     {
@@ -225,7 +231,7 @@ namespace GoogleMapsApi.Test
                             Address = "test_address",
                             ApiKey = TestApiKey
                         };
-                        await GoogleMaps.Geocode.QueryAsync(request, timeout);
+                        await Maps.Geocode.QueryAsync(request, timeout);
                     }
                     catch (Exception ex) when (ex is TimeoutException || ex is HttpRequestException || ex is AuthenticationException)
                     {
@@ -264,7 +270,7 @@ namespace GoogleMapsApi.Test
             {
                 try
                 {
-                    await GoogleMaps.Geocode.QueryAsync(request, TimeSpan.FromSeconds(5));
+                    await Maps.Geocode.QueryAsync(request, TimeSpan.FromSeconds(5));
                 }
                 catch (Exception ex) when (ex is HttpRequestException || ex is AuthenticationException || ex is TimeoutException)
                 {
@@ -294,7 +300,7 @@ namespace GoogleMapsApi.Test
             // Test that engine recovers from invalid requests
             try
             {
-                await GoogleMaps.Geocode.QueryAsync(invalidRequest, TimeSpan.FromSeconds(5));
+                await Maps.Geocode.QueryAsync(invalidRequest, TimeSpan.FromSeconds(5));
             }
             catch (Exception)
             {
@@ -306,7 +312,7 @@ namespace GoogleMapsApi.Test
             {
                 try
                 {
-                    await GoogleMaps.Geocode.QueryAsync(validRequest, TimeSpan.FromSeconds(5));
+                    await Maps.Geocode.QueryAsync(validRequest, TimeSpan.FromSeconds(5));
                 }
                 catch (Exception ex) when (ex is HttpRequestException || ex is AuthenticationException)
                 {
@@ -324,7 +330,7 @@ namespace GoogleMapsApi.Test
         {
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await GoogleMaps.Geocode.QueryAsync(null!, TimeSpan.FromSeconds(5));
+                await Maps.Geocode.QueryAsync(null!, TimeSpan.FromSeconds(5));
             });
         }
 
@@ -342,7 +348,7 @@ namespace GoogleMapsApi.Test
             {
                 try
                 {
-                    await GoogleMaps.Geocode.QueryAsync(request, TimeSpan.FromSeconds(5));
+                    await Maps.Geocode.QueryAsync(request, TimeSpan.FromSeconds(5));
                 }
                 catch (Exception ex) when (ex is HttpRequestException || ex is AuthenticationException || ex is ArgumentException)
                 {
@@ -365,7 +371,7 @@ namespace GoogleMapsApi.Test
             {
                 try
                 {
-                    await GoogleMaps.Geocode.QueryAsync(request);
+                    await Maps.Geocode.QueryAsync(request);
                 }
                 catch (Exception ex) when (ex is HttpRequestException || ex is AuthenticationException)
                 {

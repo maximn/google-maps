@@ -34,13 +34,9 @@ namespace GoogleMapsApi
 {
     /// <summary>
     /// Instance-based Google Maps client driven by an injected <see cref="HttpClient"/>.
-    /// Prefer this over the static <see cref="GoogleMaps"/> facade in modern .NET projects —
-    /// it is friendly to <c>IHttpClientFactory</c>, supports per-instance event handlers, and
+    /// It is friendly to <c>IHttpClientFactory</c>, supports per-instance event handlers, and
     /// avoids the testability problems of static state.
     /// </summary>
-    /// <remarks>
-    /// The static <see cref="GoogleMaps"/> facade continues to work unchanged for backward compatibility.
-    /// </remarks>
     public sealed class GoogleMapsClient : IGoogleMapsClient
     {
         /// <summary>

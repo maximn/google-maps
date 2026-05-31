@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+#pragma warning disable CS0618 // These tests intentionally exercise the legacy (frozen) Places API.
 namespace GoogleMapsApi.Test.IntegrationTests
 {
     [TestFixture]
@@ -25,7 +26,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
             };
 
-            PlacesNearByResponse result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
+            PlacesNearByResponse result = await Maps.PlacesNearBy.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -44,7 +45,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Type = "airport",
             };
 
-            PlacesNearByResponse result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
+            PlacesNearByResponse result = await Maps.PlacesNearBy.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -64,7 +65,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
             };
 
-            PlacesNearByResponse result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
+            PlacesNearByResponse result = await Maps.PlacesNearBy.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -87,7 +88,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Location = new Location(47.611162, -122.337644), //Seattle, Washington, USA
                 PageToken = result.NextPage
             };
-            result = await GoogleMaps.PlacesNearBy.QueryAsync(request);
+            result = await Maps.PlacesNearBy.QueryAsync(request);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
             //make sure the second page has some results
             Assert.That(result.Results, Is.Not.Null.And.Not.Empty, "Results should not be null or empty");

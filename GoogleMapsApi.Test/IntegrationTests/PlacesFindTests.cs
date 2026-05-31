@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#pragma warning disable CS0618 // These tests intentionally exercise the legacy (frozen) Places API.
 namespace GoogleMapsApi.Test.IntegrationTests
 {
     [TestFixture]
@@ -24,7 +25,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 InputType = InputType.TextQuery
             };
 
-            PlacesFindResponse result = await GoogleMaps.PlacesFind.QueryAsync(request);
+            PlacesFindResponse result = await Maps.PlacesFind.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
             Assert.That(result.Status, Is.EqualTo(Status.OK));
@@ -42,7 +43,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 Fields = "place_id"
             };
 
-            PlacesFindResponse result = await GoogleMaps.PlacesFind.QueryAsync(request);
+            PlacesFindResponse result = await Maps.PlacesFind.QueryAsync(request);
 
             //FormattedAddress should be null since it wasn't requested
             Assert.That(result.Candidates, Is.Not.Empty);

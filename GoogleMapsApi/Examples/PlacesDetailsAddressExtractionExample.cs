@@ -1,7 +1,10 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using GoogleMapsApi.Entities.PlacesDetails.Request;
 using GoogleMapsApi.Entities.PlacesDetails.Response;
+
+#pragma warning disable CS0618 // This example intentionally demonstrates the legacy Places Details API.
 
 namespace GoogleMapsApi.Examples
 {
@@ -12,6 +15,10 @@ namespace GoogleMapsApi.Examples
     public class PlacesDetailsAddressExtractionExample
     {
         private const string GoogleSydneyOfficePlaceId = "ChIJN1t_tDeuEmsRUsoyG83frY4";
+
+        // Reuse a single HttpClient, as recommended when working with GoogleMapsClient.
+        private static readonly HttpClient HttpClient = new HttpClient();
+        private static readonly IGoogleMapsClient Maps = new GoogleMapsClient(HttpClient);
 
         /// <summary>
         /// Example showing how to extract individual address components
@@ -24,7 +31,7 @@ namespace GoogleMapsApi.Examples
                 PlaceId = GoogleSydneyOfficePlaceId
             };
 
-            var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            var result = await Maps.PlacesDetails.QueryAsync(request);
 
             if (result.Status == Status.OK && result.Result?.AddressComponent != null)
             {
@@ -55,7 +62,7 @@ namespace GoogleMapsApi.Examples
                 PlaceId = GoogleSydneyOfficePlaceId
             };
 
-            var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+            var result = await Maps.PlacesDetails.QueryAsync(request);
 
             if (result.Status == Status.OK && result.Result?.AddressComponent != null)
             {
@@ -91,7 +98,7 @@ namespace GoogleMapsApi.Examples
                     PlaceId = placeId
                 };
 
-                var result = await GoogleMaps.PlacesDetails.QueryAsync(request);
+                var result = await Maps.PlacesDetails.QueryAsync(request);
 
                 if (result.Status == Status.OK && result.Result?.AddressComponent != null)
                 {
@@ -102,3 +109,5 @@ namespace GoogleMapsApi.Examples
         }
     }
 }
+
+#pragma warning restore CS0618

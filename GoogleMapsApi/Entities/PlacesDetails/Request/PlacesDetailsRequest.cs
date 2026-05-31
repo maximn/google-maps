@@ -7,7 +7,7 @@ namespace GoogleMapsApi.Entities.PlacesDetails.Request
     /// Request for the Google Place Details API, which returns rich information about a single place
     /// identified by its Place ID.
     /// </summary>
-    [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. GoogleMaps.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
+    [Obsolete("The legacy Places API is frozen. Use the Places API (New) — e.g. IGoogleMapsClient.PlacesSearchText and the GoogleMapsApi.Entities.PlacesNew namespace.")]
     public class PlacesDetailsRequest : MapsBaseRequest
     {
         protected internal override string BaseUrl
