@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-05-31
+
+Here are the release notes for version 2.0.0:
+
+```markdown
+### Changed
+- Skip billable Places API tests by default (#256)
+- Lock public API surface with PublicApiAnalyzers (2.0 baseline) (#259)
+- Update testglance/action digest to fa70140 (#260)
+
+### Removed
+- Remove static `GoogleMaps` facade and legacy Places API (#257)
+- Delete obsolete members (#257)
+- Drop support for older target frameworks (#257)
+```
+
+A few notes on the choices I made:
+
+- **The `feat!` commit (#257)** is the headline breaking change for 2.0. I split its three distinct actions into separate bullets under **Removed**, since each is a user-facing removal.
+- **Docs commit (#258)** (Scorecard badge) is purely internal repo hygiene with no user-facing impact, so I omitted it.
+- **Test/CI and chore commits (#256, #259, #260)** went under **Changed**, per your rules. If you'd prefer to keep release notes strictly user-facing, #259 and #260 could also be omitted — let me know and I'll trim them.
+
 ## [1.8.0] - 2026-05-31
 
 Based on the commits for v1.8.0:
@@ -451,7 +473,8 @@ _Re-release of 1.4.1; no functional changes._
 - Fixed issue #4
 - "jpg-baselin" → "jpg-baseline" in `StaticMapsEngine`
 
-[Unreleased]: https://github.com/maximn/google-maps/compare/v1.8.0...HEAD
+[Unreleased]: https://github.com/maximn/google-maps/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/maximn/google-maps/compare/v1.8.0...v2.0.0
 [1.8.0]: https://github.com/maximn/google-maps/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/maximn/google-maps/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/maximn/google-maps/compare/v1.5.0...v1.6.0
