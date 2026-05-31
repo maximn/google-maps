@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-05-31
+
+### Added
+- Add `GoogleMapsApi.Extensions.DependencyInjection` package (#261)
+
 ## [2.0.0] - 2026-05-31
 
 Here are the release notes for version 2.0.0:
@@ -473,7 +478,8 @@ _Re-release of 1.4.1; no functional changes._
 - Fixed issue #4
 - "jpg-baselin" → "jpg-baseline" in `StaticMapsEngine`
 
-[Unreleased]: https://github.com/maximn/google-maps/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/maximn/google-maps/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/maximn/google-maps/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/maximn/google-maps/compare/v1.8.0...v2.0.0
 [1.8.0]: https://github.com/maximn/google-maps/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/maximn/google-maps/compare/v1.6.0...v1.7.0
