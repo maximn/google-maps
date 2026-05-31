@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace GoogleMapsApi.Test.IntegrationTests
 {
     [TestFixture]
+    [BillableTest]
     public class PlacesNearByTests : BaseTestIntegration
     {
         [Test]

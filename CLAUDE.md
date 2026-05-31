@@ -55,6 +55,20 @@ Integration tests require Google API key via:
 1. Environment variable: `GOOGLE_API_KEY=your_api_key`
 2. Test settings file: `GoogleMapsApi.Test/appsettings.json` (copy from `appsettings.template.json`)
 
+### Billable API Tests (skipped by default)
+Some Google APIs (currently Places) exceed the free quota and incur charges, so their integration
+fixtures (tagged `[BillableTest]`, category `Billable`) are **skipped by default** — including in
+CI. Opt in only when you specifically need them:
+```bash
+# Run the full suite including billable tests
+RUN_BILLABLE_TESTS=true dotnet test
+
+# Run only the billable tests
+RUN_BILLABLE_TESTS=true dotnet test --filter "TestCategory=Billable"
+```
+Annotate any fixture that calls a billable API with `[BillableTest]` (see `Utils/BillableTestAttribute.cs`).
+In CI, billable tests can also be triggered by adding the `run-billable-tests` label to a PR.
+
 ### Single Test Execution
 ```bash
 # Run specific test class

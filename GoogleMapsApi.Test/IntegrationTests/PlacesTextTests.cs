@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace GoogleMapsApi.Test.IntegrationTests
 {
     [TestFixture]
+    [BillableTest]
     public class PlacesTextTests : BaseTestIntegration
     {
         [Test]
