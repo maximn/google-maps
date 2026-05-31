@@ -1,0 +1,24 @@
+# Public API surface lock (Microsoft.CodeAnalysis.PublicApiAnalyzers).
+# Any change to the public surface must be reflected in PublicAPI.Shipped.txt /
+# PublicAPI.Unshipped.txt or the build fails. This makes breaking changes explicit
+# and CI-enforced rather than accidental.
+[*.cs]
+# Symbol is public but missing from the API files
+dotnet_diagnostic.RS0016.severity = error
+# API file lists a symbol that no longer exists
+dotnet_diagnostic.RS0017.severity = error
+# Public API file is missing
+dotnet_diagnostic.RS0024.severity = error
+# Duplicate entry in the API file
+dotnet_diagnostic.RS0025.severity = error
+# API entries must be sorted
+dotnet_diagnostic.RS0026.severity = error
+# Public member with optional parameter should be tracked
+dotnet_diagnostic.RS0027.severity = error
+# Nullable reference type annotations must be tracked (#nullable enable header)
+dotnet_diagnostic.RS0036.severity = error
+dotnet_diagnostic.RS0037.severity = error
+# Public API file is missing the '#nullable enable' / shape mismatches
+dotnet_diagnostic.RS0041.severity = error
+dotnet_diagnostic.RS0048.severity = error
+dotnet_diagnostic.RS0050.severity = error
