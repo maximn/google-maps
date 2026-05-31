@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-05-31
+
+Based on the commits for v1.8.0:
+
+### Changed
+
+- Update actions/setup-dotnet to v5.3.0 (#255)
+- Update testglance/action digest to b1197f0 (#253)
+
+### Deprecated
+
+- Deprecate static `GoogleMaps` facade in favor of the instance-based `IGoogleMapsClient` (#254)
+
 ## [1.7.0] - 2026-05-30
 
 ### Added
@@ -438,7 +451,8 @@ _Re-release of 1.4.1; no functional changes._
 - Fixed issue #4
 - "jpg-baselin" → "jpg-baseline" in `StaticMapsEngine`
 
-[Unreleased]: https://github.com/maximn/google-maps/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/maximn/google-maps/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/maximn/google-maps/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/maximn/google-maps/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/maximn/google-maps/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/maximn/google-maps/compare/v1.4.8...v1.5.0
