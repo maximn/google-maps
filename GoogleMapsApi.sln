@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapsApi.Extensions.De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapsApi.Extensions.DependencyInjection.Test", "GoogleMapsApi.Extensions.DependencyInjection.Test\GoogleMapsApi.Extensions.DependencyInjection.Test.csproj", "{3059B358-14F2-4835-9856-EBD07A578B7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost.DistanceMatrix", "samples\GenericHost.DistanceMatrix\GenericHost.DistanceMatrix.csproj", "{41652BB3-0385-4E9E-A220-22F1D28764F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -152,6 +154,22 @@ Global
 		{3059B358-14F2-4835-9856-EBD07A578B7A}.Release|x86.Build.0 = Release|Any CPU
 		{3059B358-14F2-4835-9856-EBD07A578B7A}.Release|x64.ActiveCfg = Release|Any CPU
 		{3059B358-14F2-4835-9856-EBD07A578B7A}.Release|x64.Build.0 = Release|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Debug|x86.Build.0 = Debug|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Debug|x64.Build.0 = Debug|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Release|x86.ActiveCfg = Release|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Release|x86.Build.0 = Release|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Release|x64.ActiveCfg = Release|Any CPU
+		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,6 +182,7 @@ Global
 		{9742F184-5CDF-49A8-B43A-1F691F077460} = {19C7D2B1-FE79-42F7-9F9E-4F403BDA6033}
 		{BF7FCFA6-53A5-4881-B79E-BDD064F3DCA0} = {950E065F-B61E-4C05-8C74-5F03946AD7E2}
 		{3059B358-14F2-4835-9856-EBD07A578B7A} = {9D09CCCC-6AFA-41EA-BFB3-4698FC5830E6}
+		{41652BB3-0385-4E9E-A220-22F1D28764F3} = {19C7D2B1-FE79-42F7-9F9E-4F403BDA6033}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {061AA237-7231-49DE-835A-296ED94715C4}
