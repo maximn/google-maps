@@ -69,6 +69,6 @@ jobs:
           RUN_BILLABLE_TESTS: ${{ inputs.run_billable || contains(github.event.pull_request.labels.*.name, 'run-billable-tests') }}
     - name: TestGlance
       if: always()
-      uses: testglance/action@fe588b68c48256db6adf959a7125ff9463376861  # v1
+      uses: testglance/action@28c7767ab4a94c476a584b57ec8f1d2e06e2068e  # v1
       with:
         github-token: ${{ github.token }}
