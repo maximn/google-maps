@@ -1,1 +1,75 @@
 #nullable enable
+GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest
+GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.NearestRoadsRequest() -> void
+GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.Points.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Common.Location!>?
+GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.Points.set -> void
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.Interpolate.get -> bool
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.Interpolate.set -> void
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.Path.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Common.Location!>?
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.Path.set -> void
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.SnapToRoadsRequest() -> void
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.Path.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Common.Location!>?
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.Path.set -> void
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.PlaceIds.get -> System.Collections.Generic.IEnumerable<string!>?
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.PlaceIds.set -> void
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.SpeedLimitsRequest() -> void
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.Units.get -> GoogleMapsApi.Entities.Roads.Request.SpeedUnits?
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.Units.set -> void
+GoogleMapsApi.Entities.Roads.Request.SpeedUnits
+GoogleMapsApi.Entities.Roads.Request.SpeedUnits.Kph = 0 -> GoogleMapsApi.Entities.Roads.Request.SpeedUnits
+GoogleMapsApi.Entities.Roads.Request.SpeedUnits.Mph = 1 -> GoogleMapsApi.Entities.Roads.Request.SpeedUnits
+GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse
+GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse.NearestRoadsResponse() -> void
+GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse.SnappedPoints.get -> System.Collections.Generic.IReadOnlyList<GoogleMapsApi.Entities.Roads.Response.SnappedPoint!>?
+GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse.SnappedPoints.set -> void
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation.Latitude.get -> double
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation.Latitude.set -> void
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation.Longitude.get -> double
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation.Longitude.set -> void
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation.RoadsLocation() -> void
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse.SnapToRoadsResponse() -> void
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse.SnappedPoints.get -> System.Collections.Generic.IReadOnlyList<GoogleMapsApi.Entities.Roads.Response.SnappedPoint!>?
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse.SnappedPoints.set -> void
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse.WarningMessage.get -> string?
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse.WarningMessage.set -> void
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.Location.get -> GoogleMapsApi.Entities.Roads.Response.RoadsLocation?
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.Location.set -> void
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.OriginalIndex.get -> int?
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.OriginalIndex.set -> void
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.PlaceId.get -> string?
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.PlaceId.set -> void
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.SnappedPoint() -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.PlaceId.get -> string?
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.PlaceId.set -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.SpeedLimit() -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.Units.get -> GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits?
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.Units.set -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.Value.get -> double
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.Value.set -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits.Kmph = 0 -> GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits.Mph = 1 -> GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse.SnappedPoints.get -> System.Collections.Generic.IReadOnlyList<GoogleMapsApi.Entities.Roads.Response.SnappedPoint!>?
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse.SnappedPoints.set -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse.SpeedLimits.get -> System.Collections.Generic.IReadOnlyList<GoogleMapsApi.Entities.Roads.Response.SpeedLimit!>?
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse.SpeedLimits.set -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse.SpeedLimitsResponse() -> void
+GoogleMapsApi.GoogleMapsClient.NearestRoads.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest!, GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse!>!
+GoogleMapsApi.GoogleMapsClient.SnapToRoads.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest!, GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse!>!
+GoogleMapsApi.GoogleMapsClient.SpeedLimits.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest!, GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse!>!
+GoogleMapsApi.IGoogleMapsClient.NearestRoads.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest!, GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse!>!
+GoogleMapsApi.IGoogleMapsClient.SnapToRoads.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest!, GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse!>!
+GoogleMapsApi.IGoogleMapsClient.SpeedLimits.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest!, GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse!>!
+override GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.GetUri() -> System.Uri!
+const GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.MaxPoints = 100 -> int
+const GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.MaxPathPoints = 100 -> int
+const GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.MaxItems = 100 -> int

@@ -9,6 +9,8 @@ using GoogleMapsApi.Entities.Elevation.Request;
 using GoogleMapsApi.Entities.Elevation.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
+using GoogleMapsApi.Entities.Roads.Request;
+using GoogleMapsApi.Entities.Roads.Response;
 using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.PlacesNew.Request;
@@ -53,6 +55,9 @@ namespace GoogleMapsApi
             DistanceMatrix = new HttpClientEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse>(httpClient, options);
             AddressValidation = new HttpClientEngineFacade<AddressValidationRequest, AddressValidationResponse>(httpClient, options);
             Routes = new HttpClientEngineFacade<RoutesRequest, RoutesResponse>(httpClient, options);
+            SnapToRoads = new HttpClientEngineFacade<SnapToRoadsRequest, SnapToRoadsResponse>(httpClient, options);
+            NearestRoads = new HttpClientEngineFacade<NearestRoadsRequest, NearestRoadsResponse>(httpClient, options);
+            SpeedLimits = new HttpClientEngineFacade<SpeedLimitsRequest, SpeedLimitsResponse>(httpClient, options);
             PlacesSearchText = new HttpClientEngineFacade<SearchTextRequest, SearchTextResponse>(httpClient, options);
             PlacesSearchNearby = new HttpClientEngineFacade<SearchNearbyRequest, SearchNearbyResponse>(httpClient, options);
             PlaceDetailsNew = new HttpClientEngineFacade<PlaceDetailsRequest, Place>(httpClient, options);
@@ -80,6 +85,15 @@ namespace GoogleMapsApi
 
         /// <inheritdoc/>
         public IEngineFacade<RoutesRequest, RoutesResponse> Routes { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<SnapToRoadsRequest, SnapToRoadsResponse> SnapToRoads { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<NearestRoadsRequest, NearestRoadsResponse> NearestRoads { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<SpeedLimitsRequest, SpeedLimitsResponse> SpeedLimits { get; }
 
         /// <inheritdoc/>
         public IEngineFacade<SearchTextRequest, SearchTextResponse> PlacesSearchText { get; }
