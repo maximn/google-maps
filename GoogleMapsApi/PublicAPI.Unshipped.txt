@@ -1,4 +1,6 @@
 #nullable enable
+GoogleMapsApi.Diagnostics.GoogleMapsActivity
+const GoogleMapsApi.Diagnostics.GoogleMapsActivity.SourceName = "GoogleMapsApi" -> string!
 GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest
 GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.NearestRoadsRequest() -> void
 GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.Points.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Common.Location!>?

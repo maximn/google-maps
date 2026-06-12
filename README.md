@@ -28,7 +28,7 @@ A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs �
 
 ## Why this vs Google's official SDKs
 
-Google's official .NET packages (e.g. `Google.Maps.Routing.V2`, `Google.Maps.Places.V1`) are auto-generated from gRPC service definitions — they're verbose, split across many packages, and feel like protobuf instead of .NET. **GoogleMapsApi** is a single, idiomatic NuGet package: one install, async-first, multi-target (modern .NET through legacy .NET Framework), with hand-crafted request/response types that read like normal C#.
+Google's official .NET packages (e.g. `Google.Maps.Routing.V2`, `Google.Maps.Places.V1`) are auto-generated from gRPC service definitions — they're verbose, split across many packages, and feel like protobuf instead of .NET. **GoogleMapsApi** is a single, idiomatic NuGet package: one install, async-first, multi-target (modern .NET through legacy .NET Framework), with hand-crafted request/response types that read like normal C#. It also emits [OpenTelemetry traces](#observability-opentelemetry-tracing) out of the box — something the official SDKs don't.
 
 # Installation
 
@@ -213,6 +213,38 @@ The API is async-first. When you must call from a synchronous context, block on 
 DirectionsResponse directions = maps.Directions.QueryAsync(directionsRequest).GetAwaiter().GetResult();
 Console.WriteLine(directions);
 ```
+
+## Observability (OpenTelemetry tracing)
+
+Every API call emits a [distributed-tracing](https://opentelemetry.io/docs/concepts/signals/traces/) span from an
+[`ActivitySource`](https://learn.microsoft.com/dotnet/core/diagnostics/distributed-tracing) named **`GoogleMapsApi`**.
+There is nothing to enable on the library side — the instrumentation is inert (zero allocations) until a listener is
+registered, and lights up automatically once your tracing pipeline subscribes to the source.
+
+With OpenTelemetry, add the source by name (the constant `GoogleMapsApi.Diagnostics.GoogleMapsActivity.SourceName`):
+
+``` C#
+using OpenTelemetry.Trace;
+using GoogleMapsApi.Diagnostics;
+
+builder.Services.AddOpenTelemetry().WithTracing(tracing => tracing
+    .AddSource(GoogleMapsActivity.SourceName) // "GoogleMapsApi"
+    .AddOtlpExporter());
+```
+
+Each span is `Client`-kind, named `GoogleMapsApi <Api>` (e.g. `GoogleMapsApi Geocoding`), with its **duration**
+representing call latency. Tags follow OpenTelemetry HTTP semantic conventions plus a small `gmaps.*` set:
+
+| Tag | Example | Notes |
+| --- | --- | --- |
+| `gmaps.api` | `Geocoding` | The Maps API invoked |
+| `http.request.method` | `GET` / `POST` | |
+| `server.address` | `maps.googleapis.com` | |
+| `url.full` | `…/geocode/json?...&key=REDACTED` | **API key and signature are always redacted** |
+| `http.response.status_code` | `200` | |
+| `gmaps.response_status` | `OK` / `ZERO_RESULTS` | Google body status, where the API exposes one |
+
+Failures set the span status to `Error` and add an `error.type` tag.
 
 ---
 
