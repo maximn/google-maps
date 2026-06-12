@@ -1,1 +1,3 @@
 #nullable enable
+GoogleMapsApi.Diagnostics.GoogleMapsActivity
+const GoogleMapsApi.Diagnostics.GoogleMapsActivity.SourceName = "GoogleMapsApi" -> string!
