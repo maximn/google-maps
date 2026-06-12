@@ -69,12 +69,10 @@ Both options end at the same place — a `v*` tag in `origin` — and trigger th
 
 [`.github/workflows/nuget.yml`](.github/workflows/nuget.yml) runs on `push` of any `v*` tag:
 
-1. Checks out the repo at the tagged commit
+1. Checks out the repo with full history and tags (`fetch-depth: 0`) at the tagged commit
 2. Installs the .NET SDKs needed to build all target frameworks
-3. Extracts the version from the tag (`v1.4.6` → `1.4.6`)
-4. Injects the version into `GoogleMapsApi/GoogleMapsApi.csproj` (the csproj's `<Version>0.0.0</Version>` placeholder stays unchanged in the repo — only the runner copy is patched)
-5. `dotnet restore` → `dotnet build -c Release` → `dotnet pack -c Release`
-6. `dotnet nuget push *.nupkg --api-key $NUGET_API_KEY --skip-duplicate`
+3. `dotnet restore` → `dotnet build -c Release` → `dotnet pack -c Release` — [MinVer](https://github.com/adamralph/minver) derives the package version from the `v*` tag at build time (`v1.4.6` → `1.4.6`); no csproj is patched. Commits without a tag get a unique prerelease version (e.g. `1.4.7-alpha.0.3`), so only tagged builds publish a stable release.
+4. `dotnet nuget push *.nupkg --api-key $NUGET_API_KEY --skip-duplicate`
 
 `--skip-duplicate` means re-running the workflow with the same version is a no-op rather than an error.
 
