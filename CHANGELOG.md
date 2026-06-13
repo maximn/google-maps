@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-06-12
+
+### Added
+- GenericHost DistanceMatrix dependency-injection sample (#263)
+
+### Changed
+- Derive package version from git tags via MinVer (#279)
+- Update to the .NET 10 SDK/runtime (#262)
+- Update Microsoft.Extensions.Hosting to v10 (#264)
+- Update CI tooling: actions/checkout v6.0.3 (#273), github/codeql-action v4.36.2 (#275, #272), and testglance/action digests (#266–#271, #274, #276–#278)
+
 ## [2.1.0] - 2026-05-31
 
 ### Added
@@ -478,7 +489,8 @@ _Re-release of 1.4.1; no functional changes._
 - Fixed issue #4
 - "jpg-baselin" → "jpg-baseline" in `StaticMapsEngine`
 
-[Unreleased]: https://github.com/maximn/google-maps/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/maximn/google-maps/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/maximn/google-maps/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/maximn/google-maps/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/maximn/google-maps/compare/v1.8.0...v2.0.0
 [1.8.0]: https://github.com/maximn/google-maps/compare/v1.7.0...v1.8.0

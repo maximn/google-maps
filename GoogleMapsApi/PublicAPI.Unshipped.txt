@@ -1,4 +1,5 @@
 #nullable enable
+GoogleMapsApi.Diagnostics.GoogleMapsActivity
 GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest
 GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.Address.get -> string?
 GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.Address.set -> void
@@ -59,5 +60,6 @@ GoogleMapsApi.IAerialViewApi
 GoogleMapsApi.IAerialViewApi.LookupVideo.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest!, GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse!>!
 GoogleMapsApi.IAerialViewApi.RenderVideo.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest!, GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse!>!
 GoogleMapsApi.IGoogleMapsClient.AerialView.get -> GoogleMapsApi.IAerialViewApi!
+const GoogleMapsApi.Diagnostics.GoogleMapsActivity.SourceName = "GoogleMapsApi" -> string!
 override GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.GetUri() -> System.Uri!
 override GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest.GetUri() -> System.Uri!
