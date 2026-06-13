@@ -76,5 +76,8 @@ namespace GoogleMapsApi
 
         /// <summary>Resolve a place photo reference to an image URI via the Places API (New).</summary>
         IEngineFacade<PlacePhotoRequest, PlacePhotoResponse> PlacePhoto { get; }
+
+        /// <summary>Render and look up cinematic flyover videos via the Aerial View API.</summary>
+        IAerialViewApi AerialView { get; }
     }
 }
