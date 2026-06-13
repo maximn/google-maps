@@ -1,6 +1,8 @@
 using GoogleMapsApi.Engine;
 using GoogleMapsApi.Entities.AddressValidation.Request;
 using GoogleMapsApi.Entities.AddressValidation.Response;
+using GoogleMapsApi.Entities.AerialView.Request;
+using GoogleMapsApi.Entities.AerialView.Response;
 using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Request;
@@ -58,6 +60,7 @@ namespace GoogleMapsApi
             PlaceDetailsNew = new HttpClientEngineFacade<PlaceDetailsRequest, Place>(httpClient, options);
             PlacesAutocompleteNew = new HttpClientEngineFacade<AutocompleteRequest, AutocompleteResponse>(httpClient, options);
             PlacePhoto = new HttpClientEngineFacade<PlacePhotoRequest, PlacePhotoResponse>(httpClient, options);
+            AerialView = new AerialViewApi(httpClient, options);
         }
 
         /// <inheritdoc/>
@@ -95,5 +98,8 @@ namespace GoogleMapsApi
 
         /// <inheritdoc/>
         public IEngineFacade<PlacePhotoRequest, PlacePhotoResponse> PlacePhoto { get; }
+
+        /// <inheritdoc/>
+        public IAerialViewApi AerialView { get; }
     }
 }
