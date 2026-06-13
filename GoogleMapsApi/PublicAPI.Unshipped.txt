@@ -1,4 +1,6 @@
 #nullable enable
+GoogleMapsApi.Diagnostics.GoogleMapsActivity
+const GoogleMapsApi.Diagnostics.GoogleMapsActivity.SourceName = "GoogleMapsApi" -> string!
 GoogleMapsApi.Entities.Common.IBinaryResponse
 GoogleMapsApi.Entities.Common.IBinaryResponse.Content.get -> byte[]!
 GoogleMapsApi.Entities.Common.IBinaryResponse.Content.set -> void

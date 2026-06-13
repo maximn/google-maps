@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapsApi.Extensions.De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost.DistanceMatrix", "samples\GenericHost.DistanceMatrix\GenericHost.DistanceMatrix.csproj", "{41652BB3-0385-4E9E-A220-22F1D28764F3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", "{66320409-64EC-F7C5-3DEF-65E7510DAAD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapsApi.Benchmarks", "benchmarks\GoogleMapsApi.Benchmarks\GoogleMapsApi.Benchmarks.csproj", "{6429978B-C1E9-415C-B289-DFBF9451393D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -170,6 +174,22 @@ Global
 		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Release|x86.Build.0 = Release|Any CPU
 		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Release|x64.ActiveCfg = Release|Any CPU
 		{41652BB3-0385-4E9E-A220-22F1D28764F3}.Release|x64.Build.0 = Release|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Debug|x86.Build.0 = Debug|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Debug|x64.Build.0 = Debug|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Release|x86.ActiveCfg = Release|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Release|x86.Build.0 = Release|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Release|x64.ActiveCfg = Release|Any CPU
+		{6429978B-C1E9-415C-B289-DFBF9451393D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -183,6 +203,7 @@ Global
 		{BF7FCFA6-53A5-4881-B79E-BDD064F3DCA0} = {950E065F-B61E-4C05-8C74-5F03946AD7E2}
 		{3059B358-14F2-4835-9856-EBD07A578B7A} = {9D09CCCC-6AFA-41EA-BFB3-4698FC5830E6}
 		{41652BB3-0385-4E9E-A220-22F1D28764F3} = {19C7D2B1-FE79-42F7-9F9E-4F403BDA6033}
+		{6429978B-C1E9-415C-B289-DFBF9451393D} = {66320409-64EC-F7C5-3DEF-65E7510DAAD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {061AA237-7231-49DE-835A-296ED94715C4}
