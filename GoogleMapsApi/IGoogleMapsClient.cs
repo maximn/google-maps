@@ -8,6 +8,8 @@ using GoogleMapsApi.Entities.Elevation.Request;
 using GoogleMapsApi.Entities.Elevation.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
+using GoogleMapsApi.Entities.Roads.Request;
+using GoogleMapsApi.Entities.Roads.Response;
 using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.PlacesNew.Request;
@@ -49,6 +51,18 @@ namespace GoogleMapsApi
         /// Compute routes via the Routes API — the modern replacement for the Directions API.
         /// </summary>
         IEngineFacade<RoutesRequest, RoutesResponse> Routes { get; }
+
+        /// <summary>Snap GPS points to the most likely road segments traveled (Roads API).</summary>
+        IEngineFacade<SnapToRoadsRequest, SnapToRoadsResponse> SnapToRoads { get; }
+
+        /// <summary>Find the nearest road segment for each of a set of points (Roads API).</summary>
+        IEngineFacade<NearestRoadsRequest, NearestRoadsResponse> NearestRoads { get; }
+
+        /// <summary>
+        /// Look up posted speed limits along a path or for place IDs (Roads API).
+        /// Requires a Google Asset Tracking license; other keys receive an HTTP 403.
+        /// </summary>
+        IEngineFacade<SpeedLimitsRequest, SpeedLimitsResponse> SpeedLimits { get; }
 
         /// <summary>Search for places by free-text query via the Places API (New).</summary>
         IEngineFacade<SearchTextRequest, SearchTextResponse> PlacesSearchText { get; }
