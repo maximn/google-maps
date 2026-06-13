@@ -10,7 +10,7 @@ Release history: see [CHANGELOG.md](CHANGELOG.md).
 
 # GoogleMapsApi
 
-A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0 — the latter still covers .NET Framework 4.6.1+), async-first, and battle-tested with **2M+ downloads** on NuGet.
+A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, Aerial View, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0 — the latter still covers .NET Framework 4.6.1+), async-first, and battle-tested with **2M+ downloads** on NuGet.
 
 ## Supported APIs
 
@@ -24,6 +24,7 @@ A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs �
 | [Time Zone](https://developers.google.com/maps/documentation/timezone) | Time zone information for any coordinate |
 | [Places (New)](https://developers.google.com/maps/documentation/places/web-service/op-overview) | Modern Places API — Text Search, Nearby Search, Place Details, Autocomplete, Place Photos |
 | [Address Validation](https://developers.google.com/maps/documentation/address-validation) | Validate a postal address with component-level confirmation; USPS CASS for US/PR |
+| [Aerial View](https://developers.google.com/maps/documentation/aerial-view) | Render and look up cinematic flyover videos for US addresses |
 | [Static Maps](https://developers.google.com/maps/documentation/maps-static) | Generate URLs for static map images with markers, paths, and styles |
 
 ## Why this vs Google's official SDKs
@@ -152,6 +153,32 @@ var response = await maps.Routes.QueryAsync(request);
 var route = response.Routes![0];
 Console.WriteLine($"{route.DistanceMeters} m, {route.DurationSeconds} s");
 ```
+
+### Aerial View API (cinematic flyover videos)
+
+The [Aerial View API](https://developers.google.com/maps/documentation/aerial-view) renders cinematic 3D flyover videos of US addresses. It has two operations, grouped under `maps.AerialView`: `RenderVideo` enqueues rendering (free), and `LookupVideo` fetches a video's state and signed media URIs (billable). Rendering is asynchronous and can take up to a few hours, so the typical flow is *render once, then poll lookup by `videoId` with exponential backoff until the state is `Active`*.
+
+``` C#
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.AerialView.Request;
+using GoogleMapsApi.Entities.AerialView.Response;
+
+using var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "your-google-maps-api-key" });
+
+// 1. Request a render (returns immediately; usually Processing on first call).
+var render = await maps.AerialView.RenderVideo.QueryAsync(
+    new RenderVideoRequest { Address = "500 W 2nd St, Austin, TX 78701" });
+var videoId = render.Metadata!.VideoId!;
+
+// 2. Poll until the video is ready (use a real backoff; rendering can take hours).
+var video = await maps.AerialView.LookupVideo.QueryAsync(new LookupVideoRequest { VideoId = videoId });
+
+if (video.State == VideoState.Active && video.TryGetUris(MediaFormat.Mp4High, out var uris))
+    Console.WriteLine(uris!.LandscapeUri);
+```
+
+> A looked-up video that does not exist (or has no 3D imagery available) returns HTTP 404, surfaced as an `HttpRequestException`. A still-rendering video is **not** an error — it returns `State == VideoState.Processing`.
 
 ### Instance-based client (`IHttpClientFactory`-friendly)
 
