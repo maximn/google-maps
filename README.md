@@ -10,7 +10,7 @@ Release history: see [CHANGELOG.md](CHANGELOG.md).
 
 # GoogleMapsApi
 
-A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0 — the latter still covers .NET Framework 4.6.1+), async-first, and battle-tested with **2M+ downloads** on NuGet.
+A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, Solar, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0 — the latter still covers .NET Framework 4.6.1+), async-first, and battle-tested with **2M+ downloads** on NuGet.
 
 ## Supported APIs
 
@@ -24,6 +24,7 @@ A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs �
 | [Time Zone](https://developers.google.com/maps/documentation/timezone) | Time zone information for any coordinate |
 | [Places (New)](https://developers.google.com/maps/documentation/places/web-service/op-overview) | Modern Places API — Text Search, Nearby Search, Place Details, Autocomplete, Place Photos |
 | [Address Validation](https://developers.google.com/maps/documentation/address-validation) | Validate a postal address with component-level confirmation; USPS CASS for US/PR |
+| [Solar](https://developers.google.com/maps/documentation/solar) | Building solar potential, roof geometry, panel layouts, financial analyses, and raster data layers (billable) |
 | [Static Maps](https://developers.google.com/maps/documentation/maps-static) | Generate URLs for static map images with markers, paths, and styles |
 
 ## Why this vs Google's official SDKs
@@ -151,6 +152,38 @@ var request = new RoutesRequest
 var response = await maps.Routes.QueryAsync(request);
 var route = response.Routes![0];
 Console.WriteLine($"{route.DistanceMeters} m, {route.DurationSeconds} s");
+```
+
+### Solar API (building solar potential)
+
+The Solar API returns a building's solar potential — roof geometry, panel layouts, expected energy
+production, and financial analyses — plus downloadable raster data layers (DSM, flux, shade). It is
+a **billable** API, so calls beyond the free tier incur charges.
+
+``` C#
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Solar.Request;
+
+using var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "your-google-maps-api-key" });
+
+// Solar potential for the building closest to a coordinate.
+var insights = await maps.SolarBuildingInsights.QueryAsync(new BuildingInsightsRequest
+{
+    Latitude = 37.4450,
+    Longitude = -122.1390,
+});
+Console.WriteLine($"Up to {insights.SolarPotential!.MaxArrayPanelsCount} panels");
+
+// Discover raster data layers, then download one as raw GeoTIFF bytes.
+var layers = await maps.SolarDataLayers.QueryAsync(new DataLayersRequest
+{
+    Latitude = 37.4450,
+    Longitude = -122.1390,
+    RadiusMeters = 50,
+});
+var dsm = await maps.SolarGeoTiff.QueryAsync(new GeoTiffRequest { Url = layers.DsmUrl! });
+await File.WriteAllBytesAsync("dsm.tiff", dsm.Content);
 ```
 
 ### Instance-based client (`IHttpClientFactory`-friendly)

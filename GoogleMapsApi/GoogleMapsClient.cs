@@ -13,6 +13,8 @@ using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.PlacesNew.Request;
 using GoogleMapsApi.Entities.PlacesNew.Response;
+using GoogleMapsApi.Entities.Solar.Request;
+using GoogleMapsApi.Entities.Solar.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
 using System;
@@ -58,6 +60,9 @@ namespace GoogleMapsApi
             PlaceDetailsNew = new HttpClientEngineFacade<PlaceDetailsRequest, Place>(httpClient, options);
             PlacesAutocompleteNew = new HttpClientEngineFacade<AutocompleteRequest, AutocompleteResponse>(httpClient, options);
             PlacePhoto = new HttpClientEngineFacade<PlacePhotoRequest, PlacePhotoResponse>(httpClient, options);
+            SolarBuildingInsights = new HttpClientEngineFacade<BuildingInsightsRequest, BuildingInsightsResponse>(httpClient, options);
+            SolarDataLayers = new HttpClientEngineFacade<DataLayersRequest, DataLayersResponse>(httpClient, options);
+            SolarGeoTiff = new HttpClientEngineFacade<GeoTiffRequest, GeoTiffResponse>(httpClient, options);
         }
 
         /// <inheritdoc/>
@@ -95,5 +100,14 @@ namespace GoogleMapsApi
 
         /// <inheritdoc/>
         public IEngineFacade<PlacePhotoRequest, PlacePhotoResponse> PlacePhoto { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<BuildingInsightsRequest, BuildingInsightsResponse> SolarBuildingInsights { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<DataLayersRequest, DataLayersResponse> SolarDataLayers { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<GeoTiffRequest, GeoTiffResponse> SolarGeoTiff { get; }
     }
 }
