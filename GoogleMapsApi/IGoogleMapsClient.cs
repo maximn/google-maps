@@ -73,5 +73,8 @@ namespace GoogleMapsApi
 
         /// <summary>Download a Solar API data layer as raw GeoTIFF bytes (billable).</summary>
         IEngineFacade<GeoTiffRequest, GeoTiffResponse> SolarGeoTiff { get; }
+
+        /// <summary>Render and look up cinematic flyover videos via the Aerial View API.</summary>
+        IAerialViewApi AerialView { get; }
     }
 }

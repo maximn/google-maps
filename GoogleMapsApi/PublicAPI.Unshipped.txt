@@ -1,5 +1,65 @@
 #nullable enable
 GoogleMapsApi.Diagnostics.GoogleMapsActivity
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.Address.get -> string?
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.Address.set -> void
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.LookupVideoRequest() -> void
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.VideoId.get -> string?
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.VideoId.set -> void
+GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest
+GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest.Address.get -> string!
+GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest.Address.set -> void
+GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest.RenderVideoRequest() -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris.AerialViewUris() -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris.LandscapeUri.get -> string?
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris.LandscapeUri.set -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris.PortraitUri.get -> string?
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris.PortraitUri.set -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.AerialViewVideoResponse() -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.Metadata.get -> GoogleMapsApi.Entities.AerialView.Response.VideoMetadata?
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.Metadata.set -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.State.get -> GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.State.set -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.TryGetUris(GoogleMapsApi.Entities.AerialView.Response.MediaFormat format, out GoogleMapsApi.Entities.AerialView.Response.AerialViewUris? uris) -> bool
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.Uris.get -> System.Collections.Generic.Dictionary<string!, GoogleMapsApi.Entities.AerialView.Response.AerialViewUris!>?
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.Uris.set -> void
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.CaptureDate() -> void
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Day.get -> int
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Day.set -> void
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Month.get -> int
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Month.set -> void
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Year.get -> int
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Year.set -> void
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Dash = 5 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Hls = 6 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Image = 1 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Mp4High = 2 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Mp4Low = 4 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Mp4Medium = 3 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Unspecified = 0 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.CaptureDate.get -> GoogleMapsApi.Entities.AerialView.Response.CaptureDate?
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.CaptureDate.set -> void
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.Duration.get -> string?
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.Duration.set -> void
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.DurationValue.get -> System.TimeSpan?
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.VideoId.get -> string?
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.VideoId.set -> void
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.VideoMetadata() -> void
+GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.Entities.AerialView.Response.VideoState.Active = 2 -> GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.Entities.AerialView.Response.VideoState.Failed = 3 -> GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.Entities.AerialView.Response.VideoState.Processing = 1 -> GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.Entities.AerialView.Response.VideoState.Unspecified = 0 -> GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.GoogleMapsClient.AerialView.get -> GoogleMapsApi.IAerialViewApi!
+GoogleMapsApi.IAerialViewApi
+GoogleMapsApi.IAerialViewApi.LookupVideo.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest!, GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse!>!
+GoogleMapsApi.IAerialViewApi.RenderVideo.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest!, GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse!>!
+GoogleMapsApi.IGoogleMapsClient.AerialView.get -> GoogleMapsApi.IAerialViewApi!
 const GoogleMapsApi.Diagnostics.GoogleMapsActivity.SourceName = "GoogleMapsApi" -> string!
 GoogleMapsApi.Entities.Common.IBinaryResponse
 GoogleMapsApi.Entities.Common.IBinaryResponse.Content.get -> byte[]!
@@ -306,3 +366,5 @@ GoogleMapsApi.IGoogleMapsClient.SolarGeoTiff.get -> GoogleMapsApi.IEngineFacade<
 override GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest.GetUri() -> System.Uri!
 override GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.GetUri() -> System.Uri!
 override GoogleMapsApi.Entities.Solar.Request.GeoTiffRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest.GetUri() -> System.Uri!
