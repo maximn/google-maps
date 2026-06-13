@@ -9,9 +9,9 @@ dotnet format
 ## Code Style
 
 The project targets multiple .NET versions and follows standard C# conventions:
-- **Target Frameworks**: net8.0, net7.0, net6.0, netstandard2.0
+- **Target Frameworks**: netstandard2.0, net8.0, net10.0
 - **Language Version**: Latest C#
-- **Nullable**: Disabled in main project, enabled in tests
+- **Nullable**: Enabled
 
 ## Options
 

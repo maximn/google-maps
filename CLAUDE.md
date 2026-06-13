@@ -1,130 +1,71 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for AI agents (Claude Code & others) working in this repository. Keep this file lean —
+deep knowledge lives in [`.agents/`](.agents/README.md). Read the routing table below and open the
+one file relevant to your task.
 
-## Google Maps API .NET Library
+## What this is
 
-This is a comprehensive .NET wrapper library for Google Maps Web Services APIs, providing strongly-typed requests and responses for geocoding, directions, elevation, places, and other Google Maps services.
+A strongly-typed .NET wrapper for the Google Maps Web Services APIs (Geocoding, Directions/Routes,
+Distance Matrix, Elevation, Time Zone, Places (New), Address Validation, Static Maps). Shipped on
+NuGet as `GoogleMapsApi` (+ a sibling `GoogleMapsApi.Extensions.DependencyInjection`).
 
-## Project Architecture
+## Architecture in 30 seconds
 
-### Core Components
-- **GoogleMaps.cs**: Static entry point providing access to all API services via facade pattern
-- **EngineFacade<TRequest, TResponse>**: Generic facade implementing async/sync query operations with timeout and cancellation support
-- **MapsAPIGenericEngine<TRequest, TResponse>**: Core HTTP client engine using System.Text.Json for serialization
-- **Static Maps**: Separate engine for generating Google Static Maps URLs with marker, path, and styling support
+- **Entry point is the instance-based `GoogleMapsClient` / `IGoogleMapsClient`** — you construct it
+  with an injected `HttpClient`. The old **static `GoogleMaps` facade was removed in 2.0** (so was the
+  legacy Places API). Do not reintroduce static state.
+- **Async-only.** Every call goes through `IEngineFacade<TRequest,TResponse>.QueryAsync(...)`.
+- **Request/response pattern:** requests derive `MapsBaseRequest` (override `GetUri()` for GET or
+  `GetRequestBody()` for POST); responses implement `IResponseFor<TRequest>`. Generic constraints make
+  mismatches a compile error.
+- **Observability is built in:** one OpenTelemetry span per call from `ActivitySource "GoogleMapsApi"`,
+  with the API key/signature redacted from the traced URL.
+- **Two packages, lockstep-versioned:** core `GoogleMapsApi` and the optional DI extension.
 
-### Request/Response Pattern
-All API operations follow a consistent pattern:
-- Request entities inherit from `MapsBaseRequest` with `GetUri()` method for URL generation
-- Response entities implement `IResponseFor<TRequest>` interface
-- Generic type constraints ensure compile-time request/response matching
+Flow: `GoogleMapsClient` → `IEngineFacade` → `HttpClientEngineFacade` (internal) → `MapsAPIGenericEngine` (internal, static HTTP+JSON).
 
-### Supported APIs
-- **Geocoding**: Address ↔ coordinates conversion
-- **Directions**: Route planning with multiple travel modes
-- **Elevation**: Elevation data for locations/paths
-- **Places**: Search (nearby, text, find), details, autocomplete
-- **Distance Matrix**: Travel time/distance between multiple origins/destinations
-- **Time Zone**: Time zone data for coordinates
-- **Static Maps**: URL generation for static map images
+## Commands used in most sessions
 
-## Development Commands
-
-### Essential Commands
 ```bash
-# Restore dependencies
 dotnet restore
+dotnet build                       # TFMs: netstandard2.0; net8.0; net10.0
+dotnet test                        # billable (Places) tests are SKIPPED by default
+dotnet format                      # run before committing — enforces .editorconfig
+dotnet pack --no-build             # produces .nupkg + .snupkg
 
-# Build (targets: net10.0, net8.0, net6.0, netstandard2.0, net481, net462)
-dotnet build
-
-# Run tests with API key
-dotnet test --verbosity normal
-# Alternative: GOOGLE_API_KEY=your_key dotnet test
-
-# Format code
-dotnet format
-
-# Create NuGet package
-dotnet pack --no-build
+RUN_BILLABLE_TESTS=true dotnet test    # opt in to billable Places tests (incurs charges)
+dotnet test --filter "ClassName=DirectionsTests"      # one fixture
 ```
 
-### Test Configuration
-Integration tests require Google API key via:
-1. Environment variable: `GOOGLE_API_KEY=your_api_key`
-2. Test settings file: `GoogleMapsApi.Test/appsettings.json` (copy from `appsettings.template.json`)
+## Rules that break the build or release if ignored
 
-### Billable API Tests (skipped by default)
-Some Google APIs (currently Places) exceed the free quota and incur charges, so their integration
-fixtures (tagged `[BillableTest]`, category `Billable`) are **skipped by default** — including in
-CI. Opt in only when you specifically need them:
-```bash
-# Run the full suite including billable tests
-RUN_BILLABLE_TESTS=true dotnet test
+- **Public API is locked.** Any change to the public surface must be reflected in
+  `GoogleMapsApi/PublicAPI.Unshipped.txt` or the build fails (`RS00xx` are errors). → [`.agents/public-api.md`](.agents/public-api.md)
+- **`CHANGELOG.md` is auto-generated** by `release.sh` from commit messages — **never hand-edit it**
+  in a feature PR. → [`RELEASING.md`](RELEASING.md)
+- **Conventional commits** (`feat:`, `fix:`, `chore:` …) — they drive the changelog and version bump.
+- **`dotnet format`** before committing; public members need XML doc comments.
 
-# Run only the billable tests
-RUN_BILLABLE_TESTS=true dotnet test --filter "TestCategory=Billable"
-```
-Annotate any fixture that calls a billable API with `[BillableTest]` (see `Utils/BillableTestAttribute.cs`).
-In CI, billable tests can also be triggered by adding the `run-billable-tests` label to a PR.
+## Where to look (routing)
 
-### Single Test Execution
-```bash
-# Run specific test class
-dotnet test --filter "ClassName=DirectionsTests"
+| If you're working on… | Read |
+| --- | --- |
+| The big picture / how a request flows | [`.agents/architecture.md`](.agents/architecture.md) |
+| **Adding or extending an API** | [`.agents/adding-a-new-api.md`](.agents/adding-a-new-api.md) |
+| Which APIs exist, legacy→new map, GET vs POST | [`.agents/api-catalog.md`](.agents/api-catalog.md) |
+| JSON, custom converters, enums | [`.agents/serialization.md`](.agents/serialization.md) |
+| Tracing, events, error model | [`.agents/observability.md`](.agents/observability.md) |
+| Writing/running tests, billable gating | [`.agents/testing.md`](.agents/testing.md) |
+| Dependency injection & samples | [`.agents/dependency-injection.md`](.agents/dependency-injection.md) |
+| Build, versioning, release, CI/CD | [`.agents/build-release-ci.md`](.agents/build-release-ci.md) |
+| The public-API lock workflow | [`.agents/public-api.md`](.agents/public-api.md) |
+| Code style & commit conventions | [`.agents/conventions.md`](.agents/conventions.md) |
+| Known tech debt / refactor candidates | [`.agents/known-issues.md`](.agents/known-issues.md) |
 
-# Run specific test method
-dotnet test --filter "TestMethodName=Should_Get_Directions"
-```
+Start here for the index: [`.agents/README.md`](.agents/README.md).
 
-## Code Architecture Guidelines
+## Canonical human docs (don't duplicate — link)
 
-### Adding New API Support
-1. Create request/response entities in `Entities/{ServiceName}/`
-2. Request class inherits `MapsBaseRequest`, implements `GetUri()`
-3. Response class implements `IResponseFor<RequestType>`
-4. Add service property to `GoogleMaps.cs` following existing pattern
-5. Add integration tests in `GoogleMapsApi.Test/IntegrationTests/`
-
-### Multi-Framework Compatibility
-- Main library targets: net10.0, net8.0, net6.0, netstandard2.0, net481, net462
-- Tests target: net10.0, net8.0, net481
-- Use conditional compilation when framework-specific features needed
-
-### HTTP Client Usage
-- Single static HttpClient instance in `MapsAPIGenericEngine`
-- Async-only operations with timeout and cancellation token support
-- Custom extension method `DownloadDataTaskAsyncAsString` for HTTP operations
-
-### Event System
-- `OnUriCreated`: Allows URL modification before requests
-- `OnRawResponseReceived`: Access to raw JSON responses for debugging/logging
-
-## Testing Strategy
-
-### Integration Tests
-- Test against live Google APIs (count towards quota)
-- Require internet connection and valid API key
-- Located in `GoogleMapsApi.Test/IntegrationTests/`
-- Inherit from `BaseTestIntegration` for API key management
-
-### Test Naming
-Use descriptive test names explaining expected behavior:
-```csharp
-[Test]
-public void Should_Get_Valid_Directions_Between_Two_Addresses()
-```
-
-## Package Configuration
-
-### NuGet Package
-- Multi-framework targeting for broad compatibility
-- Automatic version increment in CI/CD
-- Source linking enabled for debugging
-- Symbols package (.snupkg) generation
-- GitHub Actions automated publishing to NuGet.org
-
-### Release Process
-- `CHANGELOG.md` is auto-generated by `release.sh` from commit messages — don't edit it in feature PRs. See [`RELEASING.md`](RELEASING.md).
-
+[`README.md`](README.md) (usage, published as the NuGet readme) · [`MIGRATION.md`](MIGRATION.md) (1.x→2.0) ·
+[`CONTRIBUTING.md`](CONTRIBUTING.md) · [`RELEASING.md`](RELEASING.md).
