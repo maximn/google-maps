@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-06-13
+
+### Added
+- Google Roads API support — snap to roads, nearest roads, and speed limits (#283)
+- Solar API support — building insights, data layers, and GeoTIFF (#288)
+- Aerial View API support (#287)
+- OpenTelemetry tracing spans emitted via `ActivitySource` (#280)
+
+### Changed
+- Update .NET SDK to 10.0.9 (#282)
+- Update MinVer to v7 (#286)
+- Update BenchmarkDotNet to 0.15.8 (#290)
+
 ## [2.2.0] - 2026-06-12
 
 ### Added
@@ -489,7 +502,8 @@ _Re-release of 1.4.1; no functional changes._
 - Fixed issue #4
 - "jpg-baselin" → "jpg-baseline" in `StaticMapsEngine`
 
-[Unreleased]: https://github.com/maximn/google-maps/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/maximn/google-maps/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/maximn/google-maps/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/maximn/google-maps/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/maximn/google-maps/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/maximn/google-maps/compare/v1.8.0...v2.0.0
