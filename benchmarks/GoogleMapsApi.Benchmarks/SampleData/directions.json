@@ -1,0 +1,61 @@
+{
+  "status": "OK",
+  "routes": [
+    {
+      "summary": "I-280 N",
+      "copyrights": "Map data ©2024 Google",
+      "warnings": [],
+      "waypoint_order": [],
+      "bounds": {
+        "southwest": { "lat": 37.3382082, "lng": -122.0842499 },
+        "northeast": { "lat": 37.7749295, "lng": -122.0312186 }
+      },
+      "overview_polyline": {
+        "points": "a~l~Fjk~uOwHJy@P~Ho@_FdH~F`AzCwAdA}A`FBdEbBpHwGtJrFvDk@bFlA~CcoAd@kQ}AeKjAa@vGfBkG?_GfHyAhDhCcA"
+      },
+      "legs": [
+        {
+          "start_address": "Mountain View, CA, USA",
+          "end_address": "San Francisco, CA, USA",
+          "start_location": { "lat": 37.4224764, "lng": -122.0842499 },
+          "end_location": { "lat": 37.7749295, "lng": -122.4194155 },
+          "distance": { "value": 61200, "text": "61.2 km" },
+          "duration": { "value": 2700, "text": "45 mins" },
+          "duration_in_traffic": { "value": 3100, "text": "52 mins" },
+          "steps": [
+            {
+              "html_instructions": "Head <b>north</b> on <b>Amphitheatre Pkwy</b>",
+              "travel_mode": "DRIVING",
+              "maneuver": "",
+              "distance": { "value": 400, "text": "0.4 km" },
+              "duration": { "value": 60, "text": "1 min" },
+              "start_location": { "lat": 37.4224764, "lng": -122.0842499 },
+              "end_location": { "lat": 37.4260000, "lng": -122.0838000 },
+              "polyline": { "points": "a~l~Fjk~uOwHJy@P~Ho@_FdH" }
+            },
+            {
+              "html_instructions": "Merge onto <b>US-101 N</b>",
+              "travel_mode": "DRIVING",
+              "maneuver": "merge",
+              "distance": { "value": 30000, "text": "30.0 km" },
+              "duration": { "value": 1320, "text": "22 mins" },
+              "start_location": { "lat": 37.4260000, "lng": -122.0838000 },
+              "end_location": { "lat": 37.6000000, "lng": -122.3800000 },
+              "polyline": { "points": "_p~iF~ps|U_ulLnnqC_mqNvxq`@" }
+            },
+            {
+              "html_instructions": "Continue onto <b>I-280 N</b>",
+              "travel_mode": "DRIVING",
+              "maneuver": "straight",
+              "distance": { "value": 30800, "text": "30.8 km" },
+              "duration": { "value": 1320, "text": "22 mins" },
+              "start_location": { "lat": 37.6000000, "lng": -122.3800000 },
+              "end_location": { "lat": 37.7749295, "lng": -122.4194155 },
+              "polyline": { "points": "_mqNvxq`@~oia@dewK" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

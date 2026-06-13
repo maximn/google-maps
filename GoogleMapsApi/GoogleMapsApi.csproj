@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="GoogleMapsApi.Test" />
+    <InternalsVisibleTo Include="GoogleMapsApi.Benchmarks" />
   </ItemGroup>
 
   <ItemGroup>
