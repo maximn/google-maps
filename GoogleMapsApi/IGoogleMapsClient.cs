@@ -12,6 +12,8 @@ using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.PlacesNew.Request;
 using GoogleMapsApi.Entities.PlacesNew.Response;
+using GoogleMapsApi.Entities.Solar.Request;
+using GoogleMapsApi.Entities.Solar.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
 using System;
@@ -62,6 +64,15 @@ namespace GoogleMapsApi
 
         /// <summary>Resolve a place photo reference to an image URI via the Places API (New).</summary>
         IEngineFacade<PlacePhotoRequest, PlacePhotoResponse> PlacePhoto { get; }
+
+        /// <summary>Get solar potential, roof geometry and financial analyses for a building via the Solar API (billable).</summary>
+        IEngineFacade<BuildingInsightsRequest, BuildingInsightsResponse> SolarBuildingInsights { get; }
+
+        /// <summary>Get URLs to solar raster data layers for a region via the Solar API (billable).</summary>
+        IEngineFacade<DataLayersRequest, DataLayersResponse> SolarDataLayers { get; }
+
+        /// <summary>Download a Solar API data layer as raw GeoTIFF bytes (billable).</summary>
+        IEngineFacade<GeoTiffRequest, GeoTiffResponse> SolarGeoTiff { get; }
 
         /// <summary>Render and look up cinematic flyover videos via the Aerial View API.</summary>
         IAerialViewApi AerialView { get; }

@@ -60,15 +60,24 @@ namespace GoogleMapsApi.Engine
 
 			try
 			{
-				string responseContent;
-				try
+				// Binary endpoints (e.g. Solar GeoTIFF) carry raw bytes, not JSON.
+				if (typeof(IBinaryResponse).IsAssignableFrom(typeof(TResponse)))
 				{
-					responseContent = await GetHttpResponseAsync(httpClient, uri, body, timeout, token).ConfigureAwait(false);
+					var (bytes, contentType) = await SendAsync(httpClient, uri, body, timeout, token, async response =>
+						(await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false),
+						 response.Content.Headers.ContentType?.MediaType)).ConfigureAwait(false);
+
+					onRawResponseReceived?.Invoke(bytes);
+
+					var binaryResult = Activator.CreateInstance<TResponse>();
+					var binary = (IBinaryResponse)binaryResult!;
+					binary.Content = bytes;
+					binary.ContentType = contentType;
+					return binaryResult;
 				}
-				finally
-				{
-					body?.Dispose();
-				}
+
+				var responseContent = await SendAsync(httpClient, uri, body, timeout, token,
+					response => response.Content.ReadAsStringAsync()).ConfigureAwait(false);
 
 				onRawResponseReceived?.Invoke(Encoding.UTF8.GetBytes(responseContent));
 
@@ -89,6 +98,10 @@ namespace GoogleMapsApi.Engine
 				activity?.SetTag("error.type", ex.GetType().FullName);
 				throw;
 			}
+			finally
+			{
+				body?.Dispose();
+			}
 		}
 
 		private static string GetApiName()
@@ -108,7 +121,7 @@ namespace GoogleMapsApi.Engine
 			return property?.GetValue(response)?.ToString();
 		}
 
-		private static async Task<string> GetHttpResponseAsync(HttpClient httpClient, Uri uri, HttpContent? body, TimeSpan timeout, CancellationToken cancellationToken)
+		private static async Task<T> SendAsync<T>(HttpClient httpClient, Uri uri, HttpContent? body, TimeSpan timeout, CancellationToken cancellationToken, Func<HttpResponseMessage, Task<T>> readContent)
 		{
 			using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 			if (timeout != TimeSpan.FromMilliseconds(-1))
@@ -121,7 +134,7 @@ namespace GoogleMapsApi.Engine
 					: await httpClient.PostAsync(uri, body, cts.Token).ConfigureAwait(false);
 				Activity.Current?.SetTag("http.response.status_code", (int)response.StatusCode);
 				await HandleHttpResponse(response, timeout).ConfigureAwait(false);
-				return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+				return await readContent(response).ConfigureAwait(false);
 			}
 			catch (OperationCanceledException) when (cts.Token.IsCancellationRequested && !cancellationToken.IsCancellationRequested)
 			{
