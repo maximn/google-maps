@@ -1,0 +1,59 @@
+{
+  "status": "OK",
+  "results": [
+    {
+      "types": [ "street_address" ],
+      "formatted_address": "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
+      "address_components": [
+        { "types": [ "street_number" ], "long_name": "1600", "short_name": "1600" },
+        { "types": [ "route" ], "long_name": "Amphitheatre Parkway", "short_name": "Amphitheatre Pkwy" },
+        { "types": [ "locality", "political" ], "long_name": "Mountain View", "short_name": "Mountain View" },
+        { "types": [ "administrative_area_level_2", "political" ], "long_name": "Santa Clara County", "short_name": "Santa Clara County" },
+        { "types": [ "administrative_area_level_1", "political" ], "long_name": "California", "short_name": "CA" },
+        { "types": [ "country", "political" ], "long_name": "United States", "short_name": "US" },
+        { "types": [ "postal_code" ], "long_name": "94043", "short_name": "94043" }
+      ],
+      "geometry": {
+        "location": { "lat": 37.4224764, "lng": -122.0842499 },
+        "location_type": "ROOFTOP",
+        "viewport": {
+          "southwest": { "lat": 37.4211274, "lng": -122.0855989 },
+          "northeast": { "lat": 37.4238254, "lng": -122.0829009 }
+        },
+        "bounds": {
+          "southwest": { "lat": 37.4211274, "lng": -122.0855989 },
+          "northeast": { "lat": 37.4238254, "lng": -122.0829009 }
+        }
+      },
+      "partial_match": false,
+      "place_id": "ChIJ2eUgeAK6j4ARbn5u_wAGqWA"
+    },
+    {
+      "types": [ "premise" ],
+      "formatted_address": "1600 Amphitheatre Parkway, Googleplex, Mountain View, CA 94043, USA",
+      "address_components": [
+        { "types": [ "premise" ], "long_name": "Googleplex", "short_name": "Googleplex" },
+        { "types": [ "street_number" ], "long_name": "1600", "short_name": "1600" },
+        { "types": [ "route" ], "long_name": "Amphitheatre Parkway", "short_name": "Amphitheatre Pkwy" },
+        { "types": [ "locality", "political" ], "long_name": "Mountain View", "short_name": "Mountain View" },
+        { "types": [ "administrative_area_level_1", "political" ], "long_name": "California", "short_name": "CA" },
+        { "types": [ "country", "political" ], "long_name": "United States", "short_name": "US" },
+        { "types": [ "postal_code" ], "long_name": "94043", "short_name": "94043" }
+      ],
+      "geometry": {
+        "location": { "lat": 37.4220656, "lng": -122.0840897 },
+        "location_type": "ROOFTOP",
+        "viewport": {
+          "southwest": { "lat": 37.4205196, "lng": -122.0855087 },
+          "northeast": { "lat": 37.4258740, "lng": -122.0812900 }
+        },
+        "bounds": {
+          "southwest": { "lat": 37.4209668, "lng": -122.0853157 },
+          "northeast": { "lat": 37.4234650, "lng": -122.0825347 }
+        }
+      },
+      "partial_match": false,
+      "place_id": "ChIJj38IfwK6j4ARNcyPDnEGa9g"
+    }
+  ]
+}
