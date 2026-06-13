@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Roads.Request;
 using GoogleMapsApi.Entities.Roads.Response;
-using GoogleMapsApi.Test.Utils;
 using NUnit.Framework;
 
 namespace GoogleMapsApi.Test.IntegrationTests
@@ -58,10 +57,13 @@ namespace GoogleMapsApi.Test.IntegrationTests
             Assert.That(result.SnappedPoints, Is.Not.Null.And.Not.Empty);
         }
 
-        // The Speed Limits service requires a Google Asset Tracking license; without one the API
-        // returns HTTP 403. Marked billable/restricted so it is skipped unless RUN_BILLABLE_TESTS=true.
+        // The Speed Limits service requires a Google Asset Tracking license (provisioned by Google
+        // Maps Platform sales, not self-serve); without it the API returns HTTP 403 ("Speed limits
+        // are not available for this project"). Enabling the Roads API is not sufficient. Marked
+        // [Explicit] so it never runs in automatic or billable runs — run it by name only on a
+        // licensed key.
         [Test]
-        [BillableTest]
+        [Explicit("Requires a Google Asset Tracking license; returns HTTP 403 otherwise.")]
         public async Task SpeedLimits_ReturnsSpeedLimits()
         {
             var request = new SpeedLimitsRequest { ApiKey = ApiKey, Path = SamplePath, Units = SpeedUnits.Kph };
