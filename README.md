@@ -8,6 +8,8 @@
 
 Release history: see [CHANGELOG.md](CHANGELOG.md).
 
+[![Sponsor](https://readme.cash/i/xx0nyicavl.svg)](https://readme.cash/c/xx0nyicavl)
+
 # GoogleMapsApi
 
 A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, Solar, Aerial View, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0 — the latter still covers .NET Framework 4.6.1+), async-first, and battle-tested with **2M+ downloads** on NuGet.
