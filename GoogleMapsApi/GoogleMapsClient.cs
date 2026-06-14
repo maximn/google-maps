@@ -1,6 +1,8 @@
 using GoogleMapsApi.Engine;
 using GoogleMapsApi.Entities.AddressValidation.Request;
 using GoogleMapsApi.Entities.AddressValidation.Response;
+using GoogleMapsApi.Entities.AerialView.Request;
+using GoogleMapsApi.Entities.AerialView.Response;
 using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Request;
@@ -9,10 +11,14 @@ using GoogleMapsApi.Entities.Elevation.Request;
 using GoogleMapsApi.Entities.Elevation.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
+using GoogleMapsApi.Entities.Roads.Request;
+using GoogleMapsApi.Entities.Roads.Response;
 using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.PlacesNew.Request;
 using GoogleMapsApi.Entities.PlacesNew.Response;
+using GoogleMapsApi.Entities.Solar.Request;
+using GoogleMapsApi.Entities.Solar.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
 using System;
@@ -53,11 +59,18 @@ namespace GoogleMapsApi
             DistanceMatrix = new HttpClientEngineFacade<DistanceMatrixRequest, DistanceMatrixResponse>(httpClient, options);
             AddressValidation = new HttpClientEngineFacade<AddressValidationRequest, AddressValidationResponse>(httpClient, options);
             Routes = new HttpClientEngineFacade<RoutesRequest, RoutesResponse>(httpClient, options);
+            SnapToRoads = new HttpClientEngineFacade<SnapToRoadsRequest, SnapToRoadsResponse>(httpClient, options);
+            NearestRoads = new HttpClientEngineFacade<NearestRoadsRequest, NearestRoadsResponse>(httpClient, options);
+            SpeedLimits = new HttpClientEngineFacade<SpeedLimitsRequest, SpeedLimitsResponse>(httpClient, options);
             PlacesSearchText = new HttpClientEngineFacade<SearchTextRequest, SearchTextResponse>(httpClient, options);
             PlacesSearchNearby = new HttpClientEngineFacade<SearchNearbyRequest, SearchNearbyResponse>(httpClient, options);
             PlaceDetailsNew = new HttpClientEngineFacade<PlaceDetailsRequest, Place>(httpClient, options);
             PlacesAutocompleteNew = new HttpClientEngineFacade<AutocompleteRequest, AutocompleteResponse>(httpClient, options);
             PlacePhoto = new HttpClientEngineFacade<PlacePhotoRequest, PlacePhotoResponse>(httpClient, options);
+            SolarBuildingInsights = new HttpClientEngineFacade<BuildingInsightsRequest, BuildingInsightsResponse>(httpClient, options);
+            SolarDataLayers = new HttpClientEngineFacade<DataLayersRequest, DataLayersResponse>(httpClient, options);
+            SolarGeoTiff = new HttpClientEngineFacade<GeoTiffRequest, GeoTiffResponse>(httpClient, options);
+            AerialView = new AerialViewApi(httpClient, options);
         }
 
         /// <inheritdoc/>
@@ -82,6 +95,15 @@ namespace GoogleMapsApi
         public IEngineFacade<RoutesRequest, RoutesResponse> Routes { get; }
 
         /// <inheritdoc/>
+        public IEngineFacade<SnapToRoadsRequest, SnapToRoadsResponse> SnapToRoads { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<NearestRoadsRequest, NearestRoadsResponse> NearestRoads { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<SpeedLimitsRequest, SpeedLimitsResponse> SpeedLimits { get; }
+
+        /// <inheritdoc/>
         public IEngineFacade<SearchTextRequest, SearchTextResponse> PlacesSearchText { get; }
 
         /// <inheritdoc/>
@@ -95,5 +117,17 @@ namespace GoogleMapsApi
 
         /// <inheritdoc/>
         public IEngineFacade<PlacePhotoRequest, PlacePhotoResponse> PlacePhoto { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<BuildingInsightsRequest, BuildingInsightsResponse> SolarBuildingInsights { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<DataLayersRequest, DataLayersResponse> SolarDataLayers { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<GeoTiffRequest, GeoTiffResponse> SolarGeoTiff { get; }
+
+        /// <inheritdoc/>
+        public IAerialViewApi AerialView { get; }
     }
 }

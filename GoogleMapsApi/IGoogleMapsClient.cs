@@ -8,10 +8,14 @@ using GoogleMapsApi.Entities.Elevation.Request;
 using GoogleMapsApi.Entities.Elevation.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
+using GoogleMapsApi.Entities.Roads.Request;
+using GoogleMapsApi.Entities.Roads.Response;
 using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.PlacesNew.Request;
 using GoogleMapsApi.Entities.PlacesNew.Response;
+using GoogleMapsApi.Entities.Solar.Request;
+using GoogleMapsApi.Entities.Solar.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
 using GoogleMapsApi.Entities.TimeZone.Response;
 using System;
@@ -48,6 +52,18 @@ namespace GoogleMapsApi
         /// </summary>
         IEngineFacade<RoutesRequest, RoutesResponse> Routes { get; }
 
+        /// <summary>Snap GPS points to the most likely road segments traveled (Roads API).</summary>
+        IEngineFacade<SnapToRoadsRequest, SnapToRoadsResponse> SnapToRoads { get; }
+
+        /// <summary>Find the nearest road segment for each of a set of points (Roads API).</summary>
+        IEngineFacade<NearestRoadsRequest, NearestRoadsResponse> NearestRoads { get; }
+
+        /// <summary>
+        /// Look up posted speed limits along a path or for place IDs (Roads API).
+        /// Requires a Google Asset Tracking license; other keys receive an HTTP 403.
+        /// </summary>
+        IEngineFacade<SpeedLimitsRequest, SpeedLimitsResponse> SpeedLimits { get; }
+
         /// <summary>Search for places by free-text query via the Places API (New).</summary>
         IEngineFacade<SearchTextRequest, SearchTextResponse> PlacesSearchText { get; }
 
@@ -62,5 +78,17 @@ namespace GoogleMapsApi
 
         /// <summary>Resolve a place photo reference to an image URI via the Places API (New).</summary>
         IEngineFacade<PlacePhotoRequest, PlacePhotoResponse> PlacePhoto { get; }
+
+        /// <summary>Get solar potential, roof geometry and financial analyses for a building via the Solar API (billable).</summary>
+        IEngineFacade<BuildingInsightsRequest, BuildingInsightsResponse> SolarBuildingInsights { get; }
+
+        /// <summary>Get URLs to solar raster data layers for a region via the Solar API (billable).</summary>
+        IEngineFacade<DataLayersRequest, DataLayersResponse> SolarDataLayers { get; }
+
+        /// <summary>Download a Solar API data layer as raw GeoTIFF bytes (billable).</summary>
+        IEngineFacade<GeoTiffRequest, GeoTiffResponse> SolarGeoTiff { get; }
+
+        /// <summary>Render and look up cinematic flyover videos via the Aerial View API.</summary>
+        IAerialViewApi AerialView { get; }
     }
 }

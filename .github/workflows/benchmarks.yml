@@ -1,0 +1,45 @@
+name: Benchmarks
+
+# Benchmarks are noisy and slow, so they never gate PRs — run them manually on demand.
+on:
+  workflow_dispatch:
+    inputs:
+      filter:
+        description: 'BenchmarkDotNet --filter glob (which benchmarks to run)'
+        type: string
+        required: false
+        default: '*'
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2  # v5.3.0
+      with:
+        # Both runtimes are required: the RuntimeMoniker jobs execute on net8.0 and net10.0.
+        dotnet-version: |
+          8.0.x
+          10.0.x
+    - name: Run benchmarks
+      # Pass the untrusted input via env (not string-interpolated into the shell) to avoid
+      # command injection. See https://github.blog/security/vulnerability-research/how-to-catch-github-actions-workflow-injections-before-attackers-do/
+      env:
+        FILTER: ${{ inputs.filter }}
+      run: >
+        dotnet run -c Release -f net10.0
+        --project benchmarks/GoogleMapsApi.Benchmarks
+        --
+        --filter "$FILTER"
+    - name: Upload results
+      if: always()
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+      with:
+        name: benchmark-results
+        path: BenchmarkDotNet.Artifacts/**
+        if-no-files-found: warn

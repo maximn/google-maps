@@ -1,0 +1,36 @@
+{
+  "status": "OK",
+  "origin_addresses": [ "Mountain View, CA, USA", "Oakland, CA, USA" ],
+  "destination_addresses": [ "San Francisco, CA, USA", "Fresno, CA, USA" ],
+  "rows": [
+    {
+      "elements": [
+        {
+          "status": "OK",
+          "distance": { "value": 61200, "text": "61.2 km" },
+          "duration": { "value": 2700, "text": "45 mins" },
+          "duration_in_traffic": { "value": 3100, "text": "52 mins" }
+        },
+        {
+          "status": "OK",
+          "distance": { "value": 304000, "text": "304 km" },
+          "duration": { "value": 10800, "text": "3 hours" }
+        }
+      ]
+    },
+    {
+      "elements": [
+        {
+          "status": "OK",
+          "distance": { "value": 21000, "text": "21.0 km" },
+          "duration": { "value": 1500, "text": "25 mins" }
+        },
+        {
+          "status": "OK",
+          "distance": { "value": 290000, "text": "290 km" },
+          "duration": { "value": 10200, "text": "2 hours 50 mins" }
+        }
+      ]
+    }
+  ]
+}

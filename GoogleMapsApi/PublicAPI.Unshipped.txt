@@ -1,3 +1,444 @@
 #nullable enable
 GoogleMapsApi.Diagnostics.GoogleMapsActivity
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.Address.get -> string?
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.Address.set -> void
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.LookupVideoRequest() -> void
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.VideoId.get -> string?
+GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.VideoId.set -> void
+GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest
+GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest.Address.get -> string!
+GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest.Address.set -> void
+GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest.RenderVideoRequest() -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris.AerialViewUris() -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris.LandscapeUri.get -> string?
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris.LandscapeUri.set -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris.PortraitUri.get -> string?
+GoogleMapsApi.Entities.AerialView.Response.AerialViewUris.PortraitUri.set -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.AerialViewVideoResponse() -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.Metadata.get -> GoogleMapsApi.Entities.AerialView.Response.VideoMetadata?
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.Metadata.set -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.State.get -> GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.State.set -> void
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.TryGetUris(GoogleMapsApi.Entities.AerialView.Response.MediaFormat format, out GoogleMapsApi.Entities.AerialView.Response.AerialViewUris? uris) -> bool
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.Uris.get -> System.Collections.Generic.Dictionary<string!, GoogleMapsApi.Entities.AerialView.Response.AerialViewUris!>?
+GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse.Uris.set -> void
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.CaptureDate() -> void
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Day.get -> int
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Day.set -> void
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Month.get -> int
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Month.set -> void
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Year.get -> int
+GoogleMapsApi.Entities.AerialView.Response.CaptureDate.Year.set -> void
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Dash = 5 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Hls = 6 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Image = 1 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Mp4High = 2 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Mp4Low = 4 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Mp4Medium = 3 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.MediaFormat.Unspecified = 0 -> GoogleMapsApi.Entities.AerialView.Response.MediaFormat
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.CaptureDate.get -> GoogleMapsApi.Entities.AerialView.Response.CaptureDate?
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.CaptureDate.set -> void
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.Duration.get -> string?
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.Duration.set -> void
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.DurationValue.get -> System.TimeSpan?
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.VideoId.get -> string?
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.VideoId.set -> void
+GoogleMapsApi.Entities.AerialView.Response.VideoMetadata.VideoMetadata() -> void
+GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.Entities.AerialView.Response.VideoState.Active = 2 -> GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.Entities.AerialView.Response.VideoState.Failed = 3 -> GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.Entities.AerialView.Response.VideoState.Processing = 1 -> GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.Entities.AerialView.Response.VideoState.Unspecified = 0 -> GoogleMapsApi.Entities.AerialView.Response.VideoState
+GoogleMapsApi.GoogleMapsClient.AerialView.get -> GoogleMapsApi.IAerialViewApi!
+GoogleMapsApi.IAerialViewApi
+GoogleMapsApi.IAerialViewApi.LookupVideo.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest!, GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse!>!
+GoogleMapsApi.IAerialViewApi.RenderVideo.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest!, GoogleMapsApi.Entities.AerialView.Response.AerialViewVideoResponse!>!
+GoogleMapsApi.IGoogleMapsClient.AerialView.get -> GoogleMapsApi.IAerialViewApi!
 const GoogleMapsApi.Diagnostics.GoogleMapsActivity.SourceName = "GoogleMapsApi" -> string!
+GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest
+GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.NearestRoadsRequest() -> void
+GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.Points.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Common.Location!>?
+GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.Points.set -> void
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.Interpolate.get -> bool
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.Interpolate.set -> void
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.Path.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Common.Location!>?
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.Path.set -> void
+GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.SnapToRoadsRequest() -> void
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.Path.get -> System.Collections.Generic.IEnumerable<GoogleMapsApi.Entities.Common.Location!>?
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.Path.set -> void
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.PlaceIds.get -> System.Collections.Generic.IEnumerable<string!>?
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.PlaceIds.set -> void
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.SpeedLimitsRequest() -> void
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.Units.get -> GoogleMapsApi.Entities.Roads.Request.SpeedUnits?
+GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.Units.set -> void
+GoogleMapsApi.Entities.Roads.Request.SpeedUnits
+GoogleMapsApi.Entities.Roads.Request.SpeedUnits.Kph = 0 -> GoogleMapsApi.Entities.Roads.Request.SpeedUnits
+GoogleMapsApi.Entities.Roads.Request.SpeedUnits.Mph = 1 -> GoogleMapsApi.Entities.Roads.Request.SpeedUnits
+GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse
+GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse.NearestRoadsResponse() -> void
+GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse.SnappedPoints.get -> System.Collections.Generic.IReadOnlyList<GoogleMapsApi.Entities.Roads.Response.SnappedPoint!>?
+GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse.SnappedPoints.set -> void
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation.Latitude.get -> double
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation.Latitude.set -> void
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation.Longitude.get -> double
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation.Longitude.set -> void
+GoogleMapsApi.Entities.Roads.Response.RoadsLocation.RoadsLocation() -> void
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse.SnapToRoadsResponse() -> void
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse.SnappedPoints.get -> System.Collections.Generic.IReadOnlyList<GoogleMapsApi.Entities.Roads.Response.SnappedPoint!>?
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse.SnappedPoints.set -> void
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse.WarningMessage.get -> string?
+GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse.WarningMessage.set -> void
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.Location.get -> GoogleMapsApi.Entities.Roads.Response.RoadsLocation?
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.Location.set -> void
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.OriginalIndex.get -> int?
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.OriginalIndex.set -> void
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.PlaceId.get -> string?
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.PlaceId.set -> void
+GoogleMapsApi.Entities.Roads.Response.SnappedPoint.SnappedPoint() -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.PlaceId.get -> string?
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.PlaceId.set -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.SpeedLimit() -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.Units.get -> GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits?
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.Units.set -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.Value.get -> double
+GoogleMapsApi.Entities.Roads.Response.SpeedLimit.Value.set -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits.Kmph = 0 -> GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits.Mph = 1 -> GoogleMapsApi.Entities.Roads.Response.SpeedLimitUnits
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse.SnappedPoints.get -> System.Collections.Generic.IReadOnlyList<GoogleMapsApi.Entities.Roads.Response.SnappedPoint!>?
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse.SnappedPoints.set -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse.SpeedLimits.get -> System.Collections.Generic.IReadOnlyList<GoogleMapsApi.Entities.Roads.Response.SpeedLimit!>?
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse.SpeedLimits.set -> void
+GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse.SpeedLimitsResponse() -> void
+GoogleMapsApi.GoogleMapsClient.NearestRoads.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest!, GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse!>!
+GoogleMapsApi.GoogleMapsClient.SnapToRoads.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest!, GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse!>!
+GoogleMapsApi.GoogleMapsClient.SpeedLimits.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest!, GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse!>!
+GoogleMapsApi.IGoogleMapsClient.NearestRoads.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest!, GoogleMapsApi.Entities.Roads.Response.NearestRoadsResponse!>!
+GoogleMapsApi.IGoogleMapsClient.SnapToRoads.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest!, GoogleMapsApi.Entities.Roads.Response.SnapToRoadsResponse!>!
+GoogleMapsApi.IGoogleMapsClient.SpeedLimits.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest!, GoogleMapsApi.Entities.Roads.Response.SpeedLimitsResponse!>!
+override GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.GetUri() -> System.Uri!
+const GoogleMapsApi.Entities.Roads.Request.NearestRoadsRequest.MaxPoints = 100 -> int
+const GoogleMapsApi.Entities.Roads.Request.SnapToRoadsRequest.MaxPathPoints = 100 -> int
+const GoogleMapsApi.Entities.Roads.Request.SpeedLimitsRequest.MaxItems = 100 -> int
+GoogleMapsApi.Entities.Common.IBinaryResponse
+GoogleMapsApi.Entities.Common.IBinaryResponse.Content.get -> byte[]!
+GoogleMapsApi.Entities.Common.IBinaryResponse.Content.set -> void
+GoogleMapsApi.Entities.Common.IBinaryResponse.ContentType.get -> string?
+GoogleMapsApi.Entities.Common.IBinaryResponse.ContentType.set -> void
+GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest
+GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest.BuildingInsightsRequest() -> void
+GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest.Latitude.get -> double
+GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest.Latitude.set -> void
+GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest.Longitude.get -> double
+GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest.Longitude.set -> void
+GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest.RequiredQuality.get -> GoogleMapsApi.Entities.Solar.Request.ImageryQuality?
+GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest.RequiredQuality.set -> void
+GoogleMapsApi.Entities.Solar.Request.DataLayerView
+GoogleMapsApi.Entities.Solar.Request.DataLayerView.DsmLayer = 1 -> GoogleMapsApi.Entities.Solar.Request.DataLayerView
+GoogleMapsApi.Entities.Solar.Request.DataLayerView.FullLayers = 5 -> GoogleMapsApi.Entities.Solar.Request.DataLayerView
+GoogleMapsApi.Entities.Solar.Request.DataLayerView.ImageryAndAllFluxLayers = 4 -> GoogleMapsApi.Entities.Solar.Request.DataLayerView
+GoogleMapsApi.Entities.Solar.Request.DataLayerView.ImageryAndAnnualFluxLayers = 3 -> GoogleMapsApi.Entities.Solar.Request.DataLayerView
+GoogleMapsApi.Entities.Solar.Request.DataLayerView.ImageryLayers = 2 -> GoogleMapsApi.Entities.Solar.Request.DataLayerView
+GoogleMapsApi.Entities.Solar.Request.DataLayerView.Unspecified = 0 -> GoogleMapsApi.Entities.Solar.Request.DataLayerView
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.DataLayersRequest() -> void
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.ExactQualityRequired.get -> bool
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.ExactQualityRequired.set -> void
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.Latitude.get -> double
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.Latitude.set -> void
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.Longitude.get -> double
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.Longitude.set -> void
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.PixelSizeMeters.get -> double?
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.PixelSizeMeters.set -> void
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.RadiusMeters.get -> double
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.RadiusMeters.set -> void
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.RequiredQuality.get -> GoogleMapsApi.Entities.Solar.Request.ImageryQuality?
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.RequiredQuality.set -> void
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.View.get -> GoogleMapsApi.Entities.Solar.Request.DataLayerView?
+GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.View.set -> void
+GoogleMapsApi.Entities.Solar.Request.GeoTiffRequest
+GoogleMapsApi.Entities.Solar.Request.GeoTiffRequest.GeoTiffRequest() -> void
+GoogleMapsApi.Entities.Solar.Request.GeoTiffRequest.Url.get -> string!
+GoogleMapsApi.Entities.Solar.Request.GeoTiffRequest.Url.set -> void
+GoogleMapsApi.Entities.Solar.Request.ImageryQuality
+GoogleMapsApi.Entities.Solar.Request.ImageryQuality.Base = 4 -> GoogleMapsApi.Entities.Solar.Request.ImageryQuality
+GoogleMapsApi.Entities.Solar.Request.ImageryQuality.High = 1 -> GoogleMapsApi.Entities.Solar.Request.ImageryQuality
+GoogleMapsApi.Entities.Solar.Request.ImageryQuality.Low = 3 -> GoogleMapsApi.Entities.Solar.Request.ImageryQuality
+GoogleMapsApi.Entities.Solar.Request.ImageryQuality.Medium = 2 -> GoogleMapsApi.Entities.Solar.Request.ImageryQuality
+GoogleMapsApi.Entities.Solar.Request.ImageryQuality.Unspecified = 0 -> GoogleMapsApi.Entities.Solar.Request.ImageryQuality
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.AdministrativeArea.get -> string?
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.AdministrativeArea.set -> void
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.BoundingBox.get -> GoogleMapsApi.Entities.Solar.Response.LatLngBox?
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.BoundingBox.set -> void
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.BuildingInsightsResponse() -> void
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.Center.get -> GoogleMapsApi.Entities.Solar.Response.LatLng?
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.Center.set -> void
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.ImageryDate.get -> GoogleMapsApi.Entities.Solar.Response.Date?
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.ImageryDate.set -> void
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.ImageryProcessedDate.get -> GoogleMapsApi.Entities.Solar.Response.Date?
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.ImageryProcessedDate.set -> void
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.ImageryQuality.get -> GoogleMapsApi.Entities.Solar.Request.ImageryQuality
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.ImageryQuality.set -> void
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.Name.get -> string?
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.Name.set -> void
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.PostalCode.get -> string?
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.PostalCode.set -> void
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.RegionCode.get -> string?
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.RegionCode.set -> void
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.SolarPotential.get -> GoogleMapsApi.Entities.Solar.Response.SolarPotential?
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.SolarPotential.set -> void
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.StatisticalArea.get -> string?
+GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse.StatisticalArea.set -> void
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings.CashPurchaseSavings() -> void
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings.OutOfPocketCost.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings.OutOfPocketCost.set -> void
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings.PaybackYears.get -> float
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings.PaybackYears.set -> void
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings.RebateValue.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings.RebateValue.set -> void
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings.Savings.get -> GoogleMapsApi.Entities.Solar.Response.SavingsOverTime?
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings.Savings.set -> void
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings.UpfrontCost.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings.UpfrontCost.set -> void
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.AnnualFluxUrl.get -> string?
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.AnnualFluxUrl.set -> void
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.DataLayersResponse() -> void
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.DsmUrl.get -> string?
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.DsmUrl.set -> void
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.HourlyShadeUrls.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.HourlyShadeUrls.set -> void
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.ImageryDate.get -> GoogleMapsApi.Entities.Solar.Response.Date?
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.ImageryDate.set -> void
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.ImageryProcessedDate.get -> GoogleMapsApi.Entities.Solar.Response.Date?
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.ImageryProcessedDate.set -> void
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.ImageryQuality.get -> GoogleMapsApi.Entities.Solar.Request.ImageryQuality
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.ImageryQuality.set -> void
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.MaskUrl.get -> string?
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.MaskUrl.set -> void
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.MonthlyFluxUrl.get -> string?
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.MonthlyFluxUrl.set -> void
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.RgbUrl.get -> string?
+GoogleMapsApi.Entities.Solar.Response.DataLayersResponse.RgbUrl.set -> void
+GoogleMapsApi.Entities.Solar.Response.Date
+GoogleMapsApi.Entities.Solar.Response.Date.Date() -> void
+GoogleMapsApi.Entities.Solar.Response.Date.Day.get -> int
+GoogleMapsApi.Entities.Solar.Response.Date.Day.set -> void
+GoogleMapsApi.Entities.Solar.Response.Date.Month.get -> int
+GoogleMapsApi.Entities.Solar.Response.Date.Month.set -> void
+GoogleMapsApi.Entities.Solar.Response.Date.Year.get -> int
+GoogleMapsApi.Entities.Solar.Response.Date.Year.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancedPurchaseSavings
+GoogleMapsApi.Entities.Solar.Response.FinancedPurchaseSavings.AnnualLoanPayment.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.FinancedPurchaseSavings.AnnualLoanPayment.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancedPurchaseSavings.FinancedPurchaseSavings() -> void
+GoogleMapsApi.Entities.Solar.Response.FinancedPurchaseSavings.LoanInterestRate.get -> float
+GoogleMapsApi.Entities.Solar.Response.FinancedPurchaseSavings.LoanInterestRate.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancedPurchaseSavings.RebateValue.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.FinancedPurchaseSavings.RebateValue.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancedPurchaseSavings.Savings.get -> GoogleMapsApi.Entities.Solar.Response.SavingsOverTime?
+GoogleMapsApi.Entities.Solar.Response.FinancedPurchaseSavings.Savings.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.AverageKwhPerMonth.get -> float
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.AverageKwhPerMonth.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.CashPurchaseSavings.get -> GoogleMapsApi.Entities.Solar.Response.CashPurchaseSavings?
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.CashPurchaseSavings.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.DefaultBill.get -> bool
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.DefaultBill.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.FinancedPurchaseSavings.get -> GoogleMapsApi.Entities.Solar.Response.FinancedPurchaseSavings?
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.FinancedPurchaseSavings.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.FinancialAnalysis() -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.FinancialDetails.get -> GoogleMapsApi.Entities.Solar.Response.FinancialDetails?
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.FinancialDetails.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.LeasingSavings.get -> GoogleMapsApi.Entities.Solar.Response.LeasingSavings?
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.LeasingSavings.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.MonthlyBill.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.MonthlyBill.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.PanelConfigIndex.get -> int
+GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis.PanelConfigIndex.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.CostOfElectricityWithoutSolar.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.CostOfElectricityWithoutSolar.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.FederalIncentive.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.FederalIncentive.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.FinancialDetails() -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.InitialAcKwhPerYear.get -> float
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.InitialAcKwhPerYear.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.LifetimeSrecTotal.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.LifetimeSrecTotal.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.NetMeteringAllowed.get -> bool
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.NetMeteringAllowed.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.PercentageExportedToGrid.get -> float
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.PercentageExportedToGrid.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.RemainingLifetimeUtilityBill.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.RemainingLifetimeUtilityBill.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.SolarPercentage.get -> float
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.SolarPercentage.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.StateIncentive.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.StateIncentive.set -> void
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.UtilityIncentive.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.FinancialDetails.UtilityIncentive.set -> void
+GoogleMapsApi.Entities.Solar.Response.GeoTiffResponse
+GoogleMapsApi.Entities.Solar.Response.GeoTiffResponse.Content.get -> byte[]!
+GoogleMapsApi.Entities.Solar.Response.GeoTiffResponse.Content.set -> void
+GoogleMapsApi.Entities.Solar.Response.GeoTiffResponse.ContentType.get -> string?
+GoogleMapsApi.Entities.Solar.Response.GeoTiffResponse.ContentType.set -> void
+GoogleMapsApi.Entities.Solar.Response.GeoTiffResponse.GeoTiffResponse() -> void
+GoogleMapsApi.Entities.Solar.Response.LatLng
+GoogleMapsApi.Entities.Solar.Response.LatLng.LatLng() -> void
+GoogleMapsApi.Entities.Solar.Response.LatLng.Latitude.get -> double
+GoogleMapsApi.Entities.Solar.Response.LatLng.Latitude.set -> void
+GoogleMapsApi.Entities.Solar.Response.LatLng.Longitude.get -> double
+GoogleMapsApi.Entities.Solar.Response.LatLng.Longitude.set -> void
+GoogleMapsApi.Entities.Solar.Response.LatLngBox
+GoogleMapsApi.Entities.Solar.Response.LatLngBox.LatLngBox() -> void
+GoogleMapsApi.Entities.Solar.Response.LatLngBox.Ne.get -> GoogleMapsApi.Entities.Solar.Response.LatLng?
+GoogleMapsApi.Entities.Solar.Response.LatLngBox.Ne.set -> void
+GoogleMapsApi.Entities.Solar.Response.LatLngBox.Sw.get -> GoogleMapsApi.Entities.Solar.Response.LatLng?
+GoogleMapsApi.Entities.Solar.Response.LatLngBox.Sw.set -> void
+GoogleMapsApi.Entities.Solar.Response.LeasingSavings
+GoogleMapsApi.Entities.Solar.Response.LeasingSavings.AnnualLeasingCost.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.LeasingSavings.AnnualLeasingCost.set -> void
+GoogleMapsApi.Entities.Solar.Response.LeasingSavings.LeasesAllowed.get -> bool
+GoogleMapsApi.Entities.Solar.Response.LeasingSavings.LeasesAllowed.set -> void
+GoogleMapsApi.Entities.Solar.Response.LeasingSavings.LeasesSupported.get -> bool
+GoogleMapsApi.Entities.Solar.Response.LeasingSavings.LeasesSupported.set -> void
+GoogleMapsApi.Entities.Solar.Response.LeasingSavings.LeasingSavings() -> void
+GoogleMapsApi.Entities.Solar.Response.LeasingSavings.Savings.get -> GoogleMapsApi.Entities.Solar.Response.SavingsOverTime?
+GoogleMapsApi.Entities.Solar.Response.LeasingSavings.Savings.set -> void
+GoogleMapsApi.Entities.Solar.Response.Money
+GoogleMapsApi.Entities.Solar.Response.Money.CurrencyCode.get -> string?
+GoogleMapsApi.Entities.Solar.Response.Money.CurrencyCode.set -> void
+GoogleMapsApi.Entities.Solar.Response.Money.Money() -> void
+GoogleMapsApi.Entities.Solar.Response.Money.Nanos.get -> int
+GoogleMapsApi.Entities.Solar.Response.Money.Nanos.set -> void
+GoogleMapsApi.Entities.Solar.Response.Money.Units.get -> long?
+GoogleMapsApi.Entities.Solar.Response.Money.Units.set -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.AzimuthDegrees.get -> float
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.AzimuthDegrees.set -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.BoundingBox.get -> GoogleMapsApi.Entities.Solar.Response.LatLngBox?
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.BoundingBox.set -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.Center.get -> GoogleMapsApi.Entities.Solar.Response.LatLng?
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.Center.set -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.PitchDegrees.get -> float
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.PitchDegrees.set -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.PlaneHeightAtCenterMeters.get -> float
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.PlaneHeightAtCenterMeters.set -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.RoofSegmentSizeAndSunshineStats() -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.Stats.get -> GoogleMapsApi.Entities.Solar.Response.SizeAndSunshineStats?
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats.Stats.set -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary.AzimuthDegrees.get -> float
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary.AzimuthDegrees.set -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary.PanelsCount.get -> int
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary.PanelsCount.set -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary.PitchDegrees.get -> float
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary.PitchDegrees.set -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary.RoofSegmentSummary() -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary.SegmentIndex.get -> int
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary.SegmentIndex.set -> void
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary.YearlyEnergyDcKwh.get -> float
+GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary.YearlyEnergyDcKwh.set -> void
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.FinanciallyViable.get -> bool
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.FinanciallyViable.set -> void
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.PresentValueOfSavingsLifetime.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.PresentValueOfSavingsLifetime.set -> void
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.PresentValueOfSavingsYear20.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.PresentValueOfSavingsYear20.set -> void
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.SavingsLifetime.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.SavingsLifetime.set -> void
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.SavingsOverTime() -> void
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.SavingsYear1.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.SavingsYear1.set -> void
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.SavingsYear20.get -> GoogleMapsApi.Entities.Solar.Response.Money?
+GoogleMapsApi.Entities.Solar.Response.SavingsOverTime.SavingsYear20.set -> void
+GoogleMapsApi.Entities.Solar.Response.SizeAndSunshineStats
+GoogleMapsApi.Entities.Solar.Response.SizeAndSunshineStats.AreaMeters2.get -> float
+GoogleMapsApi.Entities.Solar.Response.SizeAndSunshineStats.AreaMeters2.set -> void
+GoogleMapsApi.Entities.Solar.Response.SizeAndSunshineStats.GroundAreaMeters2.get -> float
+GoogleMapsApi.Entities.Solar.Response.SizeAndSunshineStats.GroundAreaMeters2.set -> void
+GoogleMapsApi.Entities.Solar.Response.SizeAndSunshineStats.SizeAndSunshineStats() -> void
+GoogleMapsApi.Entities.Solar.Response.SizeAndSunshineStats.SunshineQuantiles.get -> System.Collections.Generic.List<float>?
+GoogleMapsApi.Entities.Solar.Response.SizeAndSunshineStats.SunshineQuantiles.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPanel
+GoogleMapsApi.Entities.Solar.Response.SolarPanel.Center.get -> GoogleMapsApi.Entities.Solar.Response.LatLng?
+GoogleMapsApi.Entities.Solar.Response.SolarPanel.Center.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPanel.Orientation.get -> GoogleMapsApi.Entities.Solar.Response.SolarPanelOrientation
+GoogleMapsApi.Entities.Solar.Response.SolarPanel.Orientation.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPanel.SegmentIndex.get -> int
+GoogleMapsApi.Entities.Solar.Response.SolarPanel.SegmentIndex.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPanel.SolarPanel() -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPanel.YearlyEnergyDcKwh.get -> float
+GoogleMapsApi.Entities.Solar.Response.SolarPanel.YearlyEnergyDcKwh.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPanelConfig
+GoogleMapsApi.Entities.Solar.Response.SolarPanelConfig.PanelsCount.get -> int
+GoogleMapsApi.Entities.Solar.Response.SolarPanelConfig.PanelsCount.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPanelConfig.RoofSegmentSummaries.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Solar.Response.RoofSegmentSummary!>?
+GoogleMapsApi.Entities.Solar.Response.SolarPanelConfig.RoofSegmentSummaries.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPanelConfig.SolarPanelConfig() -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPanelConfig.YearlyEnergyDcKwh.get -> float
+GoogleMapsApi.Entities.Solar.Response.SolarPanelConfig.YearlyEnergyDcKwh.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPanelOrientation
+GoogleMapsApi.Entities.Solar.Response.SolarPanelOrientation.Landscape = 1 -> GoogleMapsApi.Entities.Solar.Response.SolarPanelOrientation
+GoogleMapsApi.Entities.Solar.Response.SolarPanelOrientation.Portrait = 2 -> GoogleMapsApi.Entities.Solar.Response.SolarPanelOrientation
+GoogleMapsApi.Entities.Solar.Response.SolarPanelOrientation.Unspecified = 0 -> GoogleMapsApi.Entities.Solar.Response.SolarPanelOrientation
+GoogleMapsApi.Entities.Solar.Response.SolarPotential
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.BuildingStats.get -> GoogleMapsApi.Entities.Solar.Response.SizeAndSunshineStats?
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.BuildingStats.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.CarbonOffsetFactorKgPerMwh.get -> float
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.CarbonOffsetFactorKgPerMwh.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.FinancialAnalyses.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Solar.Response.FinancialAnalysis!>?
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.FinancialAnalyses.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.MaxArrayAreaMeters2.get -> float
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.MaxArrayAreaMeters2.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.MaxArrayPanelsCount.get -> int
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.MaxArrayPanelsCount.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.MaxSunshineHoursPerYear.get -> float
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.MaxSunshineHoursPerYear.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.PanelCapacityWatts.get -> float
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.PanelCapacityWatts.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.PanelHeightMeters.get -> float
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.PanelHeightMeters.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.PanelLifetimeYears.get -> int
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.PanelLifetimeYears.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.PanelWidthMeters.get -> float
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.PanelWidthMeters.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.RoofSegmentStats.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Solar.Response.RoofSegmentSizeAndSunshineStats!>?
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.RoofSegmentStats.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.SolarPanelConfigs.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Solar.Response.SolarPanelConfig!>?
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.SolarPanelConfigs.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.SolarPanels.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Solar.Response.SolarPanel!>?
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.SolarPanels.set -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.SolarPotential() -> void
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.WholeRoofStats.get -> GoogleMapsApi.Entities.Solar.Response.SizeAndSunshineStats?
+GoogleMapsApi.Entities.Solar.Response.SolarPotential.WholeRoofStats.set -> void
+GoogleMapsApi.GoogleMapsClient.SolarBuildingInsights.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest!, GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse!>!
+GoogleMapsApi.GoogleMapsClient.SolarDataLayers.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Solar.Request.DataLayersRequest!, GoogleMapsApi.Entities.Solar.Response.DataLayersResponse!>!
+GoogleMapsApi.GoogleMapsClient.SolarGeoTiff.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Solar.Request.GeoTiffRequest!, GoogleMapsApi.Entities.Solar.Response.GeoTiffResponse!>!
+GoogleMapsApi.IGoogleMapsClient.SolarBuildingInsights.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest!, GoogleMapsApi.Entities.Solar.Response.BuildingInsightsResponse!>!
+GoogleMapsApi.IGoogleMapsClient.SolarDataLayers.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Solar.Request.DataLayersRequest!, GoogleMapsApi.Entities.Solar.Response.DataLayersResponse!>!
+GoogleMapsApi.IGoogleMapsClient.SolarGeoTiff.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Solar.Request.GeoTiffRequest!, GoogleMapsApi.Entities.Solar.Response.GeoTiffResponse!>!
+override GoogleMapsApi.Entities.Solar.Request.BuildingInsightsRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.Solar.Request.GeoTiffRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest.GetUri() -> System.Uri!
