@@ -24,10 +24,10 @@ should reuse `JsonSerializerConfiguration.CreateOptions()` too, so prod and test
 | --- | --- | --- |
 | `EnumMemberJsonConverterFactory` / `EnumMemberJsonConverter<TEnum>` | Map enums to/from their `[EnumMember(Value=…)]` wire strings (or the enum name if none). Also accepts numeric tokens. | Read uses an **`OrdinalIgnoreCase`** string→enum map. Mappings are cached per type in a `ConcurrentDictionary`. |
 | `OverviewPolylineJsonConverter` | Decodes Google's encoded polyline into points lazily | Uses reflection on a private member + an `OnDeserialized` callback — fragile to renames (B3). |
-| `DurationJsonConverter<T>` | `{ value: seconds, text: string }` ↔ a `Duration` with a `TimeSpan` | Reflection over `value`/`text` without null-checks; partial objects deserialize silently (B3). |
+| `DurationJsonConverter<T>` | `{ value: seconds, text: string }` ↔ a `Duration` with a `TimeSpan` | Reflects over the `Value`/`Text` properties by name (rename-fragile); a missing token silently leaves that field unset (B3). |
 
-`GoogleMapsApi/Engine/UnixTimeConverter.cs` converts `DateTime` ↔ Unix seconds for **legacy GET query
-params** (e.g. Directions/Distance Matrix departure time). New POST APIs instead use ISO-8601 strings
+`GoogleMapsApi/Engine/UnixTimeConverter.cs` converts `DateTime` → Unix seconds (one-way) for **legacy
+GET query params** (e.g. Directions/Distance Matrix departure time). New POST APIs instead use ISO-8601 strings
 (`DateTimeOffset`) in the JSON body.
 
 ## Enum handling rules

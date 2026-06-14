@@ -17,9 +17,9 @@ HTTP call) under `GoogleMapsApi/StaticMaps/`.
 | `AddressValidation` | `AddressValidationRequest` / `AddressValidationResponse` | POST | `MapsBaseRequest` | USPS CASS for US/PR |
 | `PlacesSearchText` | `SearchTextRequest` / `SearchTextResponse` | POST | `MapsBaseRequest` | Places (New) |
 | `PlacesSearchNearby` | `SearchNearbyRequest` / `SearchNearbyResponse` | POST | `MapsBaseRequest` | Places (New) |
-| `PlaceDetailsNew` | `PlaceDetailsRequest` / `Place` | POST | `MapsBaseRequest` | Places (New) |
+| `PlaceDetailsNew` | `PlaceDetailsRequest` / `Place` | GET | `MapsBaseRequest` | Places (New); GET (no request body) |
 | `PlacesAutocompleteNew` | `AutocompleteRequest` / `AutocompleteResponse` | POST | `MapsBaseRequest` | Places (New) |
-| `PlacePhoto` | `PlacePhotoRequest` / `PlacePhotoResponse` | POST | `MapsBaseRequest` | Places (New) |
+| `PlacePhoto` | `PlacePhotoRequest` / `PlacePhotoResponse` | GET | `MapsBaseRequest` | Places (New); GET (no request body) |
 | `SnapToRoads` | `SnapToRoadsRequest` / `SnapToRoadsResponse` | GET | `MapsBaseRequest` | Roads API; snap a GPS trace to road segments |
 | `NearestRoads` | `NearestRoadsRequest` / `NearestRoadsResponse` | GET | `MapsBaseRequest` | Roads API; nearest segment for each point |
 | `SpeedLimits` | `SpeedLimitsRequest` / `SpeedLimitsResponse` | GET | `MapsBaseRequest` | Roads API; needs Asset Tracking license (else 403), billable per limit |
@@ -59,9 +59,10 @@ See [`MIGRATION.md`](../MIGRATION.md) for the consumer-facing upgrade guide.
 Only the five legacy GET APIs (`Geocode`, `Directions`, `DistanceMatrix`, `Elevation`, `TimeZone`)
 derive from `SignableRequest` (`Entities/Common/SignableRequest.cs`): set `ClientID` (must start with
 `gme-`) + `SigningKey` to sign the URL with HMAC-SHA1 (Google Enterprise). Every newer API —
-**regardless of verb** (POST: Routes, Places, Address Validation, Aerial View render; GET: Roads,
-Solar, Aerial View lookup) — derives from `MapsBaseRequest` directly and **does not support signing**:
-API key only. So "GET vs POST" no longer tells you whether a request is signable — the base class does.
+**regardless of verb** (POST: Routes, Places search/autocomplete, Address Validation, Aerial View
+render; GET: Place Details/Photo, Roads, Solar, Aerial View lookup) — derives from `MapsBaseRequest`
+directly and **does not support signing**: API key only. So "GET vs POST" no longer tells you whether a
+request is signable — the base class does.
 
 ## Routes field mask
 
@@ -76,6 +77,9 @@ returned). Tighten it to cut response size and cost. An empty mask is rejected b
   Tracked in [`known-issues.md`](known-issues.md) (B7).
 - **The newer APIs ignore `Channel`/signing** — `Routes`, `AddressValidation`, Places, `Roads*`,
   `Solar*` and `AerialView` don't extend `SignableRequest`.
+- **Places (New) is mixed-verb.** `PlacesSearchText`, `PlacesSearchNearby`, and `PlacesAutocompleteNew`
+  POST a JSON body, but `PlaceDetailsNew` and `PlacePhoto` are **GET** (they override only `GetUri()`,
+  so `GetRequestBody()` returns `null` → the engine issues a GET). Don't assume "Places (New) ⇒ POST".
 - **Solar requests force SSL** (`GetUri` throws when `IsSSL = false`), same as `TimeZoneRequest`.
 - **`SpeedLimits` requires a Google Asset Tracking license** — other keys get an HTTP 403, and each
   returned limit is separately billable.

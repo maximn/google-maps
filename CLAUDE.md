@@ -23,7 +23,7 @@ NuGet as `GoogleMapsApi` (+ a sibling `GoogleMapsApi.Extensions.DependencyInject
   with the API key/signature redacted from the traced URL.
 - **Two packages, lockstep-versioned:** core `GoogleMapsApi` and the optional DI extension.
 
-Flow: `GoogleMapsClient` → `IEngineFacade` → `HttpClientEngineFacade` (internal) → `MapsAPIGenericEngine` (internal, static HTTP+JSON).
+Flow: `GoogleMapsClient` → `IEngineFacade` → `HttpClientEngineFacade` (internal) → `MapsAPIGenericEngine` (internal abstract; static-method HTTP+JSON engine).
 
 ## Commands used in most sessions
 

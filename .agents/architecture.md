@@ -10,14 +10,14 @@ your code
    │  new GoogleMapsClient(httpClient[, options])     // public, instance-based
    ▼
 GoogleMapsClient : IGoogleMapsClient                  // GoogleMapsApi/GoogleMapsClient.cs
-   │  exposes 12 service properties, each an
-   │  IEngineFacade<TRequest,TResponse>               // GoogleMapsApi/IEngineFacade.cs (public)
+   │  exposes 19 service properties (18 typed IEngineFacade<,>
+   │  + the AerialView sub-API)                        // GoogleMapsApi/IEngineFacade.cs (public)
    ▼
 HttpClientEngineFacade<TRequest,TResponse>            // GoogleMapsApi/Engine/HttpClientEngineFacade.cs (internal)
    │  holds the HttpClient + GoogleMapsClientOptions
    │  auto-fills the ambient ApiKey, owns the events
    ▼
-MapsAPIGenericEngine<TRequest,TResponse>              // GoogleMapsApi/Engine/MapsAPIGenericEngine.cs (internal, static)
+MapsAPIGenericEngine<TRequest,TResponse>              // GoogleMapsApi/Engine/MapsAPIGenericEngine.cs (internal abstract; static methods)
    │  builds the URI / body, starts the trace span,
    │  GETs or POSTs, maps HTTP errors, deserializes JSON
    ▼
@@ -48,8 +48,8 @@ types are `internal`. The only public moving parts you implement against are `IG
 Two request base classes exist — see [`api-catalog.md`](api-catalog.md):
 - **`SignableRequest : MapsBaseRequest`** — legacy GET APIs; adds `ClientID`/`SigningKey`/`Channel` for
   Google Enterprise URL signing (HMAC-SHA1).
-- **`MapsBaseRequest`** directly — the new POST APIs (Routes, Address Validation, Places New); these
-  authenticate with an API key only (no URL signing).
+- **`MapsBaseRequest`** directly — the new APIs (Routes, Address Validation, Places (New)); mostly POST,
+  though `PlaceDetailsNew`/`PlacePhoto` are GET. These authenticate with an API key only (no URL signing).
 
 ## Ambient API key
 
@@ -87,12 +87,12 @@ for `client.Geocode`. Keep handlers lightweight (they run inline on the async pa
 
 | File | Role |
 | --- | --- |
-| `GoogleMapsApi/GoogleMapsClient.cs` | Public instance client; constructs the 12 service facades |
-| `GoogleMapsApi/IGoogleMapsClient.cs` | The public contract (12 service properties) |
+| `GoogleMapsApi/GoogleMapsClient.cs` | Public instance client; constructs the 19 service facades |
+| `GoogleMapsApi/IGoogleMapsClient.cs` | The public contract (19 service properties; `AerialView` is an `IAerialViewApi` sub-API) |
 | `GoogleMapsApi/IEngineFacade.cs` | The 4 `QueryAsync` overloads + the two events |
 | `GoogleMapsApi/GoogleMapsClientOptions.cs` | Ambient options (just `ApiKey` today) |
 | `GoogleMapsApi/Engine/HttpClientEngineFacade.cs` | Per-instance facade; ambient-key fill; event wiring |
-| `GoogleMapsApi/Engine/MapsAPIGenericEngine.cs` | Static HTTP+JSON engine; tracing; error mapping |
+| `GoogleMapsApi/Engine/MapsAPIGenericEngine.cs` | `internal abstract` HTTP+JSON engine (static methods); tracing; error mapping |
 | `GoogleMapsApi/Entities/Common/MapsBaseRequest.cs` | Request base: URI/body composition, SSL+key rules |
 | `GoogleMapsApi/Entities/Common/SignableRequest.cs` | URL-signing base for legacy GET APIs |
 | `GoogleMapsApi/Entities/Common/IResponseFor.cs` | Request↔response marker interface |
