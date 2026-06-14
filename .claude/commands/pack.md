@@ -9,7 +9,7 @@ dotnet pack --no-build
 ## Package Configuration
 
 Configured in `GoogleMapsApi.csproj`:
-- **Multi-targeting**: net8.0, net7.0, net6.0, netstandard2.0
+- **Multi-targeting**: netstandard2.0, net8.0, net10.0
 - **Auto-increment**: Package revision auto-increments
 - **Generate on build**: Packages created during build
 - **Symbols**: Debug symbols included (.snupkg)

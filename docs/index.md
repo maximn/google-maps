@@ -1,8 +1,8 @@
 # GoogleMapsApi
 
-A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Directions, Distance Matrix, Elevation, Time Zone, Places, and Static Maps.
+A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Directions, Routes, Distance Matrix, Elevation, Time Zone, Places (New), Address Validation, and Static Maps.
 
-Multi-framework (`net10.0`, `net8.0`, `net6.0`, `netstandard2.0`, `net481`, `net462`), async-first, and battle-tested with **2M+ downloads** on NuGet.
+Multi-framework (`netstandard2.0`, `net8.0`, `net10.0`), async-first, and battle-tested with **2M+ downloads** on NuGet.
 
 ## Get started
 
@@ -15,10 +15,12 @@ Multi-framework (`net10.0`, `net8.0`, `net6.0`, `netstandard2.0`, `net481`, `net
 | --- | --- |
 | Geocoding | Convert between addresses and geographic coordinates |
 | Directions | Route planning between two points with multiple travel modes |
+| Routes | Modern replacement for Directions — traffic-aware routing, tolls, eco-routing |
 | Distance Matrix | Travel time and distance between multiple origins/destinations |
 | Elevation | Elevation data for individual locations or paths |
 | Time Zone | Time zone information for any coordinate |
-| Places | Find / Nearby / Text search, Place Details, Autocomplete |
+| Places (New) | Text / Nearby search, Place Details, Autocomplete, Place Photo |
+| Address Validation | Validate and standardize postal addresses (USPS CASS for US/PR) |
 | Static Maps | Generate URLs for static map images with markers, paths, and styles |
 
 ## Project links

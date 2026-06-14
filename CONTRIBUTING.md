@@ -20,7 +20,7 @@ and the proposed API shape second. For open-ended questions or design discussion
 
 ## Local development quick start
 
-The library targets net8.0, net6.0, netstandard2.0, net481, and net462. You need a recent
+The library targets netstandard2.0, net8.0, and net10.0. You need a recent
 .NET SDK installed.
 
 ```bash

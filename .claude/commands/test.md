@@ -1,41 +1,54 @@
 # Test Command
 
-Runs NUnit tests for the Google Maps API library.
+Runs the NUnit test suite for the Google Maps API library. Test projects target `net8.0` and `net10.0`.
 
 ```bash
-dotnet test --framework net8.0 --verbosity normal 
+dotnet test --verbosity normal
 ```
 
 ## Environment Requirements
 
-Tests require a `GOOGLE_API_KEY` environment variable for integration tests.
+Integration tests hit the **live** Google APIs and require a `GOOGLE_API_KEY` (environment variable, or
+`GoogleMapsApi.Test/appsettings.json` copied from `appsettings.template.json`). Unit tests are hermetic
+and need no key.
+
+## Billable (Places) tests — skipped by default
+
+Tests tagged `[BillableTest]` (NUnit category `Billable`) are **skipped** unless `RUN_BILLABLE_TESTS`
+is truthy (`1`/`true`/`yes`). See `.agents/testing.md`.
 
 ## Options
 
 - `--no-build`: Run tests without building
 - `--configuration Release`: Run tests in release mode
-- `--verbosity normal`: Set test output verbosity
+- `--framework net8.0|net10.0`: Run a single target framework
 - `--collect:"XPlat Code Coverage"`: Collect code coverage
 
 ## Usage Examples
 
 ```bash
-# Run all tests
-dotnet test --framework net8.0 --verbosity normal
+# Run all tests (all TFMs, billable tests skipped)
+dotnet test --verbosity normal
 
-# Run tests without building
-dotnet test --framework net8.0 --no-build --verbosity normal
+# Run a single target framework
+dotnet test --framework net10.0
 
-# Run with code coverage
-dotnet test --framework net8.0 --collect:"XPlat Code Coverage"
+# Run a single fixture
+dotnet test --filter "ClassName=DirectionsTests"
 
-# Skip integration tests
-dotnet test --framework net8.0 --verbosity normal --filter "TestCategory!=Integration
+# Include billable Places tests (incurs charges)
+RUN_BILLABLE_TESTS=true dotnet test
+
+# Run ONLY the billable tests
+RUN_BILLABLE_TESTS=true dotnet test --filter "TestCategory=Billable"
+
+# Code coverage
+dotnet test --collect:"XPlat Code Coverage"
 ```
 
 ## Test Configuration
 
-Tests are configured in `GoogleMapsApi.Test.csproj` using:
-- NUnit framework
+Configured in `GoogleMapsApi.Test.csproj`:
+- NUnit + NUnit3TestAdapter
 - Microsoft.NET.Test.Sdk
-- Coverlet for code coverage
+- coverlet for code coverage
