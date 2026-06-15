@@ -29,43 +29,61 @@ dotnet build
 dotnet test
 ```
 
-The integration tests hit the live Google Maps APIs and require an API key. Provide it
-via the `GOOGLE_API_KEY` environment variable, or copy
-`GoogleMapsApi.Test/appsettings.template.json` to `appsettings.json` and fill in the value.
-Note that running the test suite consumes your Google API quota.
+The integration tests default to **replay mode**: they serve responses from committed cassettes
+under `GoogleMapsApi.Test/Cassettes/`, so a plain `dotnet test` runs **offline, with no API key, and
+no charges**. You don't need a Google key to contribute or to run the suite. A test whose cassette
+hasn't been recorded yet is **skipped** (with a message telling you how to record it), not failed.
 
-### Billable tests (Places API)
+### Recorded-response (VCR) test modes
 
-Some Google APIs — currently **Places** — exceed the free quota and incur charges. Their
-integration fixtures are tagged `[BillableTest]` (category `Billable`, see
-`GoogleMapsApi.Test/Utils/BillableTestAttribute.cs`) and are **skipped by default** so a plain
-`dotnet test` never runs up the bill. Everything else runs as usual.
+The mode is chosen by the `VCR_MODE` environment variable (default `replay`):
 
-Opt in only when you specifically need them, by setting the `RUN_BILLABLE_TESTS` environment
-variable to a truthy value (`1`, `true`, or `yes`):
+| `VCR_MODE` | What it does | Needs `GOOGLE_API_KEY`? | Charges? |
+| --- | --- | --- | --- |
+| `replay` *(default)* | Serve responses from committed cassettes; fail loudly if an **existing** cassette is missing the request (API drift) | No | No |
+| `record` | Call live Google and **(over)write** cassettes on disk, then commit them | Yes | Yes |
+| `auto` | Replay on a cassette hit, record live on a miss | Yes (on misses) | On misses |
+| `live` | Pass straight through to Google, never touching cassettes (drift check) | Yes | Yes |
+
+To **(re)record** cassettes — needed when you add a test, or when Google's responses change — run
+record mode with a real key, then commit the resulting JSON:
 
 ```bash
-# Run the full suite, including billable tests
-RUN_BILLABLE_TESTS=true dotnet test
+# Record everything (incl. billable APIs), then commit the cassettes
+VCR_MODE=record GOOGLE_API_KEY=<key> RUN_BILLABLE_TESTS=true dotnet test
 
-# Run only the billable tests
-RUN_BILLABLE_TESTS=true dotnet test --filter "TestCategory=Billable"
+# Re-record a single fixture
+VCR_MODE=record GOOGLE_API_KEY=<key> dotnet test --filter "ClassName=GeocodingTests"
 ```
 
-When adding a fixture that calls a billable API, annotate it with `[BillableTest]` so it stays
-off by default.
+Cassettes redact the `key`/`signature` query parameters, so no secret is ever committed.
 
-#### Running billable tests in CI
+### Billable tests (Places, Aerial View, Solar)
 
-The same opt-in is wired into the `.NET` GitHub Actions workflow (`.github/workflows/dotnet.yml`),
-which keeps billable tests skipped on ordinary push/PR runs. Two ways to run them on demand:
+Some Google APIs exceed the free quota and incur charges. Their fixtures are tagged `[BillableTest]`
+(category `Billable`, see `GoogleMapsApi.Test/Utils/BillableTestAttribute.cs`). The gate only applies
+in a **live mode** (`record`/`auto`/`live`), where the test actually calls Google: there it's skipped
+unless `RUN_BILLABLE_TESTS` is truthy (`1`, `true`, or `yes`). In the default `replay` mode the
+response comes from a cassette — free and deterministic — so **billable tests run normally offline**.
 
-- **PR label** — add the `run-billable-tests` label to a pull request. Applying the label starts a
-  run, and it stays in effect while the label is present. (Labels can only be applied by
-  collaborators, and the workflow only runs for same-repo branches, so external PRs can't trigger
-  paid tests.)
-- **Manual run** — from the **Actions** tab, open the **.NET** workflow, click **Run workflow**, and
-  check **Run billable API tests (Places)**.
+```bash
+# Replay everything offline, including billable fixtures (the default)
+dotnet test
+
+# Run billable fixtures LIVE (recording or drift-checking) — incurs charges
+VCR_MODE=live RUN_BILLABLE_TESTS=true GOOGLE_API_KEY=<key> dotnet test --filter "TestCategory=Billable"
+```
+
+When adding a fixture that calls a billable API, annotate it with `[BillableTest]` so live runs stay
+opt-in.
+
+#### CI
+
+The `.NET` GitHub Actions workflow (`.github/workflows/dotnet.yml`) runs the default push/PR build in
+`replay` mode — offline, no key — so it covers the **whole** suite (including billable fixtures) for
+free, even on external contributors' PRs. A separate **scheduled / manually-dispatched** job runs the
+integration tests **live** (`VCR_MODE=live`, with `GOOGLE_API_KEY` + `RUN_BILLABLE_TESTS`) to catch
+Google API drift against the recorded cassettes.
 
 ## Style
 
@@ -81,7 +99,9 @@ Before opening a PR, please confirm:
 
 - [ ] `dotnet format` has been run.
 - [ ] `dotnet build` succeeds across all target frameworks.
-- [ ] `dotnet test` passes locally (with a valid `GOOGLE_API_KEY`).
+- [ ] `dotnet test` passes locally (offline, in the default `replay` mode — no key needed).
+- [ ] If you added or changed an integration test, you re-recorded and committed its cassette
+      (`VCR_MODE=record … dotnet test`).
 - [ ] New public API surface has XML documentation comments.
 - [ ] If you fixed a bug, a regression test covers it.
 - [ ] The PR description links the related issue and explains the change.

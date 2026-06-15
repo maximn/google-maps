@@ -4,8 +4,11 @@ on:
   push:
     branches: [ master ]
   pull_request:
-    # 'labeled' lets applying the run-billable-tests label start a run on demand.
+    # 'labeled' lets applying the run-billable-tests label start a live run on demand.
     types: [opened, synchronize, reopened, labeled]
+  schedule:
+    # Weekly live drift-check of the integration cassettes against the real Google APIs.
+    - cron: '0 6 * * 1'
   workflow_dispatch:
     inputs:
       frameworks:
@@ -17,8 +20,13 @@ on:
           - 'net10.0'
           - 'net8.0'
           - 'both'
+      live:
+        description: 'Run integration tests LIVE against Google (needs key; counts against quota)'
+        type: boolean
+        required: false
+        default: false
       run_billable:
-        description: 'Run billable API tests (Places) — counts against paid quota'
+        description: 'When running live, also run billable API tests (Places/Aerial/Solar) — paid quota'
         type: boolean
         required: false
         default: false
@@ -28,11 +36,14 @@ permissions:
   pull-requests: write
 
 jobs:
+  # Default build for every push/PR. Runs the integration tests in VCR replay mode: offline, no API
+  # key, no charges — so it covers the whole suite (including billable fixtures) from committed
+  # cassettes, even for external contributors' PRs.
   build:
     if: >
       github.event_name == 'push' ||
-      github.event_name == 'workflow_dispatch' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
@@ -50,23 +61,56 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    # Integration tests hit the live Google Maps APIs and count against quota.
-    # Default push/PR runs target net10.0 only. Use workflow_dispatch to pick a
-    # different TFM (or both) — useful pre-release or when investigating TFM-specific regressions.
-    - name: Test (net8.0)
+    - name: Test (net8.0, replay)
       if: github.event_name == 'workflow_dispatch' && (inputs.frameworks == 'net8.0' || inputs.frameworks == 'both')
       run: dotnet test --no-build --verbosity normal --framework net8.0 --logger "junit;LogFilePath=test-results/{assembly}.net8.0.xml"
       env:
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          # Enabled by the manual Run-workflow checkbox OR a run-billable-tests label on the PR.
-          RUN_BILLABLE_TESTS: ${{ inputs.run_billable || contains(github.event.pull_request.labels.*.name, 'run-billable-tests') }}
-    - name: Test (net10.0)
+          VCR_MODE: replay
+    - name: Test (net10.0, replay)
       if: github.event_name != 'workflow_dispatch' || inputs.frameworks == 'net10.0' || inputs.frameworks == 'both'
       run: dotnet test --no-build --verbosity normal --framework net10.0 --logger "junit;LogFilePath=test-results/{assembly}.net10.0.xml"
       env:
+          VCR_MODE: replay
+    - name: TestGlance
+      if: always()
+      uses: testglance/action@fc6cacb2cb4926081de56e1983e9be9ba454c87c  # v1
+      with:
+        github-token: ${{ github.token }}
+
+  # Live drift-check: hits the real Google APIs to catch responses that have diverged from the
+  # committed cassettes. Runs on the weekly schedule, on manual dispatch with `live=true`, or when a
+  # PR carries the `run-billable-tests` label. Same-repo only, so external PRs can't trigger paid runs.
+  live:
+    if: >
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.live) ||
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       contains(github.event.pull_request.labels.*.name, 'run-billable-tests'))
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+      with:
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
+    - name: Setup .NET
+      uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2  # v5.3.0
+      with:
+        dotnet-version: |
+          6.0.x
+          8.0.x
+          10.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test (net10.0, live)
+      run: dotnet test --no-build --verbosity normal --framework net10.0 --logger "junit;LogFilePath=test-results/{assembly}.net10.0.xml"
+      env:
+          VCR_MODE: live
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          # Enabled by the manual Run-workflow checkbox OR a run-billable-tests label on the PR.
-          RUN_BILLABLE_TESTS: ${{ inputs.run_billable || contains(github.event.pull_request.labels.*.name, 'run-billable-tests') }}
+          # Schedule and label runs include billable APIs; manual dispatch honors the checkbox.
+          RUN_BILLABLE_TESTS: ${{ github.event_name != 'workflow_dispatch' || inputs.run_billable }}
     - name: TestGlance
       if: always()
       uses: testglance/action@fc6cacb2cb4926081de56e1983e9be9ba454c87c  # v1
