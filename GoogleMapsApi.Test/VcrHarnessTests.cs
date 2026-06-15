@@ -70,6 +70,28 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
+        public async Task Record_ReplacesExistingCassette()
+        {
+            await RecordOnce();
+
+            const string replacementJson = "{\"status\":\"ZERO_RESULTS\",\"results\":[]}";
+            using (var record = new HttpMessageInvoker(
+                       new VcrDelegatingHandler(VcrMode.Record, _cassettePath, new StubHandler(replacementJson))))
+            {
+                using var request = new HttpRequestMessage(HttpMethod.Get, GeocodeUri);
+                using var response = await record.SendAsync(request, CancellationToken.None);
+                Assert.That(await response.Content.ReadAsStringAsync(), Is.EqualTo(replacementJson));
+            }
+
+            using var replay = new HttpMessageInvoker(
+                new VcrDelegatingHandler(VcrMode.Replay, _cassettePath, new ThrowingHandler()));
+            using var replayRequest = new HttpRequestMessage(HttpMethod.Get, GeocodeUri);
+            using var replayResponse = await replay.SendAsync(replayRequest, CancellationToken.None);
+
+            Assert.That(await replayResponse.Content.ReadAsStringAsync(), Is.EqualTo(replacementJson));
+        }
+
+        [Test]
         public void Replay_WithNoMatchingCassette_FailsLoudly()
         {
             using var replay = new HttpMessageInvoker(

@@ -25,7 +25,9 @@ namespace GoogleMapsApi.Test.Vcr
             : base(innerHandler)
         {
             _mode = mode;
-            _cassette = Cassette.LoadOrEmpty(cassetteFilePath);
+            _cassette = mode == VcrMode.Record
+                ? Cassette.CreateEmpty(cassetteFilePath)
+                : Cassette.LoadOrEmpty(cassetteFilePath);
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -42,15 +44,14 @@ namespace GoogleMapsApi.Test.Vcr
 
             if (_mode == VcrMode.Replay || _mode == VcrMode.Auto)
             {
+                // Give callers a chance to cancel immediately after starting the request, including
+                // cancellation-only tests that intentionally have no cassette.
+                await Task.Yield();
+                cancellationToken.ThrowIfCancellationRequested();
+
                 var match = _cassette.FindMatch(method, redactedUrl, normalizedBody);
                 if (match != null)
-                {
-                    // Yield so a token cancelled synchronously after QueryAsync returns is observed here,
-                    // keeping cancellation/timeout tests deterministic without a live round-trip.
-                    await Task.Yield();
-                    cancellationToken.ThrowIfCancellationRequested();
                     return BuildResponse(match);
-                }
 
                 if (_mode == VcrMode.Replay)
                     throw new InvalidOperationException(

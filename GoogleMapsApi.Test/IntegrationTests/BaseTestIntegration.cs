@@ -2,7 +2,6 @@ using GoogleMapsApi.Test.Utils;
 using GoogleMapsApi.Test.Vcr;
 using NUnit.Framework;
 using System;
-using System.IO;
 using System.Net.Http;
 
 namespace GoogleMapsApi.Test.IntegrationTests
@@ -29,14 +28,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var test = TestContext.CurrentContext.Test;
             var cassettePath = CassetteLocator.ForTest(test.ClassName!, test.Name);
 
-            // A whole cassette that hasn't been recorded yet isn't a failure — it's a TODO. Skip with
-            // instructions. (A *missing entry* inside an existing cassette still fails loudly in the
-            // handler, which is genuine drift.)
-            if (VcrModes.Current == VcrMode.Replay && !File.Exists(cassettePath))
-                Assert.Ignore(
-                    $"No cassette recorded for this test. Record it with: " +
-                    $"VCR_MODE=record GOOGLE_API_KEY=<key> RUN_BILLABLE_TESTS=true dotnet test --filter \"ClassName={SimpleName(test.ClassName!)}\"");
-
             var handler = new VcrDelegatingHandler(VcrModes.Current, cassettePath, new HttpClientHandler());
             _httpClient = new HttpClient(handler);
             Maps = new GoogleMapsClient(_httpClient);
@@ -47,12 +38,6 @@ namespace GoogleMapsApi.Test.IntegrationTests
         {
             _httpClient?.Dispose();
             _httpClient = null;
-        }
-
-        private static string SimpleName(string fullClassName)
-        {
-            var lastDot = fullClassName.LastIndexOf('.');
-            return lastDot >= 0 ? fullClassName.Substring(lastDot + 1) : fullClassName;
         }
 
         protected string ApiKey => VcrModes.Current == VcrMode.Replay

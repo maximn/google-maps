@@ -34,5 +34,5 @@ interactions (one per HTTP call the test makes, in order):
   against the placeholder key used in replay mode.
 - **(Re)record with:** `VCR_MODE=record GOOGLE_API_KEY=<key> RUN_BILLABLE_TESTS=true dotnet test`
   (optionally `--filter "ClassName=<Fixture>"` for one fixture), then commit the changed JSON.
-- A missing cassette file makes its test `Ignore` (record it); a request missing inside an existing
-  cassette fails the test loudly (Google API drift — re-record).
+- A missing cassette file or request fails the test loudly so integration coverage cannot silently
+  disappear (record or re-record it).

@@ -27,8 +27,8 @@ Mode is set by `VCR_MODE` (default `replay`), parsed by `Vcr/VcrMode.cs`:
 
 | `VCR_MODE` | Behavior | Key? | Charges? |
 | --- | --- | --- | --- |
-| `replay` *(default)* | Serve from cassettes. A **missing cassette file** → test is `Ignore`d (not recorded yet). A request **missing inside an existing** cassette → throws (API drift). | No | No |
-| `record` | Hit live Google, (over)write cassettes | Yes | Yes |
+| `replay` *(default)* | Serve from cassettes. A missing cassette or request fails loudly so integration coverage cannot silently disappear. | No | No |
+| `record` | Hit live Google and replace each test's cassette | Yes | Yes |
 | `auto` | Replay on hit, record on miss | Yes (misses) | Misses |
 | `live` | Passthrough to Google, no cassettes | Yes | Yes |
 
@@ -46,8 +46,8 @@ VCR_MODE=live   GOOGLE_API_KEY=<key> RUN_BILLABLE_TESTS=true dotnet test  # drif
 `appsettings.json` (`Utils/AppSettings.cs`) → `GOOGLE_API_KEY` env → throws. Tests set
 `request.ApiKey = ApiKey` per call.
 
-> Cancellation/timeout-only tests (e.g. in `GeocodingTests`) make no recordable call, so they have no
-> cassette and stay `Ignore`d in `replay`; they execute in live modes.
+> Cancellation/timeout-only tests (e.g. in `GeocodingTests`) need no cassette: replay observes
+> cancellation before attempting cassette matching.
 
 ## Billable tests (gate applies in live modes only)
 

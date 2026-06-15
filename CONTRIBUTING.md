@@ -32,7 +32,7 @@ dotnet test
 The integration tests default to **replay mode**: they serve responses from committed cassettes
 under `GoogleMapsApi.Test/Cassettes/`, so a plain `dotnet test` runs **offline, with no API key, and
 no charges**. You don't need a Google key to contribute or to run the suite. A test whose cassette
-hasn't been recorded yet is **skipped** (with a message telling you how to record it), not failed.
+hasn't been recorded yet **fails loudly**, so missing integration coverage cannot pass unnoticed.
 
 ### Recorded-response (VCR) test modes
 
@@ -40,8 +40,8 @@ The mode is chosen by the `VCR_MODE` environment variable (default `replay`):
 
 | `VCR_MODE` | What it does | Needs `GOOGLE_API_KEY`? | Charges? |
 | --- | --- | --- | --- |
-| `replay` *(default)* | Serve responses from committed cassettes; fail loudly if an **existing** cassette is missing the request (API drift) | No | No |
-| `record` | Call live Google and **(over)write** cassettes on disk, then commit them | Yes | Yes |
+| `replay` *(default)* | Serve responses from committed cassettes; fail loudly if the cassette or request is missing | No | No |
+| `record` | Call live Google and **replace** cassettes on disk, then commit them | Yes | Yes |
 | `auto` | Replay on a cassette hit, record live on a miss | Yes (on misses) | On misses |
 | `live` | Pass straight through to Google, never touching cassettes (drift check) | Yes | Yes |
 

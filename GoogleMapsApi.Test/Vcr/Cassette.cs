@@ -32,10 +32,13 @@ namespace GoogleMapsApi.Test.Vcr
 
         public IReadOnlyList<RecordedInteraction> Interactions => _interactions;
 
+        internal static Cassette CreateEmpty(string filePath) =>
+            new(filePath, new List<RecordedInteraction>());
+
         public static Cassette LoadOrEmpty(string filePath)
         {
             if (!File.Exists(filePath))
-                return new Cassette(filePath, new List<RecordedInteraction>());
+                return CreateEmpty(filePath);
 
             var json = File.ReadAllText(filePath);
             var interactions = JsonSerializer.Deserialize<List<RecordedInteraction>>(json)
