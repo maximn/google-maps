@@ -8,49 +8,69 @@ this is in [`CONTRIBUTING.md`](../CONTRIBUTING.md); this file is the agent quick
 | | Unit tests | Integration tests |
 | --- | --- | --- |
 | Where | `GoogleMapsApi.Test/*.cs` (root) | `GoogleMapsApi.Test/IntegrationTests/*.cs` |
-| Network | **Hermetic** — mock `HttpMessageHandler` (e.g. `CapturingHandler`/`RecordingHandler`) | **Live Google APIs** — real HTTP, counts against quota |
-| Needs key | No | Yes (`GOOGLE_API_KEY`) |
+| Network | **Hermetic** — mock `HttpMessageHandler` (e.g. `CapturingHandler`/`RecordingHandler`) | **VCR** — replay committed cassettes by default; live only in record/auto/live modes |
+| Needs key | No | No in `replay` (default); yes in live modes |
 | Base class | — | `BaseTestIntegration` |
+| NUnit category | — | `Integration` (inherited from the base class) |
 
 Examples of unit coverage: `JsonConverterTests`, `GoogleMapsClientTests`, `HttpEngineModernizationTests`,
 `EdgeCaseAndErrorHandlingTests`, `DiagnosticsTracingTests`, `NullableReferenceTypesCompatibilityTests`,
-plus the per-API `*UnitTests`. DI registration is covered in
-`GoogleMapsApi.Extensions.DependencyInjection.Test`.
+`VcrHarnessTests` (hermetic tests for the VCR harness itself), plus the per-API `*UnitTests`. DI
+registration is covered in `GoogleMapsApi.Extensions.DependencyInjection.Test`.
 
-> **Deliberate tradeoff (B9):** integration tests are **not hermetic** — there is no VCR/cassette
-> replay. They hit live Google endpoints, so they need a real key, a network, and available quota, and
-> can fail for reasons unrelated to your change. New *unit* tests should stay hermetic with a mocked
-> handler; reserve live calls for the integration suite.
+## VCR record/replay (resolves former tradeoff B9)
 
-## API key for integration tests
+Integration tests are now hermetic by default. The harness lives in `GoogleMapsApi.Test/Vcr/`:
+`VcrDelegatingHandler` is inserted into the per-test `HttpClient` pipeline by `BaseTestIntegration`
+and reads/writes per-test cassettes under `GoogleMapsApi.Test/Cassettes/<Fixture>/<Test>.json`.
 
-`BaseTestIntegration` resolves the key in this order (`IntegrationTests/BaseTestIntegration.cs`):
-1. `appsettings.json` (`GOOGLE_API_KEY` property) loaded from the test output dir by `Utils/AppSettings.cs`
-2. the `GOOGLE_API_KEY` environment variable
-3. otherwise throws `InvalidOperationException`.
+Mode is set by `VCR_MODE` (default `replay`), parsed by `Vcr/VcrMode.cs`:
 
-Local setup: copy `GoogleMapsApi.Test/appsettings.template.json` → `appsettings.json` and fill it in,
-**or** export `GOOGLE_API_KEY`. The base class shares one static `HttpClient` and one
-`GoogleMapsClient(SharedHttpClient)`; tests set `request.ApiKey = ApiKey` per call.
+| `VCR_MODE` | Behavior | Key? | Charges? |
+| --- | --- | --- | --- |
+| `replay` *(default)* | Serve from cassettes. A missing cassette or request fails loudly so integration coverage cannot silently disappear. | No | No |
+| `record` | Hit live Google and replace each test's cassette | Yes | Yes |
+| `auto` | Replay on hit, record on miss | Yes (misses) | Misses |
+| `live` | Passthrough to Google, no cassettes | Yes | Yes |
 
-## Billable tests (off by default)
-
-Some Google APIs (currently **Places**) exceed the free quota. Their fixtures are tagged
-`[BillableTest]` (`GoogleMapsApi.Test/Utils/BillableTestAttribute.cs`), which:
-- adds the test to the **`Billable`** NUnit category, and
-- marks it **Ignored** unless `RUN_BILLABLE_TESTS` is truthy (`1`, `true`, or `yes`, case-insensitive).
+Cassettes redact `key`/`signature` (same regex as `MapsAPIGenericEngine`), base64 the body (covers JSON
+**and** binary GeoTIFF/photo), and match on `method + redacted URL + normalized JSON body`. In replay the
+handler yields and honors the cancellation token so cancellation/timeout plumbing still behaves.
 
 ```bash
-dotnet test                                                  # billable tests skipped
-RUN_BILLABLE_TESTS=true dotnet test                          # include them (incurs charges)
-RUN_BILLABLE_TESTS=true dotnet test --filter "TestCategory=Billable"   # only them
+dotnet test                                                            # replay, offline, no key
+VCR_MODE=record GOOGLE_API_KEY=<key> RUN_BILLABLE_TESTS=true dotnet test  # (re)record, then commit cassettes
+VCR_MODE=live   GOOGLE_API_KEY=<key> RUN_BILLABLE_TESTS=true dotnet test  # drift-check against live Google
 ```
 
-When adding a fixture that calls a billable API, **tag it `[BillableTest]`** so it stays off by default.
+`BaseTestIntegration` returns a placeholder key in `replay`; in live modes it resolves the key from
+`appsettings.json` (`Utils/AppSettings.cs`) → `GOOGLE_API_KEY` env → throws. Tests set
+`request.ApiKey = ApiKey` per call.
 
-In CI (`.github/workflows/dotnet.yml`) billable tests are skipped on ordinary push/PR. Run them on
-demand by adding the **`run-billable-tests`** label to a PR (collaborators only) or via the manual
-**Run workflow** dispatch input.
+> Cancellation/timeout-only tests (e.g. in `GeocodingTests`) need no cassette: replay observes
+> cancellation before attempting cassette matching.
+
+## Billable tests (gate applies in live modes only)
+
+Some Google APIs (**Places**, **Aerial View**, **Solar**) exceed the free quota. Their fixtures are
+tagged `[BillableTest]` (`GoogleMapsApi.Test/Utils/BillableTestAttribute.cs`), which:
+- adds the test to the **`Billable`** NUnit category, and
+- marks it **Ignored** only when running in a **live mode** (`VcrModes.IsLive`) and `RUN_BILLABLE_TESTS`
+  is not truthy. In `replay` it **never** skips — replayed billable tests cost nothing.
+
+```bash
+dotnet test                                                  # replay: billable tests RUN (from cassettes)
+VCR_MODE=live RUN_BILLABLE_TESTS=true dotnet test            # live: billable tests run against Google
+VCR_MODE=live dotnet test --filter "TestCategory=Billable"   # live billable WITHOUT opt-in → skipped
+```
+
+When adding a fixture that calls a billable API, **tag it `[BillableTest]`**.
+
+In CI (`.github/workflows/dotnet.yml`) the default push/PR job always runs unit tests and the VCR
+harness offline. It also runs the `Integration` category in replay once cassette JSON files are
+committed; until then it emits an explicit warning. A separate scheduled/dispatch job runs the
+`Integration` category live with the key + `RUN_BILLABLE_TESTS` to detect drift; the
+`run-billable-tests` PR label also triggers a live run.
 
 ## Quota handling
 
