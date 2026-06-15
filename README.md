@@ -241,8 +241,21 @@ public class GeocodingService(IGoogleMapsClient maps)
 ```
 
 `AddGoogleMaps` returns an `IHttpClientBuilder`, so you can chain resilience and other
-`HttpClient` configuration — e.g. `.AddStandardResilienceHandler()` from
-`Microsoft.Extensions.Http.Resilience`.
+`HttpClient` configuration. Google's APIs throttle with HTTP 429; rather than hand-rolling retries,
+add the standard Polly-backed resilience handler from `Microsoft.Extensions.Http.Resilience`:
+
+``` bash
+dotnet add package Microsoft.Extensions.Http.Resilience
+```
+
+``` C#
+services.AddGoogleMaps(options => options.ApiKey = "your-google-maps-api-key")
+        .AddStandardResilienceHandler();
+```
+
+The standard handler retries transient failures — including **HTTP 429 (throttling)**, 408, and
+5xx — with exponential backoff and a circuit breaker, so callers no longer need to wrap calls in
+retry logic.
 
 Prefer not to take the extra package? The core library still works with hand-wired DI:
 
