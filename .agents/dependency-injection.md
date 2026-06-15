@@ -35,6 +35,31 @@ into your services and call `maps.Geocode.QueryAsync(...)`, etc.
 - **Ambient key is per-request fill, not global state** — see the ambient-key section in
   [`architecture.md`](architecture.md).
 
+## Resilience (Polly)
+
+Because `AddGoogleMaps` returns an `IHttpClientBuilder`, resilience is opt-in chaining — the core
+library takes **no** dependency on Polly. Add the standard handler from
+`Microsoft.Extensions.Http.Resilience`:
+
+```csharp
+services.AddGoogleMaps(o => o.ApiKey = "…")
+        .AddStandardResilienceHandler();
+```
+
+Tuning for Google's APIs:
+
+- The stock handler's retry **and** circuit-breaker strategies already treat **HTTP 429** (Google's
+  throttling response), 408, 5xx, `HttpRequestException`, and timeouts as transient, and honor
+  `Retry-After`. So 429 backoff works out of the box — no custom `ShouldHandle` needed.
+- Defaults: 3 retries, exponential backoff, ~2s base delay, 30s total request timeout, 10% failure-
+  ratio circuit breaker. Override via `AddStandardResilienceHandler(options => …)`.
+- Maps requests are reads, so the default "retry all methods" is fine. If you ever proxy writes
+  through the same client, scope retries with `options.Retry.DisableForUnsafeHttpMethods()`.
+- Regression-tested in `GoogleMapsApi.Extensions.DependencyInjection.Test/ResilienceTests.cs`
+  (429 → retry → 200, hermetic).
+
+See [Build resilient HTTP apps](https://learn.microsoft.com/dotnet/core/resilience/http-resilience).
+
 ## Versioning
 
 Core + DI packages are versioned in **lockstep** from the same `v*` git tag (MinVer), and the DI package

@@ -63,14 +63,22 @@ jobs:
       run: dotnet build --no-restore
     - name: Test (net8.0, replay)
       if: github.event_name == 'workflow_dispatch' && (inputs.frameworks == 'net8.0' || inputs.frameworks == 'both')
-      run: dotnet test --no-build --verbosity normal --framework net8.0 --logger "junit;LogFilePath=test-results/{assembly}.net8.0.xml"
+      run: dotnet test --no-build --verbosity normal --framework net8.0 --logger "junit;LogFilePath=test-results/{assembly}.net8.0.xml" --collect:"XPlat Code Coverage" --settings coverlet.runsettings --results-directory ./TestResults
       env:
           VCR_MODE: replay
     - name: Test (net10.0, replay)
       if: github.event_name != 'workflow_dispatch' || inputs.frameworks == 'net10.0' || inputs.frameworks == 'both'
-      run: dotnet test --no-build --verbosity normal --framework net10.0 --logger "junit;LogFilePath=test-results/{assembly}.net10.0.xml"
+      run: dotnet test --no-build --verbosity normal --framework net10.0 --logger "junit;LogFilePath=test-results/{assembly}.net10.0.xml" --collect:"XPlat Code Coverage" --settings coverlet.runsettings --results-directory ./TestResults
       env:
           VCR_MODE: replay
+    - name: Upload coverage to Codecov
+      if: always()
+      uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f  # v7.0.0
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ./TestResults
+        fail_ci_if_error: false
+        verbose: true
     - name: TestGlance
       if: always()
       uses: testglance/action@fc6cacb2cb4926081de56e1983e9be9ba454c87c  # v1
