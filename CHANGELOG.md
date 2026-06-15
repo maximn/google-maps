@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 2026-06-15
+
+Here are the release notes for 2.4.0:
+
+```markdown
+### Changed
+- Added a VCR record/replay harness for integration tests (#306)
+- Added a test proving the Polly resilience handler retries Google's HTTP 429 (#305)
+- Added Codecov coverage upload and a coverage badge (#307)
+- Added the `.agents/` AI-native knowledge base and slimmed down `CLAUDE.md` (#301)
+- Added a sponsor badge to the README
+- Updated `testglance/action` digest (#302, #303, #304)
+```
+
+Notes on the categorization:
+
+- **No user-facing library changes** shipped in this range — every commit is tests, CI, docs, or repo hygiene — so `Added`, `Deprecated`, `Removed`, `Fixed`, and `Security` are all omitted per the "omit empty sections" rule.
+- The three `testglance/action` digest bumps are collapsed into one bullet with all PR numbers retained.
+- If you'd rather keep release notes purely user-facing, this entire version arguably warrants no public changelog entry at all (everything is internal). Let me know if you want me to trim it down to a one-line "Internal/tooling improvements" entry instead.
+
 ## [2.3.0] - 2026-06-13
 
 ### Added
@@ -502,7 +522,8 @@ _Re-release of 1.4.1; no functional changes._
 - Fixed issue #4
 - "jpg-baselin" → "jpg-baseline" in `StaticMapsEngine`
 
-[Unreleased]: https://github.com/maximn/google-maps/compare/v2.3.0...HEAD
+[Unreleased]: https://github.com/maximn/google-maps/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/maximn/google-maps/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/maximn/google-maps/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/maximn/google-maps/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/maximn/google-maps/compare/v2.0.0...v2.1.0
