@@ -11,6 +11,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
     //			live Google APIs; that counts towards your quota and, for billable APIs, your bill.
     //			See .agents/testing.md for the record/replay workflow.
 
+    [Category("Integration")]
     public abstract class BaseTestIntegration
     {
         const string ApiKeyEnvironmentVariable = "GOOGLE_API_KEY";

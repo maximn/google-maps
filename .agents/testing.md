@@ -11,6 +11,7 @@ this is in [`CONTRIBUTING.md`](../CONTRIBUTING.md); this file is the agent quick
 | Network | **Hermetic** — mock `HttpMessageHandler` (e.g. `CapturingHandler`/`RecordingHandler`) | **VCR** — replay committed cassettes by default; live only in record/auto/live modes |
 | Needs key | No | No in `replay` (default); yes in live modes |
 | Base class | — | `BaseTestIntegration` |
+| NUnit category | — | `Integration` (inherited from the base class) |
 
 Examples of unit coverage: `JsonConverterTests`, `GoogleMapsClientTests`, `HttpEngineModernizationTests`,
 `EdgeCaseAndErrorHandlingTests`, `DiagnosticsTracingTests`, `NullableReferenceTypesCompatibilityTests`,
@@ -65,9 +66,11 @@ VCR_MODE=live dotnet test --filter "TestCategory=Billable"   # live billable WIT
 
 When adding a fixture that calls a billable API, **tag it `[BillableTest]`**.
 
-In CI (`.github/workflows/dotnet.yml`) the default push/PR job runs in `replay` (offline, covers the
-whole suite incl. billable). A separate scheduled/dispatch job runs live with the key +
-`RUN_BILLABLE_TESTS` to detect drift; the `run-billable-tests` PR label also triggers a live run.
+In CI (`.github/workflows/dotnet.yml`) the default push/PR job always runs unit tests and the VCR
+harness offline. It also runs the `Integration` category in replay once cassette JSON files are
+committed; until then it emits an explicit warning. A separate scheduled/dispatch job runs the
+`Integration` category live with the key + `RUN_BILLABLE_TESTS` to detect drift; the
+`run-billable-tests` PR label also triggers a live run.
 
 ## Quota handling
 

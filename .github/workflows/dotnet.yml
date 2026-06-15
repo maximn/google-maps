@@ -36,9 +36,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  # Default build for every push/PR. Runs the integration tests in VCR replay mode: offline, no API
-  # key, no charges — so it covers the whole suite (including billable fixtures) from committed
-  # cassettes, even for external contributors' PRs.
+  # Default build for every push/PR. Unit tests and the VCR harness are always offline. Replay
+  # integration tests are added automatically once the repository has a committed cassette dataset.
   build:
     if: >
       github.event_name == 'push' ||
@@ -61,14 +60,27 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Test (net8.0, replay)
+    - name: Test (net8.0, offline)
       if: github.event_name == 'workflow_dispatch' && (inputs.frameworks == 'net8.0' || inputs.frameworks == 'both')
-      run: dotnet test --no-build --verbosity normal --framework net8.0 --logger "junit;LogFilePath=test-results/{assembly}.net8.0.xml" --collect:"XPlat Code Coverage" --settings coverlet.runsettings --results-directory ./TestResults
+      run: dotnet test --no-build --verbosity normal --framework net8.0 --filter "TestCategory!=Integration" --logger "junit;LogFilePath=test-results/{assembly}.net8.0.xml" --collect:"XPlat Code Coverage" --settings coverlet.runsettings --results-directory ./TestResults
       env:
           VCR_MODE: replay
-    - name: Test (net10.0, replay)
+    - name: Test (net10.0, offline)
       if: github.event_name != 'workflow_dispatch' || inputs.frameworks == 'net10.0' || inputs.frameworks == 'both'
-      run: dotnet test --no-build --verbosity normal --framework net10.0 --logger "junit;LogFilePath=test-results/{assembly}.net10.0.xml" --collect:"XPlat Code Coverage" --settings coverlet.runsettings --results-directory ./TestResults
+      run: dotnet test --no-build --verbosity normal --framework net10.0 --filter "TestCategory!=Integration" --logger "junit;LogFilePath=test-results/{assembly}.net10.0.xml" --collect:"XPlat Code Coverage" --settings coverlet.runsettings --results-directory ./TestResults
+      env:
+          VCR_MODE: replay
+    - name: Test integration cassettes (net10.0, replay)
+      if: github.event_name != 'workflow_dispatch' || inputs.frameworks == 'net10.0' || inputs.frameworks == 'both'
+      shell: bash
+      run: |
+        if find GoogleMapsApi.Test/Cassettes -name '*.json' -print -quit | grep -q .; then
+          dotnet test --no-build --verbosity normal --framework net10.0 \
+            --filter "TestCategory=Integration" \
+            --logger "junit;LogFilePath=test-results/{assembly}.integration.net10.0.xml"
+        else
+          echo "::warning::Replay integration tests are not enabled because no cassette JSON files are committed."
+        fi
       env:
           VCR_MODE: replay
     - name: Upload coverage to Codecov
@@ -113,7 +125,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test (net10.0, live)
-      run: dotnet test --no-build --verbosity normal --framework net10.0 --logger "junit;LogFilePath=test-results/{assembly}.net10.0.xml"
+      run: dotnet test --no-build --verbosity normal --framework net10.0 --filter "TestCategory=Integration" --logger "junit;LogFilePath=test-results/{assembly}.net10.0.xml"
       env:
           VCR_MODE: live
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}

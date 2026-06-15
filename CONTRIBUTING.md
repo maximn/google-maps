@@ -79,11 +79,11 @@ opt-in.
 
 #### CI
 
-The `.NET` GitHub Actions workflow (`.github/workflows/dotnet.yml`) runs the default push/PR build in
-`replay` mode — offline, no key — so it covers the **whole** suite (including billable fixtures) for
-free, even on external contributors' PRs. A separate **scheduled / manually-dispatched** job runs the
-integration tests **live** (`VCR_MODE=live`, with `GOOGLE_API_KEY` + `RUN_BILLABLE_TESTS`) to catch
-Google API drift against the recorded cassettes.
+The `.NET` GitHub Actions workflow (`.github/workflows/dotnet.yml`) always runs unit tests and the VCR
+harness offline. It also runs the `Integration` category in replay once cassette JSON files have been
+committed; until the initial cassette dataset is seeded, CI emits an explicit warning instead. A
+separate **scheduled / manually-dispatched** job runs the integration tests **live**
+(`VCR_MODE=live`, with `GOOGLE_API_KEY` + `RUN_BILLABLE_TESTS`) to catch Google API drift.
 
 ## Style
 
