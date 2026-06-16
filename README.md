@@ -31,9 +31,21 @@ A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs �
 | [Aerial View](https://developers.google.com/maps/documentation/aerial-view) | Render and look up cinematic flyover videos for US addresses |
 | [Static Maps](https://developers.google.com/maps/documentation/maps-static) | Generate URLs for static map images with markers, paths, and styles |
 
-## Why this vs Google's official SDKs
+## Why this vs Google's official packages
 
-Google's official .NET packages (e.g. `Google.Maps.Routing.V2`, `Google.Maps.Places.V1`) are auto-generated from gRPC service definitions — they're verbose, split across many packages, and feel like protobuf instead of .NET. **GoogleMapsApi** is a single, idiomatic NuGet package: one install, async-first, multi-target (modern .NET through legacy .NET Framework), with hand-crafted request/response types that read like normal C#. It also emits [OpenTelemetry traces](#observability-opentelemetry-tracing) out of the box — something the official SDKs don't.
+Google ships official .NET packages primarily for its *newer* gRPC APIs — `Google.Maps.Routing.V2`, `Google.Maps.Places.V1`, `Google.Maps.AddressValidation.V1`, `Google.Maps.Geocode.V4`, and friends. For several classic REST web-service APIs (Distance Matrix, Elevation, Time Zone, Directions, Static Maps) **there is no official .NET client at all** — Google's maintained web-service client libraries cover only Java, Python, Go, and Node.js. Where both options exist, here's the honest trade-off:
+
+| Dimension | GoogleMapsApi | Google's official `.V*` packages |
+| --- | --- | --- |
+| Classic REST web APIs (Distance Matrix, Elevation, Time Zone, Directions, Static Maps) | Typed support | **No official .NET client exists** |
+| Packaging | One package (+ an optional DI package) | One NuGet **per API** |
+| API surface | Hand-written, idiomatic C# request/response types | gRPC/protobuf-generated message types |
+| Runtime dependencies | Lightweight: `System.Text.Json` on modern .NET; small compatibility helpers on `netstandard2.0` | gRPC stack: `Google.Api.Gax.Grpc`, `Google.Geo.Type`, Protobuf/gRPC dependencies; `Grpc.Core` on .NET Framework |
+| Maturity | Stable 2.x, 2M+ downloads | Several Maps packages still in beta (`1.0.0-betaNN`) |
+| DI / `IHttpClientFactory` | [`AddGoogleMaps(...)`](#instance-based-client-ihttpclientfactory-friendly) extension | `ClientBuilder` pattern; no `IHttpClientFactory` story |
+| Observability | [OpenTelemetry](#observability-opentelemetry-tracing) span per call (API key redacted) | None built-in |
+
+**Prefer Google's official packages when** you need gRPC transport or streaming, deep integration with other Google Cloud client libraries, or Google's own support — and you only consume one of the gRPC-backed APIs. Otherwise, a single idiomatic package that also covers the web-service APIs is usually the friendlier choice.
 
 # Installation
 
