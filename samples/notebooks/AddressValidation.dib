@@ -1,0 +1,132 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#"}]}}
+
+#!markdown
+
+# Address Validation API
+
+Validate and standardize a postal address, getting back a verdict (was it complete? were components
+inferred or replaced?), the address as Google understands it, and geocoding data. This notebook calls
+[`IGoogleMapsClient.AddressValidation`](https://maximn.github.io/google-maps/). Unlike the other APIs
+in these samples, this one is a **POST** request with a JSON body.
+
+- Google docs: <https://developers.google.com/maps/documentation/address-validation>
+- Library types: `AddressValidationRequest` → `AddressValidationResponse`
+- **Cost:** free tier — not billable in this library's test gate.
+
+**How to run:** open this file in VS Code with the
+[Polyglot Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+extension, set the `GOOGLE_API_KEY` environment variable, then run the cells top to bottom.
+
+#!markdown
+
+## 1. Reference the package and import the namespaces
+
+#!csharp
+
+#r "nuget: GoogleMapsApi, 2.4.0"
+
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.AddressValidation.Request;
+using GoogleMapsApi.Entities.AddressValidation.Response;
+
+#!markdown
+
+## 2. Read your API key
+
+The notebook reads the key from the `GOOGLE_API_KEY` environment variable, matching the project's
+samples. Prefer to type it in instead? Replace the cell with
+`var apiKey = await Microsoft.DotNet.Interactive.Kernel.GetInputAsync("Google Maps API key");`.
+
+#!csharp
+
+var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
+if (string.IsNullOrWhiteSpace(apiKey))
+    throw new InvalidOperationException("Set the GOOGLE_API_KEY environment variable before running the API cells.");
+
+#!markdown
+
+## 3. Construct the client
+
+Build one `GoogleMapsClient` over a reused `HttpClient`. Passing the key via `GoogleMapsClientOptions`
+makes it ambient, so individual requests don't repeat it.
+
+#!csharp
+
+var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = apiKey });
+
+#!markdown
+
+## 4. Validate a US street address
+
+The address is a `PostalAddress`. `RegionCode` (CLDR country code, e.g. `"US"`) is required; supply
+`AddressLines` plus locality / administrative area / postal code for a meaningful result.
+
+#!csharp
+
+var request = new AddressValidationRequest
+{
+    Address = new PostalAddress
+    {
+        RegionCode = "US",
+        AddressLines = new List<string> { "1600 Amphitheatre Pkwy" },
+        Locality = "Mountain View",
+        AdministrativeArea = "CA",
+        PostalCode = "94043",
+    },
+};
+
+AddressValidationResponse response = await maps.AddressValidation.QueryAsync(request);
+
+var result = response.Result ?? throw new Exception("Address Validation returned no result.");
+var verdict = result.Verdict;
+
+new[] { result }.Select(_ => new
+{
+    FormattedAddress = result.Address?.FormattedAddress,
+    AddressComplete = verdict?.AddressComplete,
+    HasInferredComponents = verdict?.HasInferredComponents,
+    HasReplacedComponents = verdict?.HasReplacedComponents,
+    HasUnconfirmedComponents = verdict?.HasUnconfirmedComponents,
+    ValidationGranularity = verdict?.ValidationGranularity,
+    Latitude = result.Geocode?.Location?.Latitude,
+    Longitude = result.Geocode?.Location?.Longitude,
+})
+
+#!markdown
+
+## 5. Inspect what Google corrected or inferred
+
+The validated address breaks down into components, and the verdict flags which were missing,
+unconfirmed, inferred, or replaced. Here we surface the formatted result alongside any unresolved or
+missing pieces — useful for a "did you mean…?" prompt after a user submits an address.
+
+#!csharp
+
+var partial = new AddressValidationRequest
+{
+    Address = new PostalAddress
+    {
+        RegionCode = "US",
+        AddressLines = new List<string> { "1600 Amphitheatre Pkwy" },
+        Locality = "Mountain View",
+        // intentionally omit state and ZIP to let Google infer them
+    },
+};
+
+AddressValidationResponse partialResponse = await maps.AddressValidation.QueryAsync(partial);
+
+var partialResult = partialResponse.Result ?? throw new Exception("Address Validation returned no result.");
+
+new[] { partialResult }.Select(_ => new
+{
+    FormattedAddress = partialResult.Address?.FormattedAddress,
+    MissingComponents = string.Join(", ", partialResult.Address?.MissingComponentTypes ?? new List<string>()),
+    UnconfirmedComponents = string.Join(", ", partialResult.Address?.UnconfirmedComponentTypes ?? new List<string>()),
+    UnresolvedTokens = string.Join(", ", partialResult.Address?.UnresolvedTokens ?? new List<string>()),
+    InputGranularity = partialResult.Verdict?.InputGranularity,
+    ValidationGranularity = partialResult.Verdict?.ValidationGranularity,
+})

@@ -1,0 +1,109 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#"}]}}
+
+#!markdown
+
+# Static Maps API
+
+Generate a URL for a static map image — with markers, paths, and a chosen size/zoom — that you can
+drop straight into an `<img>` tag. Unlike the other APIs in this library, Static Maps does **not** go
+through `IGoogleMapsClient` / `QueryAsync`: you build the URL locally with
+[`StaticMapsEngine.GenerateStaticMapURL`](https://maximn.github.io/google-maps/) and the browser
+fetches the image. This notebook mirrors the Static Maps example in the project README.
+
+- Google docs: <https://developers.google.com/maps/documentation/maps-static>
+- Library types: `StaticMapRequest` → `StaticMapsEngine.GenerateStaticMapURL(...)` → image URL `string`
+- **Cost:** free tier — Static Maps URL generation is purely client-side; the (free) request is the image fetch your browser makes.
+
+**How to run:** open this file in VS Code with the
+[Polyglot Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+extension, set the `GOOGLE_API_KEY` environment variable, then run the cells top to bottom.
+
+#!markdown
+
+## 1. Reference the package and import the namespaces
+
+#!csharp
+
+#r "nuget: GoogleMapsApi, 2.4.0"
+
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.StaticMaps;
+using GoogleMapsApi.StaticMaps.Entities;
+
+#!markdown
+
+## 2. Read your API key
+
+The notebook reads the key from the `GOOGLE_API_KEY` environment variable, matching the project's
+samples. Prefer to type it in instead? Replace the cell with
+`var apiKey = await Microsoft.DotNet.Interactive.Kernel.GetInputAsync("Google Maps API key");`.
+
+Static Maps requires the key on the request itself: the engine only appends `&key=...` when
+`StaticMapRequest.ApiKey` is set, so without it the generated URL won't render an image.
+
+#!csharp
+
+var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
+if (string.IsNullOrWhiteSpace(apiKey))
+    throw new InvalidOperationException("Set the GOOGLE_API_KEY environment variable before running the API cells.");
+
+#!markdown
+
+## 3. Construct the engine
+
+There's no HTTP client here — `StaticMapsEngine` is a tiny, stateless URL builder. Construct one and
+reuse it across requests.
+
+#!csharp
+
+var staticMapGenerator = new StaticMapsEngine();
+
+#!markdown
+
+## 4. Build the request and generate the URL
+
+`StaticMapRequest` takes a center (`Location`), a zoom level, and an `ImageSize`. Here we also overlay
+a red `Path` connecting a few points and set `ApiKey` so the URL is renderable.
+
+#!csharp
+
+var path = new Location[]
+{
+    new Location(40.737102, -73.990318),
+    new Location(40.749825, -73.987963),
+    new Location(40.752946, -73.987384),
+    new Location(40.755823, -73.986397),
+}.Cast<ILocationString>().ToList();
+
+var request = new StaticMapRequest(new Location(40.746, -73.988), 13, new ImageSize(800, 400))
+{
+    ApiKey = apiKey,
+    Pathes = new List<Path>
+    {
+        new Path
+        {
+            Style = new PathStyle { Color = "red", Weight = 4 },
+            Locations = path,
+        },
+    },
+};
+
+string url = staticMapGenerator.GenerateStaticMapURL(request);
+
+#!markdown
+
+## 5. Render the map inline
+
+Output the raw URL string so you can see exactly what was built, then render it as an inline image.
+
+#!csharp
+
+url
+
+#!csharp
+
+using Microsoft.DotNet.Interactive.Formatting;
+
+display(HTML($"<img src=\"{url}\" />"));

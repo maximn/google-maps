@@ -1,0 +1,121 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#"}]}}
+
+#!markdown
+
+# Time Zone API
+
+Resolve the time zone (IANA id, display name, and UTC/DST offsets) for a location at a given instant.
+This notebook calls [`IGoogleMapsClient.TimeZone`](https://maximn.github.io/google-maps/). The DST
+offset depends on the timestamp you pass, so the same location can return different offsets across the
+year.
+
+- Google docs: <https://developers.google.com/maps/documentation/timezone>
+- Library types: `TimeZoneRequest` → `TimeZoneResponse`
+- **Cost:** free tier — not billable in this library's test gate.
+
+**How to run:** open this file in VS Code with the
+[Polyglot Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+extension, set the `GOOGLE_API_KEY` environment variable, then run the cells top to bottom.
+
+#!markdown
+
+## 1. Reference the package and import the namespaces
+
+#!csharp
+
+#r "nuget: GoogleMapsApi, 2.4.0"
+
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.TimeZone.Request;
+using GoogleMapsApi.Entities.TimeZone.Response;
+
+#!markdown
+
+## 2. Read your API key
+
+The notebook reads the key from the `GOOGLE_API_KEY` environment variable, matching the project's
+samples. Prefer to type it in instead? Replace the cell with
+`var apiKey = await Microsoft.DotNet.Interactive.Kernel.GetInputAsync("Google Maps API key");`.
+
+#!csharp
+
+var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
+if (string.IsNullOrWhiteSpace(apiKey))
+    throw new InvalidOperationException("Set the GOOGLE_API_KEY environment variable before running the API cells.");
+
+#!markdown
+
+## 3. Construct the client
+
+Build one `GoogleMapsClient` over a reused `HttpClient`. Passing the key via `GoogleMapsClientOptions`
+makes it ambient, so individual requests don't repeat it.
+
+#!csharp
+
+var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = apiKey });
+
+#!markdown
+
+## 4. Time zone for a location, right now
+
+`TimeStamp` is a `DateTime` — Google uses it to decide whether daylight-saving time applies. Offsets
+are returned in seconds; we convert them to hours for readability.
+
+#!csharp
+
+var request = new TimeZoneRequest
+{
+    Location = new Location(40.714224, -73.961452),  // Brooklyn, New York
+    TimeStamp = DateTime.UtcNow,
+};
+
+TimeZoneResponse response = await maps.TimeZone.QueryAsync(request);
+
+if (response.Status != Status.OK)
+    throw new Exception($"Time zone lookup failed: {response.Status}");
+
+new[] { response }.Select(r => new
+{
+    r.TimeZoneId,
+    r.TimeZoneName,
+    RawOffsetHours = r.RawOffset / 3600,
+    DstOffsetHours = r.DstOffset / 3600,
+    TotalUtcOffsetHours = (r.RawOffset + r.DstOffset) / 3600,
+})
+
+#!markdown
+
+## 5. Compare a few locations at the same instant
+
+Reuse a single timestamp across several locations to see how their UTC offsets differ.
+
+#!csharp
+
+var instant = DateTime.UtcNow;
+
+var locations = new (string Label, Location Location)[]
+{
+    ("Sydney",  new Location(-33.8688, 151.2093)),
+    ("London",  new Location(51.5074, -0.1278)),
+    ("Denver",  new Location(39.7392, -104.9903)),
+    ("Tokyo",   new Location(35.6762, 139.6503)),
+};
+
+var rows = new List<object>();
+foreach (var (label, location) in locations)
+{
+    var tz = await maps.TimeZone.QueryAsync(new TimeZoneRequest { Location = location, TimeStamp = instant });
+    rows.Add(new
+    {
+        Place = label,
+        Status = tz.Status,
+        tz.TimeZoneId,
+        TotalUtcOffsetHours = (tz.RawOffset + tz.DstOffset) / 3600,
+    });
+}
+
+rows

@@ -1,0 +1,121 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#"}]}}
+
+#!markdown
+
+# Elevation API
+
+Look up the elevation (in meters above sea level) for one or more points on the earth's surface.
+This notebook calls [`IGoogleMapsClient.Elevation`](https://maximn.github.io/google-maps/) — values
+below sea level (e.g. ocean floor) come back negative.
+
+- Google docs: <https://developers.google.com/maps/documentation/elevation>
+- Library types: `ElevationRequest` → `ElevationResponse`
+- **Cost:** free tier — not billable in this library's test gate.
+
+**How to run:** open this file in VS Code with the
+[Polyglot Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+extension, set the `GOOGLE_API_KEY` environment variable, then run the cells top to bottom.
+
+#!markdown
+
+## 1. Reference the package and import the namespaces
+
+#!csharp
+
+#r "nuget: GoogleMapsApi, 2.4.0"
+
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.Elevation.Request;
+using GoogleMapsApi.Entities.Elevation.Response;
+
+#!markdown
+
+## 2. Read your API key
+
+The notebook reads the key from the `GOOGLE_API_KEY` environment variable, matching the project's
+samples. Prefer to type it in instead? Replace the cell with
+`var apiKey = await Microsoft.DotNet.Interactive.Kernel.GetInputAsync("Google Maps API key");`.
+
+#!csharp
+
+var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
+if (string.IsNullOrWhiteSpace(apiKey))
+    throw new InvalidOperationException("Set the GOOGLE_API_KEY environment variable before running the API cells.");
+
+#!markdown
+
+## 3. Construct the client
+
+Build one `GoogleMapsClient` over a reused `HttpClient`. Passing the key via `GoogleMapsClientOptions`
+makes it ambient, so individual requests don't repeat it.
+
+#!csharp
+
+var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = apiKey });
+
+#!markdown
+
+## 4. Elevation for specific locations
+
+Pass one or more `Location` values via `Locations`. Here we compare downtown Denver (the "Mile-High
+City"), the summit of Mt. Everest, and a point in the Pacific (which returns a negative value).
+
+#!csharp
+
+var request = new ElevationRequest
+{
+    Locations = new[]
+    {
+        new Location(39.7392, -104.9903),   // Denver, CO
+        new Location(27.9881, 86.9250),     // Mt. Everest summit
+        new Location(0.0, -160.0),          // open Pacific Ocean
+    },
+};
+
+ElevationResponse response = await maps.Elevation.QueryAsync(request);
+
+if (response.Status != Status.OK || response.Results is null)
+    throw new Exception($"Elevation lookup failed: {response.Status}");
+
+response.Results.Select(r => new
+{
+    Latitude = r.Location.Latitude,
+    Longitude = r.Location.Longitude,
+    ElevationMeters = Math.Round(r.Elevation, 1),
+    ResolutionMeters = Math.Round(r.Resolution, 1),
+})
+
+#!markdown
+
+## 5. Elevation sampled along a path
+
+Pass `Path` instead of `Locations` to sample elevations evenly between points — useful for hiking or
+cycling profiles. The `samples` value (number of points) is controlled by the library's path handling;
+each result is one sampled point along the route.
+
+#!csharp
+
+var pathRequest = new ElevationRequest
+{
+    Path = new[]
+    {
+        new Location(36.578581, -118.291994),  // Mt. Whitney
+        new Location(36.23998, -116.83171),    // Badwater Basin, Death Valley
+    },
+};
+
+ElevationResponse pathResponse = await maps.Elevation.QueryAsync(pathRequest);
+
+if (pathResponse.Status != Status.OK || pathResponse.Results is null)
+    throw new Exception($"Elevation path lookup failed: {pathResponse.Status}");
+
+pathResponse.Results.Select(r => new
+{
+    Latitude = Math.Round(r.Location.Latitude, 4),
+    Longitude = Math.Round(r.Location.Longitude, 4),
+    ElevationMeters = Math.Round(r.Elevation, 1),
+})

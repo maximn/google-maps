@@ -47,7 +47,7 @@ Or via .NET CLI:
 dotnet add package GoogleMapsApi
 ```
 
-Looking for runnable examples? See [`samples/`](samples/) — console, ASP.NET Core minimal API, and Blazor Server.
+Looking for runnable examples? See [`samples/`](samples/) — console, ASP.NET Core minimal API, and Blazor Server — or the [interactive notebooks](samples/notebooks/) (one live, runnable `.dib` per API surface).
 
 # Quickstart
 
