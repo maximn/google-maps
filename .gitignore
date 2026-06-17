@@ -396,6 +396,9 @@ coverage*.xml
 publish/
 out/
 
+# Stryker.NET mutation testing reports
+StrykerOutput/
+
 # OS-specific
 .DS_Store
 Thumbs.db
