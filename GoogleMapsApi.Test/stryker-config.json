@@ -1,0 +1,18 @@
+{
+  "stryker-config": {
+    "project": "GoogleMapsApi.csproj",
+    "target-framework": "net10.0",
+    "reporters": [
+      "html",
+      "markdown",
+      "progress",
+      "cleartext"
+    ],
+    "coverage-analysis": "perTest",
+    "thresholds": {
+      "high": 80,
+      "low": 60,
+      "break": 40
+    }
+  }
+}

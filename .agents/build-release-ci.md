@@ -60,6 +60,10 @@ the default push/PR run **tests on `net10.0` only** — use `workflow_dispatch` 
 run `net8.0` or both. Uses the `GOOGLE_API_KEY` secret for live integration tests. Billable Places tests
 are gated by the `run-billable-tests` label or the dispatch input (see [`testing.md`](testing.md)).
 
+Two heavy jobs never gate PRs — both `workflow_dispatch`, and run on demand or on a schedule:
+`benchmarks.yml` (BenchmarkDotNet) and `mutation.yml` (Stryker.NET mutation testing, weekly Monday
+07:00 UTC — see [`testing.md`](testing.md)).
+
 ## Security & dependencies
 
 - `codeql.yml` — CodeQL scanning (scheduled + push/PR). `scorecard.yml` — OpenSSF Scorecard

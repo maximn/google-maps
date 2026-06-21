@@ -72,6 +72,28 @@ committed; until then it emits an explicit warning. A separate scheduled/dispatc
 `Integration` category live with the key + `RUN_BILLABLE_TESTS` to detect drift; the
 `run-billable-tests` PR label also triggers a live run.
 
+## Mutation testing (Stryker.NET)
+
+Line coverage proves code *ran*; mutation testing proves the assertions actually *catch*
+regressions. [Stryker.NET](https://stryker-mutator.io/docs/stryker-net/introduction/) injects faults
+into the shipped `GoogleMapsApi` library and checks the suite fails. Surviving mutants flag behavior
+no test pins down.
+
+It's slow, so it never gates PRs — `.github/workflows/mutation.yml` runs it weekly (Monday 07:00
+UTC) and on `workflow_dispatch`. The job publishes the score to the run's job summary and uploads the
+HTML report as the `mutation-report` artifact. The `break` threshold in `stryker-config.json` fails
+the job below that score. Baseline at introduction was **~46%**, so `break` is set to **40** (a little
+headroom); ratchet it up as test assertions improve rather than letting the score drift down.
+
+Run it locally (offline, from cassettes — no key, no charges):
+
+```bash
+dotnet tool restore                                  # installs pinned dotnet-stryker (.config/dotnet-tools.json)
+cd GoogleMapsApi.Test && VCR_MODE=replay dotnet stryker
+```
+
+Config lives in `GoogleMapsApi.Test/stryker-config.json` (mutates core only, target `net10.0`).
+
 ## Quota handling
 
 `Utils/AssertInconclusive` converts an `OVER_QUERY_LIMIT` response into an NUnit **inconclusive**
