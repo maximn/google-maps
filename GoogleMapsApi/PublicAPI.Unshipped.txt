@@ -680,3 +680,136 @@ override GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.GetU
 override GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.GetUri() -> System.Uri!
 override GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest.GetUri() -> System.Uri!
 override GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.GetUri() -> System.Uri!
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.Days.get -> int
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.Days.set -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.LanguageCode.get -> string?
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.LanguageCode.set -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.Latitude.get -> double
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.Latitude.set -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.Longitude.get -> double
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.Longitude.set -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.PageSize.get -> int?
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.PageSize.set -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.PageToken.get -> string?
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.PageToken.set -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.PlantsDescription.get -> bool?
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.PlantsDescription.set -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.PollenForecastRequest() -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest
+GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest.MapType.get -> GoogleMapsApi.Entities.Pollen.Request.PollenMapType
+GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest.MapType.set -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest.PollenHeatmapTileRequest() -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest.X.get -> int
+GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest.X.set -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest.Y.get -> int
+GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest.Y.set -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest.Zoom.get -> int
+GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest.Zoom.set -> void
+GoogleMapsApi.Entities.Pollen.Request.PollenMapType
+GoogleMapsApi.Entities.Pollen.Request.PollenMapType.GrassUpi = 2 -> GoogleMapsApi.Entities.Pollen.Request.PollenMapType
+GoogleMapsApi.Entities.Pollen.Request.PollenMapType.TreeUpi = 1 -> GoogleMapsApi.Entities.Pollen.Request.PollenMapType
+GoogleMapsApi.Entities.Pollen.Request.PollenMapType.Unspecified = 0 -> GoogleMapsApi.Entities.Pollen.Request.PollenMapType
+GoogleMapsApi.Entities.Pollen.Request.PollenMapType.WeedUpi = 3 -> GoogleMapsApi.Entities.Pollen.Request.PollenMapType
+GoogleMapsApi.Entities.Pollen.Response.Color
+GoogleMapsApi.Entities.Pollen.Response.Color.Alpha.get -> float?
+GoogleMapsApi.Entities.Pollen.Response.Color.Alpha.set -> void
+GoogleMapsApi.Entities.Pollen.Response.Color.Blue.get -> float?
+GoogleMapsApi.Entities.Pollen.Response.Color.Blue.set -> void
+GoogleMapsApi.Entities.Pollen.Response.Color.Color() -> void
+GoogleMapsApi.Entities.Pollen.Response.Color.Green.get -> float?
+GoogleMapsApi.Entities.Pollen.Response.Color.Green.set -> void
+GoogleMapsApi.Entities.Pollen.Response.Color.Red.get -> float?
+GoogleMapsApi.Entities.Pollen.Response.Color.Red.set -> void
+GoogleMapsApi.Entities.Pollen.Response.Date
+GoogleMapsApi.Entities.Pollen.Response.Date.Date() -> void
+GoogleMapsApi.Entities.Pollen.Response.Date.Day.get -> int
+GoogleMapsApi.Entities.Pollen.Response.Date.Day.set -> void
+GoogleMapsApi.Entities.Pollen.Response.Date.Month.get -> int
+GoogleMapsApi.Entities.Pollen.Response.Date.Month.set -> void
+GoogleMapsApi.Entities.Pollen.Response.Date.Year.get -> int
+GoogleMapsApi.Entities.Pollen.Response.Date.Year.set -> void
+GoogleMapsApi.Entities.Pollen.Response.DayInfo
+GoogleMapsApi.Entities.Pollen.Response.DayInfo.Date.get -> GoogleMapsApi.Entities.Pollen.Response.Date?
+GoogleMapsApi.Entities.Pollen.Response.DayInfo.Date.set -> void
+GoogleMapsApi.Entities.Pollen.Response.DayInfo.DayInfo() -> void
+GoogleMapsApi.Entities.Pollen.Response.DayInfo.PlantInfo.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Pollen.Response.PlantInfo!>?
+GoogleMapsApi.Entities.Pollen.Response.DayInfo.PlantInfo.set -> void
+GoogleMapsApi.Entities.Pollen.Response.DayInfo.PollenTypeInfo.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo!>?
+GoogleMapsApi.Entities.Pollen.Response.DayInfo.PollenTypeInfo.set -> void
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.Category.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.Category.set -> void
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.Code.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.Code.set -> void
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.Color.get -> GoogleMapsApi.Entities.Pollen.Response.Color?
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.Color.set -> void
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.DisplayName.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.DisplayName.set -> void
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.IndexDescription.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.IndexDescription.set -> void
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.IndexInfo() -> void
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.Value.get -> int
+GoogleMapsApi.Entities.Pollen.Response.IndexInfo.Value.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.CrossReaction.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.CrossReaction.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.Family.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.Family.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.Picture.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.Picture.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.PictureCloseup.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.PictureCloseup.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.PlantDescription() -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.Season.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.Season.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.SpecialColors.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.SpecialColors.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.SpecialShapes.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.SpecialShapes.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.Type.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PlantDescription.Type.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo.Code.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo.Code.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo.DisplayName.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo.DisplayName.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo.InSeason.get -> bool?
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo.InSeason.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo.IndexInfo.get -> GoogleMapsApi.Entities.Pollen.Response.IndexInfo?
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo.IndexInfo.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo.PlantDescription.get -> GoogleMapsApi.Entities.Pollen.Response.PlantDescription?
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo.PlantDescription.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PlantInfo.PlantInfo() -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenForecastResponse
+GoogleMapsApi.Entities.Pollen.Response.PollenForecastResponse.DailyInfo.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.Pollen.Response.DayInfo!>?
+GoogleMapsApi.Entities.Pollen.Response.PollenForecastResponse.DailyInfo.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenForecastResponse.NextPageToken.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PollenForecastResponse.NextPageToken.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenForecastResponse.PollenForecastResponse() -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenForecastResponse.RegionCode.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PollenForecastResponse.RegionCode.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenHeatmapTileResponse
+GoogleMapsApi.Entities.Pollen.Response.PollenHeatmapTileResponse.Content.get -> byte[]!
+GoogleMapsApi.Entities.Pollen.Response.PollenHeatmapTileResponse.Content.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenHeatmapTileResponse.ContentType.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PollenHeatmapTileResponse.ContentType.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenHeatmapTileResponse.PollenHeatmapTileResponse() -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo.Code.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo.Code.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo.DisplayName.get -> string?
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo.DisplayName.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo.HealthRecommendations.get -> System.Collections.Generic.List<string!>?
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo.HealthRecommendations.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo.InSeason.get -> bool?
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo.InSeason.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo.IndexInfo.get -> GoogleMapsApi.Entities.Pollen.Response.IndexInfo?
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo.IndexInfo.set -> void
+GoogleMapsApi.Entities.Pollen.Response.PollenTypeInfo.PollenTypeInfo() -> void
+GoogleMapsApi.GoogleMapsClient.PollenForecast.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest!, GoogleMapsApi.Entities.Pollen.Response.PollenForecastResponse!>!
+GoogleMapsApi.GoogleMapsClient.PollenHeatmapTile.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest!, GoogleMapsApi.Entities.Pollen.Response.PollenHeatmapTileResponse!>!
+GoogleMapsApi.IGoogleMapsClient.PollenForecast.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest!, GoogleMapsApi.Entities.Pollen.Response.PollenForecastResponse!>!
+GoogleMapsApi.IGoogleMapsClient.PollenHeatmapTile.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest!, GoogleMapsApi.Entities.Pollen.Response.PollenHeatmapTileResponse!>!
+override GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest.GetUri() -> System.Uri!

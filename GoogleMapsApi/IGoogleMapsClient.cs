@@ -16,6 +16,8 @@ using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.PlacesNew.Request;
 using GoogleMapsApi.Entities.PlacesNew.Response;
+using GoogleMapsApi.Entities.Pollen.Request;
+using GoogleMapsApi.Entities.Pollen.Response;
 using GoogleMapsApi.Entities.Solar.Request;
 using GoogleMapsApi.Entities.Solar.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
@@ -101,6 +103,12 @@ namespace GoogleMapsApi
 
         /// <summary>Download an air-quality heatmap map tile as raw PNG bytes via the Air Quality API (billable).</summary>
         IEngineFacade<HeatmapTileRequest, HeatmapTileResponse> AirQualityHeatmapTile { get; }
+
+        /// <summary>Get a multi-day pollen forecast (types and plants) for a coordinate via the Pollen API (billable).</summary>
+        IEngineFacade<PollenForecastRequest, PollenForecastResponse> PollenForecast { get; }
+
+        /// <summary>Download a pollen heatmap map tile as raw PNG bytes via the Pollen API (billable).</summary>
+        IEngineFacade<PollenHeatmapTileRequest, PollenHeatmapTileResponse> PollenHeatmapTile { get; }
 
         /// <summary>Render and look up cinematic flyover videos via the Aerial View API.</summary>
         IAerialViewApi AerialView { get; }

@@ -13,7 +13,7 @@ Release history: see [CHANGELOG.md](CHANGELOG.md).
 
 # GoogleMapsApi
 
-A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, Solar, Aerial View, Air Quality, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0 — the latter still covers .NET Framework 4.6.1+), async-first, and battle-tested with **2M+ downloads** on NuGet.
+A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, Solar, Aerial View, Air Quality, Pollen, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0 — the latter still covers .NET Framework 4.6.1+), async-first, and battle-tested with **2M+ downloads** on NuGet.
 
 ## Supported APIs
 
@@ -30,6 +30,7 @@ A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs �
 | [Solar](https://developers.google.com/maps/documentation/solar) | Building solar potential, roof geometry, panel layouts, financial analyses, and raster data layers (billable) |
 | [Aerial View](https://developers.google.com/maps/documentation/aerial-view) | Render and look up cinematic flyover videos for US addresses |
 | [Air Quality](https://developers.google.com/maps/documentation/air-quality) | Current conditions, hourly forecast and history, plus heatmap tiles, for a coordinate (billable) |
+| [Pollen](https://developers.google.com/maps/documentation/pollen) | Up to 5 days of daily pollen forecast (types and plants) plus heatmap tiles, for a coordinate (billable) |
 | [Static Maps](https://developers.google.com/maps/documentation/maps-static) | Generate URLs for static map images with markers, paths, and styles |
 
 ## Why this vs Google's official packages
@@ -276,6 +277,38 @@ var tile = await maps.AirQualityHeatmapTile.QueryAsync(new HeatmapTileRequest
     Y = 6,
 });
 await File.WriteAllBytesAsync("aqi-tile.png", tile.Content);
+```
+
+### Pollen API (daily forecast + heatmap tiles)
+
+The [Pollen API](https://developers.google.com/maps/documentation/pollen) returns up to five days of daily pollen information — index values, in-season flags and descriptions for pollen types (grass, tree, weed) and individual plants — plus PNG heatmap tiles. It is a **billable** API, so calls beyond the free tier incur charges.
+
+``` C#
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Pollen.Request;
+
+using var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "your-google-maps-api-key" });
+
+// Five-day pollen forecast.
+var forecast = await maps.PollenForecast.QueryAsync(new PollenForecastRequest
+{
+    Latitude = 40.4168,
+    Longitude = -3.7038,
+    Days = 5,
+});
+foreach (var type in forecast.DailyInfo![0].PollenTypeInfo!)
+    Console.WriteLine($"{type.DisplayName}: {type.IndexInfo?.Category}");
+
+// A pollen heatmap tile as raw PNG bytes.
+var tile = await maps.PollenHeatmapTile.QueryAsync(new PollenHeatmapTileRequest
+{
+    MapType = PollenMapType.TreeUpi,
+    Zoom = 4,
+    X = 8,
+    Y = 6,
+});
+await File.WriteAllBytesAsync("pollen-tile.png", tile.Content);
 ```
 
 ### Instance-based client (`IHttpClientFactory`-friendly)

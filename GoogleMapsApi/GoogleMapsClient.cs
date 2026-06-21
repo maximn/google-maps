@@ -19,6 +19,8 @@ using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.PlacesNew.Request;
 using GoogleMapsApi.Entities.PlacesNew.Response;
+using GoogleMapsApi.Entities.Pollen.Request;
+using GoogleMapsApi.Entities.Pollen.Response;
 using GoogleMapsApi.Entities.Solar.Request;
 using GoogleMapsApi.Entities.Solar.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
@@ -76,6 +78,8 @@ namespace GoogleMapsApi
             AirQualityForecast = new HttpClientEngineFacade<ForecastRequest, ForecastResponse>(httpClient, options);
             AirQualityHistory = new HttpClientEngineFacade<HistoryRequest, HistoryResponse>(httpClient, options);
             AirQualityHeatmapTile = new HttpClientEngineFacade<HeatmapTileRequest, HeatmapTileResponse>(httpClient, options);
+            PollenForecast = new HttpClientEngineFacade<PollenForecastRequest, PollenForecastResponse>(httpClient, options);
+            PollenHeatmapTile = new HttpClientEngineFacade<PollenHeatmapTileRequest, PollenHeatmapTileResponse>(httpClient, options);
             AerialView = new AerialViewApi(httpClient, options);
         }
 
@@ -144,6 +148,12 @@ namespace GoogleMapsApi
 
         /// <inheritdoc/>
         public IEngineFacade<HeatmapTileRequest, HeatmapTileResponse> AirQualityHeatmapTile { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<PollenForecastRequest, PollenForecastResponse> PollenForecast { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<PollenHeatmapTileRequest, PollenHeatmapTileResponse> PollenHeatmapTile { get; }
 
         /// <inheritdoc/>
         public IAerialViewApi AerialView { get; }
