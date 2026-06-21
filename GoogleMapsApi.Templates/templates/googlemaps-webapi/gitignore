@@ -1,0 +1,5 @@
+bin/
+obj/
+
+# Keep your API key out of source control.
+appsettings.Development.json

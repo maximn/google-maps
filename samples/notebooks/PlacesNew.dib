@@ -1,0 +1,229 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#"}]}}
+
+#!markdown
+
+# Places API (New)
+
+Search, detail, autocomplete and photo lookups against the modern Places API (New). This notebook
+calls the `PlacesSearchText`, `PlacesSearchNearby`, `PlaceDetailsNew`, `PlacesAutocompleteNew` and
+`PlacePhoto` surfaces on [`IGoogleMapsClient`](https://maximn.github.io/google-maps/).
+
+- Google docs: <https://developers.google.com/maps/documentation/places/web-service>
+- Library types: `SearchTextRequest` → `SearchTextResponse`, `SearchNearbyRequest` → `SearchNearbyResponse`, `PlaceDetailsRequest` → `Place`, `AutocompleteRequest` → `AutocompleteResponse`, `PlacePhotoRequest` → `PlacePhotoResponse`
+- **Cost:** billable ⚠️
+
+**How to run:** open this file in VS Code with the
+[Polyglot Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+extension, set the `GOOGLE_API_KEY` environment variable, then run the cells top to bottom.
+
+#!markdown
+
+> [!WARNING]
+> **This API is billable.** Running the cells below calls a paid Google Maps API and **will incur charges** on your Google Cloud project. Only run them if you accept the cost.
+
+#!markdown
+
+## 1. Reference the package and import the namespaces
+
+#!csharp
+
+#r "nuget: GoogleMapsApi, 2.4.0"
+
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.PlacesNew.Common;
+using GoogleMapsApi.Entities.PlacesNew.Request;
+using GoogleMapsApi.Entities.PlacesNew.Response;
+
+#!markdown
+
+## 2. Read your API key
+
+The notebook reads the key from the `GOOGLE_API_KEY` environment variable, matching the project's
+samples. Prefer to type it in instead? Replace the cell with
+`var apiKey = await Microsoft.DotNet.Interactive.Kernel.GetInputAsync("Google Maps API key");`.
+
+#!csharp
+
+var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
+if (string.IsNullOrWhiteSpace(apiKey))
+    throw new InvalidOperationException("Set the GOOGLE_API_KEY environment variable before running the API cells.");
+
+#!markdown
+
+## 3. Construct the client
+
+Build one `GoogleMapsClient` over a reused `HttpClient`. Passing the key via `GoogleMapsClientOptions`
+makes it ambient, so individual requests don't repeat it.
+
+#!csharp
+
+var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = apiKey });
+
+#!markdown
+
+## 4. Text Search — find places from a free-text query
+
+The Places API (New) **requires a field mask**. `SearchTextRequest.FieldMask` is pre-populated with a
+sensible default (`places.id,places.displayName,...`); tighten it to cut response size and cost.
+We keep the first result's place id and photo name for the later cells.
+
+#!csharp
+
+var textRequest = new SearchTextRequest
+{
+    TextQuery = "pizza in New York",
+    MinRating = 4.0,
+};
+
+SearchTextResponse textResponse = await maps.PlacesSearchText.QueryAsync(textRequest);
+
+if (textResponse.Places is null || textResponse.Places.Count == 0)
+    throw new Exception("Text Search returned no places.");
+
+// Reuse these in later cells.
+var firstPlaceId = textResponse.Places[0].Id;
+
+textResponse.Places.Select(p => new
+{
+    Name = p.DisplayName?.Text,
+    p.FormattedAddress,
+    p.Rating,
+    p.Id,
+})
+
+#!markdown
+
+## 5. Nearby Search — places within a circle
+
+Nearby Search requires a `LocationRestriction` containing a `Circle`. Build the circle from a
+`LatLng` center plus a radius in meters, then wrap it in a `LocationRestriction`.
+
+#!csharp
+
+var nearbyRequest = new SearchNearbyRequest
+{
+    LocationRestriction = new LocationRestriction
+    {
+        Circle = new Circle
+        {
+            Center = new LatLng { Latitude = 40.748817, Longitude = -73.985428 }, // Empire State Building
+            Radius = 500,
+        },
+    },
+    IncludedTypes = new List<string> { "restaurant" },
+    MaxResultCount = 10,
+};
+
+SearchNearbyResponse nearbyResponse = await maps.PlacesSearchNearby.QueryAsync(nearbyRequest);
+
+(nearbyResponse.Places ?? new List<Place>()).Select(p => new
+{
+    Name = p.DisplayName?.Text,
+    p.FormattedAddress,
+    p.Rating,
+    PrimaryType = p.Types?.FirstOrDefault(),
+})
+
+#!markdown
+
+## 6. Place Details — full detail for one place id
+
+Place Details takes a `PlaceId` and a field mask using **top-level** paths (no `places.` prefix —
+its `DefaultFieldMask` already handles that). We reuse the id from the Text Search above.
+
+#!csharp
+
+var detailsRequest = new PlaceDetailsRequest
+{
+    // From the Text Search result above; falls back to a well-known place id (Google Sydney).
+    PlaceId = firstPlaceId ?? "ChIJN1t_tDeuEmsRUsoyG83frY4",
+};
+
+Place place = await maps.PlaceDetailsNew.QueryAsync(detailsRequest);
+
+new[]
+{
+    new
+    {
+        Name = place.DisplayName?.Text,
+        place.FormattedAddress,
+        place.Rating,
+        place.GoogleMapsUri,
+        place.Id,
+    },
+}
+
+#!markdown
+
+## 7. Autocomplete — predictions as the user types
+
+Autocomplete does **not** use a field mask. Each `Suggestion` carries either a `PlacePrediction` or a
+`QueryPrediction`; we project the place predictions.
+
+#!csharp
+
+var autocompleteRequest = new AutocompleteRequest
+{
+    Input = "1600 Amphitheatre",
+    IncludedRegionCodes = new List<string> { "US" },
+};
+
+AutocompleteResponse autocompleteResponse = await maps.PlacesAutocompleteNew.QueryAsync(autocompleteRequest);
+
+(autocompleteResponse.Suggestions ?? new List<Suggestion>())
+    .Where(s => s.PlacePrediction is not null)
+    .Select(s => new
+    {
+        Text = s.PlacePrediction!.Text?.Text,
+        MainText = s.PlacePrediction.StructuredFormat?.MainText?.Text,
+        SecondaryText = s.PlacePrediction.StructuredFormat?.SecondaryText?.Text,
+        s.PlacePrediction.PlaceId,
+    })
+
+#!markdown
+
+## 8. Place Photo — resolve a photo reference to an image URI
+
+A photo's resource name comes from a prior search's `Place.Photos[].Name`. The default field mask
+above does not request photos, so here we run a focused Text Search asking only for
+`places.photos`, take the first photo name, then resolve it. `PlacePhotoRequest` needs `PhotoName`
+plus at least one of `MaxHeightPx` / `MaxWidthPx`; the response is the resolved `PhotoUri`.
+
+#!csharp
+
+var photoSearch = new SearchTextRequest
+{
+    TextQuery = "Eiffel Tower",
+    FieldMask = "places.id,places.displayName,places.photos",
+};
+
+SearchTextResponse photoSearchResponse = await maps.PlacesSearchText.QueryAsync(photoSearch);
+
+var photoName = photoSearchResponse.Places?
+    .SelectMany(p => p.Photos ?? new List<Photo>())
+    .Select(photo => photo.Name)
+    .FirstOrDefault(name => !string.IsNullOrWhiteSpace(name));
+
+if (photoName is null)
+    throw new Exception("No photo reference found on the search results.");
+
+var photoRequest = new PlacePhotoRequest
+{
+    PhotoName = photoName,
+    MaxWidthPx = 800,
+};
+
+PlacePhotoResponse photoResponse = await maps.PlacePhoto.QueryAsync(photoRequest);
+
+new[]
+{
+    new
+    {
+        photoResponse.Name,
+        photoResponse.PhotoUri,
+    },
+}

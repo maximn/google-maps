@@ -8,6 +8,12 @@ Procedure-level detail for humans is in [`RELEASING.md`](../RELEASING.md); this 
   `netstandard2.0` is what covers .NET Framework / older runtimes — there are **no** `net481`/`net462`
   TFMs anymore (dropped in 2.0, along with `net6.0`).
 - **DI extension:** mirrors the same three TFMs.
+- **Templates package `GoogleMapsApi.Templates`** (`dotnet new` template, ships the `googlemaps-webapi`
+  template): a `PackageType=Template` package — no build output (`IncludeBuildOutput=false`,
+  `EnableDefaultCompileItems=false`), so its single `netstandard2.0` TFM is metadata-only. Its
+  `templates/` tree packs under `content/`. A `BeforeTargets="_GetPackageFiles"` target stamps the
+  resolved MinVer version into the packed `template.json`, so generated projects reference the
+  matching `GoogleMapsApi` version.
 - **Tests:** `net8.0; net10.0`. **Samples:** `net10.0; net8.0`.
 - `LangVersion=latest`, `Nullable=enable`, `GenerateDocumentationFile=true` (CS1591 suppressed).
 
@@ -18,7 +24,9 @@ Procedure-level detail for humans is in [`RELEASING.md`](../RELEASING.md); this 
 
 Versions come from **git tags** via **MinVer** (`<MinVerTagPrefix>v</MinVerTagPrefix>`). No version is
 written in a csproj. `GeneratePackageOnBuild=true`, SourceLink + symbol packages (`.snupkg`) are on.
-Both packages are versioned in **lockstep** from the same `v*` tag.
+All three packages (`GoogleMapsApi`, `…Extensions.DependencyInjection`, `…Templates`) are versioned in
+**lockstep** from the same `v*` tag. Adding a packable project to `GoogleMapsApi.sln` is enough for the
+publish workflow to pack and push it — it globs `*.nupkg`, no per-package list.
 
 ## Release flow (`release.sh`)
 
@@ -53,6 +61,10 @@ Runs on push to `master`, PRs (including the `labeled` event), and manual dispat
 the default push/PR run **tests on `net10.0` only** — use `workflow_dispatch` (`frameworks` input) to
 run `net8.0` or both. Uses the `GOOGLE_API_KEY` secret for live integration tests. Billable Places tests
 are gated by the `run-billable-tests` label or the dispatch input (see [`testing.md`](testing.md)).
+
+Two heavy jobs never gate PRs — both `workflow_dispatch`, and run on demand or on a schedule:
+`benchmarks.yml` (BenchmarkDotNet) and `mutation.yml` (Stryker.NET mutation testing, weekly Monday
+07:00 UTC — see [`testing.md`](testing.md)).
 
 ## Security & dependencies
 

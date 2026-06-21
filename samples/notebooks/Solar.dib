@@ -1,0 +1,162 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#"}]}}
+
+#!markdown
+
+# Solar API
+
+Estimate a building's solar potential, list its raster data layers, then download a layer's GeoTIFF
+bytes. This notebook calls the `SolarBuildingInsights`, `SolarDataLayers` and `SolarGeoTiff` surfaces
+on [`IGoogleMapsClient`](https://maximn.github.io/google-maps/).
+
+- Google docs: <https://developers.google.com/maps/documentation/solar>
+- Library types: `BuildingInsightsRequest` → `BuildingInsightsResponse`, `DataLayersRequest` → `DataLayersResponse`, `GeoTiffRequest` → `GeoTiffResponse`
+- **Cost:** billable ⚠️
+
+**How to run:** open this file in VS Code with the
+[Polyglot Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+extension, set the `GOOGLE_API_KEY` environment variable, then run the cells top to bottom.
+
+#!markdown
+
+> [!WARNING]
+> **This API is billable.** Running the cells below calls a paid Google Maps API and **will incur charges** on your Google Cloud project. Only run them if you accept the cost.
+
+#!markdown
+
+## 1. Reference the package and import the namespaces
+
+#!csharp
+
+#r "nuget: GoogleMapsApi, 2.4.0"
+
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.Solar.Request;
+using GoogleMapsApi.Entities.Solar.Response;
+
+#!markdown
+
+## 2. Read your API key
+
+The notebook reads the key from the `GOOGLE_API_KEY` environment variable, matching the project's
+samples. Prefer to type it in instead? Replace the cell with
+`var apiKey = await Microsoft.DotNet.Interactive.Kernel.GetInputAsync("Google Maps API key");`.
+
+#!csharp
+
+var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
+if (string.IsNullOrWhiteSpace(apiKey))
+    throw new InvalidOperationException("Set the GOOGLE_API_KEY environment variable before running the API cells.");
+
+#!markdown
+
+## 3. Construct the client
+
+Build one `GoogleMapsClient` over a reused `HttpClient`. Passing the key via `GoogleMapsClientOptions`
+makes it ambient, so individual requests don't repeat it.
+
+#!csharp
+
+var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = apiKey });
+
+#!markdown
+
+## 4. Building Insights — solar potential for a coordinate
+
+`BuildingInsightsRequest` takes a `Latitude`/`Longitude` and an optional `RequiredQuality`. The Solar
+API finds the building closest to the point and returns its roof geometry, panel layouts and
+financials. We use a residential coordinate in California.
+
+#!csharp
+
+double latitude = 37.4450;
+double longitude = -122.1390;
+
+var insightsRequest = new BuildingInsightsRequest
+{
+    Latitude = latitude,
+    Longitude = longitude,
+    RequiredQuality = ImageryQuality.High,
+};
+
+BuildingInsightsResponse insights = await maps.SolarBuildingInsights.QueryAsync(insightsRequest);
+
+new[]
+{
+    new
+    {
+        insights.Name,
+        insights.PostalCode,
+        insights.AdministrativeArea,
+        insights.ImageryQuality,
+        MaxPanels = insights.SolarPotential?.MaxArrayPanelsCount,
+        MaxSunshineHoursPerYear = insights.SolarPotential?.MaxSunshineHoursPerYear,
+        MaxArrayAreaM2 = insights.SolarPotential?.MaxArrayAreaMeters2,
+    },
+}
+
+#!markdown
+
+## 5. Data Layers — raster layer URLs for the region
+
+`DataLayersRequest` takes the same coordinate plus a `RadiusMeters` (the API clamps to its supported
+range, up to ~100 m). The response holds URLs to each GeoTIFF layer (DSM, RGB, mask, annual/monthly
+flux, hourly shade). We keep one layer URL for the GeoTIFF download below.
+
+#!csharp
+
+var dataLayersRequest = new DataLayersRequest
+{
+    Latitude = latitude,
+    Longitude = longitude,
+    RadiusMeters = 50,
+    RequiredQuality = ImageryQuality.High,
+};
+
+DataLayersResponse dataLayers = await maps.SolarDataLayers.QueryAsync(dataLayersRequest);
+
+// Prefer the annual flux layer; fall back to DSM or RGB.
+var layerUrl = dataLayers.AnnualFluxUrl ?? dataLayers.DsmUrl ?? dataLayers.RgbUrl;
+
+if (string.IsNullOrWhiteSpace(layerUrl))
+    throw new Exception("Data Layers returned no layer URLs.");
+
+new[]
+{
+    new
+    {
+        dataLayers.ImageryQuality,
+        HasDsm = dataLayers.DsmUrl is not null,
+        HasRgb = dataLayers.RgbUrl is not null,
+        HasAnnualFlux = dataLayers.AnnualFluxUrl is not null,
+        HasMonthlyFlux = dataLayers.MonthlyFluxUrl is not null,
+        HourlyShadeMonths = dataLayers.HourlyShadeUrls?.Count ?? 0,
+    },
+}
+
+#!markdown
+
+## 6. GeoTIFF — download a layer's raw bytes
+
+`GeoTiffRequest` takes the `Url` of a data layer from the previous response. The response is **binary**
+(`Content` is a `byte[]`, plus a `ContentType`) — so we render the byte count and content type, not the
+bytes themselves.
+
+#!csharp
+
+var geoTiffRequest = new GeoTiffRequest { Url = layerUrl };
+
+GeoTiffResponse geoTiff = await maps.SolarGeoTiff.QueryAsync(geoTiffRequest);
+
+new[]
+{
+    new
+    {
+        geoTiff.ContentType,
+        ByteCount = geoTiff.Content.Length,
+        layerUrl,
+    },
+}

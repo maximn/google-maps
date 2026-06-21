@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapsApi.Benchmarks", "benchmarks\GoogleMapsApi.Benchmarks\GoogleMapsApi.Benchmarks.csproj", "{6429978B-C1E9-415C-B289-DFBF9451393D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapsApi.Templates", "GoogleMapsApi.Templates\GoogleMapsApi.Templates.csproj", "{F095D702-59A0-4E5D-9E04-B90F1FF1D708}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -190,6 +192,22 @@ Global
 		{6429978B-C1E9-415C-B289-DFBF9451393D}.Release|x86.Build.0 = Release|Any CPU
 		{6429978B-C1E9-415C-B289-DFBF9451393D}.Release|x64.ActiveCfg = Release|Any CPU
 		{6429978B-C1E9-415C-B289-DFBF9451393D}.Release|x64.Build.0 = Release|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Debug|x86.Build.0 = Debug|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Debug|x64.Build.0 = Debug|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Release|x86.ActiveCfg = Release|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Release|x86.Build.0 = Release|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Release|x64.ActiveCfg = Release|Any CPU
+		{F095D702-59A0-4E5D-9E04-B90F1FF1D708}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

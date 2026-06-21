@@ -1,0 +1,128 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#"}]}}
+
+#!markdown
+
+# Distance Matrix API
+
+Get travel distance and duration for a matrix of origins and destinations with the legacy Distance
+Matrix API. This notebook calls [`IGoogleMapsClient.DistanceMatrix`](https://maximn.github.io/google-maps/)
+and mirrors the [`GenericHost.DistanceMatrix`](../GenericHost.DistanceMatrix/) sample.
+
+- Google docs: <https://developers.google.com/maps/documentation/distance-matrix>
+- Library types: `DistanceMatrixRequest` → `DistanceMatrixResponse`
+- **Cost:** free tier — not billable in this library's test gate.
+
+> ⚠️ Legacy API (feature-frozen as of 2025-03-01, closed to new Cloud projects). For new integrations prefer the [Routes notebook](Routes.dib).
+
+**How to run:** open this file in VS Code with the
+[Polyglot Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+extension, set the `GOOGLE_API_KEY` environment variable, then run the cells top to bottom.
+
+#!markdown
+
+## 1. Reference the package and import the namespaces
+
+#!csharp
+
+#r "nuget: GoogleMapsApi, 2.4.0"
+
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.DistanceMatrix.Request;
+using GoogleMapsApi.Entities.DistanceMatrix.Response;
+
+#!markdown
+
+## 2. Read your API key
+
+The notebook reads the key from the `GOOGLE_API_KEY` environment variable, matching the project's
+samples. Prefer to type it in instead? Replace the cell with
+`var apiKey = await Microsoft.DotNet.Interactive.Kernel.GetInputAsync("Google Maps API key");`.
+
+#!csharp
+
+var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
+if (string.IsNullOrWhiteSpace(apiKey))
+    throw new InvalidOperationException("Set the GOOGLE_API_KEY environment variable before running the API cells.");
+
+#!markdown
+
+## 3. Construct the client
+
+Build one `GoogleMapsClient` over a reused `HttpClient`. Passing the key via `GoogleMapsClientOptions`
+makes it ambient, so individual requests don't repeat it.
+
+#!csharp
+
+var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = apiKey });
+
+#!markdown
+
+## 4. One origin to one destination
+
+`Origins` and `Destinations` are string arrays. Check the response `Status` against
+`DistanceMatrixStatusCodes.OK`, then the per-pair `Element.Status` against
+`DistanceMatrixElementStatusCodes.OK` before reading distance/duration.
+
+#!csharp
+
+var request = new DistanceMatrixRequest
+{
+    Origins = new[] { "New York, NY" },
+    Destinations = new[] { "Philadelphia, PA" },
+    Units = DistanceMatrixUnitSystems.metric,
+};
+
+DistanceMatrixResponse response = await maps.DistanceMatrix.QueryAsync(request);
+
+if (response.Status != DistanceMatrixStatusCodes.OK)
+    throw new Exception($"Distance Matrix failed: {response.Status} {response.ErrorMessage}");
+
+var element = response.Rows.First().Elements.First();
+if (element.Status != DistanceMatrixElementStatusCodes.OK)
+    throw new Exception($"No route: {element.Status}");
+
+new
+{
+    Origin = response.OriginAddresses.First(),
+    Destination = response.DestinationAddresses.First(),
+    Distance = element.Distance.Text,
+    Duration = element.Duration.Text,
+}
+
+#!markdown
+
+## 5. A full origins × destinations matrix
+
+Pass multiple origins and destinations to get every pairing in one call. Each `Row` corresponds to an
+origin (in request order); each `Element` within it corresponds to a destination.
+
+#!csharp
+
+var origins = new[] { "Mountain View, CA", "San Jose, CA" };
+var destinations = new[] { "San Francisco, CA", "Oakland, CA" };
+
+var matrixRequest = new DistanceMatrixRequest
+{
+    Origins = origins,
+    Destinations = destinations,
+    Mode = DistanceMatrixTravelModes.driving,
+    Units = DistanceMatrixUnitSystems.imperial,
+};
+
+DistanceMatrixResponse matrix = await maps.DistanceMatrix.QueryAsync(matrixRequest);
+
+if (matrix.Status != DistanceMatrixStatusCodes.OK)
+    throw new Exception($"Distance Matrix failed: {matrix.Status} {matrix.ErrorMessage}");
+
+matrix.Rows
+    .SelectMany((row, originIndex) => row.Elements.Select((el, destIndex) => new
+    {
+        Origin = origins[originIndex],
+        Destination = destinations[destIndex],
+        Status = el.Status,
+        Distance = el.Status == DistanceMatrixElementStatusCodes.OK ? el.Distance.Text : null,
+        Duration = el.Status == DistanceMatrixElementStatusCodes.OK ? el.Duration.Text : null,
+    }))

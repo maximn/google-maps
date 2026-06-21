@@ -1,0 +1,4 @@
+# The files under templates/ are template SOURCE and must be committed verbatim so they ship in
+# the NuGet package (CI builds from a clean git checkout). The repo-root .gitignore rule
+# `**/appsettings.json` would otherwise exclude the template's own appsettings.json — re-include it.
+!templates/**/appsettings.json

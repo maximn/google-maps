@@ -1,0 +1,67 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+	<TargetFramework>netstandard2.0</TargetFramework>
+	<MinVerTagPrefix>v</MinVerTagPrefix>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<PackageType>Template</PackageType>
+	<PackageId>GoogleMapsApi.Templates</PackageId>
+	<Title>Google Maps API project templates</Title>
+	<Authors>Maxim Novak</Authors>
+	<PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
+	<Description>dotnet new templates for getting started with GoogleMapsApi. Includes "googlemaps-webapi" — a minimal ASP.NET Core Web API wired to IGoogleMapsClient.</Description>
+	<Copyright>Copyright © 2010-$([System.DateTime]::Now.Year)</Copyright>
+	<PackageTags>Google;Maps;API;dotnet-new;Template;Scaffold;AspNetCore</PackageTags>
+	<RepositoryType>git</RepositoryType>
+	<RepositoryUrl>https://github.com/maximn/google-maps</RepositoryUrl>
+	<PackageProjectUrl>https://github.com/maximn/google-maps</PackageProjectUrl>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+	<IncludeBuildOutput>false</IncludeBuildOutput>
+	<ContentTargetFolders>content</ContentTargetFolders>
+	<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+	<NoWarn>$(NoWarn);NU5128;CS1591</NoWarn>
+	<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+	<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+	<NoDefaultExcludes>true</NoDefaultExcludes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+	<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**" />
+    <Compile Remove="**\*" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\LICENSE.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MinVer" Version="7.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!--
+    Stamp the just-resolved package version into the packed template.json so every scaffolded
+    project references the exact GoogleMapsApi version it was generated from. MinVer sets
+    $(PackageVersion) during pack, before this target runs.
+  -->
+  <Target Name="StampTemplateVersion" BeforeTargets="_GetPackageFiles" DependsOnTargets="MinVer">
+    <PropertyGroup>
+      <_TemplateConfig>$(IntermediateOutputPath)template.json</_TemplateConfig>
+    </PropertyGroup>
+    <Message Importance="high" Text="Stamping template.json with GoogleMapsApi version $(PackageVersion)" />
+    <ReadLinesFromFile File="templates\googlemaps-webapi\.template.config\template.json">
+      <Output TaskParameter="Lines" ItemName="_TemplateJsonLines" />
+    </ReadLinesFromFile>
+    <WriteLinesToFile File="$(_TemplateConfig)"
+                      Lines="@(_TemplateJsonLines->Replace('PACKAGE_VERSION_TOKEN', '$(PackageVersion)'))"
+                      Overwrite="true" />
+    <ItemGroup>
+      <Content Remove="templates\googlemaps-webapi\.template.config\template.json" />
+      <Content Include="$(_TemplateConfig)"
+               Pack="true"
+               PackagePath="content\templates\googlemaps-webapi\.template.config\template.json" />
+    </ItemGroup>
+  </Target>
+</Project>

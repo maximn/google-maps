@@ -7,6 +7,12 @@
       "commands": [
         "dotnet-CycloneDX"
       ]
+    },
+    "dotnet-stryker": {
+      "version": "4.14.2",
+      "commands": [
+        "dotnet-stryker"
+      ]
     }
   }
 }

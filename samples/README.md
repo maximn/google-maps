@@ -13,4 +13,15 @@ All samples read the Google Maps API key from the `GOOGLE_API_KEY` environment v
 
 The **Minimal API** and **Generic Host** samples are the showcases for the [`GoogleMapsApi.Extensions.DependencyInjection`](../GoogleMapsApi.Extensions.DependencyInjection/) package — both register `IGoogleMapsClient` (backed by `IHttpClientFactory`) plus an ambient API key in one `AddGoogleMaps(...)` call, so individual requests don't repeat the key. They demonstrate the two ways to supply the key: Minimal API uses the `Action<GoogleMapsClientOptions>` overload, Generic Host binds it from configuration with the `IConfiguration` overload. The Console and Blazor samples use the core library directly — Blazor shows the manual `AddHttpClient<IGoogleMapsClient, GoogleMapsClient>()` registration when you'd rather not take the extra package.
 
+## Interactive notebooks
+
+Prefer to explore an API cell-by-cell instead of running a whole project? The
+[`notebooks/`](notebooks/) folder has a live [Polyglot Notebook](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+(`.dib`) for **every API surface** — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time
+Zone, Address Validation, Roads, Static Maps, plus the billable Places (New), Solar, and Aerial View
+APIs. Each references the published `GoogleMapsApi` NuGet package, so they run without building this
+repo: set `GOOGLE_API_KEY`, open a notebook in VS Code (or `dotnet repl`), and run the cells top to
+bottom to see real responses rendered inline. See [`notebooks/README.md`](notebooks/) for the full
+index.
+
 > Get an API key in the [Google Cloud Console](https://console.cloud.google.com/) and enable the Geocoding and/or Directions API for your project.

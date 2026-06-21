@@ -1,0 +1,155 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#"}]}}
+
+#!markdown
+
+# Roads API
+
+Work with GPS traces against Google's road network: snap a recorded path onto roads, find the
+nearest road segments for arbitrary points, and (with the right license) look up posted speed limits.
+This notebook calls [`IGoogleMapsClient.SnapToRoads`, `.NearestRoads`, and `.SpeedLimits`](https://maximn.github.io/google-maps/).
+
+- Google docs: <https://developers.google.com/maps/documentation/roads/overview>
+- Library types: `SnapToRoadsRequest` → `SnapToRoadsResponse`, `NearestRoadsRequest` → `NearestRoadsResponse`, `SpeedLimitsRequest` → `SpeedLimitsResponse`
+- **Cost:** free tier — Snap to Roads and Nearest Roads are not billable in this library's test gate. **Speed Limits is different:** it requires a Google *Asset Tracking* license and is separately billable (see section 4).
+
+**How to run:** open this file in VS Code with the
+[Polyglot Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+extension, set the `GOOGLE_API_KEY` environment variable, then run the cells top to bottom.
+
+#!markdown
+
+## 1. Reference the package and import the namespaces
+
+#!csharp
+
+#r "nuget: GoogleMapsApi, 2.4.0"
+
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.Roads.Request;
+using GoogleMapsApi.Entities.Roads.Response;
+
+#!markdown
+
+## 2. Read your API key
+
+The notebook reads the key from the `GOOGLE_API_KEY` environment variable, matching the project's
+samples. Prefer to type it in instead? Replace the cell with
+`var apiKey = await Microsoft.DotNet.Interactive.Kernel.GetInputAsync("Google Maps API key");`.
+
+#!csharp
+
+var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
+if (string.IsNullOrWhiteSpace(apiKey))
+    throw new InvalidOperationException("Set the GOOGLE_API_KEY environment variable before running the API cells.");
+
+#!markdown
+
+## 3. Construct the client
+
+Build one `GoogleMapsClient` over a reused `HttpClient`. Passing the key via `GoogleMapsClientOptions`
+makes it ambient, so individual requests don't repeat it.
+
+#!csharp
+
+var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = apiKey });
+
+#!markdown
+
+## 4. Snap to Roads
+
+`SnapToRoads` takes an ordered `Path` of recorded GPS points and snaps each onto the most likely
+road segment. With `Interpolate = true` the response is filled in with extra points so it smoothly
+follows the road geometry — those interpolated points have a `null` `OriginalIndex`.
+
+The points below trace a short drive along the road network.
+
+#!csharp
+
+var roadPath = new[]
+{
+    new Location(-35.27801, 149.12958),
+    new Location(-35.28032, 149.12907),
+    new Location(-35.28099, 149.12929),
+    new Location(-35.28144, 149.12984),
+    new Location(-35.28194, 149.13003),
+};
+
+var snapRequest = new SnapToRoadsRequest { Path = roadPath, Interpolate = true };
+
+SnapToRoadsResponse snapResponse = await maps.SnapToRoads.QueryAsync(snapRequest);
+
+snapResponse.SnappedPoints?.Select(p => new
+{
+    Latitude = p.Location?.Latitude,
+    Longitude = p.Location?.Longitude,
+    p.OriginalIndex,
+    Interpolated = p.OriginalIndex is null,
+    p.PlaceId,
+})
+
+#!markdown
+
+## 5. Nearest Roads
+
+`NearestRoads` is the order-independent cousin of Snap to Roads: it returns the nearest road segment
+for each of up to 100 arbitrary `Points`. Use it for points that don't form a traveled path.
+
+#!csharp
+
+var nearestPoints = new[]
+{
+    new Location(-35.27801, 149.12958),
+    new Location(60.170880, 24.942795),
+    new Location(60.170879, 24.942796),
+};
+
+var nearestRequest = new NearestRoadsRequest { Points = nearestPoints };
+
+NearestRoadsResponse nearestResponse = await maps.NearestRoads.QueryAsync(nearestRequest);
+
+nearestResponse.SnappedPoints?.Select(p => new
+{
+    Latitude = p.Location?.Latitude,
+    Longitude = p.Location?.Longitude,
+    p.OriginalIndex,
+    p.PlaceId,
+})
+
+#!markdown
+
+## 6. Speed Limits
+
+> **Note:** the Speed Limits service is only available to customers with a Google **Asset Tracking**
+> license. Without it, Google returns an **HTTP 403** and the call below will throw — that's expected.
+> Each returned speed limit is also separately billable. The cell still shows the correct request
+> shape (supply either a `Path` or `PlaceIds`, plus optional `Units`), wrapped in `try/catch` so the
+> notebook keeps running.
+
+#!csharp
+
+var speedLimitsRequest = new SpeedLimitsRequest
+{
+    Path = roadPath,
+    Units = SpeedUnits.Kph,
+};
+
+try
+{
+    SpeedLimitsResponse speedResponse = await maps.SpeedLimits.QueryAsync(speedLimitsRequest);
+
+    speedResponse.SpeedLimits?.Select(s => new
+    {
+        s.PlaceId,
+        Limit = s.Value,
+        Units = s.Units?.ToString(),
+    })
+}
+catch (Exception ex)
+{
+    // Expected without an Asset Tracking license — Google responds with HTTP 403.
+    new[] { new { Outcome = "Speed Limits unavailable (expected without an Asset Tracking license)", Error = ex.Message } }
+}
