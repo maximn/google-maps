@@ -36,8 +36,8 @@
         { "choice": "net8.0", "description": ".NET 8.0" }
       ],
       "defaultValue": "net10.0",
-      "replaces": "FRAMEWORK_TOKEN",
-      "description": "The target framework for the generated project."
+      "replaces": "net10.0",
+      "description": "The target framework for the generated project. 'replaces' targets the real default TFM literal in GoogleMapsWebApi.csproj so the source project stays valid/restorable for repo-wide tooling."
     },
     "GoogleMapsApiVersion": {
       "type": "generated",
@@ -45,7 +45,8 @@
       "parameters": {
         "value": "PACKAGE_VERSION_TOKEN"
       },
-      "replaces": "GOOGLE_MAPS_API_VERSION"
+      "replaces": "2.4.0",
+      "description": "Pins the generated project to the GoogleMapsApi version it was scaffolded from. 'replaces' targets a real published version literal in GoogleMapsWebApi.csproj (kept restorable for repo-wide tooling); PACKAGE_VERSION_TOKEN is stamped to the actual package version at pack time."
     }
   },
   "primaryOutputs": [
