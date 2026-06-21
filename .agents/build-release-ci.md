@@ -37,9 +37,11 @@ rewrites `CHANGELOG.md` (moves `[Unreleased]` into the new version section) → 
 ## Publishing (`.github/workflows/nuget.yml`)
 
 Triggered by **pushing a `v*` tag** (or manual `workflow_dispatch` with a `version` + `dry_run` input).
-It checks out full history (`fetch-depth: 0`, MinVer needs tags), builds/packs Release, creates **SLSA
-build-provenance attestations**, pushes `.nupkg`+`.snupkg` to NuGet.org with `--skip-duplicate`, and
-attaches artifacts to the GitHub Release.
+It checks out full history (`fetch-depth: 0`, MinVer needs tags), builds/packs Release, generates a
+per-package **CycloneDX SBOM** (`*.bom.json`, via the `dotnet CycloneDX` local tool pinned in
+`.config/dotnet-tools.json`) from temporary consumers that restore the freshly packed local packages,
+creates **SLSA build-provenance attestations**, pushes `.nupkg`+`.snupkg` to NuGet.org with
+`--skip-duplicate`, and attaches the packages, SBOMs, and attestation bundle to the GitHub Release.
 
 > **OPS note (B8):** there is **no manual approval gate** — a `v*` tag push publishes to NuGet.org
 > immediately. The human checkpoint is the interactive `release.sh` prompt. Treat tag creation as the
