@@ -8,7 +8,8 @@ one file relevant to your task.
 
 A strongly-typed .NET wrapper for the Google Maps Web Services APIs (Geocoding, Directions/Routes,
 Distance Matrix, Elevation, Time Zone, Places (New), Address Validation, Static Maps). Shipped on
-NuGet as `GoogleMapsApi` (+ a sibling `GoogleMapsApi.Extensions.DependencyInjection`).
+NuGet as `GoogleMapsApi` (+ siblings `GoogleMapsApi.Extensions.DependencyInjection` and the
+`dotnet new` template pack `GoogleMapsApi.Templates`).
 
 ## Architecture in 30 seconds
 
@@ -21,7 +22,8 @@ NuGet as `GoogleMapsApi` (+ a sibling `GoogleMapsApi.Extensions.DependencyInject
   mismatches a compile error.
 - **Observability is built in:** one OpenTelemetry span per call from `ActivitySource "GoogleMapsApi"`,
   with the API key/signature redacted from the traced URL.
-- **Two packages, lockstep-versioned:** core `GoogleMapsApi` and the optional DI extension.
+- **Three packages, lockstep-versioned:** core `GoogleMapsApi`, the optional DI extension, and the
+  `dotnet new` template pack `GoogleMapsApi.Templates`.
 
 Flow: `GoogleMapsClient` → `IEngineFacade` → `HttpClientEngineFacade` (internal) → `MapsAPIGenericEngine` (internal abstract; static-method HTTP+JSON engine).
 

@@ -61,6 +61,18 @@ dotnet add package GoogleMapsApi
 
 Looking for runnable examples? See [`samples/`](samples/) — console, ASP.NET Core minimal API, and Blazor Server.
 
+## Scaffold a project in 10 seconds
+
+Spin up a working ASP.NET Core Web API (with `/geocode` and `/directions` endpoints) using the `dotnet new` template:
+
+```
+dotnet new install GoogleMapsApi.Templates
+dotnet new googlemaps-webapi -o MyMapsApi --apikey YOUR_API_KEY
+cd MyMapsApi && dotnet run
+```
+
+The key is written to `appsettings.Development.json` (gitignored), and the generated project references the matching `GoogleMapsApi` version. Pass `-f net8.0` to target .NET 8.
+
 # Quickstart
 
 ## API Key Configuration
