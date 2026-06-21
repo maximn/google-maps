@@ -1,5 +1,7 @@
 using GoogleMapsApi.Entities.AddressValidation.Request;
 using GoogleMapsApi.Entities.AddressValidation.Response;
+using GoogleMapsApi.Entities.AirQuality.Request;
+using GoogleMapsApi.Entities.AirQuality.Response;
 using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Request;
@@ -87,6 +89,18 @@ namespace GoogleMapsApi
 
         /// <summary>Download a Solar API data layer as raw GeoTIFF bytes (billable).</summary>
         IEngineFacade<GeoTiffRequest, GeoTiffResponse> SolarGeoTiff { get; }
+
+        /// <summary>Get current hourly air-quality conditions for a coordinate via the Air Quality API (billable).</summary>
+        IEngineFacade<CurrentConditionsRequest, CurrentConditionsResponse> AirQualityCurrentConditions { get; }
+
+        /// <summary>Get an hourly air-quality forecast for a coordinate via the Air Quality API (billable).</summary>
+        IEngineFacade<ForecastRequest, ForecastResponse> AirQualityForecast { get; }
+
+        /// <summary>Get past hourly air-quality records for a coordinate via the Air Quality API (billable).</summary>
+        IEngineFacade<HistoryRequest, HistoryResponse> AirQualityHistory { get; }
+
+        /// <summary>Download an air-quality heatmap map tile as raw PNG bytes via the Air Quality API (billable).</summary>
+        IEngineFacade<HeatmapTileRequest, HeatmapTileResponse> AirQualityHeatmapTile { get; }
 
         /// <summary>Render and look up cinematic flyover videos via the Aerial View API.</summary>
         IAerialViewApi AerialView { get; }

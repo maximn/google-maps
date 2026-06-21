@@ -13,7 +13,7 @@ Release history: see [CHANGELOG.md](CHANGELOG.md).
 
 # GoogleMapsApi
 
-A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, Solar, Aerial View, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0 — the latter still covers .NET Framework 4.6.1+), async-first, and battle-tested with **2M+ downloads** on NuGet.
+A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs — Geocoding, Routes, Directions, Distance Matrix, Elevation, Time Zone, Places, Address Validation, Solar, Aerial View, Air Quality, and Static Maps. Multi-framework (net10.0, net8.0, netstandard2.0 — the latter still covers .NET Framework 4.6.1+), async-first, and battle-tested with **2M+ downloads** on NuGet.
 
 ## Supported APIs
 
@@ -29,6 +29,7 @@ A friendly, strongly-typed .NET wrapper for the Google Maps Web Services APIs �
 | [Address Validation](https://developers.google.com/maps/documentation/address-validation) | Validate a postal address with component-level confirmation; USPS CASS for US/PR |
 | [Solar](https://developers.google.com/maps/documentation/solar) | Building solar potential, roof geometry, panel layouts, financial analyses, and raster data layers (billable) |
 | [Aerial View](https://developers.google.com/maps/documentation/aerial-view) | Render and look up cinematic flyover videos for US addresses |
+| [Air Quality](https://developers.google.com/maps/documentation/air-quality) | Current conditions, hourly forecast and history, plus heatmap tiles, for a coordinate (billable) |
 | [Static Maps](https://developers.google.com/maps/documentation/maps-static) | Generate URLs for static map images with markers, paths, and styles |
 
 ## Why this vs Google's official packages
@@ -239,6 +240,43 @@ if (video.State == VideoState.Active && video.TryGetUris(MediaFormat.Mp4High, ou
 ```
 
 > A looked-up video that does not exist (or has no 3D imagery available) returns HTTP 404, surfaced as an `HttpRequestException`. A still-rendering video is **not** an error — it returns `State == VideoState.Processing`.
+
+### Air Quality API (current conditions, forecast, history, heatmap tiles)
+
+The [Air Quality API](https://developers.google.com/maps/documentation/air-quality) reports air-quality indexes, pollutant concentrations and health recommendations for a coordinate — as current conditions, an hourly forecast, or hourly history — plus PNG heatmap tiles. Opt into the richer fields with `ExtraComputations`. It is a **billable** API, so calls beyond the free tier incur charges.
+
+``` C#
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.AirQuality.Request;
+
+using var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "your-google-maps-api-key" });
+
+// Current conditions, with health advice and pollutant concentrations.
+var current = await maps.AirQualityCurrentConditions.QueryAsync(new CurrentConditionsRequest
+{
+    Latitude = 37.4220,
+    Longitude = -122.0841,
+    ExtraComputations = new() { ExtraComputation.HealthRecommendations, ExtraComputation.PollutantConcentration },
+});
+Console.WriteLine($"{current.Indexes![0].DisplayName}: {current.Indexes[0].Aqi} ({current.Indexes[0].Category})");
+
+// Hourly forecast (paged), and a heatmap tile as raw PNG bytes.
+var forecast = await maps.AirQualityForecast.QueryAsync(new ForecastRequest
+{
+    Latitude = 37.4220,
+    Longitude = -122.0841,
+    PageSize = 6,
+});
+var tile = await maps.AirQualityHeatmapTile.QueryAsync(new HeatmapTileRequest
+{
+    MapType = AirQualityMapType.UsAqi,
+    Zoom = 4,
+    X = 4,
+    Y = 6,
+});
+await File.WriteAllBytesAsync("aqi-tile.png", tile.Content);
+```
 
 ### Instance-based client (`IHttpClientFactory`-friendly)
 

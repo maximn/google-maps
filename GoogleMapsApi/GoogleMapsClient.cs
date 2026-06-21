@@ -3,6 +3,8 @@ using GoogleMapsApi.Entities.AddressValidation.Request;
 using GoogleMapsApi.Entities.AddressValidation.Response;
 using GoogleMapsApi.Entities.AerialView.Request;
 using GoogleMapsApi.Entities.AerialView.Response;
+using GoogleMapsApi.Entities.AirQuality.Request;
+using GoogleMapsApi.Entities.AirQuality.Response;
 using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Request;
@@ -70,6 +72,10 @@ namespace GoogleMapsApi
             SolarBuildingInsights = new HttpClientEngineFacade<BuildingInsightsRequest, BuildingInsightsResponse>(httpClient, options);
             SolarDataLayers = new HttpClientEngineFacade<DataLayersRequest, DataLayersResponse>(httpClient, options);
             SolarGeoTiff = new HttpClientEngineFacade<GeoTiffRequest, GeoTiffResponse>(httpClient, options);
+            AirQualityCurrentConditions = new HttpClientEngineFacade<CurrentConditionsRequest, CurrentConditionsResponse>(httpClient, options);
+            AirQualityForecast = new HttpClientEngineFacade<ForecastRequest, ForecastResponse>(httpClient, options);
+            AirQualityHistory = new HttpClientEngineFacade<HistoryRequest, HistoryResponse>(httpClient, options);
+            AirQualityHeatmapTile = new HttpClientEngineFacade<HeatmapTileRequest, HeatmapTileResponse>(httpClient, options);
             AerialView = new AerialViewApi(httpClient, options);
         }
 
@@ -126,6 +132,18 @@ namespace GoogleMapsApi
 
         /// <inheritdoc/>
         public IEngineFacade<GeoTiffRequest, GeoTiffResponse> SolarGeoTiff { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<CurrentConditionsRequest, CurrentConditionsResponse> AirQualityCurrentConditions { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<ForecastRequest, ForecastResponse> AirQualityForecast { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<HistoryRequest, HistoryResponse> AirQualityHistory { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<HeatmapTileRequest, HeatmapTileResponse> AirQualityHeatmapTile { get; }
 
         /// <inheritdoc/>
         public IAerialViewApi AerialView { get; }

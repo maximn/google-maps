@@ -442,3 +442,241 @@ override GoogleMapsApi.Entities.Solar.Request.DataLayersRequest.GetUri() -> Syst
 override GoogleMapsApi.Entities.Solar.Request.GeoTiffRequest.GetUri() -> System.Uri!
 override GoogleMapsApi.Entities.AerialView.Request.LookupVideoRequest.GetUri() -> System.Uri!
 override GoogleMapsApi.Entities.AerialView.Request.RenderVideoRequest.GetUri() -> System.Uri!
+GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType
+GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType.CanEc = 6 -> GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType
+GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType.DeuUba = 5 -> GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType
+GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType.FraAtmo = 7 -> GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType
+GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType.GbrDefra = 4 -> GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType
+GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType.Pm25IndigoPersian = 3 -> GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType
+GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType.UaqiIndigoPersian = 2 -> GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType
+GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType.UaqiRedGreen = 1 -> GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType
+GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType.Unspecified = 0 -> GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType
+GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType.UsAqi = 8 -> GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType
+GoogleMapsApi.Entities.AirQuality.Request.ColorPalette
+GoogleMapsApi.Entities.AirQuality.Request.ColorPalette.IndigoPersianDark = 2 -> GoogleMapsApi.Entities.AirQuality.Request.ColorPalette
+GoogleMapsApi.Entities.AirQuality.Request.ColorPalette.IndigoPersianLight = 3 -> GoogleMapsApi.Entities.AirQuality.Request.ColorPalette
+GoogleMapsApi.Entities.AirQuality.Request.ColorPalette.RedGreen = 1 -> GoogleMapsApi.Entities.AirQuality.Request.ColorPalette
+GoogleMapsApi.Entities.AirQuality.Request.ColorPalette.Unspecified = 0 -> GoogleMapsApi.Entities.AirQuality.Request.ColorPalette
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.CurrentConditionsRequest() -> void
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.CustomLocalAqis.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Request.CustomLocalAqi!>?
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.CustomLocalAqis.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.ExtraComputations.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation>?
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.ExtraComputations.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.LanguageCode.get -> string?
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.LanguageCode.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.Latitude.get -> double
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.Latitude.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.Longitude.get -> double
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.Longitude.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.UaqiColorPalette.get -> GoogleMapsApi.Entities.AirQuality.Request.ColorPalette?
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.UaqiColorPalette.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.UniversalAqi.get -> bool?
+GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.UniversalAqi.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.CustomLocalAqi
+GoogleMapsApi.Entities.AirQuality.Request.CustomLocalAqi.Aqi.get -> string?
+GoogleMapsApi.Entities.AirQuality.Request.CustomLocalAqi.Aqi.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.CustomLocalAqi.CustomLocalAqi() -> void
+GoogleMapsApi.Entities.AirQuality.Request.CustomLocalAqi.RegionCode.get -> string?
+GoogleMapsApi.Entities.AirQuality.Request.CustomLocalAqi.RegionCode.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation
+GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation.DominantPollutantConcentration = 4 -> GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation
+GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation.HealthRecommendations = 2 -> GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation
+GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation.LocalAqi = 1 -> GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation
+GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation.PollutantAdditionalInfo = 3 -> GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation
+GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation.PollutantConcentration = 5 -> GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation
+GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation.Unspecified = 0 -> GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.CustomLocalAqis.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Request.CustomLocalAqi!>?
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.CustomLocalAqis.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.DateTime.get -> System.DateTimeOffset?
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.DateTime.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.ExtraComputations.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation>?
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.ExtraComputations.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.ForecastRequest() -> void
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.LanguageCode.get -> string?
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.LanguageCode.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.Latitude.get -> double
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.Latitude.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.Longitude.get -> double
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.Longitude.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.PageSize.get -> int?
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.PageSize.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.PageToken.get -> string?
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.PageToken.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.Period.get -> GoogleMapsApi.Entities.AirQuality.Request.Interval?
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.Period.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.UaqiColorPalette.get -> GoogleMapsApi.Entities.AirQuality.Request.ColorPalette?
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.UaqiColorPalette.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.UniversalAqi.get -> bool?
+GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.UniversalAqi.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest
+GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest.HeatmapTileRequest() -> void
+GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest.MapType.get -> GoogleMapsApi.Entities.AirQuality.Request.AirQualityMapType
+GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest.MapType.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest.X.get -> int
+GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest.X.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest.Y.get -> int
+GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest.Y.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest.Zoom.get -> int
+GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest.Zoom.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.CustomLocalAqis.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Request.CustomLocalAqi!>?
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.CustomLocalAqis.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.DateTime.get -> System.DateTimeOffset?
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.DateTime.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.ExtraComputations.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Request.ExtraComputation>?
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.ExtraComputations.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.HistoryRequest() -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.Hours.get -> int?
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.Hours.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.LanguageCode.get -> string?
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.LanguageCode.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.Latitude.get -> double
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.Latitude.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.Longitude.get -> double
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.Longitude.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.PageSize.get -> int?
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.PageSize.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.PageToken.get -> string?
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.PageToken.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.Period.get -> GoogleMapsApi.Entities.AirQuality.Request.Interval?
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.Period.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.UaqiColorPalette.get -> GoogleMapsApi.Entities.AirQuality.Request.ColorPalette?
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.UaqiColorPalette.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.UniversalAqi.get -> bool?
+GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.UniversalAqi.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.Interval
+GoogleMapsApi.Entities.AirQuality.Request.Interval.EndTime.get -> System.DateTimeOffset?
+GoogleMapsApi.Entities.AirQuality.Request.Interval.EndTime.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.Interval.Interval() -> void
+GoogleMapsApi.Entities.AirQuality.Request.Interval.StartTime.get -> System.DateTimeOffset?
+GoogleMapsApi.Entities.AirQuality.Request.Interval.StartTime.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.LatLng
+GoogleMapsApi.Entities.AirQuality.Request.LatLng.LatLng() -> void
+GoogleMapsApi.Entities.AirQuality.Request.LatLng.Latitude.get -> double
+GoogleMapsApi.Entities.AirQuality.Request.LatLng.Latitude.set -> void
+GoogleMapsApi.Entities.AirQuality.Request.LatLng.Longitude.get -> double
+GoogleMapsApi.Entities.AirQuality.Request.LatLng.Longitude.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.AdditionalInfo
+GoogleMapsApi.Entities.AirQuality.Response.AdditionalInfo.AdditionalInfo() -> void
+GoogleMapsApi.Entities.AirQuality.Response.AdditionalInfo.Effects.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.AdditionalInfo.Effects.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.AdditionalInfo.Sources.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.AdditionalInfo.Sources.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.AirQualityIndex() -> void
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.Aqi.get -> int
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.Aqi.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.AqiDisplay.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.AqiDisplay.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.Category.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.Category.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.Code.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.Code.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.Color.get -> GoogleMapsApi.Entities.AirQuality.Response.Color?
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.Color.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.DisplayName.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.DisplayName.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.DominantPollutant.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex.DominantPollutant.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Color
+GoogleMapsApi.Entities.AirQuality.Response.Color.Alpha.get -> float?
+GoogleMapsApi.Entities.AirQuality.Response.Color.Alpha.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Color.Blue.get -> float?
+GoogleMapsApi.Entities.AirQuality.Response.Color.Blue.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Color.Color() -> void
+GoogleMapsApi.Entities.AirQuality.Response.Color.Green.get -> float?
+GoogleMapsApi.Entities.AirQuality.Response.Color.Green.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Color.Red.get -> float?
+GoogleMapsApi.Entities.AirQuality.Response.Color.Red.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Concentration
+GoogleMapsApi.Entities.AirQuality.Response.Concentration.Concentration() -> void
+GoogleMapsApi.Entities.AirQuality.Response.Concentration.Units.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.Concentration.Units.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Concentration.Value.get -> double
+GoogleMapsApi.Entities.AirQuality.Response.Concentration.Value.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse.CurrentConditionsResponse() -> void
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse.DateTime.get -> System.DateTimeOffset?
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse.DateTime.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse.HealthRecommendations.get -> GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations?
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse.HealthRecommendations.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse.Indexes.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex!>?
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse.Indexes.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse.Pollutants.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Response.Pollutant!>?
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse.Pollutants.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse.RegionCode.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse.RegionCode.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.ForecastResponse
+GoogleMapsApi.Entities.AirQuality.Response.ForecastResponse.ForecastResponse() -> void
+GoogleMapsApi.Entities.AirQuality.Response.ForecastResponse.HourlyForecasts.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast!>?
+GoogleMapsApi.Entities.AirQuality.Response.ForecastResponse.HourlyForecasts.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.ForecastResponse.NextPageToken.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.ForecastResponse.NextPageToken.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.ForecastResponse.RegionCode.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.ForecastResponse.RegionCode.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.Athletes.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.Athletes.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.Children.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.Children.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.Elderly.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.Elderly.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.GeneralPopulation.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.GeneralPopulation.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.HealthRecommendations() -> void
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.HeartDiseasePopulation.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.HeartDiseasePopulation.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.LungDiseasePopulation.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.LungDiseasePopulation.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.PregnantWomen.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations.PregnantWomen.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HeatmapTileResponse
+GoogleMapsApi.Entities.AirQuality.Response.HeatmapTileResponse.Content.get -> byte[]!
+GoogleMapsApi.Entities.AirQuality.Response.HeatmapTileResponse.Content.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HeatmapTileResponse.ContentType.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.HeatmapTileResponse.ContentType.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HeatmapTileResponse.HeatmapTileResponse() -> void
+GoogleMapsApi.Entities.AirQuality.Response.HistoryResponse
+GoogleMapsApi.Entities.AirQuality.Response.HistoryResponse.HistoryResponse() -> void
+GoogleMapsApi.Entities.AirQuality.Response.HistoryResponse.HoursInfo.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast!>?
+GoogleMapsApi.Entities.AirQuality.Response.HistoryResponse.HoursInfo.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HistoryResponse.NextPageToken.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.HistoryResponse.NextPageToken.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HistoryResponse.RegionCode.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.HistoryResponse.RegionCode.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast
+GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast.DateTime.get -> System.DateTimeOffset?
+GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast.DateTime.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast.HealthRecommendations.get -> GoogleMapsApi.Entities.AirQuality.Response.HealthRecommendations?
+GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast.HealthRecommendations.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast.HourlyForecast() -> void
+GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast.Indexes.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Response.AirQualityIndex!>?
+GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast.Indexes.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast.Pollutants.get -> System.Collections.Generic.List<GoogleMapsApi.Entities.AirQuality.Response.Pollutant!>?
+GoogleMapsApi.Entities.AirQuality.Response.HourlyForecast.Pollutants.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant.AdditionalInfo.get -> GoogleMapsApi.Entities.AirQuality.Response.AdditionalInfo?
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant.AdditionalInfo.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant.Code.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant.Code.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant.Concentration.get -> GoogleMapsApi.Entities.AirQuality.Response.Concentration?
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant.Concentration.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant.DisplayName.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant.DisplayName.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant.FullName.get -> string?
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant.FullName.set -> void
+GoogleMapsApi.Entities.AirQuality.Response.Pollutant.Pollutant() -> void
+GoogleMapsApi.GoogleMapsClient.AirQualityCurrentConditions.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest!, GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse!>!
+GoogleMapsApi.GoogleMapsClient.AirQualityForecast.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest!, GoogleMapsApi.Entities.AirQuality.Response.ForecastResponse!>!
+GoogleMapsApi.GoogleMapsClient.AirQualityHeatmapTile.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest!, GoogleMapsApi.Entities.AirQuality.Response.HeatmapTileResponse!>!
+GoogleMapsApi.GoogleMapsClient.AirQualityHistory.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest!, GoogleMapsApi.Entities.AirQuality.Response.HistoryResponse!>!
+GoogleMapsApi.IGoogleMapsClient.AirQualityCurrentConditions.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest!, GoogleMapsApi.Entities.AirQuality.Response.CurrentConditionsResponse!>!
+GoogleMapsApi.IGoogleMapsClient.AirQualityForecast.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest!, GoogleMapsApi.Entities.AirQuality.Response.ForecastResponse!>!
+GoogleMapsApi.IGoogleMapsClient.AirQualityHeatmapTile.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest!, GoogleMapsApi.Entities.AirQuality.Response.HeatmapTileResponse!>!
+GoogleMapsApi.IGoogleMapsClient.AirQualityHistory.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest!, GoogleMapsApi.Entities.AirQuality.Response.HistoryResponse!>!
+override GoogleMapsApi.Entities.AirQuality.Request.CurrentConditionsRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.AirQuality.Request.ForecastRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.AirQuality.Request.HeatmapTileRequest.GetUri() -> System.Uri!
+override GoogleMapsApi.Entities.AirQuality.Request.HistoryRequest.GetUri() -> System.Uri!
