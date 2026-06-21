@@ -1,0 +1,114 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#"}]}}
+
+#!markdown
+
+# Directions API
+
+Compute a route between an origin and a destination string with the legacy Directions API. This notebook
+calls [`IGoogleMapsClient.Directions`](https://maximn.github.io/google-maps/) and mirrors the
+[`MinimalApi.Directions`](../MinimalApi.Directions/) sample.
+
+- Google docs: <https://developers.google.com/maps/documentation/directions>
+- Library types: `DirectionsRequest` → `DirectionsResponse`
+- **Cost:** free tier — not billable in this library's test gate.
+
+> ⚠️ Legacy API (feature-frozen as of 2025-03-01, closed to new Cloud projects). For new integrations prefer the [Routes notebook](Routes.dib).
+
+**How to run:** open this file in VS Code with the
+[Polyglot Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+extension, set the `GOOGLE_API_KEY` environment variable, then run the cells top to bottom.
+
+#!markdown
+
+## 1. Reference the package and import the namespaces
+
+#!csharp
+
+#r "nuget: GoogleMapsApi, 2.4.0"
+
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Directions.Request;
+using GoogleMapsApi.Entities.Directions.Response;
+
+#!markdown
+
+## 2. Read your API key
+
+The notebook reads the key from the `GOOGLE_API_KEY` environment variable, matching the project's
+samples. Prefer to type it in instead? Replace the cell with
+`var apiKey = await Microsoft.DotNet.Interactive.Kernel.GetInputAsync("Google Maps API key");`.
+
+#!csharp
+
+var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
+if (string.IsNullOrWhiteSpace(apiKey))
+    throw new InvalidOperationException("Set the GOOGLE_API_KEY environment variable before running the API cells.");
+
+#!markdown
+
+## 3. Construct the client
+
+Build one `GoogleMapsClient` over a reused `HttpClient`. Passing the key via `GoogleMapsClientOptions`
+makes it ambient, so individual requests don't repeat it.
+
+#!csharp
+
+var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = apiKey });
+
+#!markdown
+
+## 4. Get directions between two places
+
+`Origin` and `Destination` are plain strings — an address or a `"lat,lng"` pair. Check `Status` against
+`DirectionsStatusCodes.OK` before reading the routes.
+
+#!csharp
+
+var request = new DirectionsRequest
+{
+    Origin = "New York, NY",
+    Destination = "Philadelphia, PA",
+    TravelMode = TravelMode.Driving,
+};
+
+DirectionsResponse response = await maps.Directions.QueryAsync(request);
+
+if (response.Status != DirectionsStatusCodes.OK || response.Routes is null)
+    throw new Exception($"Directions failed: {response.Status} {response.ErrorMessage}");
+
+response.Routes.Select(route =>
+{
+    var leg = route.Legs?.FirstOrDefault();
+    return new
+    {
+        route.Summary,
+        StartAddress = leg?.StartAddress,
+        EndAddress = leg?.EndAddress,
+        Distance = leg?.Distance?.Text,
+        Duration = leg?.Duration?.Text,
+        route.Copyrights,
+    };
+})
+
+#!markdown
+
+## 5. List the turn-by-turn steps of the first leg
+
+Each `Leg` exposes a `Steps` collection; project the per-step distance and duration text.
+
+#!csharp
+
+var route = response.Routes.First();
+var firstLeg = route.Legs?.First();
+
+firstLeg?.Steps?.Select((step, i) => new
+{
+    Step = i + 1,
+    Instructions = step.HtmlInstructions,
+    Distance = step.Distance?.Text,
+    Duration = step.Duration?.Text,
+    step.TravelMode,
+})

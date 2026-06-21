@@ -1,0 +1,157 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#"}]}}
+
+#!markdown
+
+# Aerial View API
+
+Render a cinematic flyover video for a US address, then poll until it is ready and read its signed
+media URIs. This notebook calls `maps.AerialView.RenderVideo` and `maps.AerialView.LookupVideo` on
+[`IGoogleMapsClient`](https://maximn.github.io/google-maps/).
+
+- Google docs: <https://developers.google.com/maps/documentation/aerial-view>
+- Library types: `RenderVideoRequest` / `LookupVideoRequest` → `AerialViewVideoResponse`
+- **Cost:** billable ⚠️ (RenderVideo is free; **LookupVideo is billed**)
+
+**How to run:** open this file in VS Code with the
+[Polyglot Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+extension, set the `GOOGLE_API_KEY` environment variable, then run the cells top to bottom.
+
+#!markdown
+
+> [!WARNING]
+> **This API is billable.** Running the cells below calls a paid Google Maps API and **will incur charges** on your Google Cloud project. Only run them if you accept the cost.
+
+#!markdown
+
+## 1. Reference the package and import the namespaces
+
+#!csharp
+
+#r "nuget: GoogleMapsApi, 2.4.0"
+
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.AerialView.Request;
+using GoogleMapsApi.Entities.AerialView.Response;
+
+#!markdown
+
+## 2. Read your API key
+
+The notebook reads the key from the `GOOGLE_API_KEY` environment variable, matching the project's
+samples. Prefer to type it in instead? Replace the cell with
+`var apiKey = await Microsoft.DotNet.Interactive.Kernel.GetInputAsync("Google Maps API key");`.
+
+#!csharp
+
+var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
+if (string.IsNullOrWhiteSpace(apiKey))
+    throw new InvalidOperationException("Set the GOOGLE_API_KEY environment variable before running the API cells.");
+
+#!markdown
+
+## 3. Construct the client
+
+Build one `GoogleMapsClient` over a reused `HttpClient`. Passing the key via `GoogleMapsClientOptions`
+makes it ambient, so individual requests don't repeat it.
+
+#!csharp
+
+var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = apiKey });
+
+#!markdown
+
+## 4. Render Video — enqueue a flyover (free, asynchronous)
+
+`RenderVideoRequest` takes a US postal `Address`. Rendering is asynchronous: the call returns
+immediately, usually with `State == Processing` and a video id in `Metadata.VideoId`. If a video for
+the address already exists it may come back `Active` straight away. The render endpoint itself is not
+billed.
+
+#!csharp
+
+var address = "1600 Amphitheatre Parkway, Mountain View, CA 94043";
+
+var renderRequest = new RenderVideoRequest { Address = address };
+
+AerialViewVideoResponse render = await maps.AerialView.RenderVideo.QueryAsync(renderRequest);
+
+var videoId = render.Metadata?.VideoId;
+
+new[]
+{
+    new
+    {
+        render.State,
+        VideoId = videoId,
+    },
+}
+
+#!markdown
+
+## 5. Look up Video — poll until Active (billable)
+
+`LookupVideoRequest` accepts either a `VideoId` (preferred) or an `Address` — supply exactly one.
+We poll a few times with a delay until `State == Active`, then stop. Each `LookupVideo` call is
+billed, so the loop is capped at a small number of attempts; a real video can take minutes to hours,
+so it may still be `Processing` when the loop ends.
+
+#!csharp
+
+const int maxAttempts = 5;
+var delay = TimeSpan.FromSeconds(10);
+
+AerialViewVideoResponse lookup = render;
+
+for (int attempt = 1; attempt <= maxAttempts && lookup.State != VideoState.Active; attempt++)
+{
+    var lookupRequest = !string.IsNullOrWhiteSpace(videoId)
+        ? new LookupVideoRequest { VideoId = videoId }
+        : new LookupVideoRequest { Address = address };
+
+    lookup = await maps.AerialView.LookupVideo.QueryAsync(lookupRequest);
+
+    if (lookup.State == VideoState.Active || lookup.State == VideoState.Failed)
+        break;
+
+    await Task.Delay(delay);
+}
+
+new[]
+{
+    new
+    {
+        lookup.State,
+        VideoId = lookup.Metadata?.VideoId,
+        Duration = lookup.Metadata?.DurationValue,
+        FormatsAvailable = lookup.Uris?.Count ?? 0,
+    },
+}
+
+#!markdown
+
+## 6. Media URIs — the signed links, once Active
+
+When `State == Active`, `Uris` is populated with signed, short-lived links keyed by media format
+(`"MP4_HIGH"`, `"HLS"`, …). Each `AerialViewUris` has a landscape (16:9) and portrait (9:16) URI.
+Use the strongly-typed `TryGetUris(MediaFormat, out ...)` helper to pull a known format. These links
+expire, so fetch them fresh rather than caching.
+
+#!csharp
+
+if (lookup.State != VideoState.Active || lookup.Uris is null)
+{
+    $"Video is not Active yet (state: {lookup.State}). Re-run the polling cell later."
+}
+else
+{
+    lookup.Uris.Select(kvp => new
+    {
+        Format = kvp.Key,
+        Landscape = kvp.Value.LandscapeUri,
+        Portrait = kvp.Value.PortraitUri,
+    })
+}

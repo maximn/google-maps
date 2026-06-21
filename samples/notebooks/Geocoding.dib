@@ -1,0 +1,93 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#"}]}}
+
+#!markdown
+
+# Geocoding API
+
+Turn a human-readable address into latitude/longitude coordinates (and back, via reverse geocoding).
+This notebook calls [`IGoogleMapsClient.Geocode`](https://maximn.github.io/google-maps/) and mirrors
+the [`Console.Geocoding`](../Console.Geocoding/) sample.
+
+- Google docs: <https://developers.google.com/maps/documentation/geocoding>
+- Library types: `GeocodingRequest` → `GeocodingResponse`
+- **Cost:** free tier — the Geocoding API is not billable in this library's test gate.
+
+**How to run:** open this file in VS Code with the
+[Polyglot Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+extension, set the `GOOGLE_API_KEY` environment variable, then run the cells top to bottom.
+
+#!markdown
+
+## 1. Reference the package and import the namespaces
+
+#!csharp
+
+#r "nuget: GoogleMapsApi, 2.4.0"
+
+using GoogleMapsApi;
+using GoogleMapsApi.Entities.Common;
+using GoogleMapsApi.Entities.Geocoding.Request;
+using GoogleMapsApi.Entities.Geocoding.Response;
+
+#!markdown
+
+## 2. Read your API key
+
+The notebook reads the key from the `GOOGLE_API_KEY` environment variable, matching the project's
+samples. Prefer to type it in instead? Replace the cell with
+`var apiKey = await Microsoft.DotNet.Interactive.Kernel.GetInputAsync("Google Maps API key");`.
+
+#!csharp
+
+var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY");
+if (string.IsNullOrWhiteSpace(apiKey))
+    throw new InvalidOperationException("Set the GOOGLE_API_KEY environment variable before running the API cells.");
+
+#!markdown
+
+## 3. Construct the client
+
+Build one `GoogleMapsClient` over a reused `HttpClient`. Passing the key via `GoogleMapsClientOptions`
+makes it ambient, so individual requests don't repeat it.
+
+#!csharp
+
+var http = new HttpClient();
+var maps = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = apiKey });
+
+#!markdown
+
+## 4. Geocode an address
+
+#!csharp
+
+var request = new GeocodingRequest { Address = "1600 Amphitheatre Parkway, Mountain View, CA" };
+
+GeocodingResponse response = await maps.Geocode.QueryAsync(request);
+
+if (response.Status != Status.OK || response.Results is null)
+    throw new Exception($"Geocoding failed: {response.Status}");
+
+response.Results.Select(r => new
+{
+    r.FormattedAddress,
+    Latitude = r.Geometry.Location.Latitude,
+    Longitude = r.Geometry.Location.Longitude,
+    r.PlaceId,
+})
+
+#!markdown
+
+## 5. Reverse geocode — coordinates back to an address
+
+Pass a `Location` instead of an `Address` to look up the nearest addresses for a point.
+
+#!csharp
+
+var reverse = new GeocodingRequest { Location = new Location(40.714224, -73.961452) };
+
+GeocodingResponse reverseResponse = await maps.Geocode.QueryAsync(reverse);
+
+reverseResponse.Results?.Take(3).Select(r => r.FormattedAddress)
