@@ -55,6 +55,9 @@ jobs:
           echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
           echo "Resolved version: $VERSION"
 
+      - name: Restore .NET tools
+        run: dotnet tool restore
+
       - name: Restore dependencies
         run: dotnet restore
 
@@ -63,6 +66,70 @@ jobs:
 
       - name: Pack
         run: dotnet pack --configuration Release --no-build --output . ${{ steps.get_version.outputs.MINVER_OVERRIDE }}
+
+      - name: Generate SBOM
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+        run: |
+          set -euo pipefail
+
+          # Generate from temporary consumers that restore the freshly packed local .nupkg files.
+          # That keeps project references represented as the NuGet dependencies consumers install.
+          SBOM_INPUT_DIR="$(mktemp -d)"
+          LOCAL_NUGET_SOURCE="$PWD"
+
+          create_sbom_input() {
+            local package_id="$1"
+            local project_path="$SBOM_INPUT_DIR/${package_id}.SbomInput.csproj"
+
+            cat > "$project_path" <<EOF
+          <Project Sdk="Microsoft.NET.Sdk">
+            <PropertyGroup>
+              <TargetFrameworks>netstandard2.0;net8.0;net10.0</TargetFrameworks>
+              <RestoreSources>${LOCAL_NUGET_SOURCE};https://api.nuget.org/v3/index.json</RestoreSources>
+            </PropertyGroup>
+            <ItemGroup>
+              <PackageReference Include="${package_id}" Version="${VERSION}" />
+            </ItemGroup>
+          </Project>
+          EOF
+          }
+
+          normalize_sbom() {
+            local package_id="$1"
+            local raw_path="$2"
+            local output_path="$3"
+            local root_ref="pkg:nuget/${package_id}@${VERSION}"
+
+            jq --arg root_ref "$root_ref" '
+              .components = ((.components // []) | map(select(.purl != $root_ref and ."bom-ref" != $root_ref))) |
+              .dependencies = (
+                (.dependencies // [])
+                | group_by(.ref)
+                | map({
+                    ref: .[0].ref,
+                    dependsOn: ([.[].dependsOn[]?] | unique | map(select(. != $root_ref)))
+                  })
+              )
+            ' "$raw_path" > "$output_path"
+          }
+
+          generate_package_sbom() {
+            local package_id="$1"
+            local output_path="$2"
+            local raw_filename="${package_id}.raw.bom.json"
+            local project_path="$SBOM_INPUT_DIR/${package_id}.SbomInput.csproj"
+
+            create_sbom_input "$package_id"
+            dotnet CycloneDX "$project_path" \
+              --output "$SBOM_INPUT_DIR" --filename "$raw_filename" \
+              --output-format Json --exclude-dev \
+              --set-name "$package_id" --set-version "$VERSION" --set-type Library --set-nuget-purl
+            normalize_sbom "$package_id" "$SBOM_INPUT_DIR/$raw_filename" "$output_path"
+          }
+
+          generate_package_sbom GoogleMapsApi GoogleMapsApi.bom.json
+          generate_package_sbom GoogleMapsApi.Extensions.DependencyInjection GoogleMapsApi.Extensions.DependencyInjection.bom.json
 
       - name: Attest build provenance
         if: github.event_name == 'push' || inputs.dry_run == false
@@ -76,7 +143,9 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
           name: nupkg-${{ steps.get_version.outputs.VERSION }}
-          path: '*.nupkg'
+          path: |
+            *.nupkg
+            *.bom.json
 
       - name: Publish NuGet
         if: github.event_name == 'push' || inputs.dry_run == false
@@ -90,10 +159,10 @@ jobs:
           ATTESTATION_BUNDLE: ${{ steps.attest.outputs.bundle-path }}
         run: |
           if gh release view "v${VERSION}" >/dev/null 2>&1; then
-            gh release upload "v${VERSION}" ./*.nupkg "${ATTESTATION_BUNDLE}" --clobber
+            gh release upload "v${VERSION}" ./*.nupkg ./*.bom.json "${ATTESTATION_BUNDLE}" --clobber
           else
             gh release create "v${VERSION}" \
               --title "v${VERSION}" \
               --generate-notes \
-              ./*.nupkg "${ATTESTATION_BUNDLE}"
+              ./*.nupkg ./*.bom.json "${ATTESTATION_BUNDLE}"
           fi

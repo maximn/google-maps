@@ -191,6 +191,9 @@ PublishScripts/
 # NuGet Packages
 *.nupkg
 *.snupkg
+
+# CycloneDX SBOM (generated in CI, attached to releases)
+*.bom.json
 # NuGet Symbol Packages
 **/[Pp]ackages/*
 !**/[Pp]ackages/build/

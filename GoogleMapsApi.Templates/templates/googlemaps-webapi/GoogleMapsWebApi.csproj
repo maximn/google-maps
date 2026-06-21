@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>FRAMEWORK_TOKEN</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GoogleMapsApi.Extensions.DependencyInjection" Version="GOOGLE_MAPS_API_VERSION" />
+    <PackageReference Include="GoogleMapsApi.Extensions.DependencyInjection" Version="2.4.0" />
   </ItemGroup>
 
 </Project>
