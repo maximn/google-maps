@@ -3,6 +3,8 @@ using GoogleMapsApi.Entities.AddressValidation.Request;
 using GoogleMapsApi.Entities.AddressValidation.Response;
 using GoogleMapsApi.Entities.AerialView.Request;
 using GoogleMapsApi.Entities.AerialView.Response;
+using GoogleMapsApi.Entities.AirQuality.Request;
+using GoogleMapsApi.Entities.AirQuality.Response;
 using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
 using GoogleMapsApi.Entities.DistanceMatrix.Request;
@@ -17,6 +19,8 @@ using GoogleMapsApi.Entities.Routes.Request;
 using GoogleMapsApi.Entities.Routes.Response;
 using GoogleMapsApi.Entities.PlacesNew.Request;
 using GoogleMapsApi.Entities.PlacesNew.Response;
+using GoogleMapsApi.Entities.Pollen.Request;
+using GoogleMapsApi.Entities.Pollen.Response;
 using GoogleMapsApi.Entities.Solar.Request;
 using GoogleMapsApi.Entities.Solar.Response;
 using GoogleMapsApi.Entities.TimeZone.Request;
@@ -70,6 +74,12 @@ namespace GoogleMapsApi
             SolarBuildingInsights = new HttpClientEngineFacade<BuildingInsightsRequest, BuildingInsightsResponse>(httpClient, options);
             SolarDataLayers = new HttpClientEngineFacade<DataLayersRequest, DataLayersResponse>(httpClient, options);
             SolarGeoTiff = new HttpClientEngineFacade<GeoTiffRequest, GeoTiffResponse>(httpClient, options);
+            AirQualityCurrentConditions = new HttpClientEngineFacade<CurrentConditionsRequest, CurrentConditionsResponse>(httpClient, options);
+            AirQualityForecast = new HttpClientEngineFacade<ForecastRequest, ForecastResponse>(httpClient, options);
+            AirQualityHistory = new HttpClientEngineFacade<HistoryRequest, HistoryResponse>(httpClient, options);
+            AirQualityHeatmapTile = new HttpClientEngineFacade<HeatmapTileRequest, HeatmapTileResponse>(httpClient, options);
+            PollenForecast = new HttpClientEngineFacade<PollenForecastRequest, PollenForecastResponse>(httpClient, options);
+            PollenHeatmapTile = new HttpClientEngineFacade<PollenHeatmapTileRequest, PollenHeatmapTileResponse>(httpClient, options);
             AerialView = new AerialViewApi(httpClient, options);
         }
 
@@ -126,6 +136,24 @@ namespace GoogleMapsApi
 
         /// <inheritdoc/>
         public IEngineFacade<GeoTiffRequest, GeoTiffResponse> SolarGeoTiff { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<CurrentConditionsRequest, CurrentConditionsResponse> AirQualityCurrentConditions { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<ForecastRequest, ForecastResponse> AirQualityForecast { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<HistoryRequest, HistoryResponse> AirQualityHistory { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<HeatmapTileRequest, HeatmapTileResponse> AirQualityHeatmapTile { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<PollenForecastRequest, PollenForecastResponse> PollenForecast { get; }
+
+        /// <inheritdoc/>
+        public IEngineFacade<PollenHeatmapTileRequest, PollenHeatmapTileResponse> PollenHeatmapTile { get; }
 
         /// <inheritdoc/>
         public IAerialViewApi AerialView { get; }
