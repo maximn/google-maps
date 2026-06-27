@@ -16,25 +16,22 @@ namespace GoogleMapsApi.Engine.JsonConverters
                 throw new JsonException($"Expected StartObject, got {reader.TokenType}");
 
             var polyline = new OverviewPolyline();
-            var encodedPointsProperty = typeToConvert.GetProperty("EncodedPoints", 
-                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             while (reader.Read())
             {
                 if (reader.TokenType == JsonTokenType.EndObject)
                     break;
 
-                if (reader.TokenType == JsonTokenType.PropertyName)
-                {
-                    var propertyName = reader.GetString();
-                    reader.Read();
+                if (reader.TokenType != JsonTokenType.PropertyName)
+                    continue;
 
-                    if (propertyName == "points" && reader.TokenType == JsonTokenType.String)
-                    {
-                        var encodedPoints = reader.GetString();
-                        encodedPointsProperty?.SetValue(polyline, encodedPoints);
-                    }
-                }
+                var propertyName = reader.GetString();
+                reader.Read();
+
+                if (propertyName == "points" && reader.TokenType == JsonTokenType.String)
+                    polyline.EncodedPoints = reader.GetString();
+                else
+                    reader.Skip();
             }
 
             // Initialize lazy points after deserialization
@@ -52,14 +49,8 @@ namespace GoogleMapsApi.Engine.JsonConverters
 
             writer.WriteStartObject();
 
-            var encodedPointsProperty = typeof(OverviewPolyline).GetProperty("EncodedPoints",
-                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            
-            var encodedPoints = (string?)encodedPointsProperty?.GetValue(value);
-            if (encodedPoints != null)
-            {
-                writer.WriteString("points", encodedPoints);
-            }
+            if (value.EncodedPoints != null)
+                writer.WriteString("points", value.EncodedPoints);
 
             writer.WriteEndObject();
         }
