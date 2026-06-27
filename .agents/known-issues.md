@@ -9,7 +9,6 @@ When you fix one, remove it from this list (and update the relevant `.agents/*.m
 
 | ID | Severity | Issue | Where | Recommended fix |
 | --- | --- | --- | --- | --- |
-| **B1** | low | Dead `.nuspec` — targets `net60`, depends on `Newtonsoft.Json`, old `code.google.com` icon. Packing is csproj-driven (`GeneratePackageOnBuild`), so it's unused and misleading. | `/.nuspec` | Delete it. |
 | **B3** | medium | `DurationJsonConverter` and `OverviewPolylineJsonConverter` resolve members by name via reflection (`GetProperty`) — rename-fragile, and they silently accept partial objects (a missing token leaves that field unset). | `Engine/JsonConverters/DurationJsonConverter.cs`, `Engine/JsonConverters/OverviewPolylineJsonConverter.cs` | Replace reflection with direct (de)serialization of explicit DTOs. |
 | **B4** | low | HTTP status tag is set on `Activity.Current` instead of the captured `activity`, so it can misattribute under unusual ambient-Activity nesting. | `Engine/MapsAPIGenericEngine.cs:122` | Capture `activity` and tag it directly; pass it down or set the tag inside the parent scope. See [`observability.md`](observability.md). |
 | **B5** | low | Observability is tracing-only — no `ILogger` integration and no metrics (counters/histograms). | `Engine/MapsAPIGenericEngine.cs` | Optional: add an `ILogger`-based debug log and OTel metrics (request count, duration histogram, error count). |

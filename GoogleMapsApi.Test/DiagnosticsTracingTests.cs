@@ -106,6 +106,57 @@ namespace GoogleMapsApi.Test
             Assert.That(response, Is.Not.Null);
         }
 
+        [Test]
+        public async Task QueryAsync_WhenGoogleMapsSpanNotRecorded_DoesNotTagAmbientParentSpan()
+        {
+            using var parentSource = new ActivitySource("Test.Parent.Source");
+            using var parentListener = new ActivityListener
+            {
+                ShouldListenTo = s => s.Name == "Test.Parent.Source",
+                Sample = (ref ActivityCreationOptions<ActivityContext> _) => ActivitySamplingResult.AllDataAndRecorded,
+            };
+            ActivitySource.AddActivityListener(parentListener);
+
+            // Intentionally NO listener for GoogleMapsActivity.SourceName: the engine's StartActivity
+            // returns null, leaving Activity.Current == the parent span.
+            using var parent = parentSource.StartActivity("user-operation");
+            Assert.That(parent, Is.Not.Null);
+
+            using var handler = new StubHandler(HttpStatusCode.OK, OkGeocodingJson);
+            using var http = new HttpClient(handler);
+            var client = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "k" });
+
+            await client.Geocode.QueryAsync(new GeocodingRequest { Address = "a" });
+
+            Assert.That(parent!.GetTagItem("http.response.status_code"), Is.Null);
+        }
+
+        [Test]
+        public async Task QueryAsync_TagsStatusCode_OnStartedSpan_WhenNestedUnderParent()
+        {
+            var captured = new List<Activity>();
+            using var listener = CreateListener(captured);
+
+            using var parentSource = new ActivitySource("Test.Parent.Source");
+            using var parentListener = new ActivityListener
+            {
+                ShouldListenTo = s => s.Name == "Test.Parent.Source",
+                Sample = (ref ActivityCreationOptions<ActivityContext> _) => ActivitySamplingResult.AllDataAndRecorded,
+            };
+            ActivitySource.AddActivityListener(parentListener);
+            using var parent = parentSource.StartActivity("user-operation");
+
+            using var handler = new StubHandler(HttpStatusCode.OK, OkGeocodingJson);
+            using var http = new HttpClient(handler);
+            var client = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "k" });
+
+            await client.Geocode.QueryAsync(new GeocodingRequest { Address = "a" });
+
+            var span = captured.Single(a => a.OperationName == "GoogleMapsApi Geocoding");
+            Assert.That(span.GetTagItem("http.response.status_code"), Is.EqualTo(200));
+            Assert.That(parent!.GetTagItem("http.response.status_code"), Is.Null);
+        }
+
         private sealed class StubHandler : HttpMessageHandler
         {
             private readonly HttpStatusCode _statusCode;
