@@ -1,8 +1,7 @@
 using System;
 using System.Globalization;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using GoogleMapsApi.Engine.JsonConverters;
+using GoogleMapsApi.Engine;
 
 namespace GoogleMapsApi.Entities.AirQuality.Request
 {
@@ -13,17 +12,7 @@ namespace GoogleMapsApi.Entities.AirQuality.Request
     internal static class AirQualityJson
     {
         /// <summary>Options for serializing request bodies: omit nulls and emit enums by their wire value.</summary>
-        public static readonly JsonSerializerOptions BodyOptions = BuildBodyOptions();
-
-        private static JsonSerializerOptions BuildBodyOptions()
-        {
-            var opts = new JsonSerializerOptions
-            {
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            };
-            opts.Converters.Add(new EnumMemberJsonConverterFactory());
-            return opts;
-        }
+        public static readonly JsonSerializerOptions BodyOptions = JsonSerializerConfiguration.CreateRequestBodyOptions();
 
         /// <summary>Formats a timestamp as the RFC3339 UTC string the Air Quality API expects.</summary>
         public static string Rfc3339(DateTimeOffset value) =>

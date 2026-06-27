@@ -3,7 +3,7 @@
 The library uses **`System.Text.Json`** (not Newtonsoft). Two distinct paths:
 
 - **Response deserialization** (all APIs) — driven by one shared options factory.
-- **Request body serialization** (POST APIs only) — currently each request builds its own options.
+- **Request body serialization** (POST APIs only) — driven by a parallel shared options factory.
 
 ## Shared response options
 
@@ -42,14 +42,18 @@ GET query params** (e.g. Directions/Distance Matrix departure time). New POST AP
 
 ## Request-body serialization (POST APIs)
 
-Routes, Address Validation, and the Places (New) requests each construct their **own**
-`new JsonSerializerOptions { DefaultIgnoreCondition = WhenWritingNull, … }` inside their
-`GetRequestBody()` and serialize an `internal sealed Payload` shaped with `[JsonPropertyName]`.
+`GoogleMapsApi/Engine/JsonSerializerConfiguration.cs` → `CreateRequestBodyOptions()` is the single
+source of truth every POST endpoint uses to serialize its request body. It sets:
 
-> **Known inconsistency (B2):** this duplicates converter/option setup across five request types and
-> can drift from the shared response options. When adding a POST API, prefer factoring the body options
-> into a shared helper (mirroring `JsonSerializerConfiguration`). Tracked in
-> [`known-issues.md`](known-issues.md).
+- `DefaultIgnoreCondition = WhenWritingNull` (omit unset optional fields)
+- `EnumMemberJsonConverterFactory` (emit enums by their `[EnumMember]` wire value)
+
+Each POST request (Routes, Address Validation, Aerial View, Air Quality, and the Places (New)
+requests) holds a `private static readonly JsonSerializerOptions BodyOptions =
+JsonSerializerConfiguration.CreateRequestBodyOptions();` and serializes an `internal sealed Payload`
+shaped with `[JsonPropertyName]` through it. When adding a POST API, reuse this factory rather than
+building options inline. `RequestBodySerializationTests` locks the shared invariants (null omission +
+enum wire values) across every endpoint.
 
 ## Query-string building (GET APIs)
 

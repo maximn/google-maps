@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using GoogleMapsApi.Engine.JsonConverters;
 
 namespace GoogleMapsApi.Engine
@@ -30,6 +31,24 @@ namespace GoogleMapsApi.Engine
             // Add Duration converters for specific types
             options.Converters.Add(new DistanceMatrixDurationJsonConverter());
             options.Converters.Add(new DirectionsDurationJsonConverter());
+
+            return options;
+        }
+
+        /// <summary>
+        /// Creates the JsonSerializerOptions used to serialize POST request bodies: omit null fields and
+        /// emit enums by their <c>[EnumMember]</c> wire value. This is the single source of truth for every
+        /// POST endpoint's request body, mirroring the response-side <see cref="CreateOptions"/>.
+        /// </summary>
+        /// <returns>Configured JsonSerializerOptions instance for request bodies</returns>
+        public static JsonSerializerOptions CreateRequestBodyOptions()
+        {
+            var options = new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            };
+
+            options.Converters.Add(new EnumMemberJsonConverterFactory());
 
             return options;
         }
