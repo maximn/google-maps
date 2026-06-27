@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using GoogleMapsApi.Engine;
 using GoogleMapsApi.Entities.Common;
 
 namespace GoogleMapsApi.Entities.AerialView.Request
@@ -46,10 +47,7 @@ namespace GoogleMapsApi.Entities.AerialView.Request
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        private static readonly JsonSerializerOptions BodyOptions = new JsonSerializerOptions
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        };
+        private static readonly JsonSerializerOptions BodyOptions = JsonSerializerConfiguration.CreateRequestBodyOptions();
 
         private sealed class Payload
         {

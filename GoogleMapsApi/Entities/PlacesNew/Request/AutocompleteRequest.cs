@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using GoogleMapsApi.Engine;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.PlacesNew.Common;
 
@@ -80,17 +81,7 @@ namespace GoogleMapsApi.Entities.PlacesNew.Request
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        private static readonly JsonSerializerOptions BodyOptions = BuildBodyOptions();
-
-        private static JsonSerializerOptions BuildBodyOptions()
-        {
-            var opts = new JsonSerializerOptions
-            {
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            };
-            opts.Converters.Add(new Engine.JsonConverters.EnumMemberJsonConverterFactory());
-            return opts;
-        }
+        private static readonly JsonSerializerOptions BodyOptions = JsonSerializerConfiguration.CreateRequestBodyOptions();
 
         private sealed class Payload
         {
