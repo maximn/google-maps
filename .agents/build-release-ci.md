@@ -86,5 +86,4 @@ dotnet pack --no-build               # .nupkg + .snupkg
 dotnet format --verify-no-changes    # CI-style format check
 ```
 
-> Note: `/.nuspec` at the repo root is **dead** (it targets `net60` and `Newtonsoft.Json`); packing is
-> entirely csproj-driven via `GeneratePackageOnBuild`. Slated for deletion — [`known-issues.md`](known-issues.md) (B1).
+> Note: packaging is entirely csproj-driven via `GeneratePackageOnBuild` — there is no `.nuspec`.
