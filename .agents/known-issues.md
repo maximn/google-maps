@@ -19,5 +19,8 @@ When you fix one, remove it from this list (and update the relevant `.agents/*.m
 
 - **B6** — `OnRawResponseReceived` exposes unredacted response bytes (potential PII). Documented as a
   consumer **security note** in [`observability.md`](observability.md).
-- **B9** — integration tests hit live Google APIs with no VCR/cassette (non-hermetic). This is a
-  **deliberate** project decision; documented as a tradeoff in [`testing.md`](testing.md).
+- **B9** — the VCR record/replay harness exists (#306) but **no cassettes are committed yet**, so
+  replay integration coverage is dormant: CI's replay step is cassette-guarded and skips, and a local
+  `replay` run fails on the integration suite until it's seeded. **Fix:** record + commit the dataset
+  (`VCR_MODE=record GOOGLE_API_KEY=<key> RUN_BILLABLE_TESTS=true dotnet test`) — billable; tracked by
+  issue #300. See [`testing.md`](testing.md).
