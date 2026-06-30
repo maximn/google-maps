@@ -13,7 +13,8 @@ Releases are **tag-driven**: pushing a git tag matching `v*` to `origin` trigger
   git pull
   git status   # should be clean
   ```
-- The `NUGET_API_KEY` secret is configured in repo settings (one-time setup; already in place)
+- The `NUGET_API_KEY` secret is configured as a `release` **environment** secret (one-time setup — see [`.agents/build-release-ci.md`](.agents/build-release-ci.md))
+- You can approve the `release` environment deployment (the publish run pauses for a required reviewer)
 
 ## Option 1: Use the release script (recommended)
 
@@ -69,6 +70,8 @@ Both options end at the same place — a `v*` tag in `origin` — and trigger th
 
 [`.github/workflows/nuget.yml`](.github/workflows/nuget.yml) runs on `push` of any `v*` tag:
 
+0. **Waits for approval** — the publish job runs in the `release` environment, so the run pauses on
+   "Review deployments" until a required reviewer approves (this is the human gate; nothing below runs first)
 1. Checks out the repo with full history and tags (`fetch-depth: 0`) at the tagged commit
 2. Installs the .NET SDKs needed to build all target frameworks
 3. `dotnet restore` → `dotnet build -c Release` → `dotnet pack -c Release` — [MinVer](https://github.com/adamralph/minver) derives the package version from the `v*` tag at build time (`v1.4.6` → `1.4.6`); no csproj is patched. Commits without a tag get a unique prerelease version (e.g. `1.4.7-alpha.0.3`), so only tagged builds publish a stable release.
@@ -79,6 +82,8 @@ Both options end at the same place — a `v*` tag in `origin` — and trigger th
 ## After pushing the tag
 
 - Watch the run: <https://github.com/maximn/google-maps/actions>
+- **Approve the deployment** — the run pauses on "Review deployments"; approve the `release`
+  environment to let the publish proceed (a reviewer can also reject it to abort)
 - Once green, the new version appears at <https://www.nuget.org/packages/GoogleMapsApi/> (usually within a few minutes)
 
 ## Recovery

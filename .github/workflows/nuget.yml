@@ -21,6 +21,8 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # Gate real publishes behind the 'release' environment (required reviewer); leave dry-runs ungated.
+    environment: ${{ (github.event_name == 'push' || inputs.dry_run == false) && 'release' || '' }}
     permissions:
       contents: write       # create GitHub Release
       id-token: write       # Sigstore OIDC
