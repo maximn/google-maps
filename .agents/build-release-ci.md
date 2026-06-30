@@ -51,9 +51,38 @@ per-package **CycloneDX SBOM** (`*.bom.json`, via the `dotnet CycloneDX` local t
 creates **SLSA build-provenance attestations**, pushes `.nupkg`+`.snupkg` to NuGet.org with
 `--skip-duplicate`, and attaches the packages, SBOMs, and attestation bundle to the GitHub Release.
 
-> **OPS note (B8):** there is **no manual approval gate** — a `v*` tag push publishes to NuGet.org
-> immediately. The human checkpoint is the interactive `release.sh` prompt. Treat tag creation as the
-> point of no return.
+The publish job runs in the **`release` GitHub Environment** (a required reviewer must approve the
+deployment before it runs), and `NUGET_API_KEY` is a `release` **environment** secret — so only the
+gated job can read it. `workflow_dispatch` **dry-runs stay ungated** (the job's `environment:`
+expression resolves to no environment when `dry_run` is left at its `true` default), so they pack +
+SBOM + attest without prompting. A real `v*` tag push or a `dry_run=false` manual run pauses on
+"Review deployments" until approved.
+
+> **OPS note:** approving the `release` deployment is the point of no return — `--skip-duplicate`
+> means a same-version re-run is a no-op, but a published version cannot be unpublished from NuGet.org.
+
+### One-time `release` environment setup
+
+Repo-admin steps (recorded here so they're reproducible). `prevent_self_review=false` lets a solo
+maintainer approve their own release (set `true` and use a distinct reviewer for a team). No
+deployment-branch policy is set: the reviewer gate already governs every deployment, and leaving it
+open keeps both the tag-push and the manual `workflow_dispatch` publish (from `master`) working.
+
+```bash
+REVIEWER_ID=$(gh api users/maximn --jq .id)
+gh api --method PUT repos/maximn/google-maps/environments/release --input - <<JSON
+{
+  "wait_timer": 0,
+  "prevent_self_review": false,
+  "reviewers": [{ "type": "User", "id": $REVIEWER_ID }],
+  "deployment_branch_policy": null
+}
+JSON
+
+# Scope the publish key to the gated job: add it under the environment, then drop the repo copy.
+gh secret set NUGET_API_KEY --env release --repo maximn/google-maps   # prompts for value
+gh secret delete NUGET_API_KEY --repo maximn/google-maps              # only after a gated publish succeeds
+```
 
 ## CI (`.github/workflows/dotnet.yml`)
 
@@ -73,9 +102,9 @@ Two heavy jobs never gate PRs — both `workflow_dispatch`, and run on demand or
 - `renovate.json` — auto-merges non-major GitHub Actions and test/dev dependency updates and patch
   updates for runtime deps, with a 3-day `minimumReleaseAge`.
 
-> **OPS note (B8):** Renovate auto-merge assumes branch protection ("require status checks") is
-> configured on `master`; verify that in repo settings, otherwise an update could merge without CI
-> passing.
+> **OPS note:** Renovate auto-merge relies on branch protection requiring CI. Verified on `master`
+> (2026-06-29): `required_status_checks` enforces `build` + `Analyze (csharp)` + `Analyze (actions)`,
+> so a non-major update can't auto-merge without a green build + CodeQL.
 
 ## Commands
 
