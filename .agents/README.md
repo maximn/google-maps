@@ -37,4 +37,7 @@ trusting stale prose.
 - **Target frameworks:** `netstandard2.0; net8.0; net10.0` (the core library). Not 6 frameworks —
   `net6.0`, `net481`, `net462` were dropped in 2.0.
 - **Serialization is `System.Text.Json`**, not Newtonsoft.
-- **Integration tests hit the LIVE Google APIs** (no cassette/VCR) and need a real `GOOGLE_API_KEY`.
+- **Integration tests default to VCR replay.** `VCR_MODE=replay` (the default) serves committed
+  cassettes offline — no `GOOGLE_API_KEY`, no charges. Only the opt-in `record`/`auto`/`live` modes
+  need a real key. (Cassettes aren't seeded yet, so replay is dormant until recorded — see
+  [`testing.md`](testing.md).)
