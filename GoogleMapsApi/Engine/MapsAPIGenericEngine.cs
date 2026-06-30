@@ -49,21 +49,32 @@ namespace GoogleMapsApi.Engine
 			var body = request.GetRequestBody();
 
 			var apiName = GetApiName();
+			var method = body is null ? "GET" : "POST";
 			using var activity = GoogleMapsActivity.Source.StartActivity($"GoogleMapsApi {apiName}", ActivityKind.Client);
 			if (activity is not null)
 			{
 				activity.SetTag("gmaps.api", apiName);
-				activity.SetTag("http.request.method", body is null ? "GET" : "POST");
+				activity.SetTag("http.request.method", method);
 				activity.SetTag("server.address", uri.Host);
 				activity.SetTag("url.full", RedactUrl(uri));
 			}
+
+			var startTimestamp = Stopwatch.GetTimestamp();
+			int? statusCode = null;
+			string? responseStatus = null;
+			string? errorType = null;
+			Action<int> onResponseStatus = code =>
+			{
+				statusCode = code;
+				activity?.SetTag("http.response.status_code", code);
+			};
 
 			try
 			{
 				// Binary endpoints (e.g. Solar GeoTIFF) carry raw bytes, not JSON.
 				if (typeof(IBinaryResponse).IsAssignableFrom(typeof(TResponse)))
 				{
-					var (bytes, contentType) = await SendAsync(httpClient, uri, body, timeout, token, activity, async response =>
+					var (bytes, contentType) = await SendAsync(httpClient, uri, body, timeout, token, onResponseStatus, async response =>
 						(await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false),
 						 response.Content.Headers.ContentType?.MediaType)).ConfigureAwait(false);
 
@@ -76,17 +87,17 @@ namespace GoogleMapsApi.Engine
 					return binaryResult;
 				}
 
-				var responseContent = await SendAsync(httpClient, uri, body, timeout, token, activity,
+				var responseContent = await SendAsync(httpClient, uri, body, timeout, token, onResponseStatus,
 					response => response.Content.ReadAsStringAsync()).ConfigureAwait(false);
 
 				onRawResponseReceived?.Invoke(Encoding.UTF8.GetBytes(responseContent));
 
 				var response = JsonSerializer.Deserialize<TResponse>(responseContent, jsonOptions)!;
 
-				if (activity is not null)
+				if (activity is not null || GoogleMapsMetrics.RequestDuration.Enabled)
 				{
-					var responseStatus = GetResponseStatus(response);
-					if (responseStatus is not null)
+					responseStatus = GetResponseStatus(response);
+					if (activity is not null && responseStatus is not null)
 						activity.SetTag("gmaps.response_status", responseStatus);
 				}
 
@@ -94,13 +105,15 @@ namespace GoogleMapsApi.Engine
 			}
 			catch (Exception ex)
 			{
+				errorType = ex.GetType().FullName;
 				activity?.SetStatus(ActivityStatusCode.Error, ex.Message);
-				activity?.SetTag("error.type", ex.GetType().FullName);
+				activity?.SetTag("error.type", errorType);
 				throw;
 			}
 			finally
 			{
 				body?.Dispose();
+				GoogleMapsMetrics.Record(apiName, method, statusCode, responseStatus, errorType, startTimestamp);
 			}
 		}
 
@@ -121,7 +134,7 @@ namespace GoogleMapsApi.Engine
 			return property?.GetValue(response)?.ToString();
 		}
 
-		private static async Task<T> SendAsync<T>(HttpClient httpClient, Uri uri, HttpContent? body, TimeSpan timeout, CancellationToken cancellationToken, Activity? activity, Func<HttpResponseMessage, Task<T>> readContent)
+		private static async Task<T> SendAsync<T>(HttpClient httpClient, Uri uri, HttpContent? body, TimeSpan timeout, CancellationToken cancellationToken, Action<int>? onResponseStatus, Func<HttpResponseMessage, Task<T>> readContent)
 		{
 			using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 			if (timeout != TimeSpan.FromMilliseconds(-1))
@@ -132,7 +145,7 @@ namespace GoogleMapsApi.Engine
 				using var response = body == null
 					? await httpClient.GetAsync(uri, cts.Token).ConfigureAwait(false)
 					: await httpClient.PostAsync(uri, body, cts.Token).ConfigureAwait(false);
-				activity?.SetTag("http.response.status_code", (int)response.StatusCode);
+				onResponseStatus?.Invoke((int)response.StatusCode);
 				await HandleHttpResponse(response, timeout).ConfigureAwait(false);
 				return await readContent(response).ConfigureAwait(false);
 			}
