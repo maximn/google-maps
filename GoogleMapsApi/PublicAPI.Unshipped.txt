@@ -813,3 +813,5 @@ GoogleMapsApi.IGoogleMapsClient.PollenForecast.get -> GoogleMapsApi.IEngineFacad
 GoogleMapsApi.IGoogleMapsClient.PollenHeatmapTile.get -> GoogleMapsApi.IEngineFacade<GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest!, GoogleMapsApi.Entities.Pollen.Response.PollenHeatmapTileResponse!>!
 override GoogleMapsApi.Entities.Pollen.Request.PollenForecastRequest.GetUri() -> System.Uri!
 override GoogleMapsApi.Entities.Pollen.Request.PollenHeatmapTileRequest.GetUri() -> System.Uri!
+GoogleMapsApi.Diagnostics.GoogleMapsMetrics
+const GoogleMapsApi.Diagnostics.GoogleMapsMetrics.MeterName = "GoogleMapsApi" -> string!

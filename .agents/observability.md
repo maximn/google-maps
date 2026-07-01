@@ -1,7 +1,8 @@
 # Observability, events & error handling
 
-Tracing, the two diagnostic events, and how failures surface. All of this lives in
-`GoogleMapsApi/Engine/MapsAPIGenericEngine.cs` and `GoogleMapsApi/Diagnostics/GoogleMapsActivity.cs`.
+Tracing, metrics, the two diagnostic events, and how failures surface. All of this lives in
+`GoogleMapsApi/Engine/MapsAPIGenericEngine.cs`, `GoogleMapsApi/Diagnostics/GoogleMapsActivity.cs`, and
+`GoogleMapsApi/Diagnostics/GoogleMapsMetrics.cs`.
 
 ## OpenTelemetry tracing
 
@@ -39,9 +40,37 @@ On exception the span is set to `ActivityStatusCode.Error` with the message and 
 > `GetHttpResponseAsync` rather than the captured `activity` reference (`MapsAPIGenericEngine.cs:122`).
 > Fine in the common path; can misattribute under unusual ambient-Activity nesting. See
 > [`known-issues.md`](known-issues.md).
->
-> **Gaps (B5):** tracing only — there is no `ILogger` integration and no metrics (counters/histograms).
-> Latency is implicit in span duration. Logging is a candidate enhancement.
+
+## Metrics
+
+The library also records **three metric instruments per call**, published from a `Meter` named
+**`GoogleMapsMetrics.MeterName == "GoogleMapsApi"`** (same name as the trace source). Like the tracing, the
+instruments are zero-cost until a listener subscribes — `GoogleMapsMetrics.Record` early-returns when no
+instrument is `Enabled`. Recording happens once per call in the `finally` of `QueryGoogleAPIAsync`.
+
+Consumer wiring (OpenTelemetry):
+
+```csharp
+meterProviderBuilder.AddMeter(GoogleMapsApi.Diagnostics.GoogleMapsMetrics.MeterName);
+```
+
+| Instrument | Type | Unit | Tags |
+| --- | --- | --- | --- |
+| `gmaps.client.requests` | `Counter<long>` | `{request}` | `gmaps.api`, `http.request.method` |
+| `gmaps.client.request.duration` | `Histogram<double>` | `s` | `gmaps.api`, `http.request.method`, `http.response.status_code`*, `gmaps.response_status`* |
+| `gmaps.client.request.errors` | `Counter<long>` | `{error}` | `gmaps.api`, `error.type` |
+
+\* added only when available (a response arrived / the response type exposes a `Status`).
+
+The request counter increments for **every** attempt (success or failure); the error counter increments only when
+the call throws. Mirroring the trace model, Google business statuses (`ZERO_RESULTS`, `OVER_QUERY_LIMIT`, …) arrive
+as `200 OK`, do **not** throw, and so are **not** counted as errors — they are visible via `gmaps.response_status`
+on the duration histogram.
+
+> **Non-goal — `ILogger`:** there is deliberately no `ILogger` integration. The OTel tracing already carries
+> method/host/redacted URL/status/`error.type`/duration; the library has no retry logic to "warn" on; and the
+> static HTTP engine makes threading an instance logger costly. Users who want logs should bridge the spans to a
+> log sink rather than expect a built-in logger.
 
 ## The two events (`IEngineFacade`)
 

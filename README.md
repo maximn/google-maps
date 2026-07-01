@@ -45,7 +45,7 @@ Google ships official .NET packages primarily for its *newer* gRPC APIs — `Goo
 | Runtime dependencies | Lightweight: `System.Text.Json` on modern .NET; small compatibility helpers on `netstandard2.0` | gRPC stack: `Google.Api.Gax.Grpc`, `Google.Geo.Type`, Protobuf/gRPC dependencies; `Grpc.Core` on .NET Framework |
 | Maturity | Stable 2.x, 2M+ downloads | Several Maps packages still in beta (`1.0.0-betaNN`) |
 | DI / `IHttpClientFactory` | [`AddGoogleMaps(...)`](#instance-based-client-ihttpclientfactory-friendly) extension | `ClientBuilder` pattern; no `IHttpClientFactory` story |
-| Observability | [OpenTelemetry](#observability-opentelemetry-tracing) span per call (API key redacted) | None built-in |
+| Observability | [OpenTelemetry](#observability-opentelemetry-tracing--metrics) tracing span + metrics per call (API key redacted) | None built-in |
 
 **Prefer Google's official packages when** you need gRPC transport or streaming, deep integration with other Google Cloud client libraries, or Google's own support — and you only consume one of the gRPC-backed APIs. Otherwise, a single idiomatic package that also covers the web-service APIs is usually the friendlier choice.
 
@@ -385,7 +385,9 @@ DirectionsResponse directions = maps.Directions.QueryAsync(directionsRequest).Ge
 Console.WriteLine(directions);
 ```
 
-## Observability (OpenTelemetry tracing)
+## Observability (OpenTelemetry tracing & metrics)
+
+### Tracing
 
 Every API call emits a [distributed-tracing](https://opentelemetry.io/docs/concepts/signals/traces/) span from an
 [`ActivitySource`](https://learn.microsoft.com/dotnet/core/diagnostics/distributed-tracing) named **`GoogleMapsApi`**.
@@ -416,6 +418,33 @@ representing call latency. Tags follow OpenTelemetry HTTP semantic conventions p
 | `gmaps.response_status` | `OK` / `ZERO_RESULTS` | Google body status, where the API exposes one |
 
 Failures set the span status to `Error` and add an `error.type` tag.
+
+### Metrics
+
+Every call also records to three instruments published from a [`Meter`](https://learn.microsoft.com/dotnet/core/diagnostics/metrics-instrumentation)
+named **`GoogleMapsApi`** (same name as the trace source). Like the tracing, the instrumentation is inert until a
+listener subscribes. With OpenTelemetry, add the meter by name (the constant `GoogleMapsApi.Diagnostics.GoogleMapsMetrics.MeterName`):
+
+``` C#
+using OpenTelemetry.Metrics;
+using GoogleMapsApi.Diagnostics;
+
+builder.Services.AddOpenTelemetry().WithMetrics(metrics => metrics
+    .AddMeter(GoogleMapsMetrics.MeterName) // "GoogleMapsApi"
+    .AddOtlpExporter());
+```
+
+| Instrument | Type | Unit | Meaning |
+| --- | --- | --- | --- |
+| `gmaps.client.requests` | counter | `{request}` | Calls attempted (success **and** failure) |
+| `gmaps.client.request.duration` | histogram | `s` | Call latency in seconds |
+| `gmaps.client.request.errors` | counter | `{error}` | Calls that threw (transport/HTTP failures) |
+
+All three carry the `gmaps.api` tag; requests/duration also carry `http.request.method`, and the duration histogram
+adds `http.response.status_code` and `gmaps.response_status` when available. The error counter adds `error.type`.
+
+> Google "business" statuses (`ZERO_RESULTS`, `OVER_QUERY_LIMIT`, …) arrive as `200 OK` and **do not** count as
+> errors — they surface via the `gmaps.response_status` tag on the duration histogram.
 
 ---
 
