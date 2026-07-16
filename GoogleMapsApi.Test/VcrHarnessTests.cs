@@ -70,6 +70,22 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
+        public void NormalizeBody_ReplacesPeriodTimestamps()
+        {
+            const string firstBody = """
+                {"location":{"latitude":37.422,"longitude":-122.0841},"period":{"startTime":"2026-07-15T10:00:00Z","endTime":"2026-07-15T16:00:00Z"},"pageSize":6}
+                """;
+            const string secondBody = """
+                {"location":{"latitude":37.422,"longitude":-122.0841},"period":{"startTime":"2026-07-16T10:00:00Z","endTime":"2026-07-16T16:00:00Z"},"pageSize":6}
+                """;
+
+            var normalized = Cassette.NormalizeBody(firstBody);
+
+            Assert.That(normalized, Is.EqualTo(Cassette.NormalizeBody(secondBody)));
+            Assert.That(normalized, Does.Not.Contain("2026-07-15"));
+        }
+
+        [Test]
         public async Task Record_ReplacesExistingCassette()
         {
             await RecordOnce();
