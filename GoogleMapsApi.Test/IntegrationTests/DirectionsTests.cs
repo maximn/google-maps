@@ -203,10 +203,12 @@ namespace GoogleMapsApi.Test.IntegrationTests
                             .AddDays(1)
                             .AddHours(13);
             
+            // A longer cross-city route (Stockholm central hub to the airport rail terminus) so Google
+            // reliably returns a transit itinerary with a vehicle icon rather than a walking-only route.
             var request = new DirectionsRequest
             {
                 Origin = "T-centralen, Stockholm, Sverige",
-                Destination = "Kungsträdgården, Stockholm, Sverige",
+                Destination = "Arlanda Central, Sigtuna, Sverige",
                 TravelMode = TravelMode.Transit,
                 DepartureTime = dep_time,
                 Language = "sv",
@@ -217,6 +219,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             DirectionsResponse result = await Maps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
+            AssertInconclusive.HasTransitStep(result);
 
             Assert.That(result.Routes, Is.Not.Null.And.Not.Empty, "Routes should not be null or empty");
             Assert.That(result.Routes!.First().Legs, Is.Not.Null.And.Not.Empty, "Legs should not be null or empty");

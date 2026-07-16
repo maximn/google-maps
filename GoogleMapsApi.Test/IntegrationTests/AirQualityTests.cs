@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using GoogleMapsApi.Entities.AirQuality.Request;
 using GoogleMapsApi.Test.Utils;
@@ -37,11 +38,14 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public async Task Forecast_ValidLocation_ReturnsHourlyForecasts()
         {
+            // forecast:lookup requires an explicit future time window; without one the API returns 400.
+            var now = DateTimeOffset.UtcNow;
             var response = await Maps.AirQualityForecast.QueryAsync(new ForecastRequest
             {
                 ApiKey = ApiKey,
                 Latitude = Latitude,
                 Longitude = Longitude,
+                Period = new Interval { StartTime = now, EndTime = now.AddHours(6) },
                 PageSize = 6,
             });
 

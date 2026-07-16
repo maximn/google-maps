@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 
 namespace GoogleMapsApi.Test.Vcr
@@ -69,12 +70,41 @@ namespace GoogleMapsApi.Test.Vcr
             try
             {
                 using var doc = JsonDocument.Parse(body!);
-                return JsonSerializer.Serialize(doc.RootElement);
+                return JsonSerializer.Serialize(NormalizeJson(doc.RootElement));
             }
             catch (JsonException)
             {
                 return body!.Trim();
             }
+        }
+
+        private static JsonNode? NormalizeJson(JsonElement element, string? parentPropertyName = null)
+        {
+            if (element.ValueKind == JsonValueKind.Object)
+            {
+                var obj = new JsonObject();
+                foreach (var property in element.EnumerateObject())
+                {
+                    obj[property.Name] = parentPropertyName == "period" &&
+                                         property.Value.ValueKind == JsonValueKind.String &&
+                                         (property.Name == "startTime" || property.Name == "endTime")
+                        ? "<timestamp>"
+                        : NormalizeJson(property.Value, property.Name);
+                }
+
+                return obj;
+            }
+
+            if (element.ValueKind == JsonValueKind.Array)
+            {
+                var array = new JsonArray();
+                foreach (var item in element.EnumerateArray())
+                    array.Add(NormalizeJson(item, parentPropertyName));
+
+                return array;
+            }
+
+            return JsonNode.Parse(element.GetRawText());
         }
 
         /// <summary>
@@ -89,7 +119,8 @@ namespace GoogleMapsApi.Test.Vcr
             var occurrence = 0;
             foreach (var interaction in _interactions)
             {
-                if (interaction.MatchKey != key)
+                var interactionKey = $"{interaction.Method} {interaction.Url}\n{NormalizeBody(interaction.RequestBody)}";
+                if (interactionKey != key)
                     continue;
 
                 if (occurrence++ < seen)
