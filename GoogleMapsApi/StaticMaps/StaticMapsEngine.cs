@@ -29,8 +29,6 @@ namespace GoogleMapsApi.StaticMaps
 		/// <returns>The fully composed Static Maps URL.</returns>
 		public string GenerateStaticMapURL(StaticMapRequest request)
 		{
-			string scheme = request.IsSSL ? "https://" : "http://";
-
 			var parametersList = new QueryStringParametersList();
 
             if (!string.IsNullOrEmpty(request.ApiKey))
@@ -385,7 +383,7 @@ namespace GoogleMapsApi.StaticMaps
 				}
 			}
 
-			return scheme + BaseUrl + "?" + parametersList.GetQueryStringPostfix();
+			return "https://" + BaseUrl + "?" + parametersList.GetQueryStringPostfix();
 		}
 	}
 }

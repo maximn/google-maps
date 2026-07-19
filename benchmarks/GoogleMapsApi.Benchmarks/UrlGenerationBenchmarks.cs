@@ -89,7 +89,6 @@ public class UrlGenerationBenchmarks
             imageSize: new ImageSize(500, 400))
         {
             ApiKey = ApiKey,
-            IsSSL = true,
         };
     }
 
