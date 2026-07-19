@@ -1,8 +1,7 @@
-﻿using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
 namespace GoogleMapsApi.Entities.Common
 {
-	[DataContract]
 	public enum LocationType
 	{
 		[EnumMember(Value = "street_address")]
