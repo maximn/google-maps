@@ -32,9 +32,13 @@ GET query params** (e.g. Directions/Distance Matrix departure time). New POST AP
 
 ## Enum handling rules
 
-- Add `[EnumMember(Value = "wire_value")]` to an enum member when Google's string differs from the C#
-  name (e.g. `street_address`). If the names already match, no attribute is needed — the converter
-  falls back to the member name.
+- Add `[EnumMember(Value = "wire_value")]` to an enum member **only** when Google's string differs
+  from the C# name (e.g. `street_address`, or `DRIVING` on `Driving`). If the wire value is identical
+  to the member name, **omit the attribute** — the converter falls back to the member name, so a
+  valueless `[EnumMember]` or one whose `Value` equals the name is pure noise.
+  `ConsistencyTests.EnumMemberAttributes_AreOnlyPresentWhenTheWireValueDiffers` enforces this by
+  reflection. `Entities/Geocoding/Response/Status.cs` is the reference style for a bare-name enum.
+- `[DataContract]` is **not** used on enums — it is dead metadata under `System.Text.Json`.
 - The factory's `CanConvert` returns true for **every** enum, so any enum on a response is handled
   consistently. Prefer this over per-property `[JsonConverter]` attributes.
 - Be aware: case-insensitive matching means `"OK"` and `"ok"` both parse — it won't catch a typo'd
