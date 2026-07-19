@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.0] - 2026-07-19
+
+### Added
+- OpenTelemetry metrics for request counts, duration, and errors (#336)
+
+### Changed
+- Unified SSL enforcement and enum handling across requests (#361)
+- Consolidated per-request `JsonSerializerOptions` for POST bodies (#329)
+- Removed reflection from the `Duration` and `OverviewPolyline` JSON converters (#327)
+- Hardened transit/air-quality integration tests and VCR timestamp normalization (#355)
+- NuGet publish is now gated behind a required-reviewer environment (#335)
+- Removed the obsolete root `.nuspec` (#326)
+- Updated the `.agents` knowledge base to match the merged VCR harness (#334)
+- Updated dependencies: .NET monorepo packages (#359), Microsoft.NET.Test.Sdk 18.8.1 (#358, #357, #323), Microsoft.CodeAnalysis.PublicApiAnalyzers 5.6.0 (#343), dotnet-stryker 4.16.0 (#345, #322), GoogleMapsApi.Extensions.DependencyInjection 2.5.0 (#325)
+- Updated CI actions: actions/setup-dotnet v6 (#360, #330), actions/checkout v7 (#315), github/codeql-action v4.37.0 (#352, #341), actions/attest-build-provenance v4.1.1 (#332), testglance/action digests
+
+### Fixed
+- Corrected the scope of the tracing status tag (#328)
+
 ## [2.5.0] - 2026-06-23
 
 ### Added
@@ -535,7 +554,8 @@ _Re-release of 1.4.1; no functional changes._
 - Fixed issue #4
 - "jpg-baselin" → "jpg-baseline" in `StaticMapsEngine`
 
-[Unreleased]: https://github.com/maximn/google-maps/compare/v2.5.0...HEAD
+[Unreleased]: https://github.com/maximn/google-maps/compare/v2.6.0...HEAD
+[2.6.0]: https://github.com/maximn/google-maps/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/maximn/google-maps/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/maximn/google-maps/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/maximn/google-maps/compare/v2.2.0...v2.3.0
