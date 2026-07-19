@@ -80,8 +80,12 @@ namespace GoogleMapsApi.Test
             => Assert.Throws<ArgumentException>(() => new SnapToRoadsRequest { Path = new[] { P1 } }.GetUri());
 
         [Test]
-        public void SnapToRoads_NotSsl_Throws()
-            => Assert.Throws<ArgumentException>(() => new SnapToRoadsRequest { ApiKey = "KEY", IsSSL = false, Path = new[] { P1 } }.GetUri());
+        public void SnapToRoads_RequestingNonSsl_Throws()
+        {
+#pragma warning disable CS0618 // deliberately exercising the obsolete opt-out
+            Assert.Throws<NotSupportedException>(() => new SnapToRoadsRequest { ApiKey = "KEY", IsSSL = false, Path = new[] { P1 } }.GetUri());
+#pragma warning restore CS0618
+        }
 
         [Test]
         public void SnapToRoads_EmptyPath_Throws()

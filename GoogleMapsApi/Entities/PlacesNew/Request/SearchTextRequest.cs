@@ -77,8 +77,6 @@ namespace GoogleMapsApi.Entities.PlacesNew.Request
                 throw new ArgumentException("TextQuery is required for Text Search.", nameof(TextQuery));
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new ArgumentException("ApiKey is required for the Places API (New).", nameof(ApiKey));
-            if (!IsSSL)
-                throw new ArgumentException("Places API (New) requires SSL [IsSSL = true].");
             if (string.IsNullOrWhiteSpace(FieldMask))
                 throw new ArgumentException("FieldMask is required for the Places API (New). See SearchTextRequest.DefaultFieldMask for a starting point.", nameof(FieldMask));
 

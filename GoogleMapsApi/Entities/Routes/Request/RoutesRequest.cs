@@ -104,8 +104,6 @@ namespace GoogleMapsApi.Entities.Routes.Request
         {
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new InvalidOperationException("ApiKey is required for the Routes API.");
-            if (!IsSSL)
-                throw new ArgumentException("Routes API requires SSL [IsSSL = true].");
             if (string.IsNullOrWhiteSpace(FieldMask))
                 throw new InvalidOperationException("FieldMask is required for the Routes API. See RoutesRequest.DefaultFieldMask for a starting point.");
 

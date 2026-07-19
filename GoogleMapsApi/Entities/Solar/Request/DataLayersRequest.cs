@@ -48,8 +48,6 @@ namespace GoogleMapsApi.Entities.Solar.Request
         {
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new InvalidOperationException("ApiKey is required for the Solar API.");
-            if (!IsSSL)
-                throw new ArgumentException("Solar API requires SSL [IsSSL = true].");
             if (RadiusMeters <= 0)
                 throw new ArgumentException("RadiusMeters must be greater than zero.");
 

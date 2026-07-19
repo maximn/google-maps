@@ -101,10 +101,12 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void Forecast_GetUri_NonSsl_Throws()
+        public void Forecast_RequestingNonSsl_Throws()
         {
-            Assert.Throws<ArgumentException>(
+#pragma warning disable CS0618 // deliberately exercising the obsolete opt-out
+            Assert.Throws<NotSupportedException>(
                 () => new PollenForecastRequest { ApiKey = "k", IsSSL = false, Latitude = Latitude, Longitude = Longitude, Days = 1 }.GetUri());
+#pragma warning restore CS0618
         }
 
         [Test]

@@ -185,6 +185,27 @@ These were renamed to fix casing (`...OffSet` → `...Offset`). The JSON wire ma
 
 ---
 
+## 5. `IsSSL` deprecated (2.x), removed in 3.0
+
+The Google Maps Web Services are served over HTTPS only, so `IsSSL` no longer models a real choice.
+It is now `[Obsolete]` on both `MapsBaseRequest` and `StaticMapRequest`:
+
+- Every request URL is built with `https://`, unconditionally.
+- The getter always returns `true`.
+- Assigning `false` throws `NotSupportedException` instead of silently downgrading the request.
+
+```diff
+- var req = new GeocodingRequest { ApiKey = "...", IsSSL = true };
++ var req = new GeocodingRequest { ApiKey = "..." };
+```
+
+**Static Maps behavior change:** `StaticMapRequest.IsSSL` previously defaulted to `false`, so
+`StaticMapsEngine.GenerateStaticMapURL` returned an `http://` URL with your API key in the query
+string — sending the key in cleartext. It now always returns `https://`. If you depended on the
+`http://` prefix (for example in a cached or hard-coded expected URL), update it.
+
+---
+
 ## Quick reference
 
 ```diff

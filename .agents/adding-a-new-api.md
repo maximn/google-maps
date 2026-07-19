@@ -27,6 +27,8 @@ new surface to the frozen legacy APIs unless Google added a parameter to them.
    - **GET:** override `BaseUrl` to append the path, and `GetQueryStringParameters()` — start from
      `base.GetQueryStringParameters()` (that's what adds the `key`), then `Add(...)` your params.
      Validate required inputs and `throw new ArgumentException(...)` early (see `GeocodingRequest`).
+     Do **not** add an SSL/`IsSSL` check — HTTPS is enforced centrally in `MapsBaseRequest`, and
+     `ConsistencyTests` fails if a request redeclares its own SSL knob.
    - **POST:** override `GetRequestBody()` to return an `HttpContent` (JSON). Use an `internal sealed`
      `Payload` class with `[JsonPropertyName]` attributes for the wire shape. If the endpoint needs a
      field mask (Routes does), expose it as a property with a sensible `Default…` constant

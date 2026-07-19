@@ -27,8 +27,6 @@ namespace GoogleMapsApi.Entities.AerialView.Request
         {
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new InvalidOperationException("ApiKey is required for the Aerial View API.");
-            if (!IsSSL)
-                throw new ArgumentException("Aerial View API requires SSL [IsSSL = true].");
 
             var hasVideoId = !string.IsNullOrWhiteSpace(VideoId);
             var hasAddress = !string.IsNullOrWhiteSpace(Address);

@@ -13,24 +13,28 @@ namespace GoogleMapsApi.Entities.Common
     public abstract class MapsBaseRequest
     {
         /// <summary>
-        /// Initializes a new request with SSL enabled and no API key.
+        /// Initializes a new request with no API key.
         /// </summary>
         public MapsBaseRequest()
         {
-            this.isSsl = true;
             ApiKey = null;
         }
 
 
         /// <summary>
-        /// True to use use the https protocol; false to use http. The default is false.
+        /// Always <c>true</c>. The Google Maps Web Services are served over HTTPS only, so this is no
+        /// longer a choice. Assigning <c>false</c> throws rather than silently downgrading the request.
         /// </summary>
+        [Obsolete("All Google Maps Web Services requests use HTTPS. This property is ignored and will be removed in 3.0.")]
         public virtual bool IsSSL
         {
-            get { return isSsl; }
-            set { isSsl = value; }
+            get { return true; }
+            set
+            {
+                if (!value)
+                    throw new NotSupportedException("Plain HTTP is not supported; all requests use HTTPS.");
+            }
         }
-        private bool isSsl;
 
 
         /// <summary>
@@ -62,10 +66,6 @@ namespace GoogleMapsApi.Entities.Common
 
             if (!string.IsNullOrWhiteSpace(ApiKey))
             {
-                if (!this.IsSSL)
-                {
-                    throw new ArgumentException("When using an ApiKey MUST send the request over SSL [IsSSL = true]");
-                }
                 parametersList.Add("key", ApiKey);
             }
 
@@ -78,10 +78,8 @@ namespace GoogleMapsApi.Entities.Common
         /// <returns>The fully composed URI to send to the Google Maps API.</returns>
         public virtual Uri GetUri()
         {
-            string scheme = IsSSL ? "https://" : "http://";
-
             var queryString = GetQueryStringParameters().GetQueryStringPostfix();
-            return new Uri(scheme + BaseUrl + "json?" + queryString);
+            return new Uri("https://" + BaseUrl + "json?" + queryString);
         }
 
         /// <summary>

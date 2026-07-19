@@ -32,14 +32,17 @@ types are `internal`. The only public moving parts you implement against are `IG
 ## The request/response contract
 
 - **Requests** derive from `MapsBaseRequest` (`Entities/Common/MapsBaseRequest.cs`):
-  - `IsSSL` defaults to `true`; `ApiKey` is nullable.
-  - `GetUri()` composes `scheme + BaseUrl + "json?" + query`. Each request overrides `BaseUrl` to add
+  - `ApiKey` is nullable.
+  - `GetUri()` composes `"https://" + BaseUrl + "json?" + query`. Each request overrides `BaseUrl` to add
     its service path (e.g. `GeocodingRequest` adds `geocode/`).
   - `GetQueryStringParameters()` builds the GET query (via `QueryStringParametersList`, which
     URL-escapes and **skips null values**).
   - `GetRequestBody()` returns `null` for GET endpoints, or an `HttpContent` JSON body for POST
     endpoints. **A non-null body is how the engine decides to POST instead of GET.**
-  - Setting an `ApiKey` while `IsSSL == false` throws `ArgumentException` (keys must go over HTTPS).
+  - **HTTPS is enforced centrally** — `GetUri()` always emits `https://`. A new request must **not**
+    add its own SSL check. The legacy `IsSSL` property is `[Obsolete]`, always reads `true`, and
+    throws `NotSupportedException` if assigned `false`; it is removed in 3.0.
+    `ConsistencyTests` locks this invariant by reflection.
 - **Responses** implement the marker interface `IResponseFor<TRequest>` (`Entities/Common/IResponseFor.cs`).
 - The engine is constrained `where TRequest : MapsBaseRequest, new()` and
   `where TResponse : IResponseFor<TRequest>`, so a request can only be paired with its own response —

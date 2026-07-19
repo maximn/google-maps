@@ -25,8 +25,6 @@ namespace GoogleMapsApi.Entities.Solar.Request
         {
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new InvalidOperationException("ApiKey is required for the Solar API.");
-            if (!IsSSL)
-                throw new ArgumentException("Solar API requires SSL [IsSSL = true].");
             if (string.IsNullOrWhiteSpace(Url))
                 throw new ArgumentException("Url is required; supply a data-layer URL from a DataLayersResponse.", nameof(Url));
             if (!Uri.TryCreate(Url, UriKind.Absolute, out var layerUri) ||

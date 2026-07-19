@@ -44,8 +44,6 @@ namespace GoogleMapsApi.Entities.PlacesNew.Request
                 throw new ArgumentException("PlaceId is required for Place Details.", nameof(PlaceId));
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new ArgumentException("ApiKey is required for the Places API (New).", nameof(ApiKey));
-            if (!IsSSL)
-                throw new ArgumentException("Places API (New) requires SSL [IsSSL = true].");
             if (string.IsNullOrWhiteSpace(FieldMask))
                 throw new ArgumentException("FieldMask is required for the Places API (New). See PlaceDetailsRequest.DefaultFieldMask for a starting point.", nameof(FieldMask));
 

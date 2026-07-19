@@ -104,7 +104,20 @@ namespace GoogleMapsApi.StaticMaps.Entities
 		/// </summary>
 		public IList<MapStyleRule>? Styles { get; set; }
 
-		public bool IsSSL { get; set; }
+		/// <summary>
+		/// Always <c>true</c>. The Static Maps API is served over HTTPS only, so this is no longer a
+		/// choice. Assigning <c>false</c> throws rather than silently sending the API key in cleartext.
+		/// </summary>
+		[Obsolete("The Static Maps API is served over HTTPS. This property is ignored and will be removed in 3.0.")]
+		public bool IsSSL
+		{
+			get { return true; }
+			set
+			{
+				if (!value)
+					throw new NotSupportedException("Plain HTTP is not supported; all requests use HTTPS.");
+			}
+		}
 
         /// <summary>
         /// Add API key support for the static map. This parameter is required for all static map requests.

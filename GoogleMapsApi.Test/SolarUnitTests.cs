@@ -97,10 +97,12 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void BuildingInsights_GetUri_NonSsl_Throws()
+        public void BuildingInsights_RequestingNonSsl_Throws()
         {
-            Assert.Throws<ArgumentException>(
+#pragma warning disable CS0618 // deliberately exercising the obsolete opt-out
+            Assert.Throws<NotSupportedException>(
                 () => new BuildingInsightsRequest { ApiKey = "k", IsSSL = false, Latitude = 1, Longitude = 2 }.GetUri());
+#pragma warning restore CS0618
         }
 
         [Test]
