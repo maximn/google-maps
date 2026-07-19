@@ -32,8 +32,6 @@ namespace GoogleMapsApi.Entities.Pollen.Request
         {
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new InvalidOperationException("ApiKey is required for the Pollen API.");
-            if (!IsSSL)
-                throw new ArgumentException("Pollen API requires SSL [IsSSL = true].");
             if (Zoom < 0 || Zoom > 16)
                 throw new ArgumentException("Zoom must be in the range [0, 16].", nameof(Zoom));
             if (X < 0 || Y < 0)

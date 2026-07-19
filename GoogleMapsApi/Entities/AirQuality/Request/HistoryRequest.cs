@@ -61,8 +61,6 @@ namespace GoogleMapsApi.Entities.AirQuality.Request
         {
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new InvalidOperationException("ApiKey is required for the Air Quality API.");
-            if (!IsSSL)
-                throw new ArgumentException("Air Quality API requires SSL [IsSSL = true].");
 
             return new Uri(
                 "https://airquality.googleapis.com/v1/history:lookup" +

@@ -31,12 +31,13 @@ namespace GoogleMapsApi.Entities.TimeZone.Request
         public string? Language { get; set; } // optional
 
         /// <summary>
-        /// The language in which to return results. See the list of supported domain languages. Note that we often update supported languages so this list may not be exhaustive. Defaults to en.
+        /// Always <c>true</c>. Kept on this request for binary compatibility until 3.0.
         /// </summary>
+        [Obsolete("All Google Maps Web Services requests use HTTPS. This property is ignored and will be removed in 3.0.")]
         public override bool IsSSL
         {
-            get { return true; }
-            set { throw new NotSupportedException("This operation is not supported, TimeZoneRequest must use SSL"); }
+            get { return base.IsSSL; }
+            set { base.IsSSL = value; }
         }
 
         protected override QueryStringParametersList GetQueryStringParameters()

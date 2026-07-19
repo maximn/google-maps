@@ -45,7 +45,7 @@ namespace GoogleMapsApi.Entities.Roads.Request
             if (hasPath == hasPlaceIds)
                 throw new ArgumentException("Exactly one of Path or PlaceIds must be specified for Speed Limits, and both cannot be specified.");
 
-            RoadsRequestHelper.ValidateApiKeyAndSsl(ApiKey, IsSSL);
+            RoadsRequestHelper.ValidateApiKey(ApiKey);
 
             var url = new StringBuilder("https://roads.googleapis.com/v1/speedLimits?");
 

@@ -36,7 +36,7 @@ namespace GoogleMapsApi.Entities.Roads.Request
         public override Uri GetUri()
         {
             var path = RoadsRequestHelper.BuildPointsParameter(Path, MaxPathPoints, nameof(Path));
-            RoadsRequestHelper.ValidateApiKeyAndSsl(ApiKey, IsSSL);
+            RoadsRequestHelper.ValidateApiKey(ApiKey);
 
             var url =
                 "https://roads.googleapis.com/v1/snapToRoads" +

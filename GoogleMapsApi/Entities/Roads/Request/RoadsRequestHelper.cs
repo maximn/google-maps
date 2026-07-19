@@ -13,14 +13,12 @@ namespace GoogleMapsApi.Entities.Roads.Request
     internal static class RoadsRequestHelper
     {
         /// <summary>
-        /// Validates that an API key is present and SSL is enabled (required for every Roads endpoint).
+        /// Validates that an API key is present (required for every Roads endpoint).
         /// </summary>
-        public static void ValidateApiKeyAndSsl(string? apiKey, bool isSsl)
+        public static void ValidateApiKey(string? apiKey)
         {
             if (string.IsNullOrWhiteSpace(apiKey))
                 throw new ArgumentException("ApiKey is required for the Roads API.", nameof(apiKey));
-            if (!isSsl)
-                throw new ArgumentException("Roads API requires SSL [IsSSL = true].");
         }
 
         /// <summary>

@@ -52,8 +52,6 @@ namespace GoogleMapsApi.Entities.PlacesNew.Request
                 throw new ArgumentException("Input is required for Autocomplete.", nameof(Input));
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new ArgumentException("ApiKey is required for the Places API (New).", nameof(ApiKey));
-            if (!IsSSL)
-                throw new ArgumentException("Places API (New) requires SSL [IsSSL = true].");
 
             return new Uri(
                 "https://places.googleapis.com/v1/places:autocomplete" +

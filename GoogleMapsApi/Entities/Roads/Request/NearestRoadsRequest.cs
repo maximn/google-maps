@@ -27,7 +27,7 @@ namespace GoogleMapsApi.Entities.Roads.Request
         public override Uri GetUri()
         {
             var points = RoadsRequestHelper.BuildPointsParameter(Points, MaxPoints, nameof(Points));
-            RoadsRequestHelper.ValidateApiKeyAndSsl(ApiKey, IsSSL);
+            RoadsRequestHelper.ValidateApiKey(ApiKey);
 
             var url =
                 "https://roads.googleapis.com/v1/nearestRoads" +

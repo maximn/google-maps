@@ -42,8 +42,6 @@ namespace GoogleMapsApi.Entities.Pollen.Request
         {
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new InvalidOperationException("ApiKey is required for the Pollen API.");
-            if (!IsSSL)
-                throw new ArgumentException("Pollen API requires SSL [IsSSL = true].");
             if (Days < 1 || Days > 5)
                 throw new ArgumentException("Days must be in the range [1, 5].", nameof(Days));
 

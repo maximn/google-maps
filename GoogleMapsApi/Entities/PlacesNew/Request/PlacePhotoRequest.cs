@@ -34,8 +34,6 @@ namespace GoogleMapsApi.Entities.PlacesNew.Request
                 throw new ArgumentException("PhotoName is required for Place Photo.", nameof(PhotoName));
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new ArgumentException("ApiKey is required for the Places API (New).", nameof(ApiKey));
-            if (!IsSSL)
-                throw new ArgumentException("Places API (New) requires SSL [IsSSL = true].");
             if (!MaxHeightPx.HasValue && !MaxWidthPx.HasValue)
                 throw new ArgumentException("At least one of MaxHeightPx or MaxWidthPx is required for Place Photo.");
 

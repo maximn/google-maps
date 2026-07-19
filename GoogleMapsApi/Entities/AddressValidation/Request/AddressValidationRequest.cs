@@ -51,8 +51,6 @@ namespace GoogleMapsApi.Entities.AddressValidation.Request
         {
             if (string.IsNullOrWhiteSpace(ApiKey))
                 throw new InvalidOperationException("ApiKey is required for the Address Validation API.");
-            if (!IsSSL)
-                throw new ArgumentException("Address Validation API requires SSL [IsSSL = true].");
 
             return new Uri($"https://addressvalidation.googleapis.com/v1:validateAddress?key={Uri.EscapeDataString(ApiKey!)}");
         }
