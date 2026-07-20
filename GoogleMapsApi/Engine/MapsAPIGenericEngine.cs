@@ -128,6 +128,20 @@ namespace GoogleMapsApi.Engine
 		private static string RedactUrl(Uri uri)
 			=> secretQueryParameter.Replace(uri.AbsoluteUri, "$1REDACTED");
 
+		private const int MaxErrorBodyLength = 2000;
+
+		/// <summary>
+		/// Prepares an error response body for inclusion in an exception message: secrets are redacted in
+		/// case the service echoed the request URL back, and oversized bodies (HTML error pages) are cut off.
+		/// </summary>
+		private static string SanitizeErrorBody(string body)
+		{
+			var redacted = secretQueryParameter.Replace(body, "$1REDACTED");
+			return redacted.Length > MaxErrorBodyLength
+				? redacted.Substring(0, MaxErrorBodyLength) + "..."
+				: redacted;
+		}
+
 		private static string? GetResponseStatus(TResponse response)
 		{
 			var property = statusProperties.GetOrAdd(typeof(TResponse), static t => t.GetProperty("Status"));
@@ -175,17 +189,19 @@ namespace GoogleMapsApi.Engine
 			if (!response.IsSuccessStatusCode)
 			{
 				var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+				var errorBody = string.IsNullOrWhiteSpace(responseContent) ? null : SanitizeErrorBody(responseContent);
 
 				if (response.StatusCode == HttpStatusCode.Forbidden ||
 					response.StatusCode == HttpStatusCode.ProxyAuthenticationRequired ||
 					response.StatusCode == HttpStatusCode.Unauthorized)
-					throw new System.Security.Authentication.AuthenticationException(responseContent);
+					throw new System.Security.Authentication.AuthenticationException(errorBody ?? response.StatusCode.ToString());
 
 				if (response.StatusCode == HttpStatusCode.GatewayTimeout ||
 					response.StatusCode == HttpStatusCode.RequestTimeout)
 					throw new TimeoutException($"The request has exceeded the timeout limit of {timeout} and has been aborted.");
 
-				throw new HttpRequestException($"Failed with HttpResponse: {response.StatusCode} and message: {response.ReasonPhrase}");
+				var message = $"Failed with HttpResponse: {response.StatusCode} and message: {response.ReasonPhrase}";
+				throw new HttpRequestException(errorBody == null ? message : $"{message}. Response: {errorBody}");
 			}
 		}
 

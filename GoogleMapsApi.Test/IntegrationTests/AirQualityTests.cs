@@ -38,14 +38,16 @@ namespace GoogleMapsApi.Test.IntegrationTests
         [Test]
         public async Task Forecast_ValidLocation_ReturnsHourlyForecasts()
         {
-            // forecast:lookup requires an explicit future time window; without one the API returns 400.
+            // forecast:lookup rejects a window that isn't strictly in the future, so start at the next
+            // whole hour rather than at "now" — which is already in the past by the time Google sees it.
             var now = DateTimeOffset.UtcNow;
+            var start = new DateTimeOffset(now.Year, now.Month, now.Day, now.Hour, 0, 0, TimeSpan.Zero).AddHours(1);
             var response = await Maps.AirQualityForecast.QueryAsync(new ForecastRequest
             {
                 ApiKey = ApiKey,
                 Latitude = Latitude,
                 Longitude = Longitude,
-                Period = new Interval { StartTime = now, EndTime = now.AddHours(6) },
+                Period = new Interval { StartTime = start, EndTime = start.AddHours(6) },
                 PageSize = 6,
             });
 
