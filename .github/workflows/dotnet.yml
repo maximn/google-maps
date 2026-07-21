@@ -93,7 +93,7 @@ jobs:
         verbose: true
     - name: TestGlance
       if: always()
-      uses: testglance/action@7961683867f53f865cb000b0b9a92a34c841deef  # v1
+      uses: testglance/action@fb7866ce9344aa81ebb801b0ea359ee8a9adb487  # v1
       with:
         github-token: ${{ github.token }}
 
@@ -133,6 +133,6 @@ jobs:
           RUN_BILLABLE_TESTS: ${{ github.event_name != 'workflow_dispatch' || inputs.run_billable }}
     - name: TestGlance
       if: always()
-      uses: testglance/action@7961683867f53f865cb000b0b9a92a34c841deef  # v1
+      uses: testglance/action@fb7866ce9344aa81ebb801b0ea359ee8a9adb487  # v1
       with:
         github-token: ${{ github.token }}
