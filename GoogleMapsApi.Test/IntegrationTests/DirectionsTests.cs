@@ -88,7 +88,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
             var result = await Maps.Directions.QueryAsync(request);
 
             AssertInconclusive.NotExceedQuota(result);
-            Assert.That(result.Status, Is.EqualTo(DirectionsStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED), result.ErrorMessage);
+            AssertInconclusive.EnforcedRouteLengthLimit(result);
         }
 
         [Test]

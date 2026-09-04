@@ -50,6 +50,22 @@ namespace GoogleMapsApi.Test.Utils
         }
 
         /// <summary>
+        /// Google's route-length ceiling is an undocumented server-side threshold that has moved
+        /// before: a route it once rejected with MAX_ROUTE_LENGTH_EXCEEDED now routes fine. Treat OK
+        /// as inconclusive so a shifted threshold surfaces as live drift instead of a red build; any
+        /// other status still fails. Deterministic coverage of the status itself lives in
+        /// DirectionsUnitTests.
+        /// </summary>
+        public static void EnforcedRouteLengthLimit(DirectionsResponse response)
+        {
+            if (response?.Status == DirectionsStatusCodes.OK)
+                throw new InconclusiveException("Google accepted a route that previously exceeded its length limit; the server-side threshold has moved.");
+
+            if (response?.Status != DirectionsStatusCodes.MAX_ROUTE_LENGTH_EXCEEDED)
+                Assert.Fail($"Directions API returned {response?.Status}. {response?.ErrorMessage}");
+        }
+
+        /// <summary>
         /// If the response status indicates fail because of quota exceeded - mark test as inconclusive.
         /// </summary>
         public static void NotExceedQuota(ElevationResponse response)
