@@ -108,14 +108,14 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void Replay_WithNoMatchingCassette_FailsLoudly()
+        public async Task Replay_WithNoMatchingCassette_FailsLoudly()
         {
             using var replay = new HttpMessageInvoker(
                 new VcrDelegatingHandler(VcrMode.Replay, _cassettePath, new ThrowingHandler()));
 
             var request = new HttpRequestMessage(HttpMethod.Get, GeocodeUri);
 
-            var ex = Assert.ThrowsAsync<InvalidOperationException>(
+            var ex = await Assert.ThrowsAsync<InvalidOperationException>(
                 () => replay.SendAsync(request, CancellationToken.None));
             Assert.That(ex!.Message, Does.Contain("No recorded response"));
             Assert.That(ex.Message, Does.Contain("VCR_MODE=record"));
@@ -133,7 +133,7 @@ namespace GoogleMapsApi.Test
             cts.Cancel();
 
             var request = new HttpRequestMessage(HttpMethod.Get, GeocodeUri);
-            Assert.ThrowsAsync<OperationCanceledException>(() => replay.SendAsync(request, cts.Token));
+            await Assert.ThrowsAsync<OperationCanceledException>(() => replay.SendAsync(request, cts.Token));
         }
 
         [TestCase(null, VcrMode.Replay)]

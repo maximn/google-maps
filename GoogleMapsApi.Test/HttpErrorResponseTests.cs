@@ -22,12 +22,12 @@ namespace GoogleMapsApi.Test
         private const double Longitude = -122.1;
 
         [Test]
-        public void BadRequest_IncludesGoogleErrorBodyInMessage()
+        public async Task BadRequest_IncludesGoogleErrorBodyInMessage()
         {
             const string body = """
             {"error":{"code":400,"message":"The start time must be in the future.","status":"INVALID_ARGUMENT"}}
             """;
-            var ex = Assert.ThrowsAsync<HttpRequestException>(() => QueryAsync(HttpStatusCode.BadRequest, body));
+            var ex = await Assert.ThrowsAsync<HttpRequestException>(() => QueryAsync(HttpStatusCode.BadRequest, body));
 
             Assert.That(ex!.Message, Does.Contain("BadRequest"));
             Assert.That(ex.Message, Does.Contain("INVALID_ARGUMENT"));
@@ -35,12 +35,12 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void ErrorBody_RedactsApiKeyAndSignature()
+        public async Task ErrorBody_RedactsApiKeyAndSignature()
         {
             const string body = """
             {"error":{"message":"Invalid request: https://airquality.googleapis.com/v1/forecast:lookup?key=SUPER_SECRET&signature=SIG"}}
             """;
-            var ex = Assert.ThrowsAsync<HttpRequestException>(() => QueryAsync(HttpStatusCode.BadRequest, body));
+            var ex = await Assert.ThrowsAsync<HttpRequestException>(() => QueryAsync(HttpStatusCode.BadRequest, body));
 
             Assert.That(ex!.Message, Does.Not.Contain("SUPER_SECRET"));
             Assert.That(ex.Message, Does.Not.Contain("SIG"));
@@ -49,39 +49,39 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void ErrorBody_IsTruncatedWhenOversized()
+        public async Task ErrorBody_IsTruncatedWhenOversized()
         {
             var body = new string('x', 10_000);
-            var ex = Assert.ThrowsAsync<HttpRequestException>(() => QueryAsync(HttpStatusCode.BadRequest, body));
+            var ex = await Assert.ThrowsAsync<HttpRequestException>(() => QueryAsync(HttpStatusCode.BadRequest, body));
 
             Assert.That(ex!.Message.Count(c => c == 'x'), Is.EqualTo(2000));
             Assert.That(ex.Message, Does.EndWith("..."));
         }
 
         [Test]
-        public void EmptyErrorBody_KeepsTheStatusOnlyMessage()
+        public async Task EmptyErrorBody_KeepsTheStatusOnlyMessage()
         {
-            var ex = Assert.ThrowsAsync<HttpRequestException>(() => QueryAsync(HttpStatusCode.BadRequest, ""));
+            var ex = await Assert.ThrowsAsync<HttpRequestException>(() => QueryAsync(HttpStatusCode.BadRequest, ""));
 
             Assert.That(ex!.Message, Is.EqualTo("Failed with HttpResponse: BadRequest and message: Bad Request"));
         }
 
         [Test]
-        public void Forbidden_StillThrowsAuthenticationExceptionWithRedactedBody()
+        public async Task Forbidden_StillThrowsAuthenticationExceptionWithRedactedBody()
         {
             const string body = """
             {"error":{"status":"PERMISSION_DENIED","message":"https://airquality.googleapis.com/v1/currentConditions:lookup?key=SUPER_SECRET is not authorized."}}
             """;
-            var ex = Assert.ThrowsAsync<AuthenticationException>(() => QueryAsync(HttpStatusCode.Forbidden, body));
+            var ex = await Assert.ThrowsAsync<AuthenticationException>(() => QueryAsync(HttpStatusCode.Forbidden, body));
 
             Assert.That(ex!.Message, Does.Contain("PERMISSION_DENIED"));
             Assert.That(ex.Message, Does.Not.Contain("SUPER_SECRET"));
         }
 
         [Test]
-        public void RequestTimeout_StillThrowsTimeoutException()
+        public async Task RequestTimeout_StillThrowsTimeoutException()
         {
-            Assert.ThrowsAsync<TimeoutException>(() => QueryAsync(HttpStatusCode.RequestTimeout, "irrelevant"));
+            await Assert.ThrowsAsync<TimeoutException>(() => QueryAsync(HttpStatusCode.RequestTimeout, "irrelevant"));
         }
 
         private static async Task QueryAsync(HttpStatusCode status, string body)

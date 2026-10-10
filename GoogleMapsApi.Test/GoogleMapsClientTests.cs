@@ -203,7 +203,7 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void QueryAsync_CancelledToken_Throws()
+        public async Task QueryAsync_CancelledToken_Throws()
         {
             using var handler = new CapturingHandler(OkGeocodingJson);
             using var http = new HttpClient(handler);
@@ -212,18 +212,18 @@ namespace GoogleMapsApi.Test
             using var cts = new CancellationTokenSource();
             cts.Cancel();
 
-            Assert.ThrowsAsync<TaskCanceledException>((Func<Task>)(() =>
+            await Assert.ThrowsAsync<TaskCanceledException>((Func<Task>)(() =>
                 client.Geocode.QueryAsync(new GeocodingRequest { Address = "a" }, cts.Token)));
         }
 
         [Test]
-        public void QueryAsync_NullRequest_ThrowsArgumentNullException()
+        public async Task QueryAsync_NullRequest_ThrowsArgumentNullException()
         {
             using var handler = new CapturingHandler(OkGeocodingJson);
             using var http = new HttpClient(handler);
             var client = new GoogleMapsClient(http);
 
-            Assert.ThrowsAsync<ArgumentNullException>((Func<Task>)(() => client.Geocode.QueryAsync(null!)));
+            await Assert.ThrowsAsync<ArgumentNullException>((Func<Task>)(() => client.Geocode.QueryAsync(null!)));
         }
 
         [Test]

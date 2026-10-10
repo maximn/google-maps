@@ -68,12 +68,12 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void RenderVideo_GetRequestBody_MissingAddress_Throws()
+        public async Task RenderVideo_GetRequestBody_MissingAddress_Throws()
         {
             var request = new RenderVideoRequest { ApiKey = "k" };
             using var http = new HttpClient(new RecordingHandler(ProcessingJson));
 
-            var ex = Assert.ThrowsAsync<ArgumentException>(async () =>
+            var ex = await Assert.ThrowsAsync<ArgumentException>(async () =>
                 await MapsAPIGenericEngine<RenderVideoRequest, AerialViewVideoResponse>
                     .QueryGoogleAPIAsync(http, request, TimeSpan.FromMilliseconds(-1), CancellationToken.None, null, null));
             Assert.That(ex!.ParamName, Is.EqualTo("Address"));

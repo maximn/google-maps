@@ -25,7 +25,7 @@ namespace GoogleMapsApi.Test
         #region Timeout Handling Tests
 
         [Test]
-        public void QueryGoogleAPI_WithTimeout_ThrowsTimeoutException()
+        public async Task QueryGoogleAPI_WithTimeout_ThrowsTimeoutException()
         {
             // Create a request that would timeout
             var request = new GeocodingRequest
@@ -39,7 +39,7 @@ namespace GoogleMapsApi.Test
 
             // Note: This test may need to be adjusted based on actual network conditions
             // The goal is to test that timeout logic works correctly
-            Assert.ThrowsAsync<TimeoutException>(async () =>
+            await Assert.ThrowsAsync<TimeoutException>(async () =>
             {
                 try
                 {
@@ -55,7 +55,7 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void QueryGoogleAPI_WithCancellationToken_PropagatesCancellation()
+        public async Task QueryGoogleAPI_WithCancellationToken_PropagatesCancellation()
         {
             var request = new GeocodingRequest
             {
@@ -66,14 +66,14 @@ namespace GoogleMapsApi.Test
             using var cts = new CancellationTokenSource();
             cts.Cancel(); // Cancel immediately
 
-            Assert.ThrowsAsync<TaskCanceledException>(async () =>
+            await Assert.ThrowsAsync<TaskCanceledException>(async () =>
             {
                 await Maps.Geocode.QueryAsync(request, TimeSpan.FromSeconds(30), cts.Token);
             });
         }
 
         [Test]
-        public void QueryGoogleAPI_WithInvalidTimeout_HandlesCorrectly()
+        public async Task QueryGoogleAPI_WithInvalidTimeout_HandlesCorrectly()
         {
             var request = new GeocodingRequest
             {
@@ -82,7 +82,7 @@ namespace GoogleMapsApi.Test
             };
 
             // Test with negative timeout (should use default behavior)
-            Assert.DoesNotThrowAsync(async () =>
+            await Assert.DoesNotThrowAsync(async () =>
             {
                 try
                 {
@@ -99,7 +99,7 @@ namespace GoogleMapsApi.Test
             });
 
             // Test with zero timeout
-            Assert.DoesNotThrowAsync(async () =>
+            await Assert.DoesNotThrowAsync(async () =>
             {
                 try
                 {
@@ -308,7 +308,7 @@ namespace GoogleMapsApi.Test
             }
 
             // Should still be able to process valid requests
-            Assert.DoesNotThrowAsync(async () =>
+            await Assert.DoesNotThrowAsync(async () =>
             {
                 try
                 {
@@ -326,16 +326,16 @@ namespace GoogleMapsApi.Test
         #region Null Safety and Nullable Reference Types Tests
 
         [Test]
-        public void HttpEngine_NullRequest_ThrowsArgumentNullException()
+        public async Task HttpEngine_NullRequest_ThrowsArgumentNullException()
         {
-            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 await Maps.Geocode.QueryAsync(null!, TimeSpan.FromSeconds(5));
             });
         }
 
         [Test]
-        public void HttpEngine_RequestWithNullRequiredProperties_HandlesGracefully()
+        public async Task HttpEngine_RequestWithNullRequiredProperties_HandlesGracefully()
         {
             var request = new GeocodingRequest
             {
@@ -344,7 +344,7 @@ namespace GoogleMapsApi.Test
             };
 
             // The engine should handle null values without crashing
-            Assert.DoesNotThrowAsync(async () =>
+            await Assert.DoesNotThrowAsync(async () =>
             {
                 try
                 {
@@ -358,7 +358,7 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void HttpEngine_DefaultTimeoutBehavior_WorksCorrectly()
+        public async Task HttpEngine_DefaultTimeoutBehavior_WorksCorrectly()
         {
             var request = new GeocodingRequest
             {
@@ -367,7 +367,7 @@ namespace GoogleMapsApi.Test
             };
 
             // Test default timeout behavior (no timeout specified)
-            Assert.DoesNotThrowAsync(async () =>
+            await Assert.DoesNotThrowAsync(async () =>
             {
                 try
                 {

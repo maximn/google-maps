@@ -76,7 +76,7 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void QueryAsync_HttpError_MarksSpanAsError()
+        public async Task QueryAsync_HttpError_MarksSpanAsError()
         {
             var captured = new List<Activity>();
             using var listener = CreateListener(captured);
@@ -85,7 +85,7 @@ namespace GoogleMapsApi.Test
             using var http = new HttpClient(handler);
             var client = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "k" });
 
-            Assert.ThrowsAsync<System.Security.Authentication.AuthenticationException>(
+            await Assert.ThrowsAsync<System.Security.Authentication.AuthenticationException>(
                 (Func<Task>)(() => client.Geocode.QueryAsync(new GeocodingRequest { Address = "a" })));
 
             var activity = captured.Single();
