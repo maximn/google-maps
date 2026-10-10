@@ -288,7 +288,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void Directions_CanGetLongDistanceTrain()
+        public async Task Directions_CanGetLongDistanceTrain()
         {
             var request = new DirectionsRequest
             {
@@ -298,7 +298,7 @@ namespace GoogleMapsApi.Test.IntegrationTests
                 DepartureTime = new DateTime(2018, 08, 18, 15, 30, 00)
             };
 
-            Assert.DoesNotThrowAsync(async () => await Maps.Directions.QueryAsync(request));
+            await Assert.DoesNotThrowAsync(async () => await Maps.Directions.QueryAsync(request));
         }
     }
 }

@@ -50,11 +50,11 @@ namespace GoogleMapsApi.Test.IntegrationTests
         }
 
         [Test]
-        public void Geocoding_InvalidClientCredentials_Throws()
+        public async Task Geocoding_InvalidClientCredentials_Throws()
         {
             var request = new GeocodingRequest { Address = "285 Bedford Ave, Brooklyn, NY 11211, USA", ApiKey = ApiKey, ClientID = "gme-ThisIsAUnitTest", SigningKey = "AAECAwQFBgcICQoLDA0ODxAREhM=" };
 
-            Assert.ThrowsAsync<AuthenticationException>(() => Maps.Geocode.QueryAsync(request));
+            await Assert.ThrowsAsync<AuthenticationException>(() => Maps.Geocode.QueryAsync(request));
         }
 
         [Test]

@@ -75,7 +75,7 @@
         }
 
         [Test]
-        public void ShouldThrowExceptionWhenDepartureTimeAndArrivalTimeSpecified()
+        public async Task ShouldThrowExceptionWhenDepartureTimeAndArrivalTimeSpecified()
         {
             var request = new DistanceMatrixRequest
             {
@@ -87,11 +87,11 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
+            await Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
         }
 
         [Test]
-        public void ShouldThrowExceptionWhenArrivalTimeSpecifiedForNonTransitModes()
+        public async Task ShouldThrowExceptionWhenArrivalTimeSpecifiedForNonTransitModes()
         {
             var request = new DistanceMatrixRequest
             {
@@ -102,11 +102,11 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
+            await Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
         }
 
         [Test]
-        public void ShouldThrowExceptionWheTransitRoutingPreferenceSpecifiedForNonTransitModes()
+        public async Task ShouldThrowExceptionWheTransitRoutingPreferenceSpecifiedForNonTransitModes()
         {
             var request = new DistanceMatrixRequest
             {
@@ -117,11 +117,11 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
+            await Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
         }
 
         [Test]
-        public void ShouldThrowExceptionWhenTrafficModelSuppliedForNonDrivingMode()
+        public async Task ShouldThrowExceptionWhenTrafficModelSuppliedForNonDrivingMode()
         {
             var request = new DistanceMatrixRequest
             {
@@ -133,11 +133,11 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
+            await Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
         }
 
         [Test]
-        public void ShouldThrowExceptionWhenTrafficModelSuppliedWithoutDepartureTime()
+        public async Task ShouldThrowExceptionWhenTrafficModelSuppliedWithoutDepartureTime()
         {
             var request = new DistanceMatrixRequest
             {
@@ -148,11 +148,11 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
+            await Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
         }
 
         [Test]
-        public void ShouldThrowExceptionWhenTransitModesSuppliedForNonTransitMode()
+        public async Task ShouldThrowExceptionWhenTransitModesSuppliedForNonTransitMode()
         {
             var request = new DistanceMatrixRequest
             {
@@ -163,7 +163,7 @@
                 Destinations = new[] { "53.64308,10.52726" },
             };
 
-            Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
+            await Assert.ThrowsAsync<ArgumentException>(() => Maps.DistanceMatrix.QueryAsync(request));
         }
 
         [Test]

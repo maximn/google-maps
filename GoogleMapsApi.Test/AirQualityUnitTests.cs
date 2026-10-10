@@ -159,13 +159,13 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void Forecast_QueryAsync_DateTimeAndPeriodTogether_Throws()
+        public async Task Forecast_QueryAsync_DateTimeAndPeriodTogether_Throws()
         {
             var handler = new RecordingHandler("{}");
             using var http = new HttpClient(handler);
             var client = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "k" });
 
-            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
                 await client.AirQualityForecast.QueryAsync(new ForecastRequest
                 {
                     Latitude = Latitude,
@@ -193,13 +193,13 @@ namespace GoogleMapsApi.Test
         }
 
         [Test]
-        public void History_QueryAsync_MultipleRanges_Throws()
+        public async Task History_QueryAsync_MultipleRanges_Throws()
         {
             var handler = new RecordingHandler("{}");
             using var http = new HttpClient(handler);
             var client = new GoogleMapsClient(http, new GoogleMapsClientOptions { ApiKey = "k" });
 
-            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
                 await client.AirQualityHistory.QueryAsync(new HistoryRequest
                 {
                     Latitude = Latitude,

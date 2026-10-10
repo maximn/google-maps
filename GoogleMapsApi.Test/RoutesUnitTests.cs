@@ -172,7 +172,7 @@ namespace GoogleMapsApi.Test
                 ArrivalTime = DateTimeOffset.UtcNow.AddHours(1),
             };
 
-            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
                 await MapsAPIGenericEngine<RoutesRequest, RoutesResponse>
                     .QueryGoogleAPIAsync(http, request, TimeSpan.FromMilliseconds(-1), CancellationToken.None, null, null));
         }
