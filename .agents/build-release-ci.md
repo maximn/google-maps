@@ -51,12 +51,18 @@ per-package **CycloneDX SBOM** (`*.bom.json`, via the `dotnet CycloneDX` local t
 creates **SLSA build-provenance attestations**, pushes `.nupkg`+`.snupkg` to NuGet.org with
 `--skip-duplicate`, and attaches the packages, SBOMs, and attestation bundle to the GitHub Release.
 
-The publish job runs in the **`release` GitHub Environment** (a required reviewer must approve the
-deployment before it runs), and `NUGET_API_KEY` is a `release` **environment** secret — so only the
-gated job can read it. `workflow_dispatch` **dry-runs stay ungated** (the job's `environment:`
-expression resolves to no environment when `dry_run` is left at its `true` default), so they pack +
-SBOM + attest without prompting. A real `v*` tag push or a `dry_run=false` manual run pauses on
-"Review deployments" until approved.
+The workflow has two jobs. **`build`** (read-only `contents: read` token, no secrets) validates the
+version as strict SemVer, builds, packs, generates SBOMs and uploads the `.nupkg`/`.snupkg`/SBOMs as
+the `nupkg-<version>` artifact. **`publish`** (`needs: build`) downloads that artifact, attests, pushes
+and creates the GitHub Release. Only `publish` holds `contents`/`id-token`/`attestations: write`, and it
+runs in the **`release` GitHub Environment** (a required reviewer must approve the deployment before
+it runs). `NUGET_API_KEY` is a `release` **environment** secret, so only the gated job can read it.
+`workflow_dispatch` **dry-runs** (`dry_run` left at its `true` default) run only `build`: they pack + SBOM
+without prompting and never get write permissions. A real `v*` tag push or a `dry_run=false` manual run
+builds first, then pauses on "Review deployments" until approved.
+
+Untrusted values (the dispatch `version` input, step outputs, secrets) reach `run:` scripts only via
+`env:`, never as `${{ }}` inside the script text.
 
 > **OPS note:** approving the `release` deployment is the point of no return — `--skip-duplicate`
 > means a same-version re-run is a no-op, but a published version cannot be unpublished from NuGet.org.

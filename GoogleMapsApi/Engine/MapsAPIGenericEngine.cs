@@ -30,6 +30,16 @@ namespace GoogleMapsApi.Engine
 		private static readonly Regex secretQueryParameter =
 			new Regex(@"([?&](?:key|signature)=)[^&]*", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+		// Error bodies may echo the request URL in an encoded form, so the delimiter before the parameter name
+		// and the '=' after it are matched raw, percent-encoded (also double-encoded), JSON-unicode-escaped and
+		// as HTML entities. The value runs to the next raw '&', whitespace, quote or angle bracket; for encoded
+		// forms that over-redacts the rest of the URL, which is the safe direction.
+		private static readonly Regex secretInErrorBody = new Regex(
+			@"((?:[?&]|%(?:25)*(?:26|3F)|\\+u00(?:26|3F)|&(?:amp|quest|#0*(?:38|63)|#x0*(?:26|3F));)" +
+			@"(?:key|signature)" +
+			@"(?:=|%(?:25)*3D|\\+u003D|&(?:equals|#0*61|#x0*3D);))[^&\s""<>]*",
+			RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
 		internal static async Task<TResponse> QueryGoogleAPIAsync(
 			HttpClient httpClient,
 			TRequest request,
@@ -136,7 +146,7 @@ namespace GoogleMapsApi.Engine
 		/// </summary>
 		private static string SanitizeErrorBody(string body)
 		{
-			var redacted = secretQueryParameter.Replace(body, "$1REDACTED");
+			var redacted = secretInErrorBody.Replace(body, "$1REDACTED");
 			return redacted.Length > MaxErrorBodyLength
 				? redacted.Substring(0, MaxErrorBodyLength) + "..."
 				: redacted;

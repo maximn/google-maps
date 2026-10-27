@@ -37,7 +37,7 @@ The script:
 1. Verifies the working tree is clean
 2. Reads the latest `v*` tag
 3. Computes the next version based on the bump type (defaults to `patch`)
-4. Generates release notes from the commit log via `claude -p`, using [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) categories (`Added` / `Changed` / `Deprecated` / `Removed` / `Fixed` / `Security`)
+4. Generates release notes from the commit log via `claude -p` with all tools and MCP servers disabled (commit subjects come from contributor PR titles, so they are treated as untrusted text), using [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) categories (`Added` / `Changed` / `Deprecated` / `Removed` / `Fixed` / `Security`)
 5. Shows you the notes and prompts `y/N` before doing anything (`--edit` opens them in `$EDITOR` first)
 6. On confirmation:
    - Moves `## [Unreleased]` content into a new `## [NEW_VERSION] - YYYY-MM-DD` section in [`CHANGELOG.md`](CHANGELOG.md) and refreshes the compare-link footnotes
@@ -70,12 +70,16 @@ Both options end at the same place — a `v*` tag in `origin` — and trigger th
 
 [`.github/workflows/nuget.yml`](.github/workflows/nuget.yml) runs on `push` of any `v*` tag:
 
-0. **Waits for approval** — the publish job runs in the `release` environment, so the run pauses on
-   "Review deployments" until a required reviewer approves (this is the human gate; nothing below runs first)
-1. Checks out the repo with full history and tags (`fetch-depth: 0`) at the tagged commit
-2. Installs the .NET SDKs needed to build all target frameworks
-3. `dotnet restore` → `dotnet build -c Release` → `dotnet pack -c Release` — [MinVer](https://github.com/adamralph/minver) derives the package version from the `v*` tag at build time (`v1.4.6` → `1.4.6`); no csproj is patched. Commits without a tag get a unique prerelease version (e.g. `1.4.7-alpha.0.3`), so only tagged builds publish a stable release.
-4. `dotnet nuget push *.nupkg --api-key $NUGET_API_KEY --skip-duplicate`
+1. **`build` job** (read-only token, no secrets):
+   checks out the repo with full history and tags (`fetch-depth: 0`) at the tagged commit, rejects a
+   version that is not strict SemVer, installs the .NET SDKs, then
+   `dotnet restore` → `dotnet build -c Release` → `dotnet pack -c Release` — [MinVer](https://github.com/adamralph/minver) derives the package version from the `v*` tag at build time (`v1.4.6` → `1.4.6`); no csproj is patched. Commits without a tag get a unique prerelease version (e.g. `1.4.7-alpha.0.3`), so only tagged builds publish a stable release.
+   It generates the SBOMs and uploads the packages as a workflow artifact.
+2. **Waits for approval** — the `publish` job runs in the `release` environment, so the run pauses on
+   "Review deployments" until a required reviewer approves (this is the human gate; nothing is attested,
+   pushed or released before it)
+3. **`publish` job**: downloads the packages built in step 1, attests build provenance, then
+   `dotnet nuget push ./*.nupkg --api-key $NUGET_API_KEY --skip-duplicate`, and creates/updates the GitHub Release
 
 `--skip-duplicate` means re-running the workflow with the same version is a no-op rather than an error.
 

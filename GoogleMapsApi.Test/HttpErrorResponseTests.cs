@@ -48,6 +48,40 @@ namespace GoogleMapsApi.Test
             Assert.That(ex.Message, Does.Contain("signature=REDACTED"));
         }
 
+        // A single backslash; JSON unicode escapes below are built from it so they stay literal in the body.
+        private const string Bs = @"\";
+        private const string DummySecret = "DUMMY_SECRET_AIzaTest123";
+
+        [TestCase(@"{""error"":{""message"":""https%3A%2F%2Fairquality.googleapis.com%2Fv1%2Flookup%3Fkey%3D" + DummySecret + @"%26x%3D1""}}", TestName = "PercentEncodedKey")]
+        [TestCase(@"{""error"":{""message"":""https%3a%2f%2fairquality.googleapis.com%2fv1%2flookup%3fx%3d1%26signature%3d" + DummySecret + @"""}}", TestName = "PercentEncodedSignatureLowercase")]
+        [TestCase(@"{""error"":{""message"":""https%253A%252F%252Fh%252Fp%253Fx%253D1%2526key%253D" + DummySecret + @"""}}", TestName = "DoublePercentEncodedKey")]
+        [TestCase(@"{""error"":{""message"":""https://airquality.googleapis.com/v1/lookup" + Bs + "u003fkey" + Bs + "u003d" + DummySecret + Bs + @"u0026x=1""}}", TestName = "JsonUnicodeEscapedKey")]
+        [TestCase(@"{""error"":{""message"":""https://airquality.googleapis.com/v1/lookup?x=1" + Bs + "u0026signature" + Bs + "u003D" + DummySecret + @"""}}", TestName = "JsonUnicodeEscapedSignature")]
+        [TestCase(@"<html><a href=""https://airquality.googleapis.com/v1/lookup?x=1&amp;key=" + DummySecret + @"&amp;y=2"">retry</a></html>", TestName = "HtmlAmpEntityKey")]
+        [TestCase(@"<html><a href=""https://airquality.googleapis.com/v1/lookup?x=1&amp;signature=" + DummySecret + @""">retry</a></html>", TestName = "HtmlAmpEntitySignature")]
+        [TestCase(@"<p>https://airquality.googleapis.com/v1/lookup?x=1&#38;key&#61;" + DummySecret + @"</p>", TestName = "HtmlDecimalEntityKey")]
+        [TestCase(@"<p>https://airquality.googleapis.com/v1/lookup?x=1&#x26;signature&#x3D;" + DummySecret + @"</p>", TestName = "HtmlHexEntitySignature")]
+        public async Task ErrorBody_RedactsEncodedApiKeyAndSignature(string body)
+        {
+            var ex = await Assert.ThrowsAsync<HttpRequestException>(() => QueryAsync(HttpStatusCode.BadRequest, body));
+
+            Assert.That(ex!.Message, Does.Not.Contain(DummySecret));
+            Assert.That(ex.Message, Does.Contain("REDACTED"));
+        }
+
+        [Test]
+        public async Task ErrorBody_LeavesLookalikeParametersAlone()
+        {
+            const string body = """
+            {"error":{"message":"https://airquality.googleapis.com/v1/lookup?keyword=visible&monkey=banana&x=1"}}
+            """;
+            var ex = await Assert.ThrowsAsync<HttpRequestException>(() => QueryAsync(HttpStatusCode.BadRequest, body));
+
+            Assert.That(ex!.Message, Does.Contain("keyword=visible"));
+            Assert.That(ex.Message, Does.Contain("monkey=banana"));
+            Assert.That(ex.Message, Does.Not.Contain("REDACTED"));
+        }
+
         [Test]
         public async Task ErrorBody_IsTruncatedWhenOversized()
         {
